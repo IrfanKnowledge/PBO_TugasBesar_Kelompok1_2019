@@ -1,24 +1,54 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Lawan {
-    int idLawan;
-    String nama;
-    int kesehatan;
-    int kekuatan;
-    BarangSenjataNonLempar senjata;
-    Efek efekMenyerang;
-    private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>();
-    boolean statusMelihatPlayer;
+    private int idLawan;
+    private String nama;
+    private int kesehatan;
+    private int kekuatan;
+    private Barang senjata;
+    private Efek efekMenyerang;
+    private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>(); //masih perlu dipikirkan ulang
+    private boolean statusMelihatPlayer;
 
-    Lawan(int idLawan, int kesehatan, int kekuatan, boolean statusMelihatPlayer){
+    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer){
         this.idLawan = idLawan;
+        this.nama = nama;
         this.kesehatan = kesehatan;
         this.kekuatan = kekuatan;
         this.statusMelihatPlayer = statusMelihatPlayer;
     }
 
-    public void kurangiKesehatan(int nilaiSerangan){
+    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer, Barang senjata){
+        this.idLawan = idLawan;
+        this.nama = nama;
+        this.kesehatan = kesehatan;
+        this.kekuatan = kekuatan;
+        this.statusMelihatPlayer = statusMelihatPlayer;
+        this.senjata = senjata;
+    }
+
+    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer, Efek efekMenyerang){
+        this.idLawan = idLawan;
+        this.nama = nama;
+        this.kesehatan = kesehatan;
+        this.kekuatan = kekuatan;
+        this.statusMelihatPlayer = statusMelihatPlayer;
+        this.efekMenyerang = efekMenyerang;
+    }
+
+    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer, Efek efekMenyerang, Barang senjata){
+        this.idLawan = idLawan;
+        this.nama = nama;
+        this.kesehatan = kesehatan;
+        this.kekuatan = kekuatan;
+        this.statusMelihatPlayer = statusMelihatPlayer;
+        this.efekMenyerang = efekMenyerang;
+        this.senjata = senjata;
+    }
+
+    private void kurangiKesehatan(int nilaiSerangan){
         if(this.kesehatan > 0){
             this.kesehatan -= nilaiSerangan;
             if(this.kesehatan < 0){
@@ -27,11 +57,7 @@ public class Lawan {
         }
     }
 
-    public void gunakanEfekDiri(){
-
-    }
-
-    public void tambahSenjata(BarangSenjataNonLempar senjata){
+    public void tambahSenjata(Barang senjata){
         this.senjata = senjata;
     }
 
@@ -39,34 +65,24 @@ public class Lawan {
         this.efekMenyerang = efekMenyerang;
     }
 
+    //masih perlu dipikirkan ulang
     public void tambahEfekDiri(HashMap<Integer, Efek> efekLuar){
         for (Map.Entry<Integer, Efek> record : efekLuar.entrySet()) {
             daftarEfekDiri.put(record.getKey(), record.getValue());
         }
     }
 
-    public void serang(Player oPlayer){
-        //mengecek senjata lawan
-        if(this.senjata != null){
-            //menggunakan senjata lawan
-            this.senjata.gunakanBarang(oPlayer);
-        }else{
-            //mengecek kekuatan lawan seperti serangan gigitan dll..
-            if(this.kekuatan != 0){
-                //menyerang dengan gigitan dll..
-                oPlayer.kurangiKesehatan(this.kekuatan);
-                //mengecek serangan lawan yang memiliki efek (ada atau tidak)
-                if(this.efekMenyerang != null){
-                    //memberikan efek kepada target yang diserang
-                    oPlayer.tambahEfekDiri(this.efekMenyerang);
-                }
-            }else{
-                //mengecek serangan lawan yang memiliki efek (ada atau tidak)
-                if(this.efekMenyerang != null){
-                    //memberikan efek kepada target yang diserang
-                    oPlayer.tambahEfekDiri(this.efekMenyerang);
-                }
-            }
-        }
+    public void gunakanEfekDiri(){
+
+    }
+
+    //masih perlu dipikirkan ulang
+    public void diSerang(Barang oSenjata){
+        this.kurangiKesehatan(oSenjata.getKekuatan());
+        //this.tambahEfekDiri(oSenjata.g);
+    }
+
+    public void printIdentitas(){
+
     }
 }

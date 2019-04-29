@@ -17,7 +17,13 @@ public abstract class Skill {
         this.deskripsi = deskripsi;
     }
 
-    protected abstract void unlockSkill(Level level, int point);
+    protected void unlockSkill(Level level, int point){}
+
+    //proses unlocSkill khusus hanya untuk Crafting
+    public Barang unlockSkillBarangBluePrint(Level level, int point){
+        return null;
+    }
+
     protected boolean getStatusUnlock(){
         return this.statusUnlock;
     }

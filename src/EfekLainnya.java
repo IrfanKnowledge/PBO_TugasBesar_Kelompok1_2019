@@ -1,9 +1,9 @@
 public class EfekLainnya extends Efek {
-    int delay;
-    int nilaiKetahanan;
-    int nilaiKecepatan;
-    boolean statusPengelihatanMalam;
-    boolean statusKamuflase;
+    private int delay;
+    private int nilaiKetahanan;
+    private int nilaiKecepatan;
+    private boolean statusPengelihatanMalam;
+    private boolean statusKamuflase;
 
     EfekLainnya(int idEfek, String nama, int durasi, int sisaDurasi,
                 int dps, boolean statusStun,

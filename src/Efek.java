@@ -1,10 +1,10 @@
 public class Efek {
-    int idEfek;
-    String nama;
-    int durasi;
-    int sisaDurasi;
-    int dps;
-    boolean statusStun = false;
+    private int idEfek;
+    private String nama;
+    private int durasi;
+    private int sisaDurasi;
+    private int dps;
+    private boolean statusStun = false;
 
    Efek(int idEfek, String nama, int durasi, int sisaDurasi,
         int dps, boolean statusStun){
@@ -19,4 +19,12 @@ public class Efek {
    public void gunakanEfek(){
 
    }
+
+    public int getIdEfek() {
+        return idEfek;
+    }
+
+    public String getNama() {
+        return nama;
+    }
 }

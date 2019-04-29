@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/Player.java" line="83" />
+    <bookmark url="file://$PROJECT_DIR$/src/Player.java" line="90" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf83a169-ddbc-4d9f-bc0e-3d206c669074" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Assets.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BarangSenjataNonLempar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EfekLainnya.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SkillCrafting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SkillEfisiensiCrafting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SkillEfisiensiSenjata.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SkillKapasitasSenjataDinamis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SkillKesehatan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SkillMenawarBarang.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SkillMenjualBarang.java" afterDir="false" />
+    <list default="true" id="cf83a169-ddbc-4d9f-bc0e-3d206c669074" name="Default Changelist" comment="Perubahan Skill, Barang, Player, Lawan, efek.&#10;Rencana selanjutnya ke Efek dan cara kerja efek&#10;dari Player dan Lawan.">
+      <change afterPath="$PROJECT_DIR$/src/Coba.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Himpunan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/HimpunanBarang.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pilihan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PilihanSerang.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Adegan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Adegan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Barang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Barang.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BarangSenjataNonLempar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BarangSenjataPukul.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Efek.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Efek.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EfekLainnya.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EfekLainnya.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lawan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lawan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Penyimpanan.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Skill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SkillCrafting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SkillCrafting.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,63 +48,42 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="36" column="30" lean-forward="true" selection-start-line="36" selection-start-column="30" selection-end-line="36" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3960#3961#0" expanded="true" />
-                <element signature="e#4011#4012#0" expanded="true" />
-                <element signature="e#4074#4075#0" expanded="true" />
-                <element signature="e#4132#4133#0" expanded="true" />
-                <element signature="e#4475#4476#0" expanded="true" />
-                <element signature="e#4531#4532#0" expanded="true" />
-                <element signature="e#4735#4736#0" expanded="true" />
-                <element signature="e#4793#4794#0" expanded="true" />
-                <element signature="e#5447#5448#0" expanded="true" />
-                <element signature="e#5481#5482#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Barang.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BarangSenjataNonLempar.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="75" column="39" lean-forward="true" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
+            <state relative-caret-position="221">
+              <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2639#2640#0" expanded="true" />
+                <element signature="e#2141#2142#0" expanded="true" />
+                <element signature="e#2160#2161#0" expanded="true" />
+                <element signature="e#3661#3662#0" expanded="true" />
+                <element signature="e#3698#3699#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Efek.java">
+        <entry file="file://$PROJECT_DIR$/src/BarangSenjataPukul.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
+            <state>
+              <caret column="27" selection-start-column="27" selection-end-column="27" />
+              <folding>
+                <element signature="e#2917#2918#0" expanded="true" />
+                <element signature="e#2951#2952#0" expanded="true" />
+                <element signature="e#3002#3003#0" expanded="true" />
+                <element signature="e#3041#3042#0" expanded="true" />
+                <element signature="e#2756#2757#0" expanded="true" />
+                <element signature="e#2860#2861#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/EfekLainnya.java">
+        <entry file="file://$PROJECT_DIR$/src/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="13" lean-forward="true" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+            <state relative-caret-position="1532">
+              <caret line="208" selection-start-line="208" selection-end-line="208" />
             </state>
           </provider>
         </entry>
@@ -115,12 +91,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Lawan.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="32" lean-forward="true" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+            <state relative-caret-position="665">
+              <caret line="50" column="50" selection-start-line="50" selection-start-column="50" selection-end-line="50" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#815#816#0" expanded="true" />
-                <element signature="e#853#854#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -140,6 +114,13 @@
       <find>levelBertahanHidup</find>
       <find>levelKekuatan</find>
       <find>me</find>
+      <find>gunakan</find>
+      <find>gunakanbarang</find>
+      <find>senjata</find>
+      <find>SenjataPukul</find>
+      <find>jumlah</find>
+      <find>unlock</find>
+      <find>barangBlue</find>
     </findStrings>
     <replaceStrings>
       <replace>daftarLevelBertahanHidup</replace>
@@ -162,20 +143,27 @@
         <option value="$PROJECT_DIR$/src/Assets.java" />
         <option value="$PROJECT_DIR$/src/SkillKetahananSenjata.java" />
         <option value="$PROJECT_DIR$/src/BarangSenjata.java" />
-        <option value="$PROJECT_DIR$/src/Efek.java" />
-        <option value="$PROJECT_DIR$/src/EfekLainnya.java" />
-        <option value="$PROJECT_DIR$/src/Skill.java" />
-        <option value="$PROJECT_DIR$/src/SkillCrafting.java" />
         <option value="$PROJECT_DIR$/src/SkillEfisiensiCrafting.java" />
         <option value="$PROJECT_DIR$/src/SkillEfisiensiSenjata.java" />
         <option value="$PROJECT_DIR$/src/SkillKapasitasSenjataDinamis.java" />
         <option value="$PROJECT_DIR$/src/SkillKesehatan.java" />
         <option value="$PROJECT_DIR$/src/SkillMenawarBarang.java" />
         <option value="$PROJECT_DIR$/src/SkillMenjualBarang.java" />
-        <option value="$PROJECT_DIR$/src/Barang.java" />
+        <option value="$PROJECT_DIR$/src/EfekLainnya.java" />
+        <option value="$PROJECT_DIR$/src/Efek.java" />
         <option value="$PROJECT_DIR$/src/BarangSenjataNonLempar.java" />
-        <option value="$PROJECT_DIR$/src/Player.java" />
+        <option value="$PROJECT_DIR$/src/Coba.java" />
+        <option value="$PROJECT_DIR$/src/Pilihan.java" />
+        <option value="$PROJECT_DIR$/src/HimpunanBarang.java" />
+        <option value="$PROJECT_DIR$/src/Himpunan.java" />
+        <option value="$PROJECT_DIR$/src/PilihanSerang.java" />
+        <option value="$PROJECT_DIR$/src/Adegan.java" />
         <option value="$PROJECT_DIR$/src/Lawan.java" />
+        <option value="$PROJECT_DIR$/src/Player.java" />
+        <option value="$PROJECT_DIR$/src/Skill.java" />
+        <option value="$PROJECT_DIR$/src/SkillCrafting.java" />
+        <option value="$PROJECT_DIR$/src/Barang.java" />
+        <option value="$PROJECT_DIR$/src/BarangSenjataPukul.java" />
       </list>
     </option>
   </component>
@@ -185,18 +173,16 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="width" value="968" />
-    <option name="height" value="1088" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-9" />
+    <option name="width" value="978" />
+    <option name="height" value="1089" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -213,6 +199,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -279,7 +267,17 @@
       <workItem from="1556350713087" duration="4396000" />
       <workItem from="1556360472659" duration="7353000" />
       <workItem from="1556378015698" duration="1318000" />
-      <workItem from="1556406796575" duration="15179000" />
+      <workItem from="1556406796575" duration="16587000" />
+      <workItem from="1556437789531" duration="5126000" />
+      <workItem from="1556443724641" duration="2556000" />
+      <workItem from="1556448680923" duration="11950000" />
+      <workItem from="1556492586623" duration="100000" />
+      <workItem from="1556493151522" duration="1880000" />
+      <workItem from="1556505389046" duration="4784000" />
+      <workItem from="1556514065734" duration="2706000" />
+      <workItem from="1556521739440" duration="14706000" />
+      <workItem from="1556545169984" duration="5772000" />
+      <workItem from="1556579219266" duration="2334000" />
     </task>
     <task id="LOCAL-00001" summary="2">
       <created>1556208069346</created>
@@ -295,17 +293,24 @@
       <option name="project" value="LOCAL" />
       <updated>1556334416929</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Perubahan Skill, Barang, Player, Lawan, efek.&#10;Rencana selanjutnya ke Efek dan cara kerja efek&#10;dari Player dan Lawan.">
+      <created>1556425692387</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1556425692387</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51131000" />
+    <option name="totallyTimeSpent" value="104453000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="0" width="774" height="870" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.40782124" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.14142092" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -315,17 +320,17 @@
       <window_info active="true" anchor="bottom" id="GitHub Pull Requests" order="0" weight="0.32928476" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" />
-      <window_info anchor="bottom" id="Run" order="3" visible="true" weight="0.33152908" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.3266399" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49932975" weight="0.33243242" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49932975" weight="0.33199465" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50067025" side_tool="true" weight="0.32882273" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32931727" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32797858" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24865952" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -336,6 +341,38 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Database" order="8" weight="0.3297587" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33195022" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="GitHub Pull Requests" order="0" weight="0.32928476" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.3266399" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49932975" weight="0.33199465" />
+      <window_info anchor="bottom" id="Database Changes" order="10" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50067025" side_tool="true" weight="0.32882273" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32882273" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24865952" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Maven" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Database" order="8" weight="0.3297587" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -393,20 +430,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="2" />
     <MESSAGE value="Perubahan Player, Lawan, Efek, Level" />
-    <option name="LAST_COMMIT_MESSAGE" value="Perubahan Player, Lawan, Efek, Level" />
+    <MESSAGE value="Perubahan Skill, Barang, Player, Lawan, efek.&#10;Rencana selanjutnya ke Efek dan cara kerja efek&#10;dari Player dan Lawan." />
+    <option name="LAST_COMMIT_MESSAGE" value="Perubahan Skill, Barang, Player, Lawan, efek.&#10;Rencana selanjutnya ke Efek dan cara kerja efek&#10;dari Player dan Lawan." />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Adegan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Penyimpanan.java" />
     <entry file="file://$PROJECT_DIR$/.gitattributes">
       <provider selected="true" editor-type-id="text-editor" />
@@ -415,24 +446,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="18" selection-start-column="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Assets.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Skill.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="25" lean-forward="true" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
-          <folding>
-            <element signature="e#774#775#0" expanded="true" />
-            <element signature="e#814#815#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -471,17 +484,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SkillCrafting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="80" lean-forward="true" selection-start-line="15" selection-start-column="80" selection-end-line="15" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/SkillEfisiensiCrafting.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HimpunanBarang.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pilihan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Assets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
@@ -494,64 +521,110 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/EfekLainnya.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="13" lean-forward="true" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        <state relative-caret-position="85">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Himpunan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Coba.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SkillCrafting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="97" lean-forward="true" selection-start-line="14" selection-start-column="97" selection-end-line="14" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Adegan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanSerang.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="24" lean-forward="true" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Efek.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#532#533#0" expanded="true" />
+            <element signature="e#561#562#0" expanded="true" />
+            <element signature="e#592#593#0" expanded="true" />
+            <element signature="e#619#620#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Skill.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1532">
+          <caret line="208" selection-start-line="208" selection-end-line="208" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BarangSenjataPukul.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="27" selection-start-column="27" selection-end-column="27" />
+          <folding>
+            <element signature="e#2917#2918#0" expanded="true" />
+            <element signature="e#2951#2952#0" expanded="true" />
+            <element signature="e#3002#3003#0" expanded="true" />
+            <element signature="e#3041#3042#0" expanded="true" />
+            <element signature="e#2756#2757#0" expanded="true" />
+            <element signature="e#2860#2861#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Lawan.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="32" lean-forward="true" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+        <state relative-caret-position="665">
+          <caret line="50" column="50" selection-start-line="50" selection-start-column="50" selection-end-line="50" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#815#816#0" expanded="true" />
-            <element signature="e#853#854#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Barang.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BarangSenjataNonLempar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="75" column="39" lean-forward="true" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
+        <state relative-caret-position="221">
+          <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2639#2640#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="36" column="30" lean-forward="true" selection-start-line="36" selection-start-column="30" selection-end-line="36" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3960#3961#0" expanded="true" />
-            <element signature="e#4011#4012#0" expanded="true" />
-            <element signature="e#4074#4075#0" expanded="true" />
-            <element signature="e#4132#4133#0" expanded="true" />
-            <element signature="e#4475#4476#0" expanded="true" />
-            <element signature="e#4531#4532#0" expanded="true" />
-            <element signature="e#4735#4736#0" expanded="true" />
-            <element signature="e#4793#4794#0" expanded="true" />
-            <element signature="e#5447#5448#0" expanded="true" />
-            <element signature="e#5481#5482#0" expanded="true" />
+            <element signature="e#2141#2142#0" expanded="true" />
+            <element signature="e#2160#2161#0" expanded="true" />
+            <element signature="e#3661#3662#0" expanded="true" />
+            <element signature="e#3698#3699#0" expanded="true" />
           </folding>
         </state>
       </provider>
