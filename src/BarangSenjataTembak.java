@@ -48,7 +48,7 @@ public class BarangSenjataTembak extends Barang{
     }
 
     @Override
-    public Barang gunakanBarangSenjataTembak() {
+    public Barang gunakanBarangSenjata() {
         if(this.daftarAmunisi.size() < 1){
             //proses gagal atau dianggap tidak bisa menembak karena habis peluru
             return null;

@@ -24,7 +24,7 @@ public class BarangSenjataPukul extends Barang {
     }
 
     @Override
-    public void gunakanBarangSenjata() {
+    public Barang gunakanBarangSenjata() {
         //mengecek nilai ketahanan
         if(this.ketahanan > 0){
             //mengurangi ketahanan senjata
@@ -33,6 +33,7 @@ public class BarangSenjataPukul extends Barang {
             //jika ketahanan senjata sudah 0 maka senjata dianggap tidak efektif, sehingga kekuatan menurun drastis
             this.setKekuatan(1);
         }
+        return this;
     }
 
     @Override

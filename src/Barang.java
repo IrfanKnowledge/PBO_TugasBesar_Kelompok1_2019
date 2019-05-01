@@ -100,11 +100,8 @@ public class Barang {
     //proses pada blue print
     public ArrayList<Barang> gunakanBarangBluePrint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, Barang senjata, int efisiensiCrafting){ return null;}
 
-    //proses pada senjata pukul
-    public void gunakanBarangSenjata(){}
-
-    //proses pada senjata tembak
-    public Barang gunakanBarangSenjataTembak(){return null;}
+    //proses pada senjata pukul dan tembak
+    public Barang gunakanBarangSenjata(){return null;}
 
     //proses pada senjata pukul
     public boolean perbaikiBarang(Barang komponen){return false;}
@@ -202,6 +199,10 @@ public class Barang {
 
     public HashMap<Integer, Barang> getDaftarSenjataUntukCrafting() {
         return null;
+    }
+
+    public boolean setSenjataUntukCraftingTerpilih(Barang senjataUntukCraftingTerpilih) {
+        return false;
     }
     //=======================================================
 }
