@@ -2,36 +2,48 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Player {
-    int idPlayer;
-    String nama;
-    int kesehatan = 100;
-    int batasMaxKesehatan = 100;
-    double waktu = 7.00;
-    String statusWaktu = "siang";
-    double batasAwalMalam = 21.00;
-    double batasAkhirMalam = 6.00;
-    double uang = 0;
-    int kemampuanMenawarBarang = 0;
-    int kemampuanMenjualBarang = 0;
-    Barang senjata;                         //Belum
-    int efisiensiSenjata = 0;
-    int efisiensiCrafting = 0;
-    Adegan adeganAktif;                     //Belum
-    ArrayList<Barang> penyimpanansDinamis;  //Belum
-    int jumlahSenjataDinamis;               //Belum
-    int batasMaxSenjataDinamis;             //Belum
-    ArrayList<Barang> penyimpanansStatis;   //Belum
-    Level levelBertahanHidup;
-    int expBertahanHidup = 0;
-    int pointBertahanHidup = 0;
-    Level levelKekuatan;
-    int expKekuatan = 0;
-    int pointKekuatan = 0;
-    private ArrayList<Level> daftarLevelBertahanHidup;
-    private ArrayList<Level> daftarLevelKekuatan;
-    private ArrayList<Skill> daftarSkill;
+    private int idPlayer;
+    private String nama;
+    private int kesehatan = 100;
+    private int batasMaxKesehatan = 100;
+    private double waktu = 7.00;
+    private String statusWaktu = "siang";
+    private double batasAwalMalam = 21.00;
+    private double batasAkhirMalam = 6.00;
+    private double uang = 0;
+    private Barang senjata;                         //Belum
+    private Adegan adeganAktif;                     //Belum
+
+    private ArrayList<Barang> penyimpanansDinamis;  //Belum
+    private int batasMaxSenjataDinamis;             //Belum
+    private ArrayList<Barang> penyimpanansStatis;   //Belum
+
+    private Level levelBertahanHidup;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private int expBertahanHidup = 0;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private int pointBertahanHidup = 0;             //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private Level levelKekuatan;                    //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private int expKekuatan = 0;                    //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private int pointKekuatan = 0;                  //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private ArrayList<Level> daftarLevelBertahanHidup;  //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private ArrayList<Level> daftarLevelKekuatan;       //Untuk Skill dan level, diakhir saja, utamakan hal lain
+
+    private int efisiensiSenjata = 0;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private int efisiensiCrafting = 0;              //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private int kemampuanMenawarBarang = 0;         //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private int kemampuanMenjualBarang = 0;         //Untuk Skill dan level, diakhir saja, utamakan hal lain
+    private ArrayList<Skill> daftarSkill;           //Untuk Skill dan level, diakhir saja, utamakan hal lain
+
+    private int durasiStun = 0;
+    private int nilaiKetahanan = 0;
+    private int batasMaxKetahanan = 0;
+    private int durasiKetahanan = 0;
+    private int nilaiKecepatanTambahan = 0;
+    private int durasiKecepatanTambahan = 0;
+    private int durasiPengelihatanMalam = 0;
+    private int durasiKamuflase = 0;
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>();
 
     private ArrayList<ArrayList<Barang>> daftarBarangKunci = new ArrayList<>();  //Belum
@@ -46,18 +58,9 @@ public class Player {
     Hewan hewanPembantu;
     boolean isSelesai = false;
 
-    //==============================================================================
-    //ngetest saja, nanti dihapus atau dibuat komentar
-    //Barang ngetest = new Barang();
-    //HashMap<Integer, Barang> daftarNgetest = new HashMap<>();
-    //Efek testing;
-    //==============================================================================
-
     Player(int idPlayer, String nama){
-        this.idPlayer = idPlayer;
-        this.nama = nama;
-
         /* Proses pendefinisian setiap level bertahan hidup */
+        /*
         ArrayList<Level> daftarLevelBertahanHidup = new ArrayList<>();
         daftarLevelBertahanHidup.add(new Level(1, "Bertahan Hidup", 1, 0));
         daftarLevelBertahanHidup.add(new Level(2, "Bertahan Hidup", 2, 100));
@@ -69,26 +72,36 @@ public class Player {
         daftarLevelBertahanHidup.add(new Level(8, "Bertahan Hidup", 8, 1200));
         daftarLevelBertahanHidup.add(new Level(9, "Bertahan Hidup", 9, 1400));
         daftarLevelBertahanHidup.add(new Level(10, "Bertahan Hidup", 10, 1600));
+        */
 
         /* Proses pendefinisian setiap level kekuatan */
+        /*
         ArrayList<Level> daftarLevelKekuatan = new ArrayList<>();
         daftarLevelKekuatan.add(new Level(11, "Kekuatan", 1, 0));
         daftarLevelKekuatan.add(new Level(12, "Kekuatan", 2, 100));
         daftarLevelKekuatan.add(new Level(13, "Kekuatan", 3, 200));
         daftarLevelKekuatan.add(new Level(14, "Kekuatan", 4, 400));
         daftarLevelKekuatan.add(new Level(15, "Kekuatan", 5, 600));
+        */
 
         /* Proses pendefinisian setiap Skill yang dapat diunlock oleh Player */
+        /*
         ArrayList<Skill> daftarSkill = new ArrayList<>();
         Barang medikit = new Barang(99, "Medikit", "Kesehatan", "Menambah kesehatan Player",true, true, 30, 15); //Contoh
         daftarSkill.add(new SkillCrafting(this, 1,medikit.getNama(), 1, 1, "Rancangan/BluPrint untuk membuat barang medikit.", medikit));
+        */
 
         /* Proses inisiasi beberapa atribut yang belum di-inisiasi */
+        /*
         this.levelBertahanHidup = daftarLevelBertahanHidup.get(0);
         this.levelKekuatan = daftarLevelKekuatan.get(0);
         this.daftarLevelBertahanHidup = daftarLevelBertahanHidup;
         this.daftarLevelKekuatan = daftarLevelKekuatan;
         this.daftarSkill = daftarSkill;
+        */
+
+        this.idPlayer = idPlayer;
+        this.nama = nama;
     }
 
     public static void main(String[] args) {
@@ -96,7 +109,7 @@ public class Player {
         // berikut proses percobaan
         Player A = new Player(1, "irfan");
         Player B = new Player(2, "dani");
-        System.out.println(A.daftarLevelBertahanHidup.get(3).nilaiLevel);
+        //System.out.println(A.daftarLevelBertahanHidup.get(3).nilaiLevel);
         //A.daftarSkill.get(0).unlockSkill(A.levelBertahanHidup, A.pointBertahanHidup);
         //if(A.testing == null){
             //System.out.println(A.testing + "MASIH NULL");
@@ -116,11 +129,21 @@ public class Player {
         testdeui.remove(testdeui.size()-1);
 
         if(testdeui.size() > 0){
-            System.out.println(sementara.mencoba + " " + testdeui.get(1));
+            System.out.println(sementara.mencoba + " " + testdeui.get(0));
         }
+
+        Random pengacak = new Random();
+        for (int i=0; i<5; i++){
+            System.out.println(pengacak.nextInt(10));
+        }
+
         //==============================================================================
     }
 
+
+    //==================================================================================
+                        /* Method untuk unlock skill */
+    /*
     public void ubahBatasMaxKesehatan(int batasMaxKesehatan){
         this.batasMaxKesehatan = batasMaxKesehatan;
     }
@@ -144,23 +167,16 @@ public class Player {
     public void ubahEfisiensiCrafting(int efisiensiCrafting){
         this.efisiensiCrafting = efisiensiCrafting;
     }
+    */
+    //==================================================================================
 
-    public void tambahBluePrint(Barang bluePrint){
-        this.daftarBluePrint.add(bluePrint);
-    }
-
-    public void tambahEfekDiri(HashMap<Integer, Efek> efekLuar){
-        for (Map.Entry<Integer, Efek> record : efekLuar.entrySet()) {
-            this.daftarEfekDiri.put(record.getKey(), record.getValue());
+    public void kurangiKesehatan(int nilaiSerangan){
+        if(this.kesehatan > 0){
+            this.kesehatan -= nilaiSerangan;
+            if(this.kesehatan < 0){
+                this.kesehatan = 0;
+            }
         }
-    }
-
-    public void tambahEfekDiri(Efek efekLuar) {
-        this.daftarEfekDiri.put(efekLuar.getIdEfek(), efekLuar);
-    }
-
-    public void pilihBarangKunci(){
-
     }
 
     public HashMap<Integer, Barang> pilihBarangSenjata(){
@@ -215,14 +231,5 @@ public class Player {
 
     public void pilihBarangBluePrint(){
 
-    }
-
-    public void kurangiKesehatan(int nilaiSerangan){
-        if(this.kesehatan > 0){
-            this.kesehatan -= nilaiSerangan;
-            if(this.kesehatan < 0){
-                this.kesehatan = 0;
-            }
-        }
     }
 }

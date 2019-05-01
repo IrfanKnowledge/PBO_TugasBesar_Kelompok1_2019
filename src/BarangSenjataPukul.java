@@ -72,7 +72,7 @@ public class BarangSenjataPukul extends Barang {
         }
     }
 
-    public void upgradeSenjata(BarangBluePrint oBluePrint){
+    public void upgradeSenjata(Barang oBluePrint){
         this.setKekuatan(this.getKekuatan() + oBluePrint.getPeningkatanKekuatan());
         this.batasMaxKetahanan += oBluePrint.getPeningkatanBatasMaxKetahanan();
         this.setDaftarEfek(oBluePrint.getDaftarTambahanEfek());

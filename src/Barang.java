@@ -204,5 +204,17 @@ public class Barang {
     public boolean setSenjataUntukCraftingTerpilih(Barang senjataUntukCraftingTerpilih) {
         return false;
     }
+
+    public int getPeningkatanKekuatan() {
+        return 0;
+    }
+
+    public int getPeningkatanBatasMaxKetahanan() {
+        return 0;
+    }
+
+    public ArrayList<Efek> getDaftarTambahanEfek() {
+        return null;
+    }
     //=======================================================
 }
