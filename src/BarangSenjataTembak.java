@@ -31,7 +31,7 @@ public class BarangSenjataTembak extends Barang{
             this.batasMaxAmunisi = batasMaxAmunisi;
         }
 
-        //pengulangan sebanyak jumlah input daftarAmunisi (jika menggunakan foreach, tidak bisa keluar paksa atau menggunakan break;)
+        //pengulangan sebanyak jumlah input daftarAmunisi + menghapus peluru yang diambil
         for(int i=daftarAmunisi.size()-1; i>=0; i--){
             //mengecek setiap isi daftarAmunisi yang masuk, apakah memiliki id yang cocok atau tidak
             if(daftarAmunisi.get(i).getIdBarang() == this.idAmunisiUtama){
@@ -80,7 +80,7 @@ public class BarangSenjataTembak extends Barang{
                     //proses gagal krn amunisi dianggap kosong
                     return false;
                 }else{
-                    //pengulangan sebanyak jumlah input daftarAmunisi (jika menggunakan foreach, tidak bisa keluar paksa atau menggunakan break;)
+                    //pengulangan sebanyak jumlah input daftarAmunisi + menghapus peluru yang diambil
                     for(int i=daftarAmunisi.size()-1; i>=0; i--){
                         this.daftarAmunisi.add(daftarAmunisi.get(i));
                         //proses menghapus objek pada urutan terakhir dalam daftarAmunisi inputan

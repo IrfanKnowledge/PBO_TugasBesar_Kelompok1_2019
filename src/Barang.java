@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Barang {
     private int idBarang;
@@ -12,6 +13,7 @@ public class Barang {
     private ArrayList<Efek> daftarEfek = new ArrayList<>();
     private int kekuatan = 0;
     private int nilaiKesehatan = 0;
+    private boolean statusUpgrade = false;
 
     //contructor tanpa kekuatan, daftarEfek dan kesehatan
     Barang(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual){
@@ -63,6 +65,26 @@ public class Barang {
         this.hargaJual = hargaJual;
         this.kekuatan = kekuatan;
         this.daftarEfek = daftarEfek;
+
+        //jika barang ini adalah termasuk kategori senjata pukul maka bisa di upgrade
+        if(kategori.equals("Senjata Pukul")){
+            this.statusUpgrade = true;
+        }
+    }
+
+    //constructor untuk mengcloning Barang
+    Barang(Barang cloning){
+        this.idBarang = cloning.getIdBarang();
+        this.nama = cloning.getNama();
+        this.kategori = cloning.getDeskripsi();
+        this.deskripsi = cloning.getDeskripsi();
+        this.statusBeli = cloning.isStatusBeli();
+        this.statusJual = cloning.isStatusJual();
+        this.hargaBeli = cloning.getHargaBeli();
+        this.hargaJual = cloning.getHargaJual();
+        this.nilaiKesehatan = cloning.getNilaiKesehatan();
+        this.kekuatan = cloning.getKekuatan();
+        this.daftarEfek = cloning.getDaftarEfek();
     }
 
     public void tambahEfek(ArrayList<Efek> oEfek) {
@@ -74,8 +96,9 @@ public class Barang {
         this.daftarEfek.add(oEfek);
     }
 
-    //masih perlu dipikirkan
-    public Barang gunakanBarangBluePrint(ArrayList<Barang> daftarKomponenCrafting, Barang senjata){ return null;}
+
+    //proses pada blue print
+    public ArrayList<Barang> gunakanBarangBluePrint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, Barang senjata, int efisiensiCrafting){ return null;}
 
     //proses pada senjata pukul
     public void gunakanBarangSenjata(){}
@@ -131,10 +154,21 @@ public class Barang {
         return daftarEfek;
     }
 
+    public void setDaftarEfek(ArrayList<Efek> daftarEfek) {
+        this.daftarEfek = daftarEfek;
+    }
+
     public int getNilaiKesehatan() {
         return nilaiKesehatan;
     }
 
+    public boolean isStatusUpgrade() {
+        return statusUpgrade;
+    }
+
+    public void setStatusUpgrade(boolean statusUpgrade){
+        this.statusUpgrade = statusUpgrade;
+    }
 
     //=======================================================
             /* untuk class child saja */
@@ -160,6 +194,14 @@ public class Barang {
 
     public int getJumlahKebutuhanIsiPeluru(){
         return 0;
+    }
+
+    public HashMap<Integer, ArrayList<Barang>> getDaftarKomponenCrafting() {
+        return null;
+    }
+
+    public HashMap<Integer, Barang> getDaftarSenjataUntukCrafting() {
+        return null;
     }
     //=======================================================
 }

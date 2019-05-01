@@ -44,6 +44,10 @@ public class BarangSenjataPukul extends Barang {
                 //gagal
                 return false;
             }else{
+                if(komponen == null){
+                    // gagal krn komponen kosong
+                    return false;
+                }
                 //mengubah nilai ketahanan menjadi nilai maksimal ketahanan senjata
                 this.ketahanan = this.batasMaxKetahanan;
                 //menambah nilai jumlah diperbaiki pada senjata
@@ -65,6 +69,12 @@ public class BarangSenjataPukul extends Barang {
             //barang tidak cocok
             return false;
         }
+    }
+
+    public void upgradeSenjata(BarangBluePrint oBluePrint){
+        this.setKekuatan(this.getKekuatan() + oBluePrint.getPeningkatanKekuatan());
+        this.batasMaxKetahanan += oBluePrint.getPeningkatanBatasMaxKetahanan();
+        this.setDaftarEfek(oBluePrint.getDaftarTambahanEfek());
     }
 
     public boolean isStatusKemampuanDiperbaiki() {
