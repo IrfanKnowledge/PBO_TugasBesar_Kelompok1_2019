@@ -10,9 +10,10 @@ public class Barang {
     private int hargaBeli;
     private int hargaJual;;
     private ArrayList<Efek> daftarEfek = new ArrayList<>();
+    private int kekuatan = 0;
     private int nilaiKesehatan = 0;
 
-    //contructor tanpa efek dan kesehatan
+    //contructor tanpa kekuatan, daftarEfek dan kesehatan
     Barang(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual){
         this.idBarang = idBarang;
         this.nama = nama;
@@ -24,7 +25,7 @@ public class Barang {
         this.hargaJual = hargaJual;
     }
 
-    //contructor tanpa daftarEfek
+    //contructor tanpa kekuatan dan daftarEfek
     Barang(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int nilaiKesehatan){
         this.idBarang = idBarang;
         this.nama = nama;
@@ -37,7 +38,7 @@ public class Barang {
         this.nilaiKesehatan = nilaiKesehatan;
     }
 
-    //contructor tanpa nilaiKesehatan
+    //contructor tanpa kekuatan dan nilaiKesehatan
     Barang(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, ArrayList<Efek> daftarEfek){
         this.idBarang = idBarang;
         this.nama = nama;
@@ -50,26 +51,43 @@ public class Barang {
         this.daftarEfek = daftarEfek;
     }
 
-    public void tambahEfekBanyak(ArrayList<Efek> oEfek) {
+    //contructor tanpa nilaiKeshatan
+    Barang(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, ArrayList<Efek> daftarEfek){
+        this.idBarang = idBarang;
+        this.nama = nama;
+        this.kategori = kategori;
+        this.deskripsi = deskripsi;
+        this.statusBeli = statusBeli;
+        this.statusJual = statusJual;
+        this.hargaBeli = hargaBeli;
+        this.hargaJual = hargaJual;
+        this.kekuatan = kekuatan;
+        this.daftarEfek = daftarEfek;
+    }
+
+    public void tambahEfek(ArrayList<Efek> oEfek) {
         for (Efek value : oEfek) {
             this.daftarEfek.add(value);
         }
     }
-
-    public void tambahEfekSatu(Efek oEfek) {
+    public void tambahEfek(Efek oEfek) {
         this.daftarEfek.add(oEfek);
     }
 
+    //masih perlu dipikirkan
     public Barang gunakanBarangBluePrint(ArrayList<Barang> daftarKomponenCrafting, Barang senjata){ return null;}
 
-    //proses pada senjata tembak dan pukul
+    //proses pada senjata pukul
     public void gunakanBarangSenjata(){}
 
     //proses pada senjata tembak
-    public void isiPeluru(Barang amunisi){}
+    public Barang gunakanBarangSenjataTembak(){return null;}
 
     //proses pada senjata pukul
     public boolean perbaikiBarang(Barang komponen){return false;}
+
+    //proses pada senjata tembak
+    public boolean isiPeluru(ArrayList<Barang> daftarAmunisi){ return false;}
 
     public int getIdBarang() {
         return idBarang;
@@ -103,8 +121,10 @@ public class Barang {
         return hargaJual;
     }
 
+    public void setKekuatan(int kekuatan) { this.kekuatan = kekuatan; }
+
     public int getKekuatan(){
-        return 0;
+        return this.kekuatan;
     }
 
     public ArrayList<Efek> getDaftarEfek() {
@@ -114,4 +134,32 @@ public class Barang {
     public int getNilaiKesehatan() {
         return nilaiKesehatan;
     }
+
+
+    //=======================================================
+            /* untuk class child saja */
+    public boolean isStatusKemampuanDiperbaiki() {
+        return false;
+    }
+
+    public int getIdKomponenUntukPerbaikan() {
+        return 0;
+    }
+
+    public int getJumlahKomponenUntukPerbaikan() {
+        return 0;
+    }
+
+    public int getIdAmunisiUtama() {
+        return 0;
+    }
+
+    public ArrayList<Integer> getDaftarIdAmunisi() {
+        return null;
+    }
+
+    public int getJumlahKebutuhanIsiPeluru(){
+        return 0;
+    }
+    //=======================================================
 }

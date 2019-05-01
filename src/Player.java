@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Player {
@@ -33,9 +34,12 @@ public class Player {
 
     private ArrayList<ArrayList<Barang>> daftarBarangKunci = new ArrayList<>();  //Belum
     private ArrayList<ArrayList<Barang>> daftarBarangSenjata = new ArrayList<>();  //Belum
-    private ArrayList<ArrayList<Barang>> daftarBarangRamuan = new ArrayList<>();  //Belum
+    private ArrayList<ArrayList<Barang>> daftarBarangItem = new ArrayList<>();  //Belum
     private ArrayList<ArrayList<Barang>> daftarBarangBerharga = new ArrayList<>();  //Belum
     private ArrayList<ArrayList<Barang>> daftarBarangBluePrint = new ArrayList<>();  //Belum
+    private HashMap<String, ArrayList<Barang>> daftarBarangBluePrintPencarian = new HashMap<>();
+    private ArrayList<ArrayList<Barang>> daftarAmunisi = new ArrayList<>(); //belum
+    private HashMap<String, ArrayList<Barang>> daftarAmunisiPencarian = new HashMap<>();
 
     Hewan hewanPembantu;
     boolean isSelesai = false;

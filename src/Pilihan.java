@@ -5,5 +5,6 @@ public abstract class Pilihan {
         this.dekripsi = dekripsi;
     }
 
-    public abstract void aksi();
+    public void aksi(){}
+    public void aksi(Barang oBarang){}
 }
