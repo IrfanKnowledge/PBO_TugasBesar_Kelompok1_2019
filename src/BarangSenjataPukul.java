@@ -10,17 +10,34 @@ public class BarangSenjataPukul extends Barang {
     private boolean statusKemampuanDiperbaiki = true;
 
     //constructor tanpa daftarEfek
-    BarangSenjataPukul(int idBarang, String nama, String kategori, String deskripsi , int jumlah, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxKetahanan){
-        super(idBarang, nama, kategori, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, new ArrayList<>());
+    BarangSenjataPukul(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxKetahanan){
+        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, new ArrayList<>());
         this.ketahanan = batasMaxKetahanan;
         this.batasMaxKetahanan =  batasMaxKetahanan;
     }
 
     //constructor inisiasi semua atribut
-    BarangSenjataPukul(int idBarang, String nama, String kategori, String deskripsi , int jumlah, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxKetahanan, ArrayList<Efek> daftarEfek){
-        super(idBarang, nama, kategori, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, daftarEfek);
+    BarangSenjataPukul(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxKetahanan, ArrayList<Efek> daftarEfek){
+        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, daftarEfek);
         this.ketahanan = batasMaxKetahanan;
         this.batasMaxKetahanan =  batasMaxKetahanan;
+    }
+
+    //constructor untuk cloning
+    BarangSenjataPukul(BarangSenjataPukul oBarang){
+        super(oBarang);
+        this.ketahanan = oBarang.ketahanan;
+        this.batasMaxKetahanan = oBarang.batasMaxKetahanan;
+        this.jumlahDiperbaiki = oBarang.jumlahDiperbaiki;
+        this.batasMaxDiperbaiki= oBarang.batasMaxDiperbaiki;
+        this.idKomponenUntukPerbaikan = oBarang.idKomponenUntukPerbaikan;
+        this.jumlahKomponenUntukPerbaikan = oBarang.jumlahKomponenUntukPerbaikan;
+        this.statusKemampuanDiperbaiki = oBarang.statusKemampuanDiperbaiki;
+    }
+
+    @Override
+    public Barang cloning(Barang oBarang) {
+        return new BarangSenjataPukul(this);
     }
 
     @Override

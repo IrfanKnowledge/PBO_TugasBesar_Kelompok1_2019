@@ -10,7 +10,7 @@ public class SkillEfisiensiCrafting extends Skill{
     protected void unlockSkill(Level level, int point) {
         if(this.idLevelDibutuhkan == level.idLevel && this.nilaiLevelDibutuhkan == level.nilaiLevel && this.pointDibutuhkan == point){
             //proses return blueprint kepada player yang meng-unlock skill ini
-            oPlayer.ubahEfisiensiCrafting(efisiensiCrafting);
+            //oPlayer.ubahEfisiensiCrafting(efisiensiCrafting);
             this.statusUnlock = true;
         }else{
             System.out.printf("Maaf, nilai level %s anda atau point masih kurang\n", level.nama);

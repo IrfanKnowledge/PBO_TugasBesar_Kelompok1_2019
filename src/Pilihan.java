@@ -7,4 +7,8 @@ public abstract class Pilihan {
 
     public void aksi(){}
     public void aksi(Barang oBarang){}
+
+    public String getDekripsi() {
+        return dekripsi;
+    }
 }

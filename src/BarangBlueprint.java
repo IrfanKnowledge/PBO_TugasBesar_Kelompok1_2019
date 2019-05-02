@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BarangBluePrint extends Barang{
+public class BarangBlueprint extends Barang{
     private HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting = new HashMap<>();
     private HashMap<Integer, Barang> daftarSenjataUntukCrafting = new HashMap<>();
     private Barang senjataUntukCraftingTerpilih;
@@ -13,22 +13,22 @@ public class BarangBluePrint extends Barang{
     private int peningkatanBatasMaxKetahanan = 0;
     private ArrayList<Efek> daftarTambahanEfek = new ArrayList<>();
 
-    BarangBluePrint(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual) {
-        super(idBarang, nama, kategori, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
+    BarangBlueprint(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual) {
+        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
     }
 
-    BarangBluePrint(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int nilaiKesehatan){
-        super(idBarang, nama, kategori, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, nilaiKesehatan);
+    BarangBlueprint(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int nilaiKesehatan){
+        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, nilaiKesehatan);
     }
 
-    BarangBluePrint(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, HashMap<Integer, Barang> daftarSenjataUntukCrafting, Barang hasilCrafting, int jumlahHasilCrafting){
-        super(idBarang, nama, kategori, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
+    BarangBlueprint(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, HashMap<Integer, Barang> daftarSenjataUntukCrafting, Barang hasilCrafting, int jumlahHasilCrafting){
+        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
         this.daftarKomponenCrafting = daftarKomponenCrafting;
         this.daftarSenjataUntukCrafting = daftarSenjataUntukCrafting;
         this.hasilCrafting = hasilCrafting;
 
-        //Jika hasil crafting TIDAK TERMASUK kategori Senjata Pukul dan Senjata Tembak maka jumlah hasil crafting boleh lebih dari 1
-        if(!this.hasilCrafting.getKategori().equals("Senjata Pukul") && !this.hasilCrafting.getKategori().equals("Senjata Tembak")){
+        //Jika hasil crafting TIDAK TERMASUK jenis Senjata Pukul dan Senjata Tembak maka jumlah hasil crafting boleh lebih dari 1
+        if(!this.hasilCrafting.getJenis().equals("Senjata Pukul") && !this.hasilCrafting.getJenis().equals("Senjata Tembak")){
             this.jumlahHasilCrafting = jumlahHasilCrafting;
         //jika termasuk senjata pukul dan senjata tembak maka jumlah hasil crafting hanya boleh 1
         }else{
@@ -37,8 +37,8 @@ public class BarangBluePrint extends Barang{
     }
 
     //constructor untuk blueprint meng-upgrade senjata
-    BarangBluePrint(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, HashMap<Integer, Barang> daftarSenjataUntukCrafting, int peningkatanKekuatan, int peningkatanBatasMaxKetahanan, ArrayList<Efek> daftarTambahanEfek){
-        super(idBarang, nama, kategori, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
+    BarangBlueprint(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, HashMap<Integer, Barang> daftarSenjataUntukCrafting, int peningkatanKekuatan, int peningkatanBatasMaxKetahanan, ArrayList<Efek> daftarTambahanEfek){
+        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
         this.daftarKomponenCrafting = daftarKomponenCrafting;
         this.daftarSenjataUntukCrafting = daftarSenjataUntukCrafting;
         this.hasilCrafting = null;
@@ -51,8 +51,26 @@ public class BarangBluePrint extends Barang{
         this.setStatusUpgrade(true);
     }
 
+    //constructor untuk mengcloning Barang
+    BarangBlueprint(BarangBlueprint oBarang){
+        super(oBarang);
+        this.daftarKomponenCrafting = oBarang.daftarKomponenCrafting;
+        this.daftarSenjataUntukCrafting = oBarang.daftarSenjataUntukCrafting;
+        this.senjataUntukCraftingTerpilih = oBarang.senjataUntukCraftingTerpilih;
+        this.hasilCrafting = oBarang.hasilCrafting;
+        this.jumlahHasilCrafting = oBarang.jumlahHasilCrafting;
+        this.peningkatanKekuatan = oBarang.peningkatanKekuatan;
+        this.peningkatanBatasMaxKetahanan = oBarang.peningkatanBatasMaxKetahanan;
+        this.daftarTambahanEfek = oBarang.daftarTambahanEfek;
+    }
+
     @Override
-    public ArrayList<Barang> gunakanBarangBluePrint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, Barang senjata, int efisiensiCrafting) {
+    public Barang cloning(Barang oBarang) {
+        return new BarangBlueprint(this);
+    }
+
+    @Override
+    public ArrayList<Barang> gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, Barang senjata, int efisiensiCrafting) {
 
         //untuk pencocokan kebutuhan daftarKomponenCrafting dan senjata untuk crafting dengan inputan daftarKomponenCrafting dan Senjata
         boolean statusKecocokan = true;
@@ -117,8 +135,8 @@ public class BarangBluePrint extends Barang{
             return null;
         }
 
-        //Jika hasil crafting TIDAK TERMASUK kategori Senjata Pukul dan Senjata Tembak maka jumlah hasil crafting dipengaruhi skill efisiensi crafting player
-        if(!this.hasilCrafting.getKategori().equals("Senjata Pukul") && !this.hasilCrafting.getKategori().equals("Senjata Tembak")){
+        //Jika hasil crafting TIDAK TERMASUK jenis Senjata Pukul dan Senjata Tembak maka jumlah hasil crafting dipengaruhi skill efisiensi crafting player
+        if(!this.hasilCrafting.getJenis().equals("Senjata Pukul") && !this.hasilCrafting.getJenis().equals("Senjata Tembak")){
             this.jumlahHasilCrafting += efisiensiCrafting;
         }
 

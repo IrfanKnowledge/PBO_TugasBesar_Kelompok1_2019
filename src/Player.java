@@ -15,7 +15,7 @@ public class Player {
     private double batasAkhirMalam = 6.00;
     private double uang = 0;
     private Barang senjata;                         //Belum
-    private Adegan adeganAktif;                     //Belum
+    public Adegan adeganAktif;                     //Belum
 
     private ArrayList<Barang> penyimpanansDinamis;  //Belum
     private int batasMaxSenjataDinamis;             //Belum
@@ -46,18 +46,22 @@ public class Player {
     private int durasiKamuflase = 0;
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>();
 
-    private ArrayList<ArrayList<Barang>> daftarBarangKunci = new ArrayList<>();  //Belum
-    private ArrayList<ArrayList<Barang>> daftarBarangSenjata = new ArrayList<>();  //Belum
-    private ArrayList<ArrayList<Barang>> daftarBarangItem = new ArrayList<>();  //Belum
-    private ArrayList<ArrayList<Barang>> daftarBarangBerharga = new ArrayList<>();  //Belum
-    private ArrayList<ArrayList<Barang>> daftarBarangBluePrint = new ArrayList<>();  //Belum
-    private HashMap<String, ArrayList<Barang>> daftarBarangBluePrintPencarian = new HashMap<>();
-    private ArrayList<ArrayList<Barang>> daftarAmunisi = new ArrayList<>(); //belum
-    private HashMap<String, ArrayList<Barang>> daftarAmunisiPencarian = new HashMap<>();
+    /* Berikut daftar barang yang dipisahkan seperti berikut agar memudahkan proses penyajian daftar barang
+    *  pada daftarBarang digunakan saat Player melihat dan memilih barang
+    *  sedangkan pada daftarBarangPencarian di bawah, untuk proses mencari barang tanpa melibatkan inputan Player
+    *  yaitu mencari berdasarkan id barang
+    */
+    private HashMap<String, ArrayList<ArrayList<Barang>>> daftarBarang = new HashMap<>();
+
+    /* Berikut daftar barang untuk memudahkan proses pencarian tertentu, tanpa melibatkan input pemain dalam memilih barang (misal saat crafting)
+    *  sehingga daftar barang berikut dengan daftarBarang di atas adalah sama,
+    *  atau berguna saat menambahkan barang dengan cepat dan tetap menjaga bentuk penyajian seperti misal -Medikit (5),
+    *  angka 5 menandakan jumlah medikit yang tersedia.
+    */
+    private HashMap<String, HashMap<Integer, ArrayList<Barang>>> daftarBarangPencarian = new HashMap<>();
 
     Hewan hewanPembantu;
-    boolean isSelesai = false;
-
+    private boolean isSelesai = false;
     Player(int idPlayer, String nama){
         /* Proses pendefinisian setiap level bertahan hidup */
         /*
@@ -102,6 +106,20 @@ public class Player {
 
         this.idPlayer = idPlayer;
         this.nama = nama;
+
+        ArrayList<ArrayList<Barang>> kunci = new ArrayList<>();
+        ArrayList<ArrayList<Barang>> senjata = new ArrayList<>();
+        ArrayList<ArrayList<Barang>> komponenCrafting = new ArrayList<>();
+        ArrayList<ArrayList<Barang>> barangBernilai = new ArrayList<>();
+        ArrayList<ArrayList<Barang>> blueprint = new ArrayList<>();
+        ArrayList<ArrayList<Barang>> amunisi = new ArrayList<>();
+        this.daftarBarang.put("Kunci", kunci);
+        this.daftarBarang.put("Senjata", senjata);
+        this.daftarBarang.put("Komponen Crafting", komponenCrafting);
+        this.daftarBarang.put("Barang Bernilai", barangBernilai);
+        this.daftarBarang.put("Blueprint", blueprint);
+        this.daftarBarang.put("Amunisi", amunisi);
+
     }
 
     public static void main(String[] args) {
@@ -136,7 +154,6 @@ public class Player {
         for (int i=0; i<5; i++){
             System.out.println(pengacak.nextInt(10));
         }
-
         //==============================================================================
     }
 
@@ -186,7 +203,7 @@ public class Player {
         HashMap<Integer, Barang> bungkus = new HashMap<>();
 
         //mengecek apakah daftarBarangSenjata kosong atau tidak kosong
-        if(this.daftarBarangSenjata.isEmpty()){
+        if(this.daftarBarang.get("Senjata").isEmpty()){
             System.out.println("Daftar Senjata :\n" + "Anda tidak memiliki senjata apapun.");
         }else{
             boolean validasiInput = false;
@@ -196,7 +213,7 @@ public class Player {
 
                 //proses menampilkan senjata milik player
                 int i = 0;
-                for (ArrayList<Barang> record : this.daftarBarangSenjata) {
+                for (ArrayList<Barang> record : this.daftarBarang.get("Senjata")) {
                     System.out.printf("%2d %s", ++i, record.get(record.size()-1).getNama());
                     i++;
                 }
@@ -205,19 +222,21 @@ public class Player {
                 Scanner oScan = new Scanner(System.in);
                 int inputMenu = oScan.nextInt();
 
-                if(inputMenu < 1 || inputMenu > this.daftarBarangSenjata.size()){
+                if(inputMenu < 1 || inputMenu > this.daftarBarang.get("Senjata").size()){
                     System.out.println("Maaf, barang yang anda pilih tidak tersedia.");
                 }else{
                     //user sudah memberikan input yang benar sesuai pilihan yang tersedia sehingga validasiInput = true
                     validasiInput = true;
 
-                    int jumlahBarangTertentu = this.daftarBarangSenjata.get(inputMenu).size();
-                    Barang barangPilihan = this.daftarBarangSenjata.get(inputMenu).get(jumlahBarangTertentu-1);
-                    bungkus.put(inputMenu, barangPilihan);
+                    int jumlahBarangTertentu = this.daftarBarang.get("Senjata").get(inputMenu-1).size();
+
+                    //Mengambil barang urutan terakhir
+                    Barang barangPilihan = this.daftarBarang.get("Senjata").get(inputMenu-1).get(jumlahBarangTertentu-1);
+                    bungkus.put(barangPilihan.getIdBarang(), barangPilihan);
 
                     //jika senjata yg digunakan adalah senjata lempar maka kita kurangi object senjata dalam penyimpananBarangSenjata Player
-                    if(barangPilihan.getKategori().equals("Senjata Lempar")){
-                        this.daftarBarangSenjata.get(inputMenu).remove(barangPilihan);
+                    if(barangPilihan.getJenis().equals("Senjata Lempar")){
+                        this.daftarBarang.get("Senjata").get(inputMenu-1).remove(barangPilihan);
                     }
                 }
             }
@@ -229,7 +248,25 @@ public class Player {
 
     }
 
-    public void pilihBarangBluePrint(){
+    public void pilihBarangBlueprint(){
 
+    }
+
+    public void tambahBarang(ArrayList<ArrayList<Barang>> daftarBarang){
+        for (ArrayList<Barang> oDaftarBarang : daftarBarang) {
+            if(this.daftarBarangPencarian.get(oDaftarBarang.get(0).getKategoriPenyimpanan()).containsKey(oDaftarBarang.get(0).getIdBarang())){
+                this.daftarBarangPencarian.get(oDaftarBarang.get(0).getKategoriPenyimpanan()).get(oDaftarBarang.get(0).getIdBarang()).addAll(oDaftarBarang);
+            }else{
+                this.daftarBarangPencarian.get(oDaftarBarang.get(0).getKategoriPenyimpanan()).put(oDaftarBarang.get(0).getIdBarang(), oDaftarBarang);
+            }
+        }
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public boolean isSelesai() {
+        return isSelesai;
     }
 }

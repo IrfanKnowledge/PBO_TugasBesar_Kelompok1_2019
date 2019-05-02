@@ -10,7 +10,7 @@ public class SkillMenawarBarang extends Skill {
     protected void unlockSkill(Level level, int point) {
         if(this.idLevelDibutuhkan == level.idLevel && this.nilaiLevelDibutuhkan == level.nilaiLevel && this.pointDibutuhkan == point){
             //proses return blueprint kepada player yang meng-unlock skill ini
-            oPlayer.ubahKemampuanMenawarBarang(kemampuanMenawarBarang);
+            //oPlayer.ubahKemampuanMenawarBarang(kemampuanMenawarBarang);
             this.statusUnlock = true;
         }else{
             System.out.printf("Maaf, nilai level %s anda atau point masih kurang\n", level.nama);

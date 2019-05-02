@@ -4,7 +4,8 @@ import java.util.HashMap;
 public class Barang {
     private int idBarang;
     private String nama;
-    private String kategori;
+    private String jenis;
+    private String kategoriPenyimpanan;
     private String deskripsi;
     private boolean statusBeli;
     private boolean statusJual;
@@ -16,10 +17,11 @@ public class Barang {
     private boolean statusUpgrade = false;
 
     //contructor tanpa kekuatan, daftarEfek dan kesehatan
-    Barang(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual){
+    Barang(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual){
         this.idBarang = idBarang;
         this.nama = nama;
-        this.kategori = kategori;
+        this.jenis = jenis;
+        this.kategoriPenyimpanan = kategoriPenyimpanan;
         this.deskripsi = deskripsi;
         this.statusBeli = statusBeli;
         this.statusJual = statusJual;
@@ -28,10 +30,12 @@ public class Barang {
     }
 
     //contructor tanpa kekuatan dan daftarEfek
-    Barang(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int nilaiKesehatan){
+    Barang(int idBarang, String nama, String jenis, String kategoriPenyimpanan,
+           String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int nilaiKesehatan){
         this.idBarang = idBarang;
         this.nama = nama;
-        this.kategori = kategori;
+        this.jenis = jenis;
+        this.kategoriPenyimpanan = kategoriPenyimpanan;
         this.deskripsi = deskripsi;
         this.statusBeli = statusBeli;
         this.statusJual = statusJual;
@@ -41,10 +45,12 @@ public class Barang {
     }
 
     //contructor tanpa kekuatan dan nilaiKesehatan
-    Barang(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, ArrayList<Efek> daftarEfek){
+    Barang(int idBarang, String nama, String jenis, String kategoriPenyimpanan,
+           String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, ArrayList<Efek> daftarEfek){
         this.idBarang = idBarang;
         this.nama = nama;
-        this.kategori = kategori;
+        this.jenis = jenis;
+        this.kategoriPenyimpanan = kategoriPenyimpanan;
         this.deskripsi = deskripsi;
         this.statusBeli = statusBeli;
         this.statusJual = statusJual;
@@ -54,10 +60,12 @@ public class Barang {
     }
 
     //contructor tanpa nilaiKeshatan
-    Barang(int idBarang, String nama, String kategori, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, ArrayList<Efek> daftarEfek){
+    Barang(int idBarang, String nama, String jenis, String kategoriPenyimpanan,
+           String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, ArrayList<Efek> daftarEfek){
         this.idBarang = idBarang;
         this.nama = nama;
-        this.kategori = kategori;
+        this.jenis = jenis;
+        this.kategoriPenyimpanan = kategoriPenyimpanan;
         this.deskripsi = deskripsi;
         this.statusBeli = statusBeli;
         this.statusJual = statusJual;
@@ -66,8 +74,8 @@ public class Barang {
         this.kekuatan = kekuatan;
         this.daftarEfek = daftarEfek;
 
-        //jika barang ini adalah termasuk kategori senjata pukul maka bisa di upgrade
-        if(kategori.equals("Senjata Pukul")){
+        //jika barang ini adalah termasuk jenis senjata pukul maka bisa di upgrade
+        if(jenis.equals("Senjata Pukul")){
             this.statusUpgrade = true;
         }
     }
@@ -76,7 +84,7 @@ public class Barang {
     Barang(Barang cloning){
         this.idBarang = cloning.getIdBarang();
         this.nama = cloning.getNama();
-        this.kategori = cloning.getDeskripsi();
+        this.jenis = cloning.getDeskripsi();
         this.deskripsi = cloning.getDeskripsi();
         this.statusBeli = cloning.isStatusBeli();
         this.statusJual = cloning.isStatusJual();
@@ -85,6 +93,7 @@ public class Barang {
         this.nilaiKesehatan = cloning.getNilaiKesehatan();
         this.kekuatan = cloning.getKekuatan();
         this.daftarEfek = cloning.getDaftarEfek();
+        this.statusUpgrade = cloning.isStatusUpgrade();
     }
 
     public void tambahEfek(ArrayList<Efek> oEfek) {
@@ -96,9 +105,13 @@ public class Barang {
         this.daftarEfek.add(oEfek);
     }
 
+    /* Cloning barang dan turunannya */
+    public Barang cloning(Barang oBarang){
+        return new Barang(oBarang);
+    }
 
     //proses pada blue print
-    public ArrayList<Barang> gunakanBarangBluePrint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, Barang senjata, int efisiensiCrafting){ return null;}
+    public ArrayList<Barang> gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, Barang senjata, int efisiensiCrafting){ return null;}
 
     //proses pada senjata pukul dan tembak
     public Barang gunakanBarangSenjata(){return null;}
@@ -117,8 +130,8 @@ public class Barang {
         return nama;
     }
 
-    public String getKategori() {
-        return kategori;
+    public String getJenis() {
+        return jenis;
     }
 
     public String getDeskripsi() {
@@ -165,6 +178,10 @@ public class Barang {
 
     public void setStatusUpgrade(boolean statusUpgrade){
         this.statusUpgrade = statusUpgrade;
+    }
+
+    public String getKategoriPenyimpanan() {
+        return kategoriPenyimpanan;
     }
 
     //=======================================================
@@ -216,5 +233,6 @@ public class Barang {
     public ArrayList<Efek> getDaftarTambahanEfek() {
         return null;
     }
+
     //=======================================================
 }

@@ -7,8 +7,8 @@ public class BarangSenjataTembak extends Barang{
     private int batasMaxAmunisi;
 
     //constructor tanpa daftarEfek
-    BarangSenjataTembak(int idBarang, String nama, String kategori, String deskripsi , int jumlah, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxAmunisi, ArrayList<Barang> daftarAmunisi, ArrayList<Integer> daftarIdAmunisi, int idAmunisiUtama){
-        super(idBarang, nama, kategori, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, new ArrayList<>());
+    BarangSenjataTembak(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxAmunisi, ArrayList<Barang> daftarAmunisi, ArrayList<Integer> daftarIdAmunisi, int idAmunisiUtama){
+        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, new ArrayList<>());
 
         //inisiasi default idAmunisiUtama
         this.idAmunisiUtama = idAmunisiUtama;
@@ -45,6 +45,19 @@ public class BarangSenjataTembak extends Barang{
                 break;
             }
         }
+    }
+
+    BarangSenjataTembak(BarangSenjataTembak oBarang){
+        super(oBarang);
+        this.idAmunisiUtama = oBarang.idAmunisiUtama;
+        this.daftarIdAmunisi = oBarang.daftarIdAmunisi;
+        this.daftarAmunisi = oBarang.daftarAmunisi;
+        this.batasMaxAmunisi = oBarang.batasMaxAmunisi;
+    }
+
+    @Override
+    public Barang cloning(Barang oBarang) {
+        return new BarangSenjataTembak(this);
     }
 
     @Override
