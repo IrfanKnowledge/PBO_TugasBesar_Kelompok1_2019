@@ -17,10 +17,6 @@ public class Player {
     private Barang senjata;                         //Belum
     public Adegan adeganAktif;                     //Belum
 
-    private ArrayList<Barang> penyimpanansDinamis;  //Belum
-    private int batasMaxSenjataDinamis;             //Belum
-    private ArrayList<Barang> penyimpanansStatis;   //Belum
-
     private Level levelBertahanHidup;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
     private int expBertahanHidup = 0;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
     private int pointBertahanHidup = 0;             //Untuk Skill dan level, diakhir saja, utamakan hal lain
@@ -46,12 +42,14 @@ public class Player {
     private int durasiKamuflase = 0;
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>();
 
+    private ArrayList<Barang> penyimpanansStatis;   //Belum
     /* Berikut daftar barang yang dipisahkan seperti berikut agar memudahkan proses penyajian daftar barang
     *  pada daftarBarang digunakan saat Player melihat dan memilih barang
     *  sedangkan pada daftarBarangPencarian di bawah, untuk proses mencari barang tanpa melibatkan inputan Player
     *  yaitu mencari berdasarkan id barang
     */
     private HashMap<String, ArrayList<ArrayList<Barang>>> daftarBarang = new HashMap<>();
+    private int batasMaxSenjataDinamis = 4; //untuk membatasi jumlah senjata dalam kantong
 
     /* Berikut daftar barang untuk memudahkan proses pencarian tertentu, tanpa melibatkan input pemain dalam memilih barang (misal saat crafting)
     *  sehingga daftar barang berikut dengan daftarBarang di atas adalah sama,
@@ -107,19 +105,13 @@ public class Player {
         this.idPlayer = idPlayer;
         this.nama = nama;
 
-        ArrayList<ArrayList<Barang>> kunci = new ArrayList<>();
-        ArrayList<ArrayList<Barang>> senjata = new ArrayList<>();
-        ArrayList<ArrayList<Barang>> komponenCrafting = new ArrayList<>();
-        ArrayList<ArrayList<Barang>> barangBernilai = new ArrayList<>();
-        ArrayList<ArrayList<Barang>> blueprint = new ArrayList<>();
-        ArrayList<ArrayList<Barang>> amunisi = new ArrayList<>();
-        this.daftarBarang.put("Kunci", kunci);
-        this.daftarBarang.put("Senjata", senjata);
-        this.daftarBarang.put("Komponen Crafting", komponenCrafting);
-        this.daftarBarang.put("Barang Bernilai", barangBernilai);
-        this.daftarBarang.put("Blueprint", blueprint);
-        this.daftarBarang.put("Amunisi", amunisi);
-
+        this.daftarBarang.put("Kunci", new ArrayList<>());
+        this.daftarBarang.put("Senjata", new ArrayList<>());
+        this.daftarBarang.put("Komponen Crafting", new ArrayList<>());
+        this.daftarBarang.put("Barang Bernilai", new ArrayList<>());
+        this.daftarBarang.put("Blueprint", new ArrayList<>());
+        this.daftarBarang.put("Amunisi", new ArrayList<>());
+        this.daftarBarang.put("Barang Lainnya", new ArrayList<>());
     }
 
     public static void main(String[] args) {
@@ -268,5 +260,9 @@ public class Player {
 
     public boolean isSelesai() {
         return isSelesai;
+    }
+
+    public int getJumlahSlotSenjataKosong(){
+        return this.daftarBarang.get("Senjata").size() - this.batasMaxSenjataDinamis;
     }
 }

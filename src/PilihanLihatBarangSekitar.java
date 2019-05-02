@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PilihanLihatBarangSekitar extends Pilihan {
 
@@ -11,9 +12,12 @@ public class PilihanLihatBarangSekitar extends Pilihan {
 
     @Override
     public void aksi() {
-        ArrayList<ArrayList<Barang>> daftarBarang = this.oAdegan.lihatBarangSekitar();
-        if(daftarBarang != null){
-            this.oAdegan.oPlayer.tambahBarang(daftarBarang);
+        HashMap<String, ArrayList<ArrayList<Barang>>> oKategoriBarang = this.oAdegan.lihatBarangSekitar();
+        if(oKategoriBarang != null){
+            for (ArrayList<ArrayList<Barang>> : oKategoriBarang.get("Senjata")) {
+
+            }
+            this.oAdegan.oPlayer.tambahBarang(oKategoriBarang);
         }
 
     }

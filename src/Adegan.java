@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Adegan {
@@ -19,8 +21,8 @@ public class Adegan {
 
     /* Pada setiap adegan terdapat kemungkinan daftarPilihan, barang, Npc, dan Lawan */
     private ArrayList<Pilihan> daftarPilihan = new ArrayList<>();
-    private ArrayList<ArrayList<Barang>> daftarBarang = new ArrayList<>();
-    private ArrayList<ArrayList<Barang>> daftarBarangTetap = new ArrayList<>();
+    private HashMap<String, ArrayList<ArrayList<Barang>>> daftarBarang = new HashMap<>();
+    private HashMap<String, ArrayList<ArrayList<Barang>>> daftarBarangTetap = new HashMap<>();
     private ArrayList<Npc> daftarNpc = new ArrayList<>();
     private ArrayList<Lawan> daftarLawan = new ArrayList<>();
 
@@ -39,14 +41,22 @@ public class Adegan {
         tambahPilihan(this.oPilihanLihatNpcSekitar);
         this.oPilihanKeluarGame = new PilihanKeluarGame("Keluar dari Game.");
         tambahPilihan(this.oPilihanKeluarGame);
+
+        /* Di setiap adegan telah ditetapkan hanya memiliki barang dengan kategori Penyimpanan sebagai berikut */
+        this.daftarBarangTetap.put("Kunci", new ArrayList<>());
+        this.daftarBarangTetap.put("Senjata", new ArrayList<>());
+        this.daftarBarangTetap.put("Komponen Crafting", new ArrayList<>());
+        this.daftarBarangTetap.put("Barang Bernilai", new ArrayList<>());
+        this.daftarBarangTetap.put("Blueprint", new ArrayList<>());
+        this.daftarBarangTetap.put("Amunisi", new ArrayList<>());
+        this.daftarBarangTetap.put("Barang Lainnya", new ArrayList<>());
     }
 
-    Adegan(int idAdegan, int idBarangBisaDigunakan, String narasi, String namaTempat, ArrayList<ArrayList<Barang>> daftarBarang, ArrayList<Lawan> daftarLawan){
+    Adegan(int idAdegan, int idBarangBisaDigunakan, String narasi, String namaTempat, HashMap<String, ArrayList<ArrayList<Barang>>>  daftarBarangTetap, ArrayList<Lawan> daftarLawan){
         this.idAdegan = idAdegan;
         this.idBarangBisaDigunakan = idBarangBisaDigunakan;
         this.narasi = narasi;
         this.namaTempat = namaTempat;
-        this.daftarBarang = daftarBarang;
         this.daftarLawan = daftarLawan;
 
         //inisiasi pilihan awal di setiap Adegan
@@ -64,16 +74,26 @@ public class Adegan {
 
         this.oPilihanKeluarGame = new PilihanKeluarGame("Keluar dari Game.");
         tambahPilihan(this.oPilihanKeluarGame);
+
+        this.tambahBarang(daftarBarangTetap);
     }
 
     public void refreshBarang(){
-        for (ArrayList<Barang> oDaftarBarang : this.daftarBarangTetap) {
-            ArrayList<Barang> temp = new ArrayList<>();
-            for (Barang oBarang : oDaftarBarang) {
-                //cloning teknik polymorphism :)   (membuat object dengan data sama percis)
-                temp.add(oBarang.cloning());
+        for (Map.Entry<String, ArrayList<ArrayList<Barang>>> oJenisBarang : this.daftarBarangTetap.entrySet()) {
+            //Pengulangan mengisi List 2 dimensi atau dimensi ke 2 dalam daftarBarangTetap
+            ArrayList<ArrayList<Barang>> tempList2 = new ArrayList<>();
+            for (ArrayList<Barang> oDaftarBarang : oJenisBarang.getValue()) {
+                //Pengulangan mengisi List 1 dimensi atau untuk dimensi ke 3 dalam daftarBarangTetap
+                ArrayList<Barang> tempList3 = new ArrayList<>();
+                for (Barang oBarang : oDaftarBarang) {
+                    //cloning teknik polymorphism :)   (membuat object dengan data sama percis)
+                    tempList3.add(oBarang.cloning());
+                }
+                tempList2.add(tempList3);
             }
-            this.daftarBarang.add(temp);
+
+            //setelah List 2 dimensi selesai di-isi (tempList2), masukkan hasil ke dalam daftarBarang sesuai kategori yang ada pada daftarBarangTetap
+            this.daftarBarang.put(oJenisBarang.getKey(), tempList2);
         }
     }
 
@@ -96,17 +116,19 @@ public class Adegan {
         }
     }
 
-    public ArrayList<ArrayList<Barang>> lihatBarangSekitar(){
+    public HashMap<String, ArrayList<ArrayList<Barang>>> lihatBarangSekitar(){
         boolean validasiPilihan = false;
-        ArrayList<ArrayList<Barang>> oDaftarBarang = new ArrayList<>();
+        HashMap<String, ArrayList<ArrayList<Barang>>> daftarBarangPilih = new HashMap<>();
         while(!validasiPilihan){
 
             System.out.println();
             System.out.println("Aksi : Melihat barang di sekitar");
             int i = 0;
-            for (ArrayList<Barang> oBarang : this.daftarBarang) {
-                System.out.printf("-%s (%d)\n", i+1, oBarang.get(0).getNama(), oBarang.size());
-                i++;
+            for(Map.Entry<String, ArrayList<ArrayList<Barang>>> oKategori : this.daftarBarang.entrySet()){
+                for (ArrayList<Barang> oDaftarBarang : oKategori.getValue()) {
+                    System.out.printf("-%s (%d)\n", i+1, oDaftarBarang.get(0).getNama(), oDaftarBarang.size());
+                    i++;
+                }
             }
             if(this.daftarBarang.isEmpty()){
                 System.out.println("Tidak ditemukan barang apapun.");
@@ -121,12 +143,12 @@ public class Adegan {
             switch (oScan.nextInt()){
                 case 0:
                     validasiPilihan = true;
-                    oDaftarBarang = null;
+                    daftarBarangPilih = null;
                     break;
                 case 1:
                     validasiPilihan = true;
                     //Ambil semua barang
-                    oDaftarBarang.addAll(this.daftarBarang);
+                    daftarBarangPilih.putAll(this.daftarBarang);
 
                     //Kosongkan Barang di adegan ini
                     this.daftarBarang.clear();
@@ -138,15 +160,24 @@ public class Adegan {
                     break;
             }
         }
-        return daftarBarang;
+        return daftarBarangPilih;
     }
 
     public void tambahPilihan(Pilihan oPilihan){
         this.daftarPilihan.add(oPilihan);
     }
 
-    public void tambahBarang(ArrayList<Barang> oBarang){
-        this.daftarBarangTetap.add(oBarang);
+    public void tambahBarang(HashMap<String, ArrayList<ArrayList<Barang>>> oBarangPilihan){
+        /* Pengkategorian penyimpanan telah ditetapkan sebagai berikut.
+        */
+        for (Map.Entry<String, ArrayList<ArrayList<Barang>>> oKategori : oBarangPilihan.entrySet()) {
+            if(oKategori.getKey().equals("Kunci") || oKategori.getKey().equals("Senjata") ||
+                    oKategori.getKey().equals("Komponen Crafting") || oKategori.getKey().equals("Barang Berharga") ||
+                    oKategori.getKey().equals("Blueprint") || oKategori.getKey().equals("Amunisi") ||
+                    oKategori.getKey().equals("Barang Lainnya")){
+                this.daftarBarangTetap.get(oKategori.getKey()).addAll(oKategori.getValue());
+            }
+        }
 
         //meng-instance ulang semua object di daftarBarangTetap dan dimuat ke daftarBarang
         refreshBarang();
