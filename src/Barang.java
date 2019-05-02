@@ -106,8 +106,8 @@ public class Barang {
     }
 
     /* Cloning barang dan turunannya */
-    public Barang cloning(Barang oBarang){
-        return new Barang(oBarang);
+    public Barang cloning(){
+        return new Barang(this);
     }
 
     //proses pada blue print

@@ -71,7 +71,7 @@ public class Adegan {
             ArrayList<Barang> temp = new ArrayList<>();
             for (Barang oBarang : oDaftarBarang) {
                 //cloning teknik polymorphism :)   (membuat object dengan data sama percis)
-                temp.add(oBarang.cloning(oBarang));
+                temp.add(oBarang.cloning());
             }
             this.daftarBarang.add(temp);
         }

@@ -65,7 +65,7 @@ public class BarangBlueprint extends Barang{
     }
 
     @Override
-    public Barang cloning(Barang oBarang) {
+    public Barang cloning() {
         return new BarangBlueprint(this);
     }
 

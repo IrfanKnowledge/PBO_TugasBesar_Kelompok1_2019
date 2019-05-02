@@ -56,7 +56,7 @@ public class BarangSenjataTembak extends Barang{
     }
 
     @Override
-    public Barang cloning(Barang oBarang) {
+    public Barang cloning() {
         return new BarangSenjataTembak(this);
     }
 
