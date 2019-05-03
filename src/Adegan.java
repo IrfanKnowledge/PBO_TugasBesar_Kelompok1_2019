@@ -78,7 +78,8 @@ public class Adegan {
         this.tambahBarang(daftarBarangTetap);
     }
 
-    public void refreshBarang(){
+    /* Private karena hanya untuk proses internal */
+    private void refreshBarang(){
         for (Map.Entry<String, ArrayList<ArrayList<Barang>>> oJenisBarang : this.daftarBarangTetap.entrySet()) {
             //Pengulangan mengisi List 2 dimensi atau dimensi ke 2 dalam daftarBarangTetap
             ArrayList<ArrayList<Barang>> tempList2 = new ArrayList<>();
@@ -110,57 +111,103 @@ public class Adegan {
         Scanner oScan = new Scanner(System.in);
         int input = oScan.nextInt();
         if(input < 1 || input > this.daftarPilihan.size()){
+            System.out.println();
             System.out.println("Pilihan tidak tersedia.");
         }else{
             this.daftarPilihan.get(input-1).aksi();
         }
     }
 
-    public HashMap<String, ArrayList<ArrayList<Barang>>> lihatBarangSekitar(){
-        boolean validasiPilihan = false;
-        HashMap<String, ArrayList<ArrayList<Barang>>> daftarBarangPilih = new HashMap<>();
-        while(!validasiPilihan){
+    public HashMap<String, ArrayList<ArrayList<Barang>>> ambilSemuaBarang(int jumlahSlotSenjataPlayerKosong) {
 
-            System.out.println();
-            System.out.println("Aksi : Melihat barang di sekitar");
-            int i = 0;
-            for(Map.Entry<String, ArrayList<ArrayList<Barang>>> oKategori : this.daftarBarang.entrySet()){
-                for (ArrayList<Barang> oDaftarBarang : oKategori.getValue()) {
-                    System.out.printf("-%s (%d)\n", i+1, oDaftarBarang.get(0).getNama(), oDaftarBarang.size());
-                    i++;
+        /* jika daftarBarang tidak kosong maka... */
+        if (!this.daftarBarang.isEmpty()) {
+
+            /*  Berikut algoritma menyeleksi senjata yang bisa di ambil */
+            HashMap<String, ArrayList<ArrayList<Barang>>> tempList3 = new HashMap<>();
+            //System.out.println(this.daftarBarang);
+            for (Map.Entry<String, ArrayList<ArrayList<Barang>>> isiList3 : this.daftarBarang.entrySet()) {
+
+                /* Jika kategorinya bukan senjata, ambil semua */
+                if (!isiList3.getKey().equals("Senjata")) {
+                    tempList3.put(isiList3.getKey(), isiList3.getValue());
+
+                    /* Jika kategorinya adalah senjata maka... kita seleksi */
+                } else {
+
+                    /* Jika jumlah slot senjata Tidak Penuh maka... */
+                    if (jumlahSlotSenjataPlayerKosong != 0) {
+
+                        /* untuk menampung list 2 dimensi */
+                        ArrayList<ArrayList<Barang>> tempList2 = new ArrayList<>();
+
+                        /* Untuk acuan perbandingan dengan jumlah slot senjata kosong pada Player yang tersedia */
+                        int jumlahAmbil = 0;
+
+                        /* Pengulangan mengeluarkan isiList2 yang berupa List 1 dimensi dimulai dari urutan terakhir pada isiList 2 dimensi */
+                        for (int i = isiList3.getValue().size() - 1; i >= 0; i--) {
+
+                            /* Untuk menampung list 1 dimensi */
+                            ArrayList<Barang> tempList1 = new ArrayList<>();
+
+                            /* Pengulangan mengeluarkan isi List 1 dimensi dimulai dari urutan terakhir*/
+                            for (int j = isiList3.getValue().get(i).size() - 1; j >= 0; j--) {
+
+                                tempList1.add(isiList3.getValue().get(i).get(j));
+                                jumlahAmbil++;
+
+                                /* hapus barang yang telah diambil */
+                                isiList3.getValue().get(i).remove(j);
+                                //System.out.println(jumlahAmbil);
+                                //System.out.println("slot : " + jumlahSlotSenjataPlayerKosong);
+                                /* jika sudah memenuhi jumlah slot kosong yang tersedia keluar dari foreach ini */
+                                if (jumlahAmbil == jumlahSlotSenjataPlayerKosong) {
+                                    break;
+                                }
+                            }
+                            tempList2.add(tempList1);
+
+                            /* Hapus isi urutuan List 2 dimensi yang telah kosong*/
+                            if (isiList3.getValue().get(i).isEmpty()) {
+                                isiList3.getValue().remove(i);
+                            }
+
+                            /* jika sudah memenuhi jumlah slot kosong yang tersedia keluar dari foreach ini */
+                            if (jumlahAmbil == jumlahSlotSenjataPlayerKosong) {
+                                break;
+                            }
+                        }
+
+                        tempList3.put("Senjata", tempList2);
+                    }
                 }
             }
-            if(this.daftarBarang.isEmpty()){
-                System.out.println("Tidak ditemukan barang apapun.");
-                System.out.printf("%2d. %s", 0, "Kembali\n");
-            }else {
-                System.out.printf("%2d. %s", 1, "Ambil semua barang\n");
-                System.out.printf("%2d. %s", 2, "Ambil barang satu per-satu\n");
-                System.out.printf("%2d. %s", 0, "Kembali\n");
-            }
-            System.out.print("Masukkan Pilihan : ");
-            Scanner oScan = new Scanner(System.in);
-            switch (oScan.nextInt()){
-                case 0:
-                    validasiPilihan = true;
-                    daftarBarangPilih = null;
-                    break;
-                case 1:
-                    validasiPilihan = true;
-                    //Ambil semua barang
-                    daftarBarangPilih.putAll(this.daftarBarang);
 
-                    //Kosongkan Barang di adegan ini
-                    this.daftarBarang.clear();
-                    break;
-                case 2:
+            /*  Hapus kategori berikut karena tidak dibatasi jumlah pengambilannya */
+            this.daftarBarang.remove("Komponen Crafting");
+            this.daftarBarang.remove("Amunisi");
+            this.daftarBarang.remove("Blueprint");
+            this.daftarBarang.remove("Kunci");
+            this.daftarBarang.remove("Barang Lainnya");
+            this.daftarBarang.remove("Barang Bernilai");
 
-                    break;
-                default:
-                    break;
+            /* Jika senjata kosong maka kita hapus barang kategori senjata */
+            System.out.println();
+            if (this.daftarBarang.get("Senjata").isEmpty()) {
+                this.daftarBarang.remove("Senjata");
+                System.out.println("Barang berhasil diambil semua.");
+            }else{
+                System.out.println("Kapasitas penyimpanan senjata tidak cukup.");
             }
+
+            //System.out.println();
+            //System.out.println("oKategoriBarang = " + this.daftarBarang);
+            //System.out.println("tempList3 = " + tempList3);
+
+            return  tempList3;
         }
-        return daftarBarangPilih;
+        /* Jika kosong maka return null */
+        return null;
     }
 
     public void tambahPilihan(Pilihan oPilihan){
@@ -170,17 +217,21 @@ public class Adegan {
     public void tambahBarang(HashMap<String, ArrayList<ArrayList<Barang>>> oBarangPilihan){
         /* Pengkategorian penyimpanan telah ditetapkan sebagai berikut.
         */
-        for (Map.Entry<String, ArrayList<ArrayList<Barang>>> oKategori : oBarangPilihan.entrySet()) {
-            if(oKategori.getKey().equals("Kunci") || oKategori.getKey().equals("Senjata") ||
-                    oKategori.getKey().equals("Komponen Crafting") || oKategori.getKey().equals("Barang Berharga") ||
-                    oKategori.getKey().equals("Blueprint") || oKategori.getKey().equals("Amunisi") ||
-                    oKategori.getKey().equals("Barang Lainnya")){
-                this.daftarBarangTetap.get(oKategori.getKey()).addAll(oKategori.getValue());
+        for (Map.Entry<String, ArrayList<ArrayList<Barang>>> isiList3 : oBarangPilihan.entrySet()) {
+            if(isiList3.getKey().equals("Kunci") || isiList3.getKey().equals("Senjata") ||
+                    isiList3.getKey().equals("Komponen Crafting") || isiList3.getKey().equals("Barang Berharga") ||
+                    isiList3.getKey().equals("Blueprint") || isiList3.getKey().equals("Amunisi") ||
+                    isiList3.getKey().equals("Barang Lainnya")){
+                this.daftarBarangTetap.get(isiList3.getKey()).addAll(isiList3.getValue());
             }
         }
 
         //meng-instance ulang semua object di daftarBarangTetap dan dimuat ke daftarBarang
         refreshBarang();
+    }
+
+    public HashMap<String, ArrayList<ArrayList<Barang>>> getDaftarBarang() {
+        return daftarBarang;
     }
 
     public int getjumlahBarang(){

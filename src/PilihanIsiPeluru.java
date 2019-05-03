@@ -13,4 +13,9 @@ public class PilihanIsiPeluru extends Pilihan {
     public void aksi(Barang oBarang) {
         Adegan.oPlayer.pilihBarangSenjata();
     }
+
+    @Override
+    public String getDekripsi() {
+        return super.getDekripsi();
+    }
 }

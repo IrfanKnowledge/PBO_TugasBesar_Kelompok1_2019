@@ -9,14 +9,22 @@ public class Player {
     private String nama;
     private int kesehatan = 100;
     private int batasMaxKesehatan = 100;
+
+    /* Waktu melekat pada diri Player, kemudian pada saat malam ketika berada pada adegan yang memiliki Musuh Kuat di malam hari,
+    *  maka mereka akan muncul, dan ketika berganti hari maka semua barang-barang dan musuh akan me-refresh
+    */
     private double waktu = 7.00;
     private String statusWaktu = "siang";
     private double batasAwalMalam = 21.00;
     private double batasAkhirMalam = 6.00;
+
     private double uang = 0;
     private Barang senjata;                         //Belum
-    public Adegan adeganAktif;                     //Belum
 
+    /* Menandakan posisi Player berada pada Adegan tertentu */
+    public Adegan adeganAktif;
+
+    /* Berikut Atribut yang dipengaruhi Level */
     private Level levelBertahanHidup;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
     private int expBertahanHidup = 0;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
     private int pointBertahanHidup = 0;             //Untuk Skill dan level, diakhir saja, utamakan hal lain
@@ -26,12 +34,14 @@ public class Player {
     private ArrayList<Level> daftarLevelBertahanHidup;  //Untuk Skill dan level, diakhir saja, utamakan hal lain
     private ArrayList<Level> daftarLevelKekuatan;       //Untuk Skill dan level, diakhir saja, utamakan hal lain
 
+    /* Berikut Atribut yang dipengaruhi Skill */
     private int efisiensiSenjata = 0;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
     private int efisiensiCrafting = 0;              //Untuk Skill dan level, diakhir saja, utamakan hal lain
     private int kemampuanMenawarBarang = 0;         //Untuk Skill dan level, diakhir saja, utamakan hal lain
     private int kemampuanMenjualBarang = 0;         //Untuk Skill dan level, diakhir saja, utamakan hal lain
     private ArrayList<Skill> daftarSkill;           //Untuk Skill dan level, diakhir saja, utamakan hal lain
 
+    /* Berikut Atribut yang dipengaruhi Efek */
     private int durasiStun = 0;
     private int nilaiKetahanan = 0;
     private int batasMaxKetahanan = 0;
@@ -42,14 +52,16 @@ public class Player {
     private int durasiKamuflase = 0;
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>();
 
-    private ArrayList<Barang> penyimpanansStatis;   //Belum
+    private HashMap<String, HashMap<Integer, ArrayList<Barang>>> penyimpanansStatis;   //Belum
     /* Berikut daftar barang yang dipisahkan seperti berikut agar memudahkan proses penyajian daftar barang
     *  pada daftarBarang digunakan saat Player melihat dan memilih barang
     *  sedangkan pada daftarBarangPencarian di bawah, untuk proses mencari barang tanpa melibatkan inputan Player
     *  yaitu mencari berdasarkan id barang
     */
     private HashMap<String, ArrayList<ArrayList<Barang>>> daftarBarang = new HashMap<>();
-    private int batasMaxSenjataDinamis = 4; //untuk membatasi jumlah senjata dalam kantong
+
+    /*untuk membatasi jumlah senjata dalam kantong */
+    private int batasMaxSenjataDinamis = 4;
 
     /* Berikut daftar barang untuk memudahkan proses pencarian tertentu, tanpa melibatkan input pemain dalam memilih barang (misal saat crafting)
     *  sehingga daftar barang berikut dengan daftarBarang di atas adalah sama,
@@ -58,8 +70,11 @@ public class Player {
     */
     private HashMap<String, HashMap<Integer, ArrayList<Barang>>> daftarBarangPencarian = new HashMap<>();
 
-    Hewan hewanPembantu;
+    Hewan hewanPembantu; //belum
+
+    /* Menandakan Game ini telah selesai atau tidak */
     private boolean isSelesai = false;
+
     Player(int idPlayer, String nama){
         /* Proses pendefinisian setiap level bertahan hidup */
         /*
@@ -105,13 +120,17 @@ public class Player {
         this.idPlayer = idPlayer;
         this.nama = nama;
 
-        this.daftarBarang.put("Kunci", new ArrayList<>());
-        this.daftarBarang.put("Senjata", new ArrayList<>());
-        this.daftarBarang.put("Komponen Crafting", new ArrayList<>());
-        this.daftarBarang.put("Barang Bernilai", new ArrayList<>());
-        this.daftarBarang.put("Blueprint", new ArrayList<>());
-        this.daftarBarang.put("Amunisi", new ArrayList<>());
-        this.daftarBarang.put("Barang Lainnya", new ArrayList<>());
+        /* Berikut Kategori-Kategori yang dimiliki Player selama Game Berjalan */
+        this.daftarBarangPencarian.put("Kunci", new HashMap<>());
+        this.daftarBarangPencarian.put("Senjata", new HashMap<>());
+        this.daftarBarangPencarian.put("Komponen Crafting", new HashMap<>());
+        this.daftarBarangPencarian.put("Barang Bernilai", new HashMap<>());
+        this.daftarBarangPencarian.put("Blueprint", new HashMap<>());
+        this.daftarBarangPencarian.put("Amunisi", new HashMap<>());
+        this.daftarBarangPencarian.put("Barang Lainnya", new HashMap<>());
+
+        /* proses sinkronisasi antara daftarBarangPencarian dengan daftarBarang */
+        this.sinkronisasi();
     }
 
     public static void main(String[] args) {
@@ -179,6 +198,51 @@ public class Player {
     */
     //==================================================================================
 
+    public void tambahBarang(HashMap<String, ArrayList<ArrayList<Barang>>> oKategori){
+        for (Map.Entry<String, ArrayList<ArrayList<Barang>>> isiList3: oKategori.entrySet()) {
+
+            /* Seleksi kategori */
+            if(isiList3.getKey().equals("Kunci") || isiList3.getKey().equals("Senjata") ||
+                    isiList3.getKey().equals("Komponen Crafting") || isiList3.getKey().equals("Barang Berharga") ||
+                    isiList3.getKey().equals("Blueprint") || isiList3.getKey().equals("Amunisi") ||
+                    isiList3.getKey().equals("Barang Lainnya")){
+
+                for (ArrayList<Barang> isiList2 : isiList3.getValue()){
+                    /* Jika di daftarBarangPencarian terdapat id Barang yang sama maka... */
+                    if(this.daftarBarangPencarian.get(isiList3.getKey()).containsKey(isiList2.get(0).getIdBarang())){
+                        /* Tambahkan semua barang ke dalam List yang memiliki id Barang sama */
+                        this.daftarBarangPencarian.get(isiList3.getKey()).get(isiList2.get(0).getIdBarang()).addAll(isiList2);
+                    }else{
+                        /* Tambahkan semua barang dengan membuat List Baru dengan id Barang baru*/
+                        this.daftarBarangPencarian.get(isiList3.getKey()).put(isiList2.get(0).getIdBarang(), isiList2);
+                    }
+                }
+            }
+        }
+
+        /* sinkronisasi antara dattarBarangPencarian dan daftar barang */
+        this.sinkronisasi();
+
+        //System.out.println("daftarBarang = " + this.daftarBarang);
+        //System.out.println("daftarBarangPencarian = " + this.daftarBarangPencarian);
+    }
+
+    /* Private karena hanya untuk proses internal */
+    private void sinkronisasi(){
+        for (Map.Entry<String, HashMap<Integer, ArrayList<Barang>>> isiList3: this.daftarBarangPencarian.entrySet()) {
+            ArrayList<ArrayList<Barang>> tempList2 = new ArrayList<>();
+            for (Map.Entry<Integer, ArrayList<Barang>> isiList2 : isiList3.getValue().entrySet()) {
+                tempList2.add(isiList2.getValue());
+            }
+
+            /* daftarBarang memiliki Object di dimensi List ke 3 yang sama percis seperti daftarBarangPencarian
+            *  sehingga apabila Object daftarBarang di dimensi list ke 3 berubah, pada daftarBarangPencarian akan berubah,
+            *  begitu juga sebaliknya.
+            */
+            this.daftarBarang.put(isiList3.getKey(), tempList2);
+        }
+    }
+
     public void kurangiKesehatan(int nilaiSerangan){
         if(this.kesehatan > 0){
             this.kesehatan -= nilaiSerangan;
@@ -244,16 +308,6 @@ public class Player {
 
     }
 
-    public void tambahBarang(ArrayList<ArrayList<Barang>> daftarBarang){
-        for (ArrayList<Barang> oDaftarBarang : daftarBarang) {
-            if(this.daftarBarangPencarian.get(oDaftarBarang.get(0).getKategoriPenyimpanan()).containsKey(oDaftarBarang.get(0).getIdBarang())){
-                this.daftarBarangPencarian.get(oDaftarBarang.get(0).getKategoriPenyimpanan()).get(oDaftarBarang.get(0).getIdBarang()).addAll(oDaftarBarang);
-            }else{
-                this.daftarBarangPencarian.get(oDaftarBarang.get(0).getKategoriPenyimpanan()).put(oDaftarBarang.get(0).getIdBarang(), oDaftarBarang);
-            }
-        }
-    }
-
     public String getNama() {
         return nama;
     }
@@ -263,6 +317,18 @@ public class Player {
     }
 
     public int getJumlahSlotSenjataKosong(){
-        return this.daftarBarang.get("Senjata").size() - this.batasMaxSenjataDinamis;
+        int jumlahBarangSenjata = 0;
+        for (Map.Entry<Integer, ArrayList<Barang>> isiList2 : this.daftarBarangPencarian.get("Senjata").entrySet()) {
+            jumlahBarangSenjata += isiList2.getValue().size();
+        }
+        return this.batasMaxSenjataDinamis - jumlahBarangSenjata;
+    }
+
+    public Barang getSenjata() {
+        return senjata;
+    }
+
+    public double getUang() {
+        return uang;
     }
 }

@@ -8,4 +8,9 @@ public class PilihanSerang extends Pilihan {
     public void aksi() {
 
     }
+
+    @Override
+    public String getDekripsi() {
+        return super.getDekripsi();
+    }
 }

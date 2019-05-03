@@ -10,17 +10,17 @@ public class BarangSenjataPukul extends Barang {
     private boolean statusKemampuanDiperbaiki = true;
 
     //constructor tanpa daftarEfek
-    BarangSenjataPukul(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxKetahanan){
+    BarangSenjataPukul(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi,
+                       boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan){
         super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, new ArrayList<>());
-        this.ketahanan = batasMaxKetahanan;
-        this.batasMaxKetahanan =  batasMaxKetahanan;
+        this.ketahanan = this.batasMaxKetahanan;
     }
 
     //constructor inisiasi semua atribut
-    BarangSenjataPukul(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxKetahanan, ArrayList<Efek> daftarEfek){
+    BarangSenjataPukul(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi,
+                       boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, ArrayList<Efek> daftarEfek){
         super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, daftarEfek);
-        this.ketahanan = batasMaxKetahanan;
-        this.batasMaxKetahanan =  batasMaxKetahanan;
+        this.ketahanan = this.batasMaxKetahanan;
     }
 
     //constructor untuk cloning
