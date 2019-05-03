@@ -78,7 +78,8 @@ public class Adegan {
         this.tambahBarang(daftarBarangTetap);
     }
 
-    public void refreshBarang(){
+    /* Private karena hanya untuk proses internal */
+    private void refreshBarang(){
         for (Map.Entry<String, ArrayList<ArrayList<Barang>>> oJenisBarang : this.daftarBarangTetap.entrySet()) {
             //Pengulangan mengisi List 2 dimensi atau dimensi ke 2 dalam daftarBarangTetap
             ArrayList<ArrayList<Barang>> tempList2 = new ArrayList<>();
@@ -147,14 +148,12 @@ public class Adegan {
                     break;
                 case 1:
                     validasiPilihan = true;
-                    //Ambil semua barang
-                    daftarBarangPilih.putAll(this.daftarBarang);
 
-                    //Kosongkan Barang di adegan ini
-                    this.daftarBarang.clear();
+                    /* Kita Copy Object Daftar Barang, kemudian kita seleksi di Class PilihanLihatBarangSekitar */
+                    daftarBarangPilih = this.daftarBarang;
                     break;
                 case 2:
-
+                    validasiPilihan = true;
                     break;
                 default:
                     break;
@@ -170,12 +169,12 @@ public class Adegan {
     public void tambahBarang(HashMap<String, ArrayList<ArrayList<Barang>>> oBarangPilihan){
         /* Pengkategorian penyimpanan telah ditetapkan sebagai berikut.
         */
-        for (Map.Entry<String, ArrayList<ArrayList<Barang>>> oKategori : oBarangPilihan.entrySet()) {
-            if(oKategori.getKey().equals("Kunci") || oKategori.getKey().equals("Senjata") ||
-                    oKategori.getKey().equals("Komponen Crafting") || oKategori.getKey().equals("Barang Berharga") ||
-                    oKategori.getKey().equals("Blueprint") || oKategori.getKey().equals("Amunisi") ||
-                    oKategori.getKey().equals("Barang Lainnya")){
-                this.daftarBarangTetap.get(oKategori.getKey()).addAll(oKategori.getValue());
+        for (Map.Entry<String, ArrayList<ArrayList<Barang>>> isiList3 : oBarangPilihan.entrySet()) {
+            if(isiList3.getKey().equals("Kunci") || isiList3.getKey().equals("Senjata") ||
+                    isiList3.getKey().equals("Komponen Crafting") || isiList3.getKey().equals("Barang Berharga") ||
+                    isiList3.getKey().equals("Blueprint") || isiList3.getKey().equals("Amunisi") ||
+                    isiList3.getKey().equals("Barang Lainnya")){
+                this.daftarBarangTetap.get(isiList3.getKey()).addAll(isiList3.getValue());
             }
         }
 
