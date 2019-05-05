@@ -119,18 +119,6 @@ public class Player {
 
         this.idPlayer = idPlayer;
         this.nama = nama;
-
-        /* Berikut Kategori-Kategori yang dimiliki Player selama Game Berjalan */
-        this.daftarBarangPencarian.put("Kunci", new HashMap<>());
-        this.daftarBarangPencarian.put("Senjata", new HashMap<>());
-        this.daftarBarangPencarian.put("Komponen Crafting", new HashMap<>());
-        this.daftarBarangPencarian.put("Barang Bernilai", new HashMap<>());
-        this.daftarBarangPencarian.put("Blueprint", new HashMap<>());
-        this.daftarBarangPencarian.put("Amunisi", new HashMap<>());
-        this.daftarBarangPencarian.put("Barang Lainnya", new HashMap<>());
-
-        /* proses sinkronisasi antara daftarBarangPencarian dengan daftarBarang */
-        this.sinkronisasi();
     }
 
     public static void main(String[] args) {
@@ -143,23 +131,6 @@ public class Player {
         //if(A.testing == null){
             //System.out.println(A.testing + "MASIH NULL");
         //}
-        HashMap<Coba, Coba> testing = new HashMap<>();
-
-        Coba satu = new Coba("sedotan");
-        Coba dua = new Coba("garpu");
-
-        testing.put(satu, satu);
-        testing.put(dua, dua);
-
-        ArrayList<Coba> testdeui = new ArrayList<>();
-        testdeui.add(satu);
-        testdeui.add(dua);
-        Coba sementara = testdeui.get(1);
-        testdeui.remove(testdeui.size()-1);
-
-        if(testdeui.size() > 0){
-            System.out.println(sementara.mencoba + " " + testdeui.get(0));
-        }
 
         Random pengacak = new Random();
         for (int i=0; i<5; i++){
@@ -198,36 +169,65 @@ public class Player {
     */
     //==================================================================================
 
-    public void tambahBarang(HashMap<String, ArrayList<ArrayList<Barang>>> oKategori){
-        for (Map.Entry<String, ArrayList<ArrayList<Barang>>> isiList3: oKategori.entrySet()) {
+    /* daftarBarangPencarian untuk teknis pencarian pada proses tertentu, daftarBarang digunakan saat user menginput pilihan
+    *  sehingga daftarBarangPencarian dan daftarBarang berisikan barang yang sama.
+    */
+    public void tambahBarang(HashMap<String, HashMap<Integer, ArrayList<Barang>>> oBarangPilihan){
 
-            /* Seleksi kategori */
+        /* Seleksi barang input dengan pengkategorian penyimpanan yang telah ditetapkan sebagai berikut.
+         */
+        for (Map.Entry<String, HashMap<Integer, ArrayList<Barang>>> isiList3 : oBarangPilihan.entrySet()) {
             if(isiList3.getKey().equals("Kunci") || isiList3.getKey().equals("Senjata") ||
                     isiList3.getKey().equals("Komponen Crafting") || isiList3.getKey().equals("Barang Berharga") ||
                     isiList3.getKey().equals("Blueprint") || isiList3.getKey().equals("Amunisi") ||
                     isiList3.getKey().equals("Barang Lainnya")){
 
-                for (ArrayList<Barang> isiList2 : isiList3.getValue()){
-                    /* Jika di daftarBarangPencarian terdapat id Barang yang sama maka... */
-                    if(this.daftarBarangPencarian.get(isiList3.getKey()).containsKey(isiList2.get(0).getIdBarang())){
-                        /* Tambahkan semua barang ke dalam List yang memiliki id Barang sama */
-                        this.daftarBarangPencarian.get(isiList3.getKey()).get(isiList2.get(0).getIdBarang()).addAll(isiList2);
-                    }else{
-                        /* Tambahkan semua barang dengan membuat List Baru dengan id Barang baru*/
-                        this.daftarBarangPencarian.get(isiList3.getKey()).put(isiList2.get(0).getIdBarang(), isiList2);
+                for (Map.Entry<Integer, ArrayList<Barang>> isiList2 : isiList3.getValue().entrySet()){
+
+                    /* Jika isiList2 atau kumpulan ArrayList 1 dimensi dari barang input tersebut tidak kosong maka... */
+                    if(!isiList2.getValue().isEmpty()){
+
+                        /*
+                         *  Jika dalam daftarBarangPencarian terdapat kategori barang tersebut maka...
+                         */
+                        if(this.daftarBarangPencarian.containsKey(isiList3.getKey())){
+
+                            /* Jika di daftarBarangPencarian terdapat id Barang yang sama maka... */
+                            if(this.daftarBarangPencarian.get(isiList3.getKey()).containsKey(isiList2.getValue().get(0).getIdBarang())){
+
+                                /* Tambahkan semua barang ke dalam List yang memiliki id Barang sama */
+                                this.daftarBarangPencarian.get(isiList3.getKey()).get(isiList2.getValue().get(0).getIdBarang()).addAll(isiList2.getValue());
+                            }else{
+
+                                /* Tambahkan semua barang dengan membuat List Baru dengan id Barang baru*/
+                                this.daftarBarangPencarian.get(isiList3.getKey()).put(isiList2.getValue().get(0).getIdBarang(), isiList2.getValue());
+                            }
+                        }else{
+
+                            /* Tambahkan kategori yang telah ditetapkan dalam proses seleksi input,
+                             *  ke daftarBarangPencarian beserta isi input tersebut
+                             */
+                            this.daftarBarangPencarian.put(isiList3.getKey(), isiList3.getValue());
+                        }
+
                     }
                 }
             }
         }
 
-        /* sinkronisasi antara dattarBarangPencarian dan daftar barang */
-        this.sinkronisasi();
+        /* jika daftarBarangPencarian tidak kosong maka.. */
+        if(!this.daftarBarangPencarian.isEmpty()){
+            /* sinkronisasi antara dattarBarangPencarian dan daftar barang */
+            this.sinkronisasi();
+        }
 
-        //System.out.println("daftarBarang = " + this.daftarBarang);
-        //System.out.println("daftarBarangPencarian = " + this.daftarBarangPencarian);
+        System.out.println("daftarBarang = " + this.daftarBarang);
+        System.out.println("daftarBarangPencarian = " + this.daftarBarangPencarian);
     }
 
-    /* Private karena hanya untuk proses internal */
+    /* (Private karena hanya untuk proses internal)
+    *   Berikut proses memasukan semua data daftarBarangPencarian ke dalam daftarBarang
+    */
     private void sinkronisasi(){
         for (Map.Entry<String, HashMap<Integer, ArrayList<Barang>>> isiList3: this.daftarBarangPencarian.entrySet()) {
             ArrayList<ArrayList<Barang>> tempList2 = new ArrayList<>();
@@ -318,10 +318,15 @@ public class Player {
 
     public int getJumlahSlotSenjataKosong(){
         int jumlahBarangSenjata = 0;
-        for (Map.Entry<Integer, ArrayList<Barang>> isiList2 : this.daftarBarangPencarian.get("Senjata").entrySet()) {
-            jumlahBarangSenjata += isiList2.getValue().size();
+        /* Jika terdapat senjata maka... */
+        if(this.daftarBarangPencarian.containsKey("Senjata")){
+            for (Map.Entry<Integer, ArrayList<Barang>> isiList2 : this.daftarBarangPencarian.get("Senjata").entrySet()) {
+                jumlahBarangSenjata += isiList2.getValue().size();
+            }
+            return this.batasMaxSenjataDinamis - jumlahBarangSenjata;
+        }else{
+            return this.batasMaxSenjataDinamis - jumlahBarangSenjata;
         }
-        return this.batasMaxSenjataDinamis - jumlahBarangSenjata;
     }
 
     public Barang getSenjata() {
@@ -330,5 +335,9 @@ public class Player {
 
     public double getUang() {
         return uang;
+    }
+
+    public HashMap<String, HashMap<Integer, ArrayList<Barang>>> getDaftarBarangPencarian() {
+        return daftarBarangPencarian;
     }
 }

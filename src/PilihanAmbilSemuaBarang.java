@@ -12,13 +12,13 @@ public class PilihanAmbilSemuaBarang extends Pilihan {
     @Override
     public void aksi() {
         /* Mengambil semua barang dengan proses seleksi yang melibatkan parameter/inputan jumlahSlotSenjataKosong milik Player */
-        HashMap<String, ArrayList<ArrayList<Barang>>> oKategoriBarang = this.oAdegan.ambilSemuaBarang(this.oAdegan.oPlayer.getJumlahSlotSenjataKosong());
+        HashMap<String, HashMap<Integer, ArrayList<Barang>>> oBarangPilihan = this.oAdegan.ambilSemuaBarang(this.oAdegan.oPlayer.getJumlahSlotSenjataKosong());
 
         /* Jika hasil ambil semua barang tidak kosong maka.. */
-        if(oKategoriBarang != null){
+        if(oBarangPilihan != null){
 
             /* tambahkan barang tersebut ke Player */
-            this.oAdegan.oPlayer.tambahBarang(oKategoriBarang);
+            this.oAdegan.oPlayer.tambahBarang(oBarangPilihan);
         }
     }
 }

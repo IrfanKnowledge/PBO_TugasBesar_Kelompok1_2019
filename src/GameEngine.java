@@ -32,17 +32,17 @@ public class GameEngine {
 
 
         Adegan tengahRuangan = new Adegan(1, 0, "Disebuah ruangan asing...", "Gedung Tua Asing");
-        ArrayList<Barang> barangTengahRuangan1 = new ArrayList<>();
-        for(int i=0; i<6; i++){
-            barangTengahRuangan1.add(new BarangSenjataPukul(30, "Pipe", "Senjata Pukul", "Senjata", "Pipa tua berkarat yang berbentuk sedang", true, true,
-                    100, 50, 30));
+        ArrayList<Barang> barangTengahRuanganList1 = new ArrayList<>();
+        for(int i=0; i<5; i++){
+            barangTengahRuanganList1.add(new BarangSenjataPukul(30, "Pipe", "Senjata Pukul", "Senjata", "Pipa tua berkarat yang berbentuk sedang", true, true,
+                    100, 50, 30, 10));
         }
 
-        ArrayList<ArrayList<Barang>> barangTengahRuangan2 = new ArrayList<>();
-        barangTengahRuangan2.add(barangTengahRuangan1);
-        HashMap<String, ArrayList<ArrayList<Barang>>> barangTengahRuangan3 = new HashMap<>();
-        barangTengahRuangan3.put(barangTengahRuangan1.get(0).getKategoriPenyimpanan(), barangTengahRuangan2);
-        tengahRuangan.tambahBarang(barangTengahRuangan3);
+        HashMap<Integer, ArrayList<Barang>> barangTengahRuangan2 = new HashMap<>();
+        barangTengahRuangan2.put(barangTengahRuanganList1.get(0).getIdBarang(), barangTengahRuanganList1);
+        HashMap<String, HashMap<Integer, ArrayList<Barang>>> barangTengahRuangan3 = new HashMap<>();
+        barangTengahRuangan3.put(barangTengahRuanganList1.get(0).getKategoriPenyimpanan(), barangTengahRuangan2);
+        tengahRuangan.tambahBarangTetap(barangTengahRuangan3);
 
         oGameEgnine.oPlayer.adeganAktif = tengahRuangan;
         oGameEgnine.mulaiGame();

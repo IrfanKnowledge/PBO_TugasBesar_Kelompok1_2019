@@ -11,16 +11,16 @@ public class BarangSenjataPukul extends Barang {
 
     //constructor tanpa daftarEfek
     BarangSenjataPukul(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi,
-                       boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan){
+                       boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxKetahanan){
         super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, new ArrayList<>());
-        this.ketahanan = this.batasMaxKetahanan;
+        this.ketahanan = batasMaxKetahanan;
     }
 
     //constructor inisiasi semua atribut
     BarangSenjataPukul(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi,
-                       boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, ArrayList<Efek> daftarEfek){
+                       boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxKetahanan, ArrayList<Efek> daftarEfek){
         super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, daftarEfek);
-        this.ketahanan = this.batasMaxKetahanan;
+        this.ketahanan = batasMaxKetahanan;
     }
 
     //constructor untuk cloning
@@ -105,5 +105,10 @@ public class BarangSenjataPukul extends Barang {
 
     public int getJumlahKomponenUntukPerbaikan() {
         return jumlahKomponenUntukPerbaikan;
+    }
+
+    @Override
+    public int getKetahanan() {
+        return ketahanan;
     }
 }

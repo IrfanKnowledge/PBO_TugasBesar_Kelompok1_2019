@@ -234,5 +234,8 @@ public class Barang {
         return null;
     }
 
+    public int getKetahanan(){return 50;}
+
+
     //=======================================================
 }
