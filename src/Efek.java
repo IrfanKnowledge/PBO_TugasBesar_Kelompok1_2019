@@ -35,6 +35,7 @@ public class Efek {
        this.durasiPengelihatanMalam = durasiPengelihatanMalam;
        this.durasiKamuflase = durasiKamuflase;
 
+       /* satuan persen */
        if(peluangDps > 30){
            this.peluangDps = 30;
        }
@@ -51,10 +52,6 @@ public class Efek {
        if(durasiStun > 2){
            this.durasiStun = 2;
        }
-   }
-
-   public Efek gunakanEfek(){
-       return this;
    }
 
     public int getIdEfek() {
