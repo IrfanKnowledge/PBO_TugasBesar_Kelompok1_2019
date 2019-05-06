@@ -14,12 +14,14 @@ public class Player {
     *  maka mereka akan muncul, dan ketika berganti hari maka semua barang-barang dan musuh akan me-refresh
     */
     private double waktu = 7.00;
+    private double kecepatanPerubahanWaktuNormal = 0.10;
     private String statusWaktu = "siang";
     private double batasAwalMalam = 21.00;
     private double batasAkhirMalam = 6.00;
 
     private double uang = 0;
     private Barang senjata;                         //Belum
+    private ArrayList<Barang> senjataLempar;   //Belum
 
     /* Menandakan posisi Player berada pada Adegan tertentu */
     public Adegan adeganAktif;
@@ -46,7 +48,7 @@ public class Player {
     private int nilaiKetahanan = 0;
     private int batasMaxKetahanan = 0;
     private int durasiKetahanan = 0;
-    private int nilaiKecepatanTambahan = 0;
+    private double nilaiKecepatanTambahan = 0;
     private int durasiKecepatanTambahan = 0;
     private int durasiPengelihatanMalam = 0;
     private int durasiKamuflase = 0;
@@ -243,6 +245,190 @@ public class Player {
         }
     }
 
+    public void ubahWaktu(double nilaiPenambah){
+        if(nilaiPenambah < 0){
+            nilaiPenambah = 0;
+        }
+
+        /* nilai penambah tersebut bisa ditentukan dari setiap pilihan atau tindakan di berbagai adegan */
+        this.waktu += nilaiPenambah;
+        this.waktu += this.kecepatanPerubahanWaktuNormal;
+
+        /* jika memiliki efek kecepatan tambahan maka tambahkan bonus kecepatannya */
+        if(this.durasiKecepatanTambahan > 0){
+            this.waktu += this.nilaiKecepatanTambahan;
+        }
+        if(this.waktu >= 24 ){
+            this.waktu -= 24;
+        }
+    }
+
+    public HashMap<String, Integer> pilihKategoriIdBarang(String kategori){
+        /*
+         *  Untuk menampung kategori dan id barang  yang akan di return
+         */
+        HashMap<String, Integer> barangPilihan = null;
+
+        /* jika user memilih barang tertentu atau kembali maka keluar dari loop menu ini */
+        boolean validasiInputBenar = false;
+
+        //proses menampilkan menu pemilihan barang kategori tertentu milik player selama user tidak memilih "kembali"
+        while (!validasiInputBenar){
+            System.out.println();
+            System.out.printf("Daftar %s :\n", kategori);
+
+            /* untuk menampilkan urutan barang */
+            int i = 0;
+
+            /* pengecekan apakah daftarBarang memiliki barang kategori ini atau kategori tersebut kosong */
+            if(!this.daftarBarang.containsKey(kategori)){
+                System.out.println();
+                System.out.printf("[ Anda tidak memiliki %s apapun. ]\n", kategori);
+                System.out.println();
+
+            /* proses menampilkan barang kategori tertentu milik player jika tersedia */
+            }else{
+
+                /*  Cara menampilkan barang dibagi menjadi 3 bagian:
+                *   1. Senjata, 2. Kunci, 3. Selain senjata dan kunci
+                *   Sebab senjata dan kunci memiliki kekhususan tersendiri
+                */
+                if(kategori.equals("Senjata") ){
+
+                    /* pengulangan menampilkan isi dari list 2 dimensi senjata (kumpulan list senjata) */
+                    for (ArrayList<Barang> isiList2Senjata : this.daftarBarang.get(kategori)) {
+
+                        /* jika jenis senjata adalah Senjata Pukul atau Senjata Tembak maka..*/
+                        if(isiList2Senjata.get(0).getJenis().equals("Senjata Pukul") || isiList2Senjata.get(0).getJenis().equals("Senjata Tembak")){
+
+                            /* pengulangan menampilkan isi dari list 1 dimensi senjata tertentu */
+                            for (Barang isiList1Senjata : isiList2Senjata) {
+                                if(isiList2Senjata.get(0).getJenis().equals("Senjata Pukul")){
+                                    System.out.printf("%2d. %-20s | kekuatan : %d | Ketahanan : %d | Kemampuan diperbaiki : %d ", i+1,
+                                            isiList1Senjata.getNama(), isiList1Senjata.getKekuatan(), isiList1Senjata.getKetahanan(),
+                                            isiList1Senjata.jumlahKemampuanDiperbaiki());
+                                    i++;
+
+                                /* jika jenis senjata adalah Senjata Tembak maka... */
+                                }else{
+                                    System.out.printf("%2d. %-20s | kekuatan : %d | Peluru : %d/%d ", i+1,
+                                            isiList1Senjata.getNama(), isiList1Senjata.getKekuatan(),
+                                            isiList1Senjata.getJumlahPeluru(), isiList1Senjata.getBatasMaxAmunisi());
+                                    i++;
+                                }
+
+                                if(this.senjata != null){
+                                    /* jika senjata ini sedang digunakan tampilkan informasi berikut */
+                                    if(this.senjata.equals(isiList1Senjata)){
+                                        System.out.printf("| (Senjata sedang digunakan)");
+                                    }
+                                }
+                                System.out.println();
+                            }
+
+                        /* jika senjata adalah Senjata Lempar maka... */
+                        }else{
+                            System.out.println(isiList2Senjata.get(0).getJenis());
+                            System.out.printf("%2d. %-20s (%d) | kekuatan : %d ", i+1,
+                                    isiList2Senjata.get(0).getNama(), isiList2Senjata.size(),
+                                    isiList2Senjata.get(0).getKekuatan());
+                            i++;
+
+                            if(this.senjataLempar != null){
+                                /* jika senjata lempar ini sedang digunakan tampilkan informasi berikut */
+                                if(this.senjataLempar.equals(isiList2Senjata)){
+                                    System.out.printf("| (Senjata sedang digunakan)");
+                                }
+                            }
+                            System.out.println();
+                        }
+                    }
+                }else if(kategori.equals("Kunci")){
+                    for (ArrayList<Barang> isiList2Kunci : this.daftarBarang.get(kategori)) {
+                        System.out.printf("%2d. %-20s\n", i+1,
+                                isiList2Kunci.get(0).getNama());
+                        i++;
+                    }
+                }else{
+                    for (ArrayList<Barang> isiList2Barang : this.daftarBarang.get(kategori)) {
+                        System.out.printf("%2d. %-20s (%d)\n", i+1,
+                                isiList2Barang.get(0).getNama(), isiList2Barang.size());
+                        i++;
+                    }
+                }
+            }
+
+            System.out.printf("%2d. Kembali\n", 0);
+            System.out.print("Masukkan pilihan : ");
+            Scanner oScan = new Scanner(System.in);
+            int inputMenu = oScan.nextInt();
+
+            /* jika user memilih kembali maka beri return null (sudah di-inisiasi di atas)
+               sebagai penanda mengakhiri menu ini dan kembali ke menu sebelumnya
+               (diatur pada Class PilihanLihatBarang)
+            */
+            if(inputMenu == 0){
+                validasiInputBenar = true;
+
+            }else if(inputMenu < 0 || inputMenu > i){  // i = jumlah barang yang ditampilkan
+                System.out.println();
+                System.out.println("[ Maaf, barang yang anda pilih tidak tersedia. ]");
+            }else{
+
+                /* instance objek hashmap */
+                barangPilihan = new HashMap<>();
+
+                /* kita reset i = 0 */
+                i=0;
+                if(kategori.equals("Senjata") ){
+                    for (ArrayList<Barang> isiList2Senjata : this.daftarBarang.get(kategori)) {
+
+                        /* jika jenis senjata adalah Senjata Pukul atau Senjata Tembak maka..*/
+                        if(isiList2Senjata.get(0).getJenis().equals("Senjata Pukul") || isiList2Senjata.get(0).getJenis().equals("Senjata Tembak")){
+                            for (Barang isiList1Senjata : isiList2Senjata) {
+                                i++;
+                                if(inputMenu == i){
+                                    barangPilihan.put(isiList1Senjata.getKategoriPenyimpanan() , isiList1Senjata.getIdBarang());
+                                    validasiInputBenar = true;
+                                }
+                            }
+                        }else{
+                            i++;
+                            if(inputMenu == i){
+                                barangPilihan.put(isiList2Senjata.get(0).getKategoriPenyimpanan(), isiList2Senjata.get(0).getIdBarang());
+                                validasiInputBenar = true;
+                            }
+                        }
+                    }
+                }else{
+                    for (ArrayList<Barang> isiList2Barang : this.daftarBarang.get(kategori)) {
+                        i++;
+                        if(inputMenu == i){
+                            barangPilihan.put(isiList2Barang.get(0).getKategoriPenyimpanan(), isiList2Barang.get(0).getIdBarang());
+                            validasiInputBenar = true;
+                        }
+                    }
+                }
+
+            }
+        }
+        return barangPilihan;
+    }
+
+    public Barang pilihBarangSatu(String kategori, int idBarang){
+        if(this.daftarBarangPencarian.containsKey(kategori)){
+            return this.daftarBarangPencarian.get(kategori).get(idBarang).get(0);
+        }
+        return null;
+    }
+
+    public ArrayList<Barang> pilihBarangBanyak(String kategori, int idBarang){
+        if(this.daftarBarangPencarian.containsKey(kategori)){
+            return this.daftarBarangPencarian.get(kategori).get(idBarang);
+        }
+        return null;
+    }
+
     public void kurangiKesehatan(int nilaiSerangan){
         if(this.kesehatan > 0){
             this.kesehatan -= nilaiSerangan;
@@ -250,54 +436,6 @@ public class Player {
                 this.kesehatan = 0;
             }
         }
-    }
-
-    public HashMap<Integer, Barang> pilihBarangSenjata(){
-        //bungkus dengan tipe data HashMap, akan berguna jika memilih senjata dengan tujuan menyerang lawan
-        //  yaitu sebagai bagian proses mengurangi jumlah senjata lempar milik player
-        //  yang akan dilakukan pada class pilihanSerang
-        HashMap<Integer, Barang> bungkus = new HashMap<>();
-
-        //mengecek apakah daftarBarangSenjata kosong atau tidak kosong
-        if(this.daftarBarang.get("Senjata").isEmpty()){
-            System.out.println("Daftar Senjata :\n" + "Anda tidak memiliki senjata apapun.");
-        }else{
-            boolean validasiInput = false;
-            //proses menampilkan menu pemilihan senjata milik player selama validasi input masih bernilai salah
-            while (!validasiInput){
-                System.out.println("Daftar Senjata :");
-
-                //proses menampilkan senjata milik player
-                int i = 0;
-                for (ArrayList<Barang> record : this.daftarBarang.get("Senjata")) {
-                    System.out.printf("%2d %s", ++i, record.get(record.size()-1).getNama());
-                    i++;
-                }
-
-                System.out.print("Masukkan pilihan : ");
-                Scanner oScan = new Scanner(System.in);
-                int inputMenu = oScan.nextInt();
-
-                if(inputMenu < 1 || inputMenu > this.daftarBarang.get("Senjata").size()){
-                    System.out.println("Maaf, barang yang anda pilih tidak tersedia.");
-                }else{
-                    //user sudah memberikan input yang benar sesuai pilihan yang tersedia sehingga validasiInput = true
-                    validasiInput = true;
-
-                    int jumlahBarangTertentu = this.daftarBarang.get("Senjata").get(inputMenu-1).size();
-
-                    //Mengambil barang urutan terakhir
-                    Barang barangPilihan = this.daftarBarang.get("Senjata").get(inputMenu-1).get(jumlahBarangTertentu-1);
-                    bungkus.put(barangPilihan.getIdBarang(), barangPilihan);
-
-                    //jika senjata yg digunakan adalah senjata lempar maka kita kurangi object senjata dalam penyimpananBarangSenjata Player
-                    if(barangPilihan.getJenis().equals("Senjata Lempar")){
-                        this.daftarBarang.get("Senjata").get(inputMenu-1).remove(barangPilihan);
-                    }
-                }
-            }
-        }
-        return bungkus;
     }
 
     public void pilihBarangRamuan(){
@@ -339,5 +477,9 @@ public class Player {
 
     public HashMap<String, HashMap<Integer, ArrayList<Barang>>> getDaftarBarangPencarian() {
         return daftarBarangPencarian;
+    }
+
+    public double getWaktu() {
+        return waktu;
     }
 }

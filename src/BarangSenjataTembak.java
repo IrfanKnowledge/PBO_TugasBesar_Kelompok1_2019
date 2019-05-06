@@ -122,4 +122,11 @@ public class BarangSenjataTembak extends Barang{
     public int getJumlahKebutuhanIsiPeluru(){
         return this.batasMaxAmunisi - this.daftarAmunisi.size();
     }
+
+    public int getBatasMaxAmunisi(){
+        return this.batasMaxAmunisi;
+    }
+    public int getJumlahPeluru(){
+        return this.daftarAmunisi.size();
+    }
 }

@@ -95,14 +95,17 @@ public class BarangSenjataPukul extends Barang {
         this.setDaftarEfek(oBluePrint.getDaftarTambahanEfek());
     }
 
+    @Override
     public boolean isStatusKemampuanDiperbaiki() {
         return statusKemampuanDiperbaiki;
     }
 
+    @Override
     public int getIdKomponenUntukPerbaikan() {
         return idKomponenUntukPerbaikan;
     }
 
+    @Override
     public int getJumlahKomponenUntukPerbaikan() {
         return jumlahKomponenUntukPerbaikan;
     }
@@ -110,5 +113,10 @@ public class BarangSenjataPukul extends Barang {
     @Override
     public int getKetahanan() {
         return ketahanan;
+    }
+
+    @Override  /* untuk mengetahui jumlah kemampuan diperbaiki yang tersisa */
+    public int jumlahKemampuanDiperbaiki(){
+        return this.batasMaxDiperbaiki - this.jumlahDiperbaiki;
     }
 }

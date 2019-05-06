@@ -32,18 +32,28 @@ public class GameEngine {
 
 
         Adegan tengahRuangan = new Adegan(1, 0, "Disebuah ruangan asing...", "Gedung Tua Asing");
-        ArrayList<Barang> barangTengahRuanganList1 = new ArrayList<>();
+
+        ArrayList<Barang> barangTengahRuanganList1Senjata = new ArrayList<>();
         for(int i=0; i<5; i++){
-            barangTengahRuanganList1.add(new BarangSenjataPukul(30, "Pipe", "Senjata Pukul", "Senjata", "Pipa tua berkarat yang berbentuk sedang", true, true,
+            barangTengahRuanganList1Senjata.add(new BarangSenjataPukul(30, "Pipe", "Senjata Pukul", "Senjata", "Pipa tua berkarat yang berbentuk sedang", true, true,
                     100, 50, 30, 10));
         }
+        ArrayList<Barang> barangTengahRuanganList1Kunci = new ArrayList<>();
+        barangTengahRuanganList1Kunci.add(new Barang(28, "Jewel Key", "Kunci Pintu", "Kunci", "Kunci yang memiliki Permata bulat", false, false,
+                0, 0));
 
-        HashMap<Integer, ArrayList<Barang>> barangTengahRuangan2 = new HashMap<>();
-        barangTengahRuangan2.put(barangTengahRuanganList1.get(0).getIdBarang(), barangTengahRuanganList1);
+        HashMap<Integer, ArrayList<Barang>> barangTengahRuangan2Senjata = new HashMap<>();
+        barangTengahRuangan2Senjata.put(barangTengahRuanganList1Senjata.get(0).getIdBarang(), barangTengahRuanganList1Senjata);
+        HashMap<Integer, ArrayList<Barang>> barangTengahRuangan2Kunci = new HashMap<>();
+        barangTengahRuangan2Kunci.put(barangTengahRuanganList1Kunci.get(0).getIdBarang(), barangTengahRuanganList1Kunci);
+
         HashMap<String, HashMap<Integer, ArrayList<Barang>>> barangTengahRuangan3 = new HashMap<>();
-        barangTengahRuangan3.put(barangTengahRuanganList1.get(0).getKategoriPenyimpanan(), barangTengahRuangan2);
+        barangTengahRuangan3.put(barangTengahRuanganList1Senjata.get(0).getKategoriPenyimpanan(), barangTengahRuangan2Senjata);
+        barangTengahRuangan3.put(barangTengahRuanganList1Kunci.get(0).getKategoriPenyimpanan(), barangTengahRuangan2Kunci);
+
         tengahRuangan.tambahBarangTetap(barangTengahRuangan3);
 
+        System.out.println(barangTengahRuangan3);
         oGameEgnine.oPlayer.adeganAktif = tengahRuangan;
         oGameEgnine.mulaiGame();
     }

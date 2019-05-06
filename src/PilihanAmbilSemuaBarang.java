@@ -19,6 +19,11 @@ public class PilihanAmbilSemuaBarang extends Pilihan {
 
             /* tambahkan barang tersebut ke Player */
             this.oAdegan.oPlayer.tambahBarang(oBarangPilihan);
+
+            /* proses perubahan waktu, input 0 krn tindakan ini tidak memberikan nilai tambahan apapun,
+             *  namun jika ingin dibuat memberikan nilai penambah, tambahkan saja.
+             */
+            this.oAdegan.oPlayer.ubahWaktu(0);
         }
     }
 }

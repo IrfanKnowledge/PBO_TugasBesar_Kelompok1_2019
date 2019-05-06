@@ -9,7 +9,7 @@ public class Efek {
     private int durasiDelay;
     private int nilaiKetahanan;
     private int durasiKetahanan;
-    private int nilaiKecepatan;
+    private double nilaiKecepatan;
     private int durasiKecepatan;
     private int durasiPengelihatanMalam;
     private int durasiKamuflase;
@@ -82,7 +82,7 @@ public class Efek {
         return durasiKetahanan;
     }
 
-    public int getNilaiKecepatan() {
+    public double getNilaiKecepatan() {
         return nilaiKecepatan;
     }
 

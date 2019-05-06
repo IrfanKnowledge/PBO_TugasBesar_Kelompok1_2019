@@ -75,6 +75,7 @@ public class Adegan {
 
     public void mainkan(){
         System.out.println();
+        System.out.printf("Waktu: %1.2f\n", this.oPlayer.getWaktu());
         System.out.println("Nama Tempat : " + this.namaTempat);
         System.out.println("Narasi : " + this.narasi);
         int i = 0;
@@ -114,7 +115,6 @@ public class Adegan {
                             temp2Dimensi.put(temp1Dimensi.get(0).getIdBarang(), temp1Dimensi);
                         }
                     }
-
                     tempList3.put(isiList3.getKey(), temp2Dimensi);
 
                     /* Jika kategorinya adalah senjata maka... kita seleksi */
@@ -224,7 +224,7 @@ public class Adegan {
         }else{
             for (int i=0; i<this.daftarBarang.get("Senjata").size(); i++){
                 for (int j=0; j<this.daftarBarang.get("Senjata").get(i).size(); j++){
-                    System.out.printf("%2d. %-20s | kekuatan : %-2d | Ketahanan : %d \n", jumlah+1,
+                    System.out.printf("%2d. %-20s | kekuatan : %-2d | Ketahanan : %d\n", jumlah+1,
                             this.daftarBarang.get("Senjata").get(i).get(j).getNama(),
                             this.daftarBarang.get("Senjata").get(i).get(j).getKekuatan(),
                             this.daftarBarang.get("Senjata").get(i).get(j).getKetahanan());

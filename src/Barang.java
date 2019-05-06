@@ -17,7 +17,8 @@ public class Barang {
     private boolean statusUpgrade = false;
 
     //contructor tanpa kekuatan, daftarEfek dan kesehatan
-    Barang(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual){
+    Barang(int idBarang, String nama, String jenis, String kategoriPenyimpanan,
+           String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual){
         this.idBarang = idBarang;
         this.nama = nama;
         this.jenis = jenis;
@@ -84,7 +85,8 @@ public class Barang {
     Barang(Barang cloning){
         this.idBarang = cloning.getIdBarang();
         this.nama = cloning.getNama();
-        this.jenis = cloning.getDeskripsi();
+        this.jenis = cloning.getJenis();
+        this.kategoriPenyimpanan = cloning.getKategoriPenyimpanan();
         this.deskripsi = cloning.getDeskripsi();
         this.statusBeli = cloning.isStatusBeli();
         this.statusJual = cloning.isStatusJual();
@@ -236,6 +238,14 @@ public class Barang {
 
     public int getKetahanan(){return 50;}
 
+    public int getBatasMaxAmunisi(){
+        return 0;
+    }
+    public int getJumlahPeluru(){
+        return 0;
+    }
+
+    public int jumlahKemampuanDiperbaiki(){ return 0; }
 
     //=======================================================
 }

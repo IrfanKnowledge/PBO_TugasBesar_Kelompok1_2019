@@ -21,6 +21,11 @@ public class PilihanAmbilBarangSenjataSatuPerSatu extends Pilihan {
             tempList2.put(oBarang.getIdBarang(), tempList1);
             tempList3.put("Senjata", tempList2);
             this.oAdegan.oPlayer.tambahBarang(tempList3);
+
+            /* proses perubahan waktu, input 0 krn tindakan ini tidak memberikan nilai tambahan apapun,
+            *  namun jika ingin dibuat memberikan nilai penambah, tambahkan saja.
+            */
+            this.oAdegan.oPlayer.ubahWaktu(0);
         }
     }
 
