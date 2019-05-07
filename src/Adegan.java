@@ -345,6 +345,7 @@ public class Adegan {
     }
 
     /* Private karena hanya untuk proses internal */
+    //meng-instance ulang semua object di daftarBarangTetap dan dimuat ke daftarBarang
     private void refreshBarang(){
         for (Map.Entry<String, HashMap<Integer, ArrayList<Barang>>> oJenisBarang : this.daftarBarangTetap.entrySet()) {
             //Pengulangan mengisi List 2 dimensi atau dimensi ke 2 dalam daftarBarangTetap

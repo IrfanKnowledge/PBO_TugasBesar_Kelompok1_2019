@@ -119,10 +119,10 @@ public class Barang {
     public Barang gunakanBarangSenjata(){return null;}
 
     //proses pada senjata pukul
-    public boolean perbaikiBarang(Barang komponen){return false;}
+    public void perbaikiBarang(Barang komponen){}
 
     //proses pada senjata tembak
-    public boolean isiPeluru(ArrayList<Barang> daftarAmunisi){ return false;}
+    public void isiPeluru(ArrayList<Barang> daftarAmunisi){}
 
     public int getIdBarang() {
         return idBarang;
@@ -196,15 +196,11 @@ public class Barang {
         return null;
     }
 
-    public int getJumlahKomponenUntukPerbaikan() {
-        return 0;
+    public HashMap<String, Integer> getIdAmunisiUtama() {
+        return null;
     }
 
-    public int getIdAmunisiUtama() {
-        return 0;
-    }
-
-    public ArrayList<Integer> getDaftarIdAmunisi() {
+    public HashMap<String, ArrayList<Integer>> getDaftarIdAmunisi() {
         return null;
     }
 

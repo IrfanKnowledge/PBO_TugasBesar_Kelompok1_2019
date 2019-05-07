@@ -7,7 +7,7 @@ public class BarangSenjataPukul extends Barang {
     private int jumlahDiperbaiki = 0;
     private int batasMaxDiperbaiki = 3;
     private HashMap<String, Integer> komponenUntukPerbaikan;
-    private int jumlahKomponenUntukPerbaikan = 1;
+
     private boolean statusKemampuanDiperbaiki = true;
 
     //constructor tanpa daftarEfek
@@ -33,8 +33,8 @@ public class BarangSenjataPukul extends Barang {
         this.ketahanan = oBarang.ketahanan;
         this.batasMaxKetahanan = oBarang.batasMaxKetahanan;
         this.jumlahDiperbaiki = oBarang.jumlahDiperbaiki;
-        this.jumlahKomponenUntukPerbaikan = oBarang.jumlahKomponenUntukPerbaikan;
         this.statusKemampuanDiperbaiki = oBarang.statusKemampuanDiperbaiki;
+        this.komponenUntukPerbaikan = oBarang.getKomponenUntukPerbaikan();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class BarangSenjataPukul extends Barang {
     }
 
     @Override
-    public boolean perbaikiBarang(Barang komponen){
+    public void perbaikiBarang(Barang komponen){
         //mengecek barang tersebut (komponen/bahan untuk memperbaiki senjata atau bukan barang tersebut) dengan idBarang yang sesuai
         if(komponen.getIdBarang() == this.komponenUntukPerbaikan.get("Komponen Crafting")){
             //mengecek bisa atau tidaknya diperbaiki (mencapai batas maksimal diperbaiki atau tidak)
@@ -64,15 +64,13 @@ public class BarangSenjataPukul extends Barang {
                 //gagal
                 System.out.println("[ Senjata sudah tidak bisa diperbaiki ]");
                 System.out.println();
-                return false;
+            }else if(komponen == null){
+                System.out.println();
+                System.out.println("[ Komponen Crafting untuk perbaikan null ]");
+            }else if(this.ketahanan == this.batasMaxKetahanan){
+                System.out.println();
+                System.out.printf("[ %s masih memiliki ketahanan 100% ]\n", this.getNama());
             }else{
-                if(komponen == null){
-                    System.out.println();
-                    System.out.println("[ Komponen untuk perbaikan kosong ]");
-                    // gagal krn komponen kosong
-                    return false;
-                }
-
                 //mengubah nilai ketahanan menjadi nilai maksimal ketahanan senjata
                 this.ketahanan = this.batasMaxKetahanan;
 
@@ -84,16 +82,11 @@ public class BarangSenjataPukul extends Barang {
                     //mengubah kemampuan diperbaiki menjadi false atau tidak bisa diperbaiki
                     this.statusKemampuanDiperbaiki = false;
                 }
-
-                //proses mengubah nilai komponen menjadi null krn dianggap sudah digunakan
-                komponen = null;
-
-                //berhasil
-                return true;
             }
+
         }else{
-            //barang tidak cocok
-            return false;
+            System.out.println();
+            System.out.println("[ Komponen Crafting untuk perbaikan tidak cocok ]");
         }
     }
 
@@ -105,17 +98,19 @@ public class BarangSenjataPukul extends Barang {
 
     @Override
     public boolean isStatusKemampuanDiperbaiki() {
+        if(this.ketahanan == batasMaxKetahanan){
+            statusKemampuanDiperbaiki = false;
+        }else if(this.jumlahDiperbaiki == this.batasMaxDiperbaiki){
+            statusKemampuanDiperbaiki = false;
+        }else{
+            statusKemampuanDiperbaiki = true;
+        }
         return statusKemampuanDiperbaiki;
     }
 
     @Override
     public HashMap<String, Integer> getKomponenUntukPerbaikan() {
         return komponenUntukPerbaikan;
-    }
-
-    @Override
-    public int getJumlahKomponenUntukPerbaikan() {
-        return jumlahKomponenUntukPerbaikan;
     }
 
     @Override

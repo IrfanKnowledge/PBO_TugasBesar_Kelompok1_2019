@@ -44,7 +44,7 @@ public class PilihanLihatIsiKantong extends Pilihan {
                     (new PilihanLihatBarangKunci("Lihat Kunci", this.oAdegan)).aksi();
                     break;
                 case 2:
-                    (new PilihanLihatBarangSenjata("Lihat Kunci", this.oAdegan)).aksi();
+                    (new PilihanLihatBarangSenjata("Lihat Senjata", this.oAdegan)).aksi();
                     break;
                 case 3:
                     break;

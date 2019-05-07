@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class PilihanLihatBarangSenjata extends Pilihan {
     private Adegan oAdegan;
+    boolean validasiKembali2;
 
     PilihanLihatBarangSenjata(String dekripsi, Adegan oAdegan) {
         super(dekripsi);
@@ -22,15 +23,15 @@ public class PilihanLihatBarangSenjata extends Pilihan {
             if(temp != null){
 
                 /* untuk kembali ke menu melihat daftar senjata */
-                boolean validasiKembali2 = false;
-                while (!validasiKembali2){
+                this.validasiKembali2 = false;
+                while (!this.validasiKembali2){
 
-                    /* ambil key dan value nya */
+                    /* ambil key dan value dari hasil memilih senjata */
                     for (Map.Entry<String, ArrayList<Integer>> oBarang : temp.entrySet()) {
                         Barang oBarangPilihan = this.oAdegan.oPlayer.pilihBarangSatu(oBarang.getKey(), oBarang.getValue().get(0), oBarang.getValue().get(1));
 
                         /* khusus jika memilih senjata lempar */
-                        ArrayList<Barang> oSenjataLempar =  this.oAdegan.oPlayer.pilihBarangBanyak(oBarang.getKey(), oBarang.getValue().get(0));
+                        ArrayList<Barang> oSenjataLempar =  this.oAdegan.oPlayer.pilihBarangSemuanya(oBarang.getKey(), oBarang.getValue().get(0));
 
                         System.out.println();
                         System.out.println("Aksi : Melihat deskripsi senjata");
@@ -57,14 +58,14 @@ public class PilihanLihatBarangSenjata extends Pilihan {
                         System.out.printf("%2d. Gunakan Senjata\n", 1);
 
                         if(oBarangPilihan.getJenis().equals("Senjata Pukul")){
-                            System.out.printf("%2d. Perbaiki Barang\n", 2);
-                            System.out.printf("%2d. Jatuhkan Senjata\n", 3);
+                            System.out.printf("%2d. %-20s\n", 2, "Perbaiki Barang");
+                            System.out.printf("%2d. %-20s | (senjata akan dihapus, tidak dapat dikembalikan)\n", 3, "Buang Senjata");
                         }else if(oBarangPilihan.getJenis().equals("Senjata Tembak")){
-                            System.out.printf("%2d. Isi Peluru\n", 2);
-                            System.out.printf("%2d. Ganti Peluru\n", 3);
-                            System.out.printf("%2d. Jatuhkan Senjata\n", 4);
+                            System.out.printf("%2d. %-20s\n", 2, "Isi Peluru");
+                            System.out.printf("%2d. %-20s\n", 3, "Ganti Peluru");
+                            System.out.printf("%2d. %-20s | (senjata akan dihapus, tidak dapat dikembalikan)\n", 4, "Buang Senjata");
                         }else{
-                            System.out.printf("%2d. Jatuhkan Senjata\n", 2);
+                            System.out.printf("%2d. %-20s | (senjata akan dihapus, tidak dapat dikembalikan)\n", 2, "Buang Senjata");
                         }
 
                         System.out.printf("%2d. Kembali\n", 0);
@@ -72,34 +73,51 @@ public class PilihanLihatBarangSenjata extends Pilihan {
                         Scanner oScan = new Scanner(System.in);
                         switch(oScan.nextInt()){
                             case 0:
-                                validasiKembali2 = true;
+                                this.validasiKembali2 = true;
                                 break;
                             case 1:
-                                if(oBarangPilihan.getJenis().equals("Senjata Pukul") || oBarangPilihan.getJenis().equals("Senjata Tembak")){
-                                    this.oAdegan.oPlayer.senjata = oBarangPilihan;
-                                    System.out.println();
-                                    System.out.printf("[ %s berhasil digunakan ]\n", oBarangPilihan.getNama());
-                                }else{
-                                    this.oAdegan.oPlayer.senjataLempar = oSenjataLempar;
-                                    System.out.println();
-                                    System.out.printf("[ %s berhasil digunakan ]\n", oSenjataLempar.get(0).getNama());
-                                }
+                                /* Proses gunakan senjata */
+                                this.gunakanSenjata(oBarangPilihan, oSenjataLempar);
                                 break;
                             case 2:
+                                /* opsi perbaiki senjata jika senjata adalah jenis Senjata Pukul */
                                 if(oBarangPilihan.getJenis().equals("Senjata Pukul")){
+                                    this.perbaikiSenjata(oBarangPilihan);
 
+                                /* opsi isi peluru jika senjata adalah jenis Senjata Tembak */
                                 }else if(oBarangPilihan.getJenis().equals("Senjata Tembak")){
+                                    this.isiPeluru(oBarangPilihan);
+
+                                /* Opsi membuang senjata jika senjata adalah jenis Senjata Lempar (selain Senjata Pukul dan Senjata Tembak) */
                                 }else{
+                                    this.buangSenjata(oBarangPilihan, oBarang.getKey(), oBarang.getValue(), oSenjataLempar);
                                 }
                                 break;
                             case 3:
+                                /* Opsi membuang senjata jika Senjata jenis Senjata Pukul */
                                 if(oBarangPilihan.getJenis().equals("Senjata Pukul")){
+                                    this.buangSenjata(oBarangPilihan, oBarang.getKey(), oBarang.getValue(), oSenjataLempar);
+
+                                /* Opsi ganti peluru jika Senjata jenis Senjata Tembak*/
                                 }else if(oBarangPilihan.getJenis().equals("Senjata Tembak")){
+                                    this.gantiPeluru(oBarangPilihan);
+
                                 }else{
                                     System.out.println();
                                     System.out.println("[ Pilihan tidak tersedia. ]");
                                 }
                                 break;
+                            case 4:
+                                /* Opsi membuang senjata jika Senjata adalah jenis Senjata Tembak */
+                                if(oBarangPilihan.getJenis().equals("Senjata Tembak")){
+                                    this.buangSenjata(oBarangPilihan, oBarang.getKey(), oBarang.getValue(), oSenjataLempar);
+
+                                }else{
+                                    System.out.println();
+                                    System.out.println("[ Pilihan tidak tersedia. ]");
+                                }
+                                break;
+
                             default:
                                 System.out.println();
                                 System.out.println("[ Pilihan tidak tersedia. ]");
@@ -110,6 +128,127 @@ public class PilihanLihatBarangSenjata extends Pilihan {
                 }
             }else {
                 validasiKembali1 = true;
+            }
+        }
+    }
+
+    private void gunakanSenjata(Barang oBarangPilihan, ArrayList<Barang> oSenjataLempar){
+        if(oBarangPilihan.getJenis().equals("Senjata Pukul") || oBarangPilihan.getJenis().equals("Senjata Tembak")){
+            this.oAdegan.oPlayer.senjata = oBarangPilihan;
+            System.out.println();
+            System.out.printf("[ %s berhasil digunakan ]\n", oBarangPilihan.getNama());
+        }else{
+            this.oAdegan.oPlayer.senjataLempar = oSenjataLempar;
+            System.out.println();
+            System.out.printf("[ %s berhasil digunakan ]\n", oSenjataLempar.get(0).getNama());
+        }
+    }
+
+    private void perbaikiSenjata(Barang oBarangPilihan){
+        for (Map.Entry<String, Integer> kebutuhanKomponen : oBarangPilihan.getKomponenUntukPerbaikan().entrySet()) {
+
+            /* cek status kemampuan diperbaiki  */
+            if(!oBarangPilihan.isStatusKemampuanDiperbaiki()){
+                System.out.println();
+                System.out.printf("[ %s sudah tidak bisa diperbaiki atau ketahanan masih %s ]\n", oBarangPilihan.getNama(), "100%");
+            }else{
+                /* ambil kebutuhan komponen Crafting untuk perbaikan */
+                Barang komponenCrafting = this.oAdegan.oPlayer.pilihBarangSatu(kebutuhanKomponen.getKey(), kebutuhanKomponen.getValue(), 0);
+
+                if(komponenCrafting != null){
+                    /* proses memperbaiki barang */
+                    oBarangPilihan.perbaikiBarang(komponenCrafting);
+
+                    /* hapus satu komponen crafting tersebut di penyimpanan */
+                    this.oAdegan.oPlayer.hapusBarangSatu(kebutuhanKomponen.getKey(), kebutuhanKomponen.getValue());
+                }else{
+                    System.out.println();
+                    System.out.println("[ Persediaan Komponen Crafting untuk perbaikan senjata, kosong. ]");
+                }
+            }
+
+        }
+    }
+
+    private void isiPeluru(Barang oBarangPilihan){
+        /* Ambil id amunisi utama senjata tembak ini */
+        for (Map.Entry<String, Integer> kebutuhanAmunisi : oBarangPilihan.getIdAmunisiUtama().entrySet()) {
+
+            /* cek kondisi jumlah peluru senjata, masih penuh atau tidak  */
+            if(oBarangPilihan.getJumlahKebutuhanIsiPeluru() == 0){
+                System.out.println();
+                System.out.printf("[ %s memiliki jumlah peluru yang masih penuh ]\n", oBarangPilihan.getNama());
+            }else{
+                ArrayList<Barang> daftarAmunisi = this.oAdegan.oPlayer.pilihBarangSemuanya(kebutuhanAmunisi.getKey(), kebutuhanAmunisi.getValue());
+                if(daftarAmunisi != null){
+                    /* ambil jumlah kebutuhan isi peluru*/
+                    int jumlahKebutuhanPeluru = oBarangPilihan.getJumlahKebutuhanIsiPeluru();
+
+                    /* proses isi peluru */
+                    oBarangPilihan.isiPeluru(daftarAmunisi);
+
+                    /* hapus daftarAmunisi yang ada di penyimpanan Player sesuai kebutuhan amunisi yang diperoleh */
+                    this.oAdegan.oPlayer.hapusBarangJumlahTertentu(kebutuhanAmunisi.getKey(), kebutuhanAmunisi.getValue(), jumlahKebutuhanPeluru);
+                }else{
+                    System.out.println();
+                    System.out.println("[ Persediaan Amunisi kosong. ]");
+                }
+            }
+        }
+    }
+
+    private void gantiPeluru(Barang oBarangPilihan){
+        for (Map.Entry<String, ArrayList<Integer>> oDaftarIdAmunisi : oBarangPilihan.getDaftarIdAmunisi().entrySet()) {
+            System.out.println();
+            for(int i=0; i<oDaftarIdAmunisi.getValue().size(); i++){
+                System.out.println();
+                System.out.printf("%2d. %s\n", i+1, oDaftarIdAmunisi.getValue().get(i));
+            }
+            System.out.printf("Masukkan pilihan : \n");
+            Scanner oScan = new Scanner(System.in);
+            int pilihanGantiAmunisi = oScan.nextInt();
+            if(pilihanGantiAmunisi < 1 || pilihanGantiAmunisi > oDaftarIdAmunisi.getValue().size()){
+                System.out.println();
+                System.out.println("[ Pilihan tidak tersedia ]");
+            }else{
+                //oBarangPilihan.
+            }
+        }
+
+        /* jika kosong maka */
+        if(oBarangPilihan.getDaftarIdAmunisi().isEmpty()){
+            System.out.println();
+            System.out.println("[ Daftar amunisi kosong ]");
+        }
+    }
+
+    private void buangSenjata(Barang oBarangPilihan, String kategori , ArrayList<Integer> oBarang, ArrayList<Barang> oSenjataLempar){
+        if(oBarangPilihan.getJenis().equals("Senjata Pukul") || oBarangPilihan.getJenis().equals("Senjata Tembak")){
+            this.oAdegan.oPlayer.hapusBarangSatuIndeksTertentu(kategori, oBarang.get(0), oBarang.get(1));
+            System.out.println();
+            System.out.println("[ Senjata telah dihapus. ]");
+
+            this.validasiKembali2 = true;
+        }else{
+            System.out.println();
+            System.out.printf("%2d. Batal membuang senjata\n", 0);
+            System.out.printf("Masukkan jumlah senjata yang akan dibuang (dihapus) : ");
+            Scanner oScan = new Scanner(System.in);
+            int jumlahHapus = oScan.nextInt();
+
+            /* jika 0 maka tidak melakukan apapun */
+            if(jumlahHapus == 0){
+
+            }else if(jumlahHapus < 0 || jumlahHapus > oSenjataLempar.size()){
+                System.out.println();
+                System.out.println("[ jumlah tidak valid ]");
+            }else{
+                this.oAdegan.oPlayer.hapusBarangJumlahTertentu(oBarangPilihan.getKategoriPenyimpanan(), oBarangPilihan.getIdBarang(), jumlahHapus);
+                System.out.println();
+                System.out.println("[ Senjata telah dihapus/dikurangi. ]");
+                if(jumlahHapus == oSenjataLempar.size()){
+                    this.validasiKembali2 = true;
+                }
             }
         }
     }

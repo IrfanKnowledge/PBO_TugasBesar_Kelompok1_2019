@@ -503,14 +503,19 @@ public class Player {
 
     public Barang pilihBarangSatu(String kategori, int idBarang, int indeksBarang){
         if(this.daftarBarangPencarian.containsKey(kategori)){
-            return this.daftarBarangPencarian.get(kategori).get(idBarang).get(indeksBarang);
+            if(this.daftarBarangPencarian.get(kategori).containsKey(idBarang)) {
+                return this.daftarBarangPencarian.get(kategori).get(idBarang).get(indeksBarang);
+            }
         }
         return null;
     }
 
-    public ArrayList<Barang> pilihBarangBanyak(String kategori, int idBarang){
+    public ArrayList<Barang> pilihBarangSemuanya(String kategori, int idBarang){
         if(this.daftarBarangPencarian.containsKey(kategori)){
-            return this.daftarBarangPencarian.get(kategori).get(idBarang);
+            if(this.daftarBarangPencarian.get(kategori).containsKey(idBarang)) {
+
+                return this.daftarBarangPencarian.get(kategori).get(idBarang);
+            }
         }
         return null;
     }
@@ -530,11 +535,45 @@ public class Player {
         }
     }
 
-    public void hapusBarangBanyak(String kategori, int idBarang){
+    public void hapusBarangSatuIndeksTertentu(String kategori, int idBarang, int indeks){
+        if(this.daftarBarangPencarian.containsKey(kategori)){
+            if(this.daftarBarangPencarian.get(kategori).containsKey(idBarang)){
+
+                /* jika list tersebut tidak kosong maka... */
+                if(!this.daftarBarangPencarian.get(kategori).get(idBarang).isEmpty()){
+                    this.daftarBarangPencarian.get(kategori).get(idBarang).remove(indeks);
+                    if(this.daftarBarangPencarian.get(kategori).get(idBarang).isEmpty()){
+                        this.daftarBarangPencarian.get(kategori).remove(idBarang);
+                    }
+                }
+            }
+        }
+    }
+
+    public void hapusBarangSemuanya(String kategori, int idBarang){
         if(this.daftarBarangPencarian.containsKey(kategori)){
             if(this.daftarBarangPencarian.get(kategori).containsKey(idBarang)){
                 this.daftarBarangPencarian.get(kategori).get(idBarang).clear();
                 this.daftarBarangPencarian.get(kategori).remove(idBarang);
+            }
+        }
+    }
+
+    public void hapusBarangJumlahTertentu(String kategori, int idBarang, int jumlahBarangDihapus){
+        if(this.daftarBarangPencarian.containsKey(kategori)){
+            if(this.daftarBarangPencarian.get(kategori).containsKey(idBarang)){
+                for(int i=0; i<this.daftarBarangPencarian.get(kategori).get(idBarang).size(); i+=0){
+                    if(jumlahBarangDihapus != 0){
+                        this.daftarBarangPencarian.get(kategori).get(idBarang).remove(i);
+                        jumlahBarangDihapus--;
+                    }else{
+                        /* jika jumlahBarangDihapus sudah kosong, keluar dari for ini*/
+                        break;
+                    }
+                }
+                if(this.daftarBarangPencarian.get(kategori).get(idBarang).isEmpty()){
+                    this.daftarBarangPencarian.get(kategori).remove(idBarang);
+                }
             }
         }
     }

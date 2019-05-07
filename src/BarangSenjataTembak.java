@@ -1,28 +1,40 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BarangSenjataTembak extends Barang{
-    private int idAmunisiUtama;
-    private ArrayList<Integer> daftarIdAmunisi = new ArrayList<>();
+    private HashMap<String, Integer> idAmunisiUtama;
+    private HashMap<String, ArrayList<Integer>>  daftarIdAmunisi = new HashMap<>();
     private ArrayList<Barang> daftarAmunisi = new ArrayList<>();
     private int batasMaxAmunisi;
 
     //constructor tanpa daftarEfek
-    BarangSenjataTembak(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, int batasMaxAmunisi, ArrayList<Barang> daftarAmunisi, ArrayList<Integer> daftarIdAmunisi, int idAmunisiUtama){
+    BarangSenjataTembak(int idBarang, String nama, String jenis, String kategoriPenyimpanan,
+                        String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan,
+                        int batasMaxAmunisi, ArrayList<Barang> daftarAmunisi, HashMap<String, ArrayList<Integer>> daftarIdAmunisi, HashMap<String, Integer> idAmunisiUtama){
         super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan, new ArrayList<>());
 
-        //inisiasi default idAmunisiUtama
-        this.idAmunisiUtama = idAmunisiUtama;
-
-        //jika daftaramunisi kosong
-        if(daftarAmunisi.isEmpty()){
-            //menambahkan minimal 1 buah id amunisi yang bisa digunakan senjata ini
-            this.daftarIdAmunisi.add(this.idAmunisiUtama);
+        if(idAmunisiUtama != null){
+            if(!idAmunisiUtama.isEmpty()){
+                //inisiasi default idAmunisiUtama
+                this.idAmunisiUtama = idAmunisiUtama;
+            }
         }
 
-        //proses menambahkan daftar amunisi yang bisa digunakan
-        this.daftarIdAmunisi = daftarIdAmunisi;
+        if(daftarAmunisi != null){
+            //jika daftaramunisi kosong
+            if(daftarAmunisi.isEmpty()){
+                ArrayList<Integer> temp = new ArrayList<>();
+                temp.add(this.idAmunisiUtama.get("Amunisi"));
+                daftarIdAmunisi.put("Amunisi", temp);
 
-
+                //menambahkan minimal 1 buah id amunisi yang bisa digunakan senjata ini
+                this.daftarIdAmunisi = daftarIdAmunisi;
+            }else{
+                //proses menambahkan daftar amunisi yang bisa digunakan
+                this.daftarIdAmunisi = daftarIdAmunisi;
+            }
+        }
 
         //jika input batasMaxAmunisi kurang dari 0, isi dengan 1 sebagai minimal
         if(batasMaxAmunisi < 0){
@@ -31,18 +43,19 @@ public class BarangSenjataTembak extends Barang{
             this.batasMaxAmunisi = batasMaxAmunisi;
         }
 
-        //pengulangan sebanyak jumlah input daftarAmunisi + menghapus peluru yang diambil
-        for(int i=daftarAmunisi.size()-1; i>=0; i--){
-            //mengecek setiap isi daftarAmunisi yang masuk, apakah memiliki id yang cocok atau tidak
-            if(daftarAmunisi.get(i).getIdBarang() == this.idAmunisiUtama){
-                this.daftarAmunisi.add(daftarAmunisi.get(i));
-                //proses menghapus objek pada urutan terakhir dalam daftarAmunisi inputan
-                daftarAmunisi.remove(i);
-            }
+        for (Map.Entry<String, Integer> oIdAmunisiUtama : this.idAmunisiUtama.entrySet()) {
+            for(int i=0; i<daftarAmunisi.size(); i+=0){
+                //mengecek setiap isi daftarAmunisi yang masuk, apakah memiliki id yang cocok atau tidak
+                if(daftarAmunisi.get(i).getIdBarang() == oIdAmunisiUtama.getValue()){
+                    this.daftarAmunisi.add(daftarAmunisi.get(i));
+                    //proses menghapus objek pada urutan terakhir dalam daftarAmunisi inputan
+                    daftarAmunisi.remove(i);
+                }
 
-            //jika daftarAmunisi senjata telah mencapai batasMaxAMunisi maka keluar paksa dari pengulangan ini
-            if(this.daftarAmunisi.size() == batasMaxAmunisi){
-                break;
+                //jika daftarAmunisi senjata telah mencapai batasMaxAMunisi maka keluar paksa dari pengulangan ini
+                if(this.daftarAmunisi.size() == batasMaxAmunisi){
+                    break;
+                }
             }
         }
     }
@@ -78,54 +91,66 @@ public class BarangSenjataTembak extends Barang{
     }
 
     @Override
-    public boolean isiPeluru(ArrayList<Barang> daftarAmunisi) {
-        if(this.daftarAmunisi.size() == this.batasMaxAmunisi){
-            //proses gagal krn daftarAmunisi masih penuh
-            return false;
-        }else{
-            //mengecek id sesuai atau tidak (amunisi atau bukan)
-            if (daftarAmunisi.get(0).getIdBarang() != this.idAmunisiUtama){
-                //proses gagal krn barang bukan amunisi (id tidak sesuai)
-                return false;
-            }else{
-                //mengecek kosong atau tidaknya daftarAmunisi
-                if(daftarAmunisi.isEmpty()){
-                    //proses gagal krn amunisi dianggap kosong
-                    return false;
-                }else{
-                    //pengulangan sebanyak jumlah input daftarAmunisi + menghapus peluru yang diambil
-                    for(int i=daftarAmunisi.size()-1; i>=0; i--){
-                        this.daftarAmunisi.add(daftarAmunisi.get(i));
-                        //proses menghapus objek pada urutan terakhir dalam daftarAmunisi inputan
-                        daftarAmunisi.remove(i);
+    public void isiPeluru(ArrayList<Barang> daftarAmunisi) {
 
-                        //jika daftarAmunisi senjata telah mencapai batasMaxAMunisi maka keluar paksa dari pengulangan ini
-                        if(this.daftarAmunisi.size() == batasMaxAmunisi){
-                            break;
-                        }
+        for (Map.Entry<String, Integer> oIdAmunisiUtama : this.idAmunisiUtama.entrySet()) {
+
+            if(daftarAmunisi == null){
+                System.out.println();
+                System.out.printf("[ komponen amunisi yang akan digunakan null ]\n");
+            }else if(daftarAmunisi.isEmpty()){
+                System.out.println();
+                System.out.printf("[ komponen amunisi yang akan digunakan kosong ]\n");
+            }else if(daftarAmunisi.get(0).getIdBarang() != oIdAmunisiUtama.getValue()){
+                System.out.println();
+                System.out.printf("[ komponen yang digunakan bukanlah amunisi / bukan amunisi yang tepat ]\n");
+            }else if(this.daftarAmunisi.size() == this.batasMaxAmunisi){
+                System.out.println();
+                System.out.printf("[ Jumlah peluru %s masih penuh ]\n", this.getNama());
+
+            }else{
+                //pengulangan sebanyak jumlah input daftarAmunisi + menghapus peluru yang diambil
+                for(int i=0; i<daftarAmunisi.size(); i+=0){
+                    this.daftarAmunisi.add(daftarAmunisi.get(i));
+
+                    //jika daftarAmunisi senjata telah mencapai batasMaxAMunisi maka keluar paksa dari pengulangan ini
+                    if(this.daftarAmunisi.size() == batasMaxAmunisi){
+                        break;
                     }
-                    //proses isi peluru berhasil
-                    return true;
                 }
             }
         }
     }
 
-    public int getIdAmunisiUtama() {
+    public void gantiPeluru(int indeks){
+        if(this.daftarIdAmunisi != null){
+            for (Map.Entry<String, ArrayList<Integer>> oDaftarIdAmunisi : this.daftarIdAmunisi.entrySet()) {
+                this.idAmunisiUtama.put(oDaftarIdAmunisi.getKey(), oDaftarIdAmunisi.getValue().get(indeks));
+            }
+        }
+    }
+
+    @Override
+    public HashMap<String, Integer> getIdAmunisiUtama() {
         return idAmunisiUtama;
     }
 
-    public ArrayList<Integer> getDaftarIdAmunisi() {
+    @Override
+    public HashMap<String, ArrayList<Integer>> getDaftarIdAmunisi() {
         return daftarIdAmunisi;
     }
 
+    @Override
     public int getJumlahKebutuhanIsiPeluru(){
         return this.batasMaxAmunisi - this.daftarAmunisi.size();
     }
 
+    @Override
     public int getBatasMaxAmunisi(){
         return this.batasMaxAmunisi;
     }
+
+    @Override
     public int getJumlahPeluru(){
         return this.daftarAmunisi.size();
     }
