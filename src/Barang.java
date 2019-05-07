@@ -192,8 +192,8 @@ public class Barang {
         return false;
     }
 
-    public int getIdKomponenUntukPerbaikan() {
-        return 0;
+    public HashMap<String,Integer> getKomponenUntukPerbaikan() {
+        return null;
     }
 
     public int getJumlahKomponenUntukPerbaikan() {

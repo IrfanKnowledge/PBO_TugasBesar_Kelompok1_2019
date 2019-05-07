@@ -364,6 +364,13 @@ public class Adegan {
         }
     }
 
+    public void gunakanBarang(){
+        System.out.println("Aksi : Menggunakan kunci");
+        System.out.println();
+        System.out.println( "[ " + this.oPlayer.getNama() + "menggunakan kunci.. ]");
+        System.out.println();
+    }
+
     public void tambahPilihan(Pilihan oPilihan){
         this.daftarPilihan.add(oPilihan);
     }
@@ -399,4 +406,5 @@ public class Adegan {
     public int getJumlahKategori() {
         return jumlahKategori;
     }
+
 }

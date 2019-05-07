@@ -20,8 +20,8 @@ public class Player {
     private double batasAkhirMalam = 6.00;
 
     private double uang = 0;
-    private Barang senjata;                         //Belum
-    private ArrayList<Barang> senjataLempar;   //Belum
+    public Barang senjata;                         //Belum
+    public ArrayList<Barang> senjataLempar;   //Belum
 
     /* Menandakan posisi Player berada pada Adegan tertentu */
     public Adegan adeganAktif;
@@ -263,11 +263,12 @@ public class Player {
         }
     }
 
-    public HashMap<String, Integer> pilihKategoriIdBarang(String kategori){
+    /* return berupa key sebagai kategori, value indeks 0 = idBarang, value indeks 1 = IndeksBarang*/
+    public HashMap<String, ArrayList<Integer>> pilihKategoriIdIndeksBarang(String kategori){
         /*
          *  Untuk menampung kategori dan id barang  yang akan di return
          */
-        HashMap<String, Integer> barangPilihan = null;
+        HashMap<String, ArrayList<Integer>> barangPilihan = null;
 
         /* jika user memilih barang tertentu atau kembali maka keluar dari loop menu ini */
         boolean validasiInputBenar = false;
@@ -289,6 +290,10 @@ public class Player {
             /* proses menampilkan barang kategori tertentu milik player jika tersedia */
             }else{
 
+                /* setiap kali terhitung 1, akan digunakan untuk menghapus list tersebut dengan Aman tanpa null pointer karena pengulangan berikut menggunakan foreach */
+                int cekListKosong = 0;
+                ArrayList<Barang> tempList1 = new ArrayList<>();
+
                 /*  Cara menampilkan barang dibagi menjadi 3 bagian:
                 *   1. Senjata, 2. Kunci, 3. Selain senjata dan kunci
                 *   Sebab senjata dan kunci memiliki kekhususan tersendiri
@@ -298,62 +303,106 @@ public class Player {
                     /* pengulangan menampilkan isi dari list 2 dimensi senjata (kumpulan list senjata) */
                     for (ArrayList<Barang> isiList2Senjata : this.daftarBarang.get(kategori)) {
 
-                        /* jika jenis senjata adalah Senjata Pukul atau Senjata Tembak maka..*/
-                        if(isiList2Senjata.get(0).getJenis().equals("Senjata Pukul") || isiList2Senjata.get(0).getJenis().equals("Senjata Tembak")){
+                        /* hapus list yang kosong */
+                        if(cekListKosong == 1){
+                            this.daftarBarang.get(kategori).remove(tempList1);
+                            cekListKosong = 0;
+                        }
 
-                            /* pengulangan menampilkan isi dari list 1 dimensi senjata tertentu */
-                            for (Barang isiList1Senjata : isiList2Senjata) {
-                                if(isiList2Senjata.get(0).getJenis().equals("Senjata Pukul")){
-                                    System.out.printf("%2d. %-20s | kekuatan : %d | Ketahanan : %d | Kemampuan diperbaiki : %d ", i+1,
-                                            isiList1Senjata.getNama(), isiList1Senjata.getKekuatan(), isiList1Senjata.getKetahanan(),
-                                            isiList1Senjata.jumlahKemampuanDiperbaiki());
-                                    i++;
+                        /* jika list tersebut kosong, kita simpan ke tempList1 */
+                        if(isiList2Senjata.isEmpty()){
+                            tempList1 = isiList2Senjata;
+                            cekListKosong ++;
+                        }else{
 
-                                /* jika jenis senjata adalah Senjata Tembak maka... */
-                                }else{
-                                    System.out.printf("%2d. %-20s | kekuatan : %d | Peluru : %d/%d ", i+1,
-                                            isiList1Senjata.getNama(), isiList1Senjata.getKekuatan(),
-                                            isiList1Senjata.getJumlahPeluru(), isiList1Senjata.getBatasMaxAmunisi());
-                                    i++;
+                            /* jika jenis senjata adalah Senjata Pukul atau Senjata Tembak maka..*/
+                            if(isiList2Senjata.get(0).getJenis().equals("Senjata Pukul") || isiList2Senjata.get(0).getJenis().equals("Senjata Tembak")){
+
+                                /* pengulangan menampilkan isi dari list 1 dimensi senjata tertentu */
+                                for (Barang isiList1Senjata : isiList2Senjata) {
+
+                                    if(isiList2Senjata.get(0).getJenis().equals("Senjata Pukul")){
+                                        System.out.printf("%2d. %-20s | kekuatan : %d | Ketahanan : %d | Kemampuan diperbaiki : %d ", i+1,
+                                                isiList1Senjata.getNama(), isiList1Senjata.getKekuatan(), isiList1Senjata.getKetahanan(),
+                                                isiList1Senjata.jumlahKemampuanDiperbaiki());
+                                        i++;
+
+                                        /* jika jenis senjata adalah Senjata Tembak maka... */
+                                    }else{
+                                        System.out.printf("%2d. %-20s | kekuatan : %d | Peluru : %d/%d ", i+1,
+                                                isiList1Senjata.getNama(), isiList1Senjata.getKekuatan(),
+                                                isiList1Senjata.getJumlahPeluru(), isiList1Senjata.getBatasMaxAmunisi());
+                                        i++;
+                                    }
+
+                                    if(this.senjata != null){
+                                        /* jika senjata ini sedang digunakan tampilkan informasi berikut */
+                                        if(this.senjata.equals(isiList1Senjata)){
+                                            System.out.printf("| (Senjata sedang digunakan)");
+                                        }
+                                    }
+                                    System.out.println();
                                 }
 
-                                if(this.senjata != null){
-                                    /* jika senjata ini sedang digunakan tampilkan informasi berikut */
-                                    if(this.senjata.equals(isiList1Senjata)){
-                                        System.out.printf("| (Senjata sedang digunakan)");
+                                /* jika senjata adalah Senjata Lempar maka... */
+                            }else{
+                                System.out.println(isiList2Senjata.get(0).getJenis());
+                                System.out.printf("%2d. %-20s (%d) | kekuatan : %d ", i+1,
+                                        isiList2Senjata.get(0).getNama(), isiList2Senjata.size(),
+                                        isiList2Senjata.get(0).getKekuatan());
+                                i++;
+
+                                if(this.senjataLempar != null){
+                                    /* jika senjata lempar ini sedang digunakan tampilkan informasi berikut */
+                                    if(this.senjataLempar.equals(isiList2Senjata)){
+                                        System.out.printf("| (Senjata Lempar sedang digunakan)");
                                     }
                                 }
                                 System.out.println();
                             }
-
-                        /* jika senjata adalah Senjata Lempar maka... */
-                        }else{
-                            System.out.println(isiList2Senjata.get(0).getJenis());
-                            System.out.printf("%2d. %-20s (%d) | kekuatan : %d ", i+1,
-                                    isiList2Senjata.get(0).getNama(), isiList2Senjata.size(),
-                                    isiList2Senjata.get(0).getKekuatan());
-                            i++;
-
-                            if(this.senjataLempar != null){
-                                /* jika senjata lempar ini sedang digunakan tampilkan informasi berikut */
-                                if(this.senjataLempar.equals(isiList2Senjata)){
-                                    System.out.printf("| (Senjata sedang digunakan)");
-                                }
-                            }
-                            System.out.println();
                         }
                     }
                 }else if(kategori.equals("Kunci")){
+
                     for (ArrayList<Barang> isiList2Kunci : this.daftarBarang.get(kategori)) {
-                        System.out.printf("%2d. %-20s\n", i+1,
-                                isiList2Kunci.get(0).getNama());
-                        i++;
+
+                        /* hapus list yang kosong */
+                        if(cekListKosong == 1){
+                            this.daftarBarang.get(kategori).remove(tempList1);
+                            cekListKosong = 0;
+                        }
+
+                        /* jika list tersebut kosong, kita simpan ke tempList1 */
+                        if(isiList2Kunci.isEmpty()){
+                            tempList1 = isiList2Kunci;
+                            cekListKosong ++;
+                        }else{
+                            System.out.printf("%2d. %-20s\n", i+1,
+                                    isiList2Kunci.get(0).getNama());
+                            i++;
+                        }
+
                     }
                 }else{
+
                     for (ArrayList<Barang> isiList2Barang : this.daftarBarang.get(kategori)) {
-                        System.out.printf("%2d. %-20s (%d)\n", i+1,
-                                isiList2Barang.get(0).getNama(), isiList2Barang.size());
-                        i++;
+
+                        /* hapus list yang kosong */
+                        if(cekListKosong == 1){
+                            this.daftarBarang.get(kategori).remove(tempList1);
+                            cekListKosong = 0;
+                        }
+
+                        /* jika list tersebut kosong, kita simpan ke tempList1 */
+                        if(isiList2Barang.isEmpty()){
+                            tempList1 = isiList2Barang;
+                            cekListKosong ++;
+                        }else{
+                            System.out.printf("%2d. %-20s (%d)\n", i+1,
+                                    isiList2Barang.get(0).getNama(), isiList2Barang.size());
+                            i++;
+                        }
+
                     }
                 }
             }
@@ -375,8 +424,17 @@ public class Player {
                 System.out.println("[ Maaf, barang yang anda pilih tidak tersedia. ]");
             }else{
 
+                /* untuk menandai indeks */
+                int indeks;
+
+                /* dimulai dari -1 krn dalam foreach akan slalu diawali +1 */
+                indeks = -1;
+
                 /* instance objek hashmap */
                 barangPilihan = new HashMap<>();
+
+                /* memuat id dan indeks */
+                ArrayList<Integer> barangIdIndeks = new ArrayList<>();
 
                 /* kita reset i = 0 */
                 i=0;
@@ -385,17 +443,35 @@ public class Player {
 
                         /* jika jenis senjata adalah Senjata Pukul atau Senjata Tembak maka..*/
                         if(isiList2Senjata.get(0).getJenis().equals("Senjata Pukul") || isiList2Senjata.get(0).getJenis().equals("Senjata Tembak")){
+
                             for (Barang isiList1Senjata : isiList2Senjata) {
+
+                                /* menandai indeks saat ini */
+                                indeks++;
+
                                 i++;
                                 if(inputMenu == i){
-                                    barangPilihan.put(isiList1Senjata.getKategoriPenyimpanan() , isiList1Senjata.getIdBarang());
+
+                                    /* menambahkan id dan indeks */
+                                    barangIdIndeks.add(isiList1Senjata.getIdBarang());
+                                    barangIdIndeks.add(indeks);
+
+                                    barangPilihan.put(isiList1Senjata.getKategoriPenyimpanan() , barangIdIndeks);
                                     validasiInputBenar = true;
                                 }
                             }
                         }else{
                             i++;
                             if(inputMenu == i){
-                                barangPilihan.put(isiList2Senjata.get(0).getKategoriPenyimpanan(), isiList2Senjata.get(0).getIdBarang());
+
+                                /* menambahkan id dan indeks */
+                                barangIdIndeks.add(isiList2Senjata.get(0).getIdBarang());
+                                /*indeks 0 karena senjata lempar dalam satu list tidak memiliki perbedaan data,
+                                  maka dianggap sama sehingga tidak apa2 slalu meng-get dari indeks 0
+                                */
+                                barangIdIndeks.add(0);
+
+                                barangPilihan.put(isiList2Senjata.get(0).getKategoriPenyimpanan(), barangIdIndeks);
                                 validasiInputBenar = true;
                             }
                         }
@@ -404,7 +480,15 @@ public class Player {
                     for (ArrayList<Barang> isiList2Barang : this.daftarBarang.get(kategori)) {
                         i++;
                         if(inputMenu == i){
-                            barangPilihan.put(isiList2Barang.get(0).getKategoriPenyimpanan(), isiList2Barang.get(0).getIdBarang());
+
+                            /* menambahkan id dan indeks */
+                            barangIdIndeks.add(isiList2Barang.get(0).getIdBarang());
+                                /*indeks 0 karena barang2 selain senjata tembak dan pukul dalam satu list tidak memiliki perbedaan data,
+                                  maka dianggap sama sehingga tidak apa2 slalu meng-get dari indeks 0
+                                */
+                            barangIdIndeks.add(0);
+
+                            barangPilihan.put(isiList2Barang.get(0).getKategoriPenyimpanan(), barangIdIndeks);
                             validasiInputBenar = true;
                         }
                     }
@@ -412,12 +496,14 @@ public class Player {
 
             }
         }
+
+        /* return berupa key sebagai kategori, value indeks 0 = idBarang, value indeks 1 = IndeksBarang*/
         return barangPilihan;
     }
 
-    public Barang pilihBarangSatu(String kategori, int idBarang){
+    public Barang pilihBarangSatu(String kategori, int idBarang, int indeksBarang){
         if(this.daftarBarangPencarian.containsKey(kategori)){
-            return this.daftarBarangPencarian.get(kategori).get(idBarang).get(0);
+            return this.daftarBarangPencarian.get(kategori).get(idBarang).get(indeksBarang);
         }
         return null;
     }
@@ -427,6 +513,30 @@ public class Player {
             return this.daftarBarangPencarian.get(kategori).get(idBarang);
         }
         return null;
+    }
+
+    public void hapusBarangSatu(String kategori, int idBarang){
+        if(this.daftarBarangPencarian.containsKey(kategori)){
+            if(this.daftarBarangPencarian.get(kategori).containsKey(idBarang)){
+
+                /* jika list tersebut tidak kosong maka... */
+                if(!this.daftarBarangPencarian.get(kategori).get(idBarang).isEmpty()){
+                    this.daftarBarangPencarian.get(kategori).get(idBarang).remove(0);
+                    if(this.daftarBarangPencarian.get(kategori).get(idBarang).isEmpty()){
+                        this.daftarBarangPencarian.get(kategori).remove(idBarang);
+                    }
+                }
+            }
+        }
+    }
+
+    public void hapusBarangBanyak(String kategori, int idBarang){
+        if(this.daftarBarangPencarian.containsKey(kategori)){
+            if(this.daftarBarangPencarian.get(kategori).containsKey(idBarang)){
+                this.daftarBarangPencarian.get(kategori).get(idBarang).clear();
+                this.daftarBarangPencarian.get(kategori).remove(idBarang);
+            }
+        }
     }
 
     public void kurangiKesehatan(int nilaiSerangan){
@@ -465,10 +575,6 @@ public class Player {
         }else{
             return this.batasMaxSenjataDinamis - jumlahBarangSenjata;
         }
-    }
-
-    public Barang getSenjata() {
-        return senjata;
     }
 
     public double getUang() {
