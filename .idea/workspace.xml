@@ -341,22 +341,8 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.GameEngine">
-    <configuration name="Coba" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Coba" />
-      <module name="PBO_TugasBesar_Kelompok1_2019" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CobaSwing" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="CobaSwing" />
-      <module name="PBO_TugasBesar_Kelompok1_2019" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GameEngine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GameEngine" />
       <module name="PBO_TugasBesar_Kelompok1_2019" />
       <method v="2">
         <option name="Make" enabled="true" />
