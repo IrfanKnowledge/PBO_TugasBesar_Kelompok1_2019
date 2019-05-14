@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Barang {
     private int idBarang;
@@ -242,6 +243,8 @@ public class Barang {
     }
 
     public int jumlahKemampuanDiperbaiki(){ return 0; }
+
+    public void gantiPeluru(int indeks){ }
 
     //=======================================================
 }

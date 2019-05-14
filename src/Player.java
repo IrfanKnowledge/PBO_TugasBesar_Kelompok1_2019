@@ -195,15 +195,15 @@ public class Player {
                         if(this.daftarBarangPencarian.containsKey(isiList3.getKey())){
 
                             /* Jika di daftarBarangPencarian terdapat id Barang yang sama maka... */
-                            if(this.daftarBarangPencarian.get(isiList3.getKey()).containsKey(isiList2.getValue().get(0).getIdBarang())){
-
-                                /* Tambahkan semua barang ke dalam List yang memiliki id Barang sama */
-                                this.daftarBarangPencarian.get(isiList3.getKey()).get(isiList2.getValue().get(0).getIdBarang()).addAll(isiList2.getValue());
-                            }else{
-
-                                /* Tambahkan semua barang dengan membuat List Baru dengan id Barang baru*/
-                                this.daftarBarangPencarian.get(isiList3.getKey()).put(isiList2.getValue().get(0).getIdBarang(), isiList2.getValue());
-                            }
+//                            if(this.daftarBarangPencarian.get(isiList3.getKey()).containsKey(isiList2.getValue().get(0).getIdBarang())){
+//
+//                                /* Tambahkan semua barang ke dalam List yang memiliki id Barang sama */
+//                                this.daftarBarangPencarian.get(isiList3.getKey()).get(isiList2.getValue().get(0).getIdBarang()).addAll(isiList2.getValue());
+//                            }else{
+//
+//                                /* Tambahkan semua barang dengan membuat List Baru dengan id Barang baru*/
+//                                this.daftarBarangPencarian.get(isiList3.getKey()).put(isiList2.getValue().get(0).getIdBarang(), isiList2.getValue());
+//                            }
                         }else{
 
                             /* Tambahkan kategori yang telah ditetapkan dalam proses seleksi input,

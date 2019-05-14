@@ -10,8 +10,11 @@ public class Adegan {
     /* Pada setiap adegan terdapat hal berikut dan memiliki kemungkinan dapat melakukan aksi penggunaan barang */
     private int idAdegan;
     private int idBarangBisaDigunakan;
-    private String narasi;
+    private String posisiPlayer;
+    private String namaRuangan;
+    private String namaLuarRuangan;
     private String namaTempat;
+    private String narasi;
 
     /* Pada setiap adegan terdapat menu dengan opsi pilihan sebagai berikut */
     private PilihanLihatBarangSekitar oPilihanLihatBarangSekitar;
@@ -26,14 +29,15 @@ public class Adegan {
     private ArrayList<Npc> daftarNpc = new ArrayList<>();
     private ArrayList<Lawan> daftarLawan = new ArrayList<>();
 
-    /* jumlah kategori barang*/
-    private int jumlahKategori = 7;
-
-    Adegan(int idAdegan, int idBarangBisaDigunakan, String narasi, String namaTempat){
+    /* tanpa namaLuarRuangan */
+    Adegan(int idAdegan, int idBarangBisaDigunakan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String narasi){
         this.idAdegan = idAdegan;
         this.idBarangBisaDigunakan = idBarangBisaDigunakan;
-        this.narasi = narasi;
+        this.posisiPlayer = posisiPlayer;
+        this.namaRuangan = namaRuangan;
+        this.namaLuarRuangan = namaLuarRuangan;
         this.namaTempat = namaTempat;
+        this.narasi = narasi;
 
         //inisiasi pilihan awal di setiap Adegan
         this.oPilihanLihatBarangSekitar = new PilihanLihatBarangSekitar("Lihat barang sekitar tempat ini", this);
@@ -303,7 +307,6 @@ public class Adegan {
                     isiList3.getKey().equals("Komponen Crafting") || isiList3.getKey().equals("Barang Berharga") ||
                     isiList3.getKey().equals("Blueprint") || isiList3.getKey().equals("Amunisi") ||
                     isiList3.getKey().equals("Barang Lainnya")){
-
                 for (Map.Entry<Integer, ArrayList<Barang>> isiList2 : isiList3.getValue().entrySet()){
 
                     /* Jika isiList2 atau kumpulan ArrayList 1 dimensi dari barang input tersebut tidak kosong maka... */
@@ -312,31 +315,34 @@ public class Adegan {
                         /*
                          *  Jika dalam daftarBarangTetap terdapat kategori barang tersebut maka...
                          */
+                        //System.out.println(this.daftarBarangTetap.containsKey("Senjata") + isiList3.getKey());
                         if(this.daftarBarangTetap.containsKey(isiList3.getKey())){
 
                             /* Jika di daftarBarangPencarian terdapat id Barang yang sama maka... */
-                            if(this.daftarBarangTetap.get(isiList3.getKey()).containsKey(isiList2.getValue().get(0).getIdBarang())){
-
-                                /* Tambahkan semua barang ke dalam List yang memiliki id Barang sama */
-                                this.daftarBarangTetap.get(isiList3.getKey()).get(isiList2.getValue().get(0).getIdBarang()).addAll(isiList2.getValue());
-                            }else{
-
-                                /* Tambahkan semua barang dengan membuat List Baru dengan id Barang baru*/
-                                this.daftarBarangTetap.get(isiList3.getKey()).put(isiList2.getValue().get(0).getIdBarang(), isiList2.getValue());
-                            }
+//                            if(this.daftarBarangTetap.get(isiList3.getKey()).containsKey(isiList2.getValue().get(0).getIdBarang())){
+//
+//                                System.out.println(this.daftarBarangTetap);
+//                                System.out.println(isiList2.getValue().get(0).getNama());
+//                                /* Tambahkan semua barang ke dalam List yang memiliki id Barang sama */
+//                                this.daftarBarangTetap.get(isiList3.getKey()).get(isiList2.getValue().get(0).getIdBarang()).addAll(isiList2.getValue());
+//                            }else{
+//
+//                                /* Tambahkan semua barang dengan membuat List Baru dengan id Barang baru*/
+//                                this.daftarBarangTetap.get(isiList3.getKey()).put(isiList2.getValue().get(0).getIdBarang(), isiList2.getValue());
+//                            }
                         }else{
 
                             /* Tambahkan kategori yang telah ditetapkan dalam proses seleksi input,
                              *  ke daftarBarangTetap beserta isi input tersebut
                              */
                             this.daftarBarangTetap.put(isiList3.getKey(), isiList3.getValue());
+                            //System.out.println("new = " +  this.daftarBarangTetap);
                         }
 
                     }
                 }
             }
         }
-
         /* jika daftarBarangTetap tidak kosong maka.. */
         if(!this.daftarBarangTetap.isEmpty()){
             //meng-instance ulang semua object di daftarBarangTetap dan dimuat ke daftarBarang
@@ -403,9 +409,4 @@ public class Adegan {
     public String getNamaTempat() {
         return namaTempat;
     }
-
-    public int getJumlahKategori() {
-        return jumlahKategori;
-    }
-
 }

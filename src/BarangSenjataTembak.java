@@ -21,15 +21,19 @@ public class BarangSenjataTembak extends Barang{
             }
         }
 
-        if(daftarAmunisi != null){
-            //jika daftaramunisi kosong
-            if(daftarAmunisi.isEmpty()){
-                ArrayList<Integer> temp = new ArrayList<>();
-                temp.add(this.idAmunisiUtama.get("Amunisi"));
-                daftarIdAmunisi.put("Amunisi", temp);
+        if(daftarIdAmunisi != null){
+            //jika daftar id amunisi kosong
+            if(daftarIdAmunisi.isEmpty()){
+                if(this.idAmunisiUtama != null){
+                    if(!this.idAmunisiUtama.isEmpty()){
+                        ArrayList<Integer> temp = new ArrayList<>();
+                        temp.add(this.idAmunisiUtama.get("Amunisi"));
+                        daftarIdAmunisi.put("Amunisi", temp);
 
-                //menambahkan minimal 1 buah id amunisi yang bisa digunakan senjata ini
-                this.daftarIdAmunisi = daftarIdAmunisi;
+                        //menambahkan minimal 1 buah id amunisi yang bisa digunakan senjata ini
+                        this.daftarIdAmunisi = daftarIdAmunisi;
+                    }
+                }
             }else{
                 //proses menambahkan daftar amunisi yang bisa digunakan
                 this.daftarIdAmunisi = daftarIdAmunisi;
@@ -43,20 +47,31 @@ public class BarangSenjataTembak extends Barang{
             this.batasMaxAmunisi = batasMaxAmunisi;
         }
 
-        for (Map.Entry<String, Integer> oIdAmunisiUtama : this.idAmunisiUtama.entrySet()) {
-            for(int i=0; i<daftarAmunisi.size(); i+=0){
-                //mengecek setiap isi daftarAmunisi yang masuk, apakah memiliki id yang cocok atau tidak
-                if(daftarAmunisi.get(i).getIdBarang() == oIdAmunisiUtama.getValue()){
-                    this.daftarAmunisi.add(daftarAmunisi.get(i));
-                    //proses menghapus objek pada urutan terakhir dalam daftarAmunisi inputan
-                    daftarAmunisi.remove(i);
-                }
+        if(this.idAmunisiUtama != null){
+            for (Map.Entry<String, Integer> oIdAmunisiUtama : this.idAmunisiUtama.entrySet()) {
+                if(daftarAmunisi != null){
+                    for(int i=0; i<daftarAmunisi.size(); i+=0){
+                        //mengecek setiap isi daftarAmunisi yang masuk, apakah memiliki id yang cocok atau tidak
+                        if(daftarAmunisi.get(i).getIdBarang() == oIdAmunisiUtama.getValue()){
+                            this.daftarAmunisi.add(daftarAmunisi.get(i));
+                            //proses menghapus objek pada urutan terakhir dalam daftarAmunisi inputan
+                            daftarAmunisi.remove(i);
+                        }
 
-                //jika daftarAmunisi senjata telah mencapai batasMaxAMunisi maka keluar paksa dari pengulangan ini
-                if(this.daftarAmunisi.size() == batasMaxAmunisi){
-                    break;
+                        //jika daftarAmunisi senjata telah mencapai batasMaxAMunisi maka keluar paksa dari pengulangan ini
+                        if(this.daftarAmunisi.size() == batasMaxAmunisi){
+                            break;
+                        }
+                    }
                 }
             }
+        }
+
+        /* Untuk mencegah pemberian idAmunisiUtama dengan null */
+        if(this.idAmunisiUtama == null){
+            System.out.println();
+            System.out.printf("[ Maaf, idAmunisiUtama tidak boleh null (senjata dgn id %d dan nama %s]\n", this.getIdBarang(), this.getNama());
+            System.exit(0);
         }
     }
 
@@ -122,6 +137,7 @@ public class BarangSenjataTembak extends Barang{
         }
     }
 
+    @Override
     public void gantiPeluru(int indeks){
         if(this.daftarIdAmunisi != null){
             for (Map.Entry<String, ArrayList<Integer>> oDaftarIdAmunisi : this.daftarIdAmunisi.entrySet()) {

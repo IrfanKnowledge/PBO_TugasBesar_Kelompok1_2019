@@ -204,14 +204,22 @@ public class PilihanLihatBarangSenjata extends Pilihan {
                 System.out.println();
                 System.out.printf("%2d. %s\n", i+1, oDaftarIdAmunisi.getValue().get(i));
             }
+            System.out.printf("%2d. Batal ganti peluru\n", 0);
             System.out.printf("Masukkan pilihan : \n");
             Scanner oScan = new Scanner(System.in);
             int pilihanGantiAmunisi = oScan.nextInt();
-            if(pilihanGantiAmunisi < 1 || pilihanGantiAmunisi > oDaftarIdAmunisi.getValue().size()){
+
+            /* jika pilihan == 0 maka jangan lakukan apapun */
+            if(pilihanGantiAmunisi == 0){
+
+            }else if(pilihanGantiAmunisi < 0 || pilihanGantiAmunisi > oDaftarIdAmunisi.getValue().size()){
                 System.out.println();
                 System.out.println("[ Pilihan tidak tersedia ]");
             }else{
-                //oBarangPilihan.
+                oBarangPilihan.gantiPeluru(pilihanGantiAmunisi-1);
+
+                System.out.println();
+                System.out.println("[ Peluru utama senjata telah diganti ]");
             }
         }
 
