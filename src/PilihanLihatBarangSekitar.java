@@ -27,7 +27,7 @@ public class PilihanLihatBarangSekitar extends Pilihan {
             }
 
             /* mengecek saja, bisa di buat komentar */
-            System.out.println("DaftarBarang = " + this.oAdegan.getDaftarBarang());
+            //System.out.println("DaftarBarang = " + this.oAdegan.getDaftarBarang());
 
             /* daftar pilihan jika barang tidak kosong */
             PilihanAmbilSemuaBarang oPilihanAmbilSemuaBarang = new PilihanAmbilSemuaBarang("Ambil semua barang", this.oAdegan);

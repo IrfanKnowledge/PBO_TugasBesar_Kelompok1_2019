@@ -45,14 +45,14 @@ public class GameEngine {
         for(int i=0; i<3; i++){
             daftarAmunisi.add(new Barang(5, "Pistol Ammo", "Peluru Pistol", "Amunisi", "Peluru untuk pistol secara umum", true, false, 100000, 0, 0, null));
         }
-        listBarangSenjata.add(new BarangSenjataTembak(5, "9mm Pistol", "Senjata Tembak", "Senjata", "Pistol berwarna hitam, berukuran sedang.", true, true, 1000000, 500000, 50, 8, daftarAmunisi, null, idAmunisi));
-        barangSenjata.put(5, listBarangSenjata);
+        //listBarangSenjata.add(new BarangSenjataTembak(5, "9mm Pistol", "Senjata Tembak", "Senjata", "Pistol berwarna hitam, berukuran sedang.", true, true, 1000000, 500000, 50, 8, daftarAmunisi, null, idAmunisi));
+        //barangSenjata.put(5, listBarangSenjata);
         listBarangSenjata = new ArrayList<>();
         listBarangSenjata.add(new BarangSenjataPukul(30, "Pipe", "Senjata Pukul", "Senjata", "Pipa tua berkarat yang berbentuk sedang", true, true, 10000, 5000, 25, 15));
         barangSenjata.put(30, listBarangSenjata);
         listBarangSenjata = new ArrayList<>();
-        listBarangSenjata.add(new Barang(31, "Shuriken", "Senjata Lempar", "Senjata", "Senjata berwarna hitam kecil yang sering digunkan ninja.", true, true, 1000, 500, 25, null));
-        barangSenjata.put(31, listBarangSenjata);
+        //listBarangSenjata.add(new Barang(31, "Shuriken", "Senjata Lempar", "Senjata", "Senjata berwarna hitam kecil yang sering digunkan ninja.", true, true, 1000, 500, 25, null));
+        //barangSenjata.put(31, listBarangSenjata);
         barangSemuaBarang.put("Senjata", barangSenjata);
 
         /* Kunci */
@@ -107,7 +107,7 @@ public class GameEngine {
 
 //        oGameEgnine.oPlayer.adeganAktif = tengahRuangan;
 
-        System.out.println(barangSemuaBarang);
+        //System.out.println(barangSemuaBarang);
         oGameEgnine.oPlayer.adeganAktif = adeganId1;
         oGameEgnine.mulaiGame();
     }

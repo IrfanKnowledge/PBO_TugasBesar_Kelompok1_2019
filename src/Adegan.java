@@ -203,9 +203,9 @@ public class Adegan {
                 }
             }
 
-            System.out.println();
-            System.out.println("oKategoriBarang = " + this.daftarBarang);
-            System.out.println("tempList3 = " + tempList3);
+//            System.out.println();
+//            System.out.println("oKategoriBarang = " + this.daftarBarang);
+//            System.out.println("tempList3 = " + tempList3);
 
             return  tempList3;
         }

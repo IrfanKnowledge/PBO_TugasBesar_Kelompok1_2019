@@ -223,8 +223,8 @@ public class Player {
             this.sinkronisasi();
         }
 
-        System.out.println("daftarBarang = " + this.daftarBarang);
-        System.out.println("daftarBarangPencarian = " + this.daftarBarangPencarian);
+        //System.out.println("daftarBarang = " + this.daftarBarang);
+        //System.out.println("daftarBarangPencarian = " + this.daftarBarangPencarian);
     }
 
     /* (Private karena hanya untuk proses internal)
