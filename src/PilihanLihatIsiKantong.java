@@ -29,7 +29,7 @@ public class PilihanLihatIsiKantong extends Pilihan {
             System.out.printf("%2d. %s\n", i+1, "Amunisi"); i++;
             System.out.printf("%2d. %s\n", i+1, "Komponen Crafting"); i++;
             System.out.printf("%2d. %s\n", i+1, "Blueprint"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Barang Bernilai"); i++;
+            System.out.printf("%2d. %s\n", i+1, "Barang Bernilai Jual"); i++;
             System.out.printf("%2d. %s\n", i+1, "Barang Lainnya"); i++;
             System.out.printf("%2d. Kembali\n", 0);
 
