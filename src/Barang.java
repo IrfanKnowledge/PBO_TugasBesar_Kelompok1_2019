@@ -1,14 +1,13 @@
 public class Barang {
 
-    /* public karena proses eksternal */
+    /* public karena tidak memerlukan proses internal */
     public int idBarang;
     public String nama;
-
-    /* private karena pemberian kategori penyimpanan sudah disediakan */
-    private String kategoriPenyimpanan;
-
-    /* public karena proses eksternal */
+    public String kategoriBarang;
     public String deskripsi;
+
+    /* status ini berguna untuk membedakan mana barang yang dapat bernilai 0 namun bisa diberikan gratis oleh penjual
+    *  atau barang yang tidak bisa dibeli dari penjual tapi bisa dijual, atau sebaliknya (bisa dibeli, tidak bisa dijual)*/
     public boolean statusJual;
     public boolean statusBeli;
 
@@ -16,10 +15,11 @@ public class Barang {
     private int hargaJual;;
     private int hargaBeli;
 
-    Barang(int idBarang, String nama, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual){
+    Barang(int idBarang, String nama, String kategoriBarang,String deskripsi, boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli){
         this.idBarang = idBarang;
         this.nama = nama;
-        this.kategoriPenyimpanan = "belum ditentukan";
+        this.kategoriBarang = kategoriBarang;
+        this.kategoriBarang = "belum ditentukan";
         this.deskripsi = deskripsi;
         this.statusBeli = statusBeli;
         this.statusJual = statusJual;
@@ -27,25 +27,19 @@ public class Barang {
         this.hargaJual = this.filterHarga(hargaJual);
     }
 
-    //constructor untuk mengcloning Barang
-    Barang(Barang cloning){
-        this.idBarang = cloning.idBarang;
-        this.nama = cloning.nama;
-        this.kategoriPenyimpanan = cloning.kategoriPenyimpanan;
-        this.deskripsi = cloning.deskripsi;
-        this.statusJual = cloning.statusJual;
-        this.statusBeli = cloning.statusBeli;
-        this.hargaJual = cloning.hargaJual;
-        this.hargaBeli = cloning.hargaBeli;
+    public static void main(String[] args) {
+        Barang barangA = new Barang(1, "Medikit", "penggunaan pada diri","Untuk menyembuhkan luka", true, true, 5000, 2500);
     }
 
-    public static void main(String[] args) {
-        Barang barangA = new Barang(1, "Medikit", "Untuk menyembuhkan luka", true, true, 5000, 2500);
+    /* private karena hanya digunakan method cloning saja */
+    private Barang prosesCloning(Barang oBarang){
+        Barang barangCloning = new Barang(oBarang.idBarang, oBarang.nama, oBarang.kategoriBarang ,oBarang.deskripsi, oBarang.statusJual, oBarang.statusBeli, oBarang.getHargaJual(), oBarang.getHargaBeli());
+        return barangCloning;
     }
 
     /* Cloning barang dan turunannya */
     public Barang cloning(){
-        return new Barang(this);
+        return prosesCloning(this);
     }
 
     /* private karena hanya digunakan pada proses input harga jual dan harga beli, agar harga "tidak negatif" */
@@ -71,33 +65,4 @@ public class Barang {
     public int getHargaBeli() {
         return hargaBeli;
     }
-
-    public void setKategoriPenyimpananKunci() {
-        this.kategoriPenyimpanan = "kunci";
-    }
-
-    public void setKategoriPenyimpananSenjata() {
-        this.kategoriPenyimpanan = "senjata";
-    }
-
-    public void setKategoriPenyimpananAmunisi() {
-        this.kategoriPenyimpanan = "amunisi";
-    }
-
-    public void setKategoriPenyimpananPenggunaanPadaDiri() {
-        this.kategoriPenyimpanan = "penggunaan pada diri";
-    }
-
-    public void setKategoriPenyimpananBlueprint() {
-        this.kategoriPenyimpanan = "blueprint";
-    }
-
-    public void setKategoriPenyimpananKomponenCrafting() {
-        this.kategoriPenyimpanan = "komponen crafting";
-    }
-
-    public void setKategoriPenyimpananBarangBernilaiJual() {
-        this.kategoriPenyimpanan = "barang bernilai jual";
-    }
-
 }

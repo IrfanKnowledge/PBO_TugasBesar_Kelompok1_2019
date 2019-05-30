@@ -8,21 +8,21 @@ public class BarangSenjata extends Barang{
     /* private karena hanya membutuhkan proses tambah efek dan get efek saja */
     private ArrayList<Efek> daftarEfek = new ArrayList<>();
 
-    /* public karena proses eksternal */
-    public boolean statusUpgrade = false;
+    BarangSenjata(int idBarang, String nama, String kategoriBarang, String deskripsi,
+                  boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli, int kekuatan) {
+        super(idBarang, nama, kategoriBarang,deskripsi, statusJual, statusBeli, hargaJual, hargaBeli);
+        this.kekuatan = this.minimalKekuatan(kekuatan);
+    }
 
-    BarangSenjata(int idBarang, String nama, String deskripsi, boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli, int kekuatan, boolean statusUpgrade) {
-        super(idBarang, nama, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
-        this.kekuatan = kekuatan;
-        this.statusUpgrade = statusUpgrade;
+    private int minimalKekuatan(int kekuatan){
+        if(kekuatan < 0 ){
+            return 0;
+        }
+        return kekuatan;
     }
 
     public void setKekuatan(int kekuatan) {
-        if(kekuatan <= 0){
-            this.kekuatan = 0;
-        }else{
-            this.kekuatan = kekuatan;
-        }
+        this.kekuatan = this.minimalKekuatan(kekuatan);
     }
 
     public int getKekuatan() {
@@ -33,13 +33,18 @@ public class BarangSenjata extends Barang{
         this.daftarEfek.add(oEfek);
     }
 
+    public void tambahEfekBanyak(ArrayList<Efek> oDaftarEfek){
+        this.daftarEfek.addAll(oDaftarEfek);
+    }
+
     public ArrayList<Efek> getDaftarEfek() {
         return daftarEfek;
     }
 
     /* private karena hanya digunakan method cloning saja */
     private BarangSenjata prosesCloning(BarangSenjata oBarang){
-        BarangSenjata barangCloning = new BarangSenjata(oBarang.idBarang, oBarang.nama, oBarang.deskripsi, oBarang.statusJual, oBarang.statusBeli, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.kekuatan, oBarang.statusUpgrade);
+        BarangSenjata barangCloning = new BarangSenjata(oBarang.idBarang, oBarang.nama, oBarang.kategoriBarang, oBarang.deskripsi,
+                oBarang.statusJual, oBarang.statusBeli, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.kekuatan);
         barangCloning.daftarEfek.addAll(oBarang.daftarEfek);
         return barangCloning;
     }

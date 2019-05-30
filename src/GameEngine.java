@@ -48,7 +48,7 @@ public class GameEngine {
         //listBarangSenjata.add(new BarangSenjataTembak(5, "9mm Pistol", "Senjata Tembak", "Senjata", "Pistol berwarna hitam, berukuran sedang.", true, true, 1000000, 500000, 50, 8, daftarAmunisi, null, idAmunisi));
         //barangSenjata.put(5, listBarangSenjata);
         listBarangSenjata = new ArrayList<>();
-        listBarangSenjata.add(new BarangSenjataPukul(30, "Pipe", "Senjata Pukul", "Senjata", "Pipa tua berkarat yang berbentuk sedang", true, true, 10000, 5000, 25, 15));
+        listBarangSenjata.add(new BarangSenjataJarakDekat(30, "Pipe", "Senjata Pukul", "Senjata", "Pipa tua berkarat yang berbentuk sedang", true, true, 10000, 5000, 25, 15));
         barangSenjata.put(30, listBarangSenjata);
         listBarangSenjata = new ArrayList<>();
         //listBarangSenjata.add(new Barang(31, "Shuriken", "Senjata Lempar", "Senjata", "Senjata berwarna hitam kecil yang sering digunkan ninja.", true, true, 1000, 500, 25, null));
@@ -85,7 +85,7 @@ public class GameEngine {
 
 //        ArrayList<Barang> barangTengahRuanganList1Senjata = new ArrayList<>();
 //        for(int i=0; i<5; i++){
-//            barangTengahRuanganList1Senjata.add(new BarangSenjataPukul(30, "Pipe", "Senjata Pukul", "Senjata", "Pipa tua berkarat yang berbentuk sedang", true, true,
+//            barangTengahRuanganList1Senjata.add(new BarangSenjataJarakDekat(30, "Pipe", "Senjata Pukul", "Senjata", "Pipa tua berkarat yang berbentuk sedang", true, true,
 //                    100, 50, 30, 10));
 //        }
 //        ArrayList<Barang> barangTengahRuanganList1Kunci = new ArrayList<>();
