@@ -6,53 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="cf83a169-ddbc-4d9f-bc0e-3d206c669074" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Adegan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/AdeganBertarung.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Assets.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Barang.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/BarangBlueprint.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/BarangSenjataPukul.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/BarangSenjataTembak.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Coba.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/CobaSwing$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/CobaSwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Efek.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/GameEngine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Hewan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Himpunan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/HimpunanBarang.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Lawan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Level.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/MyPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/MyPanel2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Npc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Pilihan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanAmbilBarangSenjataSatuPerSatu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanAmbilSemuaBarang.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanIsiPeluru.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanKeluarGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanLihatBarangKunci.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanLihatBarangSekitar.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanLihatBarangSenjata.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanLihatIsiKantong.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanLihatLawanSekitar.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanLihatNpcSekitar.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/PilihanSerang.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/SkillCrafting.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/SkillEfisiensiCrafting.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/SkillKapasitasSenjataDinamis.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/SkillKesehatan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/SkillMenawarBarang.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/SkillMenjualBarang.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/SwingTambahCustomPanel$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/SwingTambahCustomPanel$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PBO_TugasBesar_Kelompok1_2019/SwingTambahCustomPanel.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Barang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Barang.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BarangPenggunaanPadaDiri.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BarangPenggunaanPadaDiri.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BarangSenjata.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BarangSenjata.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BarangSenjataPukul.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BarangSenjataJarakDekat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BarangSenjataJarakDekat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BarangSenjataJarakDekat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BarangSenjataTembak.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BarangSenjataTembak.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -86,65 +44,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Barang.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-195">
-              <caret column="15" lean-forward="true" selection-start-column="15" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BarangPenggunaanPadaDiri.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-269">
-              <caret line="2" column="34" lean-forward="true" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BarangSenjata.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
-              <folding>
-                <element signature="e#956#957#0" expanded="true" />
-                <element signature="e#1018#1019#0" expanded="true" />
-                <element signature="e#1050#1051#0" expanded="true" />
-                <element signature="e#1081#1082#0" expanded="true" />
-                <element signature="e#1124#1125#0" expanded="true" />
-                <element signature="e#1154#1155#0" expanded="true" />
-                <element signature="e#1210#1211#0" expanded="true" />
-                <element signature="e#1243#1244#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="241">
+              <caret line="13" column="49" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/BarangSenjataJarakDekat.java">
+        <entry file="file://$PROJECT_DIR$/src/BarangSenjataTembak.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
-              <caret line="198" column="5" lean-forward="true" selection-start-line="198" selection-start-column="5" selection-end-line="198" selection-end-column="5" />
+            <state relative-caret-position="44">
+              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
               <folding>
-                <element signature="e#1967#1968#0" expanded="true" />
-                <element signature="e#2250#2251#0" expanded="true" />
-                <element signature="e#2663#2664#0" expanded="true" />
-                <element signature="e#3095#3096#0" expanded="true" />
-                <element signature="e#3133#3134#0" expanded="true" />
-                <element signature="e#3055#3056#0" expanded="true" />
-                <element signature="e#3094#3095#0" expanded="true" />
-                <element signature="e#3249#3250#0" expanded="true" />
-                <element signature="e#3285#3286#0" expanded="true" />
-                <element signature="e#3381#3382#0" expanded="true" />
-                <element signature="e#3429#3430#0" expanded="true" />
-                <element signature="e#3712#3713#0" expanded="true" />
-                <element signature="e#3652#3653#0" expanded="true" />
-                <element signature="e#3703#3704#0" expanded="true" />
-                <element signature="e#3749#3750#0" expanded="true" />
-                <element signature="e#3794#3795#0" expanded="true" />
-                <element signature="e#4066#4067#0" expanded="true" />
-                <element signature="e#4136#4137#0" expanded="true" />
-                <element signature="e#5207#5208#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#5002#5003#0" expanded="true" />
+                <element signature="e#5044#5045#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -162,11 +76,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>gunakanbarang</find>
-      <find>SenjataPukul</find>
-      <find>jumlah</find>
-      <find>unlock</find>
-      <find>barangBlue</find>
       <find>batas</find>
       <find>break</find>
       <find>daftarHasilCrafting</find>
@@ -192,6 +101,11 @@
       <find>tengahruangan</find>
       <find>kekuatan</find>
       <find>Penyimpanan</find>
+      <find>getidamunisi</find>
+      <find>tambahIdAmunisiCocok</find>
+      <find>daftarIdAmunisiCocok</find>
+      <find>peluru</find>
+      <find>hashmap</find>
     </findStrings>
     <replaceStrings>
       <replace>daftarLevelBertahanHidup</replace>
@@ -201,6 +115,10 @@
       <replace>isiList2</replace>
       <replace>daftarBarangPencarian</replace>
       <replace>Barang</replace>
+      <replace>tambahAmunisiCocok</replace>
+      <replace>daftarAmunisiCocok</replace>
+      <replace>amunisi</replace>
+      <replace>Amunisi</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -215,8 +133,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/HimpunanBarang.java" />
-        <option value="$PROJECT_DIR$/src/Himpunan.java" />
         <option value="$PROJECT_DIR$/src/PilihanSerang.java" />
         <option value="$PROJECT_DIR$/src/Lawan.java" />
         <option value="$PROJECT_DIR$/src/Skill.java" />
@@ -247,7 +163,6 @@
         <option value="$PROJECT_DIR$/src/PilihanGunakanKunci.java" />
         <option value="$PROJECT_DIR$/src/BarangSenjataPukul.java" />
         <option value="$PROJECT_DIR$/src/PilihanLihatBarangSenjata.java" />
-        <option value="$PROJECT_DIR$/src/BarangSenjataTembak.java" />
         <option value="$PROJECT_DIR$/src/AdeganBertarung.java" />
         <option value="$PROJECT_DIR$/src/PilihanLihatBarangKunci.java" />
         <option value="$PROJECT_DIR$/src/Assets.java" />
@@ -262,10 +177,13 @@
         <option value="$PROJECT_DIR$/src/Player.java" />
         <option value="$PROJECT_DIR$/src/BarangPenggunaanDiriSendiri.java" />
         <option value="$PROJECT_DIR$/src/PilihanLihatIsiKantong.java" />
-        <option value="$PROJECT_DIR$/src/Barang.java" />
-        <option value="$PROJECT_DIR$/src/BarangPenggunaanPadaDiri.java" />
+        <option value="$PROJECT_DIR$/src/BarangSenjataJarakJauh.java" />
+        <option value="$PROJECT_DIR$/src/BarangSenjataLempar.java" />
         <option value="$PROJECT_DIR$/src/BarangSenjata.java" />
+        <option value="$PROJECT_DIR$/src/BarangPenggunaanPadaDiri.java" />
         <option value="$PROJECT_DIR$/src/BarangSenjataJarakDekat.java" />
+        <option value="$PROJECT_DIR$/src/Barang.java" />
+        <option value="$PROJECT_DIR$/src/BarangSenjataTembak.java" />
       </list>
     </option>
   </component>
@@ -428,7 +346,7 @@
       <workItem from="1559107747851" duration="9762000" />
       <workItem from="1559125753861" duration="1056000" />
       <workItem from="1559135932653" duration="9304000" />
-      <workItem from="1559176443344" duration="5247000" />
+      <workItem from="1559176443344" duration="20488000" />
     </task>
     <task id="LOCAL-00001" summary="2">
       <created>1556208069346</created>
@@ -556,11 +474,18 @@
       <option name="project" value="LOCAL" />
       <updated>1559120199698</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Barang, BarangPenggunaanPadaDiri, BarangSenjata, BarangSenjataJarakDekat,">
+      <created>1559183193885</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1559183193885</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="365767000" />
+    <option name="totallyTimeSpent" value="381008000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -575,7 +500,7 @@
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.17627347" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17627347" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -607,7 +532,7 @@
       <window_info anchor="right" id="Maven" order="8" side_tool="true" weight="0.3297587" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17627347" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17627347" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -711,14 +636,14 @@
     <MESSAGE value="Fix Bug, progres Kunci dan Senjata (Part 2)" />
     <MESSAGE value="Progress Lihat Senjata. (Ganti Peluru belum)" />
     <MESSAGE value="Barang, BarangPenggunaanPadaDiri, BarangSenjata" />
-    <option name="LAST_COMMIT_MESSAGE" value="Barang, BarangPenggunaanPadaDiri, BarangSenjata" />
+    <MESSAGE value="Barang, BarangPenggunaanPadaDiri, BarangSenjata, BarangSenjataJarakDekat," />
+    <option name="LAST_COMMIT_MESSAGE" value="Barang, BarangPenggunaanPadaDiri, BarangSenjata, BarangSenjataJarakDekat," />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Penyimpanan.java" />
     <entry file="file://$PROJECT_DIR$/.gitattributes">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1022,16 +947,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Senjata.kt" />
-    <entry file="file://$PROJECT_DIR$/src/BarangSenjataTembak.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="141" column="41" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PilihanLihatIsiKantong.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
@@ -1071,24 +986,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Barang.java">
+    <entry file="file://$PROJECT_DIR$/src/BarangSenjataLempar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-195">
-          <caret column="15" lean-forward="true" selection-start-column="15" selection-end-column="15" />
+        <state relative-caret-position="132">
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+          <folding>
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#435#436#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BarangPenggunaanPadaDiri.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-269">
-          <caret line="2" column="34" lean-forward="true" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+        <state relative-caret-position="220">
+          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+          <folding>
+            <element signature="e#935#936#0" expanded="true" />
+            <element signature="e#977#978#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BarangSenjata.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
+        <state relative-caret-position="-176">
+          <caret line="7" column="90" selection-start-line="7" selection-start-column="90" selection-end-line="7" selection-end-column="90" />
           <folding>
             <element signature="e#956#957#0" expanded="true" />
             <element signature="e#1018#1019#0" expanded="true" />
@@ -1096,20 +1019,20 @@
             <element signature="e#1081#1082#0" expanded="true" />
             <element signature="e#1124#1125#0" expanded="true" />
             <element signature="e#1154#1155#0" expanded="true" />
-            <element signature="e#1210#1211#0" expanded="true" />
-            <element signature="e#1243#1244#0" expanded="true" />
+            <element signature="e#2066#2067#0" expanded="true" />
+            <element signature="e#2093#2094#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BarangSenjataJarakDekat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="198" column="5" lean-forward="true" selection-start-line="198" selection-start-column="5" selection-end-line="198" selection-end-column="5" />
+        <state relative-caret-position="3762">
+          <caret line="171" column="12" selection-start-line="171" selection-start-column="12" selection-end-line="171" selection-end-column="151" />
           <folding>
-            <element signature="e#1967#1968#0" expanded="true" />
-            <element signature="e#2250#2251#0" expanded="true" />
-            <element signature="e#2663#2664#0" expanded="true" />
+            <element signature="e#1998#1999#0" expanded="true" />
+            <element signature="e#2281#2282#0" expanded="true" />
+            <element signature="e#2694#2695#0" expanded="true" />
             <element signature="e#3095#3096#0" expanded="true" />
             <element signature="e#3133#3134#0" expanded="true" />
             <element signature="e#3055#3056#0" expanded="true" />
@@ -1118,14 +1041,37 @@
             <element signature="e#3285#3286#0" expanded="true" />
             <element signature="e#3381#3382#0" expanded="true" />
             <element signature="e#3429#3430#0" expanded="true" />
-            <element signature="e#3712#3713#0" expanded="true" />
+            <element signature="e#3743#3744#0" expanded="true" />
+            <element signature="e#3769#3770#0" expanded="true" />
+            <element signature="e#3823#3824#0" expanded="true" />
             <element signature="e#3652#3653#0" expanded="true" />
             <element signature="e#3703#3704#0" expanded="true" />
             <element signature="e#3749#3750#0" expanded="true" />
             <element signature="e#3794#3795#0" expanded="true" />
+            <element signature="e#4373#4374#0" expanded="true" />
+            <element signature="e#4420#4421#0" expanded="true" />
             <element signature="e#4066#4067#0" expanded="true" />
             <element signature="e#4136#4137#0" expanded="true" />
-            <element signature="e#5207#5208#0" expanded="true" />
+            <element signature="e#5125#5126#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Barang.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="13" column="49" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BarangSenjataTembak.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5002#5003#0" expanded="true" />
+            <element signature="e#5044#5045#0" expanded="true" />
           </folding>
         </state>
       </provider>

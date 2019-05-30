@@ -5,7 +5,7 @@ public class BarangSenjata extends Barang{
     /* private karena pemberian minimal nilai kekuatan dibatasi */
     private int kekuatan = 0;
 
-    /* private karena hanya membutuhkan proses tambah efek dan get efek saja */
+    /* private karena hanya membutuhkan proses tambah efek dan get (+ telah dimodifikasi) efek saja */
     private ArrayList<Efek> daftarEfek = new ArrayList<>();
 
     BarangSenjata(int idBarang, String nama, String kategoriBarang, String deskripsi,
@@ -33,12 +33,16 @@ public class BarangSenjata extends Barang{
         this.daftarEfek.add(oEfek);
     }
 
-    public void tambahEfekBanyak(ArrayList<Efek> oDaftarEfek){
+    public void tambahEfek(ArrayList<Efek> oDaftarEfek){
         this.daftarEfek.addAll(oDaftarEfek);
     }
 
     public ArrayList<Efek> getDaftarEfek() {
-        return daftarEfek;
+        /* object ArrayList dibedakan agar tidak dapat memanipulasi daftarEfek diluar Class ini
+         * selain hanya bisa menggunakan method khusus untuk menambahkan object pada daftarEfek */
+        ArrayList<Efek> temp = new ArrayList<>();
+        temp.addAll(this.daftarEfek);
+        return temp;
     }
 
     /* private karena hanya digunakan method cloning saja */

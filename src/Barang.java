@@ -28,13 +28,12 @@ public class Barang {
     }
 
     public static void main(String[] args) {
-        Barang barangA = new Barang(1, "Medikit", "penggunaan pada diri","Untuk menyembuhkan luka", true, true, 5000, 2500);
+        BarangPenggunaanPadaDiri barangA = new BarangPenggunaanPadaDiri(1, "Medikit", "penggunaan pada diri","Untuk menyembuhkan luka", true, true, 5000, 2500, 100);
     }
 
     /* private karena hanya digunakan method cloning saja */
     private Barang prosesCloning(Barang oBarang){
-        Barang barangCloning = new Barang(oBarang.idBarang, oBarang.nama, oBarang.kategoriBarang ,oBarang.deskripsi, oBarang.statusJual, oBarang.statusBeli, oBarang.getHargaJual(), oBarang.getHargaBeli());
-        return barangCloning;
+        return new Barang(oBarang.idBarang, oBarang.nama, oBarang.kategoriBarang ,oBarang.deskripsi, oBarang.statusJual, oBarang.statusBeli, oBarang.getHargaJual(), oBarang.getHargaBeli());
     }
 
     /* Cloning barang dan turunannya */

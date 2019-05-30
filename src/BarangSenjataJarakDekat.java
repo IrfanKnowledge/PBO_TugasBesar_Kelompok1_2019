@@ -14,10 +14,9 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
     private boolean statusKemampuanDiperbaiki;
     private boolean statusUpgrade;
 
-    /* private karena 3 variable berikut digunakan sepasang */
-    private String kategoriBarangUntukPerbaikan;
-    private int idBarangUntukPerbaikan;
-    private String namaBarangUntukPerbaikan;
+    /* private karena hanya untuk set, get tertentu, dan untuk proses internal,
+    *  static karena semua senjataJarakDekat memiliki komponen untuk perbaikan yang sama */
+    static private Barang komponenBarangUntukPerbaikan;
 
     BarangSenjataJarakDekat(int idBarang, String nama, String kategoriBarang, String deskripsi,
                             boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
@@ -120,18 +119,20 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         return statusUpgrade;
     }
 
-    public void setKomponenUntukPerbaikan(String key, int value, String nama) {
-        this.kategoriBarangUntukPerbaikan = key;
-        this.idBarangUntukPerbaikan = value;
-        this.namaBarangUntukPerbaikan = nama;
+    static public void setKomponenUntukPerbaikan(Barang oBarang) {
+        komponenBarangUntukPerbaikan = oBarang;
     }
 
     public String getKategoriBarangUntukPerbaikan() {
-        return kategoriBarangUntukPerbaikan;
+        return komponenBarangUntukPerbaikan.kategoriBarang;
     }
 
     public int getIdBarangUntukPerbaikan() {
-        return idBarangUntukPerbaikan;
+        return komponenBarangUntukPerbaikan.idBarang;
+    }
+
+    public static String getNamaBarangUntukPerbaikan() {
+        return komponenBarangUntukPerbaikan.nama;
     }
 
     /* untuk mengetahui jumlah kemampuan diperbaiki yang tersisa */
@@ -146,8 +147,6 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
 
         this.jumlahDiperbaiki = oBarang.jumlahDiperbaiki;
         this.statusKemampuanDiperbaiki = oBarang.statusKemampuanDiperbaiki;
-        this.kategoriBarangUntukPerbaikan = oBarang.kategoriBarangUntukPerbaikan;
-        this.idBarangUntukPerbaikan = oBarang.idBarangUntukPerbaikan;
 
         return barangCloning;
     }
@@ -167,18 +166,18 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
     }
 
     public void perbaikiBarang(Barang komponen){
-        if(!komponen.kategoriBarang.equals(this.kategoriBarangUntukPerbaikan) && komponen.idBarang != this.idBarangUntukPerbaikan){
-            System.out.println("[ Barang yang digunakan untuk perbaikan tidak cocok ]");
-            System.out.println(String.format("[ Dibutuhkan %s (%s)]", this.namaBarangUntukPerbaikan, this.kategoriBarangUntukPerbaikan));
+        if(!komponen.kategoriBarang.equals(komponenBarangUntukPerbaikan.kategoriBarang) && komponen.idBarang != komponenBarangUntukPerbaikan.idBarang){
             System.out.println();
+            System.out.println("[ Barang yang digunakan untuk perbaikan tidak cocok ]");
+            System.out.println(String.format("[ Dibutuhkan %s (%s)]", komponenBarangUntukPerbaikan.nama, komponenBarangUntukPerbaikan.kategoriBarang));
         }else{
             if(!this.isStatusKemampuanDiperbaiki()){
-                System.out.println("[ Senjata sudah tidak bisa diperbaiki ]");
                 System.out.println();
+                System.out.println("[ Senjata sudah tidak bisa diperbaiki ]");
             }else{
                 if(this.ketahanan == this.batasMaxKetahanan){
-                    System.out.println( String.format("[ %s ", this.nama) + "masih memiliki ketahanan 100% ]");
                     System.out.println();
+                    System.out.println( String.format("[ %s ", this.nama) + "masih memiliki ketahanan 100% ]");
                 }else{
                     //mengubah nilai ketahanan menjadi nilai maksimal ketahanan senjata
                     this.ketahanan = this.batasMaxKetahanan;
@@ -195,6 +194,8 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
     public void upgradeSenjata(BarangBlueprint oBluePrint){
         this.setKekuatan(this.getKekuatan() + oBluePrint.getPeningkatanKekuatan());
         this.batasMaxKetahanan += oBluePrint.getPeningkatanBatasMaxKetahanan();
-        this.tambahEfekBanyak(oBluePrint.getDaftarTambahanEfek());
+        this.tambahEfek(oBluePrint.getDaftarTambahanEfek());
+
+        this.jumlahUpgrade++;
     }
 }
