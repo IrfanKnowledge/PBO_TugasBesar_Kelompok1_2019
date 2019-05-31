@@ -16,9 +16,9 @@ public abstract class BarangBlueprint extends Barang{
     public boolean statusKeberhasilanCrafting;
 
     BarangBlueprint(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
-                    boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual,
+                    boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                     int jumlahHasilCrafting) {
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli);
 
         this.setJumlahHasilCrafting(jumlahHasilCrafting);
     }
@@ -121,8 +121,8 @@ public abstract class BarangBlueprint extends Barang{
         }
     }
 
-    public void tambahEfek(int id, Efek oEfek){
-        this.daftarEfekTambahan.put(id, oEfek);
+    public void tambahEfek(Efek oEfek){
+        this.daftarEfekTambahan.put(oEfek.idEfek, oEfek);
     }
 
     public void tambahEfek(HashMap<Integer, Efek> oDaftarEfek){
@@ -137,7 +137,6 @@ public abstract class BarangBlueprint extends Barang{
         return temp;
     }
 
-    public abstract Barang getHasilCrafting();
     /* ===================METHOD BERIKUT PERLU DIREVISI===================== */
 //    private ArrayList<Barang> gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCraftingDigunakan, Barang senjata, int efisiensiCrafting) {
 //        //untuk pencocokan kebutuhan daftarKomponenCraftingDigunakan dan senjata untuk crafting dengan inputan daftarKomponenCraftingDigunakan dan Senjata

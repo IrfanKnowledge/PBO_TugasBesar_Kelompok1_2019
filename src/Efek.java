@@ -1,6 +1,6 @@
 public class Efek {
-    private int idEfek;
-    private String nama;
+    public int idEfek;
+    public String nama;
     private int dps;
     private int durasiDps;
     private int peluangDps;     //satuan persen

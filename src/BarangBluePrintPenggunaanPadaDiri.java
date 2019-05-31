@@ -15,9 +15,9 @@ public class BarangBluePrintPenggunaanPadaDiri extends BarangBlueprint {
     private HashMap<Integer, BarangPenggunaanPadaDiri> daftarBarangPenggunaanPadaDiriUntukCrafting = new HashMap<>();
 
     BarangBluePrintPenggunaanPadaDiri(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
-                           boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual,
-                           int jumlahHasilCrafting) {
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, jumlahHasilCrafting);
+                                      boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
+                                      int jumlahHasilCrafting) {
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, jumlahHasilCrafting);
 
     }
 
@@ -49,8 +49,7 @@ public class BarangBluePrintPenggunaanPadaDiri extends BarangBlueprint {
         return hasilCrafting.getDaftarEfek();
     }
 
-    @Override
-    public BarangPenggunaanPadaDiri getHasilCrafting() {
+    public ArrayList<BarangPenggunaanPadaDiri> getHasilCrafting() {
         if(!this.statusKeberhasilanCrafting){
             System.out.println();
             System.out.println("[ Proses crafting belum dilakukan ]");
@@ -58,7 +57,7 @@ public class BarangBluePrintPenggunaanPadaDiri extends BarangBlueprint {
             return null;
         }else{
             this.statusKeberhasilanCrafting = false;
-            return hasilCrafting;
+            return Cloning.cloning(this.hasilCrafting, this.getJumlahHasilCrafting());
         }
     }
 }

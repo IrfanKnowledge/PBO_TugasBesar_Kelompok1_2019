@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BarangBluePrintSenjataBaru extends BarangBlueprintSenjata{
@@ -5,8 +6,9 @@ public class BarangBluePrintSenjataBaru extends BarangBlueprintSenjata{
     /* private karena membutuhkan proses khusus */
     private BarangSenjata hasilCraftingSenjata;
 
-    BarangBluePrintSenjataBaru(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int jumlahHasilCrafting) {
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, jumlahHasilCrafting);
+    BarangBluePrintSenjataBaru(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
+                               boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli, int jumlahHasilCrafting) {
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, jumlahHasilCrafting);
     }
 
     public void setHasilCraftingSenjata(BarangSenjata oHasilCrafting) {
@@ -40,7 +42,7 @@ public class BarangBluePrintSenjataBaru extends BarangBlueprintSenjata{
         return this.hasilCraftingSenjata.getDaftarEfek();
     }
 
-    public BarangSenjata getHasilCrafting(){
+    public ArrayList<BarangSenjata> getHasilCrafting(){
         if(!this.statusKeberhasilanCrafting){
             System.out.println();
             System.out.println("[ Proses crafting belum dilakukan ]");
@@ -48,7 +50,7 @@ public class BarangBluePrintSenjataBaru extends BarangBlueprintSenjata{
             return null;
         }else {
             this.statusKeberhasilanCrafting = false;
-            return this.hasilCraftingSenjata;
+            return Cloning.cloning(this.hasilCraftingSenjata, this.getJumlahHasilCrafting());
         }
     }
 }

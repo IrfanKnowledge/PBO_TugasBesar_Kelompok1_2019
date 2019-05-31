@@ -8,9 +8,9 @@ public class BarangBluePrintSenjataUpgrade extends BarangBlueprintSenjata{
     private int peningkatanBatasMaxKetahanan;
 
     BarangBluePrintSenjataUpgrade(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
-                                  boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual,
-                                  int jumlahHasilCrafting, int peningkatanKekuatan, int peningkatanBatasMaxKetahanan) {
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, jumlahHasilCrafting);
+                                  boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
+                                  int peningkatanKekuatan, int peningkatanBatasMaxKetahanan) {
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, 1);
 
         this.setPeningkatanKekuatan(peningkatanKekuatan);
         this.setPeningkatanBatasMaxKetahanan(peningkatanBatasMaxKetahanan);

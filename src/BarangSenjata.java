@@ -10,7 +10,7 @@ public class BarangSenjata extends Barang{
 
     BarangSenjata(int idBarang, String nama, String kategoriBarang, String deskripsi,
                   boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli, int kekuatan) {
-        super(idBarang, nama, kategoriBarang,deskripsi, statusJual, statusBeli, hargaJual, hargaBeli);
+        super(idBarang, nama, kategoriBarang, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli);
         this.setKekuatan(kekuatan);
     }
 
@@ -29,8 +29,8 @@ public class BarangSenjata extends Barang{
         return kekuatan;
     }
 
-    public void tambahEfek(int id, Efek oEfek){
-        this.daftarEfek.put(id, oEfek);
+    public void tambahEfek(Efek oEfek){
+        this.daftarEfek.put(oEfek.idEfek, oEfek);
     }
 
     public void tambahEfek(HashMap<Integer, Efek> oDaftarEfek){

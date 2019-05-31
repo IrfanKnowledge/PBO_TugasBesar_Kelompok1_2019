@@ -17,9 +17,9 @@ public class BarangSenjataTembak extends BarangSenjata{
     private int batasMaxAmunisiDigunakan;
 
     BarangSenjataTembak(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
-                        boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual,
+                        boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                         int kekuatan, int batasMaxAmunisiDigunakan){
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, kekuatan);
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, kekuatan);
 
         this.setBatasMaxAmunisiDigunakan(batasMaxAmunisiDigunakan);
     }

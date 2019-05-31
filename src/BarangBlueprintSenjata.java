@@ -8,9 +8,9 @@ public abstract class BarangBlueprintSenjata extends BarangBlueprint {
     private HashMap<Integer, ArrayList<BarangSenjata>> daftarSenjataCraftingMendukung = new HashMap<>();
 
     BarangBlueprintSenjata(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
-                           boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual,
+                           boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                            int jumlahHasilCrafting) {
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, jumlahHasilCrafting);
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, jumlahHasilCrafting);
     }
 
     public void tambahDaftarSenjataCraftingMendukung(BarangSenjata oBarang){

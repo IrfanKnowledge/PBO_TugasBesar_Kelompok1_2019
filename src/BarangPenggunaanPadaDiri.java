@@ -26,8 +26,8 @@ public class BarangPenggunaanPadaDiri extends Barang {
         return kesehatan;
     }
 
-    public void tambahEfek(int id, Efek oEfek){
-        this.daftarEfek.put(id, oEfek);
+    public void tambahEfek(Efek oEfek){
+        this.daftarEfek.put(oEfek.idEfek, oEfek);
     }
 
     public void tambahEfek(HashMap<Integer, Efek> oDaftarEfek){
