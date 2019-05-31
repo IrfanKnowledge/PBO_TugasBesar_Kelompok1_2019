@@ -36,4 +36,29 @@ public class BarangBluePrintPenggunaanPadaDiri extends BarangBlueprint {
     public String getHasilCraftingKategori() {
         return hasilCrafting.kategoriBarang;
     }
+
+    public String getHasilCraftingDeskripsi() {
+        return hasilCrafting.deskripsi;
+    }
+
+    public int getHasilCraftingKesehatan() {
+        return hasilCrafting.getKesehatan();
+    }
+
+    public HashMap<Integer, Efek> getHasilCraftingDaftarEfek() {
+        return hasilCrafting.getDaftarEfek();
+    }
+
+    @Override
+    public BarangPenggunaanPadaDiri getHasilCrafting() {
+        if(!this.statusKeberhasilanCrafting){
+            System.out.println();
+            System.out.println("[ Proses crafting belum dilakukan ]");
+
+            return null;
+        }else{
+            this.statusKeberhasilanCrafting = false;
+            return hasilCrafting;
+        }
+    }
 }

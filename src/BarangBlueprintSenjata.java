@@ -7,8 +7,6 @@ public abstract class BarangBlueprintSenjata extends BarangBlueprint {
     /* private karena hanya membutuhkan tambah dan get(+ modifikasi) dan proses internal */
     private HashMap<Integer, ArrayList<BarangSenjata>> daftarSenjataCraftingMendukung = new HashMap<>();
 
-    public boolean statusKeberhasilanCrafting;
-
     BarangBlueprintSenjata(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
                            boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual,
                            int jumlahHasilCrafting) {
@@ -51,34 +49,6 @@ public abstract class BarangBlueprintSenjata extends BarangBlueprint {
         return temp;
     }
 
-    private boolean validasiDaftarKomponenCrafting(HashMap<Integer, ArrayList<Barang>> oDaftarKomponenCrafting){
-        if(oDaftarKomponenCrafting.isEmpty()){
-            System.out.println();
-            System.out.println("[ Daftar komponen crafting yang akan digunakan kosong ]");
-
-            return false;
-        }else{
-            for (Map.Entry<Integer, ArrayList<Barang>> isi : this.getDaftarKomponenCraftingDiperlukan().entrySet()) {
-                if(!oDaftarKomponenCrafting.containsKey(isi.getKey())){
-                    System.out.println();
-                    System.out.println(String.format("[ komponen %s tidak ada dalam daftar komponen crafting yang akan digunakan ]", isi.getValue().get(0).nama));
-
-                    return false;
-                }else{
-                    int selisih = isi.getValue().size() - oDaftarKomponenCrafting.get(isi.getKey()).size();
-                    if(selisih > 0) {
-                        System.out.println();
-                        System.out.println(String.format("[ Jumlah komponen %s untuk crafting yang digunakan kurang ]", isi.getValue().get(0).nama));
-                        System.out.println(String.format("[ Kurang sebanyak %d buah ]", selisih));
-
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-    }
-
     private boolean validasiSenjataUntukCrafting(BarangSenjata senjataUntukCrafting){
         if(!this.getDaftarSenjataCraftingMendukung().containsKey(senjataUntukCrafting.idBarang)){
             System.out.println();
@@ -90,22 +60,14 @@ public abstract class BarangBlueprintSenjata extends BarangBlueprint {
     }
 
     public void gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> oDaftarKomponenCrafting, BarangSenjata senjataUntukCrafting){
-        /* jika lolos validasi, daftar komponen inputan di anggap:
-         *  tidak kosong, memiliki komponen yang dibutuhkan termasuk jumlahnya,
-         *  kemudian senjata inputan dianggap sesuai dengan data senjata crafting mendukung
-         *  jika tidak maka return null */
-        if(!this.validasiDaftarKomponenCrafting(oDaftarKomponenCrafting) || !this.validasiSenjataUntukCrafting(senjataUntukCrafting)){
-            System.out.println();
-            System.out.println("[ Crafting dibatalkan ]");
-        }else{
-            for (Map.Entry<Integer, ArrayList<Barang>> isi : this.getDaftarKomponenCraftingDiperlukan().entrySet()) {
-                /* pengulangan mengurangi/me-remove object daftar komponen inputan
-                 *  berdasarkan kebutuhan (jumlahnya sudah dipastikan cukup, pada method validasi di atas) */
-                for(int i=0; i>=isi.getValue().size(); i+=0){
-                    oDaftarKomponenCrafting.get(isi.getKey()).remove(0);
-                }
+        super.gunakanBarangBlueprint(oDaftarKomponenCrafting);
+        if(this.statusKeberhasilanCrafting){
+            if(!this.validasiSenjataUntukCrafting(senjataUntukCrafting)){
+                System.out.println();
+                System.out.println("[ Crafting dibatalkan ]");
+            }else{
+                this.statusKeberhasilanCrafting = true;
             }
-            this.statusKeberhasilanCrafting = true;
         }
     }
 

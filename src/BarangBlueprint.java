@@ -13,6 +13,8 @@ public abstract class BarangBlueprint extends Barang{
     /* private karena hanya membutuhkan proses tambah efek dan get (+ telah dimodifikasi) efek saja */
     private HashMap<Integer, Efek> daftarEfekTambahan = new HashMap<>();
 
+    public boolean statusKeberhasilanCrafting;
+
     BarangBlueprint(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
                     boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual,
                     int jumlahHasilCrafting) {
@@ -69,6 +71,56 @@ public abstract class BarangBlueprint extends Barang{
         return temp;
     }
 
+    private boolean validasiDaftarKomponenCrafting(HashMap<Integer, ArrayList<Barang>> oDaftarKomponenCrafting){
+        if(oDaftarKomponenCrafting.isEmpty()){
+            System.out.println();
+            System.out.println("[ Daftar komponen crafting yang akan digunakan kosong ]");
+
+            return false;
+        }else{
+            for (Map.Entry<Integer, ArrayList<Barang>> isi : this.getDaftarKomponenCraftingDiperlukan().entrySet()) {
+                if(!oDaftarKomponenCrafting.containsKey(isi.getKey())){
+                    System.out.println();
+                    System.out.println(String.format("[ komponen %s tidak ada dalam daftar komponen crafting yang akan digunakan ]", isi.getValue().get(0).nama));
+
+                    return false;
+                }else{
+                    int selisih = isi.getValue().size() - oDaftarKomponenCrafting.get(isi.getKey()).size();
+                    if(selisih > 0) {
+                        System.out.println();
+                        System.out.println(String.format("[ Jumlah komponen %s untuk crafting yang digunakan kurang ]", isi.getValue().get(0).nama));
+                        System.out.println(String.format("[ Kurang sebanyak %d buah ]", selisih));
+
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
+    public void gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> oDaftarKomponenCrafting){
+        /* jika lolos validasi, daftar komponen inputan di anggap:
+         *  tidak kosong, memiliki komponen yang dibutuhkan termasuk jumlahnya,
+         *  kemudian senjata inputan dianggap sesuai dengan data senjata crafting mendukung
+         *  jika tidak maka return null */
+        if(!this.validasiDaftarKomponenCrafting(oDaftarKomponenCrafting)){
+            System.out.println();
+            System.out.println("[ Crafting dibatalkan ]");
+
+            this.statusKeberhasilanCrafting = false;
+        }else{
+            for (Map.Entry<Integer, ArrayList<Barang>> isi : this.getDaftarKomponenCraftingDiperlukan().entrySet()) {
+                /* pengulangan mengurangi/me-remove object daftar komponen inputan
+                 *  berdasarkan kebutuhan (jumlahnya sudah dipastikan cukup, pada method validasi di atas) */
+                for(int i=0; i>=isi.getValue().size(); i+=0){
+                    oDaftarKomponenCrafting.get(isi.getKey()).remove(0);
+                }
+            }
+            this.statusKeberhasilanCrafting = true;
+        }
+    }
+
     public void tambahEfek(int id, Efek oEfek){
         this.daftarEfekTambahan.put(id, oEfek);
     }
@@ -85,6 +137,7 @@ public abstract class BarangBlueprint extends Barang{
         return temp;
     }
 
+    public abstract Barang getHasilCrafting();
     /* ===================METHOD BERIKUT PERLU DIREVISI===================== */
 //    private ArrayList<Barang> gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCraftingDigunakan, Barang senjata, int efisiensiCrafting) {
 //        //untuk pencocokan kebutuhan daftarKomponenCraftingDigunakan dan senjata untuk crafting dengan inputan daftarKomponenCraftingDigunakan dan Senjata

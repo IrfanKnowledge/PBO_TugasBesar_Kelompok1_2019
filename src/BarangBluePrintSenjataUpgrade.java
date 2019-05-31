@@ -43,7 +43,7 @@ public class BarangBluePrintSenjataUpgrade extends BarangBlueprintSenjata{
         return peningkatanBatasMaxKetahanan;
     }
 
-    public BarangSenjata getUntukCraftingSenjata() {
+    public BarangSenjataJarakDekat getHasilCrafting() {
         if(!this.statusKeberhasilanCrafting){
             System.out.println();
             System.out.println("[ Proses crafting belum dilakukan ]");

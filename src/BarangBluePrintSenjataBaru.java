@@ -37,12 +37,10 @@ public class BarangBluePrintSenjataBaru extends BarangBlueprintSenjata{
     }
 
     public HashMap<Integer, Efek> getHasilCraftingDaftarEfek() {
-        /* object HashMap dibedakan agar tidak dapat memanipulasi daftarEfek diluar Class ini
-         * selain hanya bisa menggunakan method khusus untuk menambahkan object pada daftarEfek */
         return this.hasilCraftingSenjata.getDaftarEfek();
     }
 
-    public BarangSenjata getHasilCraftingSenjata(){
+    public BarangSenjata getHasilCrafting(){
         if(!this.statusKeberhasilanCrafting){
             System.out.println();
             System.out.println("[ Proses crafting belum dilakukan ]");
