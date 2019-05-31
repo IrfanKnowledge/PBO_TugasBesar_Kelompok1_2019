@@ -20,14 +20,10 @@ public abstract class BarangBlueprint extends Barang{
                     int jumlahHasilCrafting) {
         super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli);
 
-        this.setJumlahHasilCrafting(jumlahHasilCrafting);
-    }
-
-    public void setJumlahHasilCrafting(int hasilCrafting){
-        if(hasilCrafting <= 0){
+        if(jumlahHasilCrafting <= 0){
             this.jumlahHasilCrafting = 1;
         }else{
-            this.jumlahHasilCrafting = hasilCrafting;
+            this.jumlahHasilCrafting = jumlahHasilCrafting;
         }
     }
 

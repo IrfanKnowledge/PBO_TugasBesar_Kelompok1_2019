@@ -48,6 +48,7 @@ public class Barang {
 
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
         oBarang = oBarangPenggunaanPadaDiri;
+        ((BarangPenggunaanPadaDiri) oBarang).tambahEfek(new Efek(1, "stun", 0, 2, 10, 1, 10, 1, 1, 1, 1, 1, 1, 1));
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
         oBarang = oSenjata;
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
@@ -56,11 +57,11 @@ public class Barang {
         oBarang = oSenjataTembak;
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
         oBarang = oBlueprintMedikit;
-        System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
+        System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBluePrintPenggunaanPadaDiri) oBarang).getJumlahHasilCrafting());
         oBarang = oBlueprintBuzzerKiller;
-        System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
+        System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBluePrintSenjataBaru) oBarang).getJumlahHasilCrafting());
         oBarang = oBlueprintSenjataTajam;
-        System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
+        System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBluePrintSenjataUpgrade) oBarang).getJumlahHasilCrafting() );
     }
 
     /* Cloning barang dan turunannya (polymorphism) */
