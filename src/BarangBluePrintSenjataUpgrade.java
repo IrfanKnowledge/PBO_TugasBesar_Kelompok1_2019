@@ -1,26 +1,58 @@
-public class BarangBluePrintSenjataUpgrade extends BarangBlueprintSenjata {
+public class BarangBluePrintSenjataUpgrade extends BarangBlueprintSenjata{
+
+    /* private karena membutuhkan proses khusus */
+    private BarangSenjataJarakDekat senjataUntukCrafting;
 
     /* private karena terdapat pembatasan minimal nilai */
     private int peningkatanKekuatan;
     private int peningkatanBatasMaxKetahanan;
 
-    BarangBluePrintSenjataUpgrade(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int jumlahHasilCrafting) {
+    BarangBluePrintSenjataUpgrade(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
+                                  boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual,
+                                  int jumlahHasilCrafting, int peningkatanKekuatan, int peningkatanBatasMaxKetahanan) {
         super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, jumlahHasilCrafting);
+
+        this.setPeningkatanKekuatan(peningkatanKekuatan);
+        this.setPeningkatanBatasMaxKetahanan(peningkatanBatasMaxKetahanan);
+    }
+
+    public void setSenjataUntukCrafting(BarangSenjataJarakDekat untukCraftingSenjata) {
+        this.senjataUntukCrafting = untukCraftingSenjata;
+    }
+
+    private int filterMinimalNol(int nilai){
+        if(nilai <= 0){
+            nilai = 0;
+        }
+        return nilai;
+    }
+
+    public void setPeningkatanKekuatan(int peningkatanKekuatan) {
+        this.peningkatanKekuatan = this.filterMinimalNol(peningkatanKekuatan);
     }
 
     public int getPeningkatanKekuatan() {
         return peningkatanKekuatan;
     }
 
-    public void setPeningkatanKekuatan(int peningkatanKekuatan) {
-        this.peningkatanKekuatan = peningkatanKekuatan;
+    public void setPeningkatanBatasMaxKetahanan(int peningkatanBatasMaxKetahanan) {
+        this.peningkatanBatasMaxKetahanan = this.filterMinimalNol(peningkatanBatasMaxKetahanan);
     }
 
     public int getPeningkatanBatasMaxKetahanan() {
         return peningkatanBatasMaxKetahanan;
     }
 
-    public void setPeningkatanBatasMaxKetahanan(int peningkatanBatasMaxKetahanan) {
-        this.peningkatanBatasMaxKetahanan = peningkatanBatasMaxKetahanan;
+    public BarangSenjata getUntukCraftingSenjata() {
+        if(!this.statusKeberhasilanCrafting){
+            System.out.println();
+            System.out.println("[ Proses crafting belum dilakukan ]");
+
+            return null;
+        }else{
+            this.statusKeberhasilanCrafting = false;
+            this.senjataUntukCrafting.upgradeSenjata(this);
+            return senjataUntukCrafting;
+        }
     }
 }

@@ -30,6 +30,8 @@ public class Barang {
 
     public static void main(String[] args) {
         BarangPenggunaanPadaDiri barangA = new BarangPenggunaanPadaDiri(1, "Medikit", "penggunaan pada diri","Untuk menyembuhkan luka", true, true, 5000, 2500, 100);
+        BarangBluePrintSenjataBaru barangB = new BarangBluePrintSenjataBaru(1, "Medikit", "penggunaan pada diri","Untuk menyembuhkan luka", true, true, 5000, 2500, 100);
+        BarangBluePrintSenjataUpgrade barangC = new BarangBluePrintSenjataUpgrade(1, "Medikit", "penggunaan pada diri","Untuk menyembuhkan luka", true, true, 5000, 2500, 100, 50, 30);
     }
 
     /* Cloning barang dan turunannya (polymorphism) */

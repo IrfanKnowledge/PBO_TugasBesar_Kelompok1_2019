@@ -66,7 +66,7 @@ public class BarangSenjataTembak extends BarangSenjata{
     public HashMap<Integer, BarangSenjata> getDaftarAmunisiCocok() {
         /* object HashMap dibedakan agar tidak dapat memanipulasi daftarAmunisiCocok diluar Class ini,
         *  selain hanya bisa menggunakan method khusus untuk menambahkan object pada daftarAmunisiCocok,
-        *  kemudian isi HashMap tersebut dibuat object berbeda agar tidak dapat dimanipulasi diluar Class ini*/
+        *  kemudian isi HashMap tersebut dibuat object berbeda agar tidak dapat dimanipulasi diluar Class ini */
         return this.cloningDaftarAmunisiCocok(this.daftarAmunisiCocok);
     }
 
@@ -86,17 +86,6 @@ public class BarangSenjataTembak extends BarangSenjata{
         return true;
     }
 
-    private ArrayList<BarangSenjata> cloning(BarangSenjata oAmunisi, int jumlahInstance){
-        if(jumlahInstance <= 0){
-            jumlahInstance = 1;
-        }
-        ArrayList<BarangSenjata> tempBarang = new ArrayList<>();
-        for(int i=0; i <jumlahInstance; i++){
-            tempBarang.add(oAmunisi.cloning());
-        }
-        return tempBarang;
-    }
-
     public void tambahAmunisi(BarangSenjata oAmunisi) {
         if(this.validasiAmunisiSedangDigunakan(oAmunisi)){
             this.daftarAmunisiSedangDigunakan.add(oAmunisi.cloning());
@@ -108,14 +97,14 @@ public class BarangSenjataTembak extends BarangSenjata{
             if(jumlahInstance > this.getJumlahKebutuhanIsiAmunisi()){
                 jumlahInstance = this.getJumlahKebutuhanIsiAmunisi();
             }
-            this.daftarAmunisiSedangDigunakan.addAll(this.cloning(oAmunisi, jumlahInstance));
+            this.daftarAmunisiSedangDigunakan.addAll(Cloning.cloning(oAmunisi, jumlahInstance));
         }
     }
 
     public void tambahAmunisi(ArrayList<BarangSenjata> oDaftarAmunisi){
         if(oDaftarAmunisi.isEmpty()){
             System.out.println();
-            System.out.println("[ komponen amunisi yang akan digunakan kosong ]");
+            System.out.println("[ Komponen amunisi yang akan digunakan kosong ]");
         }else{
             if(this.validasiAmunisiSedangDigunakan(oDaftarAmunisi.get(0))){
                 int pengulanganIsiAmunisi;

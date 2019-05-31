@@ -20,4 +20,20 @@ public class BarangBluePrintPenggunaanPadaDiri extends BarangBlueprint {
         super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, jumlahHasilCrafting);
 
     }
+
+    public void setHasilCrafting(BarangPenggunaanPadaDiri hasilCrafting) {
+        this.hasilCrafting = hasilCrafting.cloning();
+    }
+
+    public int getHasilCraftingId() {
+        return hasilCrafting.idBarang;
+    }
+
+    public String getHasilCraftingNama() {
+        return hasilCrafting.nama;
+    }
+
+    public String getHasilCraftingKategori() {
+        return hasilCrafting.kategoriBarang;
+    }
 }
