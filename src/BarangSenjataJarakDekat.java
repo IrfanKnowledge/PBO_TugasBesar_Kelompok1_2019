@@ -1,18 +1,20 @@
 public class BarangSenjataJarakDekat extends BarangSenjata {
 
     /* private karena memiliki batas minimal nilai */
-    private int ketahanan;
     private int batasMaxKetahanan;
     private int batasMaxDiperbaiki;
     private int batasMaxUpgrade;
 
-    /* private karena proses internal */
+    /* private karena memiliki batas minimal nilai dan maksimal nilai*/
+    private int ketahanan;
     private int jumlahDiperbaiki;
+
+    /* private karena proses internal */
     private int jumlahUpgrade;
 
     /* private karena bergantung pada proses internal */
     private boolean statusKemampuanDiperbaiki;
-    private boolean statusUpgrade;
+    private boolean statusBisaUpgrade;
 
     /* private karena hanya untuk set, get tertentu, dan untuk proses internal,
     *  static karena semua senjataJarakDekat memiliki komponen untuk perbaikan yang sama */
@@ -20,15 +22,18 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
 
     BarangSenjataJarakDekat(int idBarang, String nama, String kategoriBarang, String deskripsi,
                             boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
-                            int kekuatan, int batasMaxKetahanan, int batasMaxDiperbaiki, int batasMaxUpgrade){
+                            int kekuatan, int batasMaxKetahanan, int ketahanan,
+                            int batasMaxDiperbaiki, int jumlahDiperbaiki, int batasMaxUpgrade){
         super(idBarang, nama, kategoriBarang, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, kekuatan);
 
-        this.setKetahanan(batasMaxKetahanan);
         this.setBatasMaxKetahanan(batasMaxKetahanan);
+        this.setKetahanan(ketahanan);
         this.setBatasMaxDiperbaiki(batasMaxDiperbaiki);
+        this.setJumlahDiperbaiki(jumlahDiperbaiki);
         this.setBatasMaxUpgrade(batasMaxUpgrade);
+        this.jumlahUpgrade = 0;
         this.setStatusKemampuanDiperbaiki();
-        this.setStatusUpgrade();
+        this.setstatusBisaUpgrade();
     }
 
     private int filterMinimalNol(int nilai){
@@ -45,17 +50,6 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         return nilai;
     }
 
-    public void setKetahanan(int ketahanan) {
-        if(ketahanan > this.batasMaxKetahanan){
-            this.ketahanan = this.batasMaxKetahanan;
-        }else{
-            this.ketahanan = this.filterMinimalNol(ketahanan);
-        }
-    }
-
-    public int getKetahanan() {
-        return ketahanan;
-    }
 
     /* minimal sebuah senjata  bisa dipake 1x pukulan */
     public void setBatasMaxKetahanan(int batasMaxKetahanan) {
@@ -87,12 +81,37 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         return batasMaxUpgrade;
     }
 
+    public void setKetahanan(int ketahanan) {
+        if(ketahanan > this.batasMaxKetahanan){
+            this.ketahanan = this.batasMaxKetahanan;
+        }else{
+            this.ketahanan = this.filterMinimalNol(ketahanan);
+        }
+    }
+
+    public int getKetahanan() {
+        return ketahanan;
+    }
+
+    public void setJumlahDiperbaiki(int jumlahDiperbaiki) {
+        if(jumlahDiperbaiki > this.batasMaxDiperbaiki){
+            this.jumlahDiperbaiki = this.batasMaxDiperbaiki;
+        }else{
+            this.jumlahDiperbaiki = filterMinimalNol(jumlahDiperbaiki);
+        }
+    }
+
     public int getJumlahDiperbaiki() {
         return jumlahDiperbaiki;
     }
 
     public int getJumlahUpgrade() {
         return jumlahUpgrade;
+    }
+
+    /* untuk mengetahui jumlah kemampuan diperbaiki yang tersisa */
+    public int jumlahKemampuanDiperbaiki(){
+        return this.batasMaxDiperbaiki - this.jumlahDiperbaiki;
     }
 
     private void setStatusKemampuanDiperbaiki(){
@@ -107,20 +126,20 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         return statusKemampuanDiperbaiki;
     }
 
-    private void setStatusUpgrade(){
+    private void setstatusBisaUpgrade(){
         if(this.jumlahUpgrade >= this.batasMaxUpgrade){
-            this.statusUpgrade = false;
+            this.statusBisaUpgrade = false;
         }else{
-            this.statusUpgrade = true;
+            this.statusBisaUpgrade = true;
         }
     }
 
-    public boolean isStatusUpgrade() {
-        return statusUpgrade;
+    public boolean isStatusBisaUpgrade() {
+        return statusBisaUpgrade;
     }
 
     static public void setKomponenUntukPerbaikan(Barang oBarang) {
-        komponenBarangUntukPerbaikan = oBarang;
+        komponenBarangUntukPerbaikan = oBarang.cloning();
     }
 
     public String getKategoriBarangUntukPerbaikan() {
@@ -131,29 +150,18 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         return komponenBarangUntukPerbaikan.idBarang;
     }
 
-    public static String getNamaBarangUntukPerbaikan() {
+    public String getNamaBarangUntukPerbaikan() {
         return komponenBarangUntukPerbaikan.nama;
-    }
-
-    /* untuk mengetahui jumlah kemampuan diperbaiki yang tersisa */
-    public int jumlahKemampuanDiperbaiki(){
-        return this.batasMaxDiperbaiki - this.jumlahDiperbaiki;
-    }
-
-    private BarangSenjataJarakDekat prosesCloning(BarangSenjataJarakDekat oBarang){
-        BarangSenjataJarakDekat barangCloning = new BarangSenjataJarakDekat(oBarang.idBarang, oBarang.nama, oBarang.kategoriBarang ,oBarang.deskripsi,
-                oBarang.statusJual, oBarang.statusBeli, oBarang.getHargaJual(), oBarang.getHargaBeli(),
-                oBarang.getKekuatan(), oBarang.batasMaxKetahanan, oBarang.batasMaxDiperbaiki, oBarang.batasMaxUpgrade);
-
-        this.jumlahDiperbaiki = oBarang.jumlahDiperbaiki;
-        this.statusKemampuanDiperbaiki = oBarang.statusKemampuanDiperbaiki;
-
-        return barangCloning;
     }
 
     @Override
     public BarangSenjataJarakDekat cloning() {
-        return prosesCloning(this);
+        BarangSenjataJarakDekat barangCloning = new BarangSenjataJarakDekat(this.idBarang, this.nama, this.kategoriBarang ,this.deskripsi,
+                this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(),
+                this.getKekuatan(), this.batasMaxKetahanan, this.batasMaxDiperbaiki, this.batasMaxUpgrade,
+                this.jumlahDiperbaiki, this.batasMaxUpgrade);
+
+        return barangCloning;
     }
 
     public void gunakanBarangSenjata() {
@@ -166,7 +174,7 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
     }
 
     public void perbaikiBarang(Barang komponen){
-        if(!komponen.kategoriBarang.equals(komponenBarangUntukPerbaikan.kategoriBarang) && komponen.idBarang != komponenBarangUntukPerbaikan.idBarang){
+        if(komponen.idBarang != komponenBarangUntukPerbaikan.idBarang && !komponen.kategoriBarang.equals(komponenBarangUntukPerbaikan.kategoriBarang) ){
             System.out.println();
             System.out.println("[ Barang yang digunakan untuk perbaikan tidak cocok ]");
             System.out.println(String.format("[ Dibutuhkan %s (%s)]", komponenBarangUntukPerbaikan.nama, komponenBarangUntukPerbaikan.kategoriBarang));
@@ -180,10 +188,10 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
                     System.out.println( String.format("[ %s ", this.nama) + "masih memiliki ketahanan 100% ]");
                 }else{
                     //mengubah nilai ketahanan menjadi nilai maksimal ketahanan senjata
-                    this.ketahanan = this.batasMaxKetahanan;
+                    this.setKetahanan(this.batasMaxKetahanan);
 
                     //menambah nilai jumlah diperbaiki pada senjata
-                    this.jumlahDiperbaiki++;
+                    this.setJumlahDiperbaiki(this.jumlahDiperbaiki + 1);
 
                     this.setStatusKemampuanDiperbaiki();
                 }
@@ -191,11 +199,17 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         }
     }
 
-    public void upgradeSenjata(BarangBlueprint oBluePrint){
-        this.setKekuatan(this.getKekuatan() + oBluePrint.getPeningkatanKekuatan());
-        this.batasMaxKetahanan += oBluePrint.getPeningkatanBatasMaxKetahanan();
-        this.tambahEfek(oBluePrint.getDaftarTambahanEfek());
+    public void upgradeSenjata(BarangBluePrintSenjataUpgrade oBluePrint){
+        if(!isStatusBisaUpgrade()){
+            System.out.println();
+            System.out.println("[ Senjata ini sudah tidak dapat diupgrade ]");
+        }else{
+            this.setKekuatan(this.getKekuatan() + oBluePrint.getPeningkatanKekuatan());
+            this.setBatasMaxKetahanan(this.batasMaxKetahanan + oBluePrint.getPeningkatanBatasMaxKetahanan());
+            this.tambahEfek(oBluePrint.getDaftarEfekTambahan());
 
-        this.jumlahUpgrade++;
+            this.jumlahUpgrade++;
+            this.setstatusBisaUpgrade();
+        }
     }
 }

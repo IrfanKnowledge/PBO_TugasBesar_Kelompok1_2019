@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BarangPenggunaanPadaDiri extends Barang {
 
@@ -6,11 +6,12 @@ public class BarangPenggunaanPadaDiri extends Barang {
     private int kesehatan = 0;
 
     /* private karena hanya membutuhkan proses tambah efek dan get (+ telah dimodifikasi) efek saja */
-    private ArrayList<Efek> daftarEfek = new ArrayList<>();
+    private HashMap<Integer, Efek> daftarEfek = new HashMap<>();
 
-    BarangPenggunaanPadaDiri(int idBarang, String nama, String kategoriBarang,String deskripsi, boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli, int kesehatan) {
+    BarangPenggunaanPadaDiri(int idBarang, String nama, String kategoriBarang,String deskripsi,
+                             boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli, int kesehatan) {
         super(idBarang, nama, kategoriBarang,deskripsi, statusJual, statusBeli, hargaJual, hargaBeli);
-        this.kesehatan = kesehatan;
+        this.setKesehatan(kesehatan);
     }
 
     public void setKesehatan(int kesehatan) {
@@ -25,32 +26,27 @@ public class BarangPenggunaanPadaDiri extends Barang {
         return kesehatan;
     }
 
-    public void tambahEfek(Efek oEfek){
-        this.daftarEfek.add(oEfek);
+    public void tambahEfek(int id, Efek oEfek){
+        this.daftarEfek.put(id, oEfek);
     }
 
-    public void tambahEfek(ArrayList<Efek> oDaftarEfek){
-        this.daftarEfek.addAll(oDaftarEfek);
+    public void tambahEfek(HashMap<Integer, Efek> oDaftarEfek){
+        this.daftarEfek.putAll(oDaftarEfek);
     }
 
-    public ArrayList<Efek> getDaftarEfek() {
-        /* object ArrayList dibedakan agar tidak dapat memanipulasi daftarEfek diluar Class ini
+    public HashMap<Integer, Efek> getDaftarEfek() {
+        /* object HashMap dibedakan agar tidak dapat memanipulasi daftarEfek diluar Class ini
          * selain hanya bisa menggunakan method khusus untuk menambahkan object pada daftarEfek */
-        ArrayList<Efek> temp = new ArrayList<>();
-        temp.addAll(this.daftarEfek);
+        HashMap<Integer, Efek> temp = new HashMap<>();
+        temp.putAll(this.daftarEfek);
         return temp;
-    }
-
-    /* private karena hanya digunakan method cloning saja */
-    private BarangPenggunaanPadaDiri prosesCloning(BarangPenggunaanPadaDiri oBarang){
-        BarangPenggunaanPadaDiri barangCloning = new BarangPenggunaanPadaDiri(oBarang.idBarang, oBarang.nama, oBarang.kategoriBarang ,oBarang.deskripsi,
-                oBarang.statusJual, oBarang.statusBeli, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.kesehatan);
-        barangCloning.daftarEfek.addAll(oBarang.daftarEfek);
-        return barangCloning;
     }
 
     @Override
     public BarangPenggunaanPadaDiri cloning() {
-        return prosesCloning(this);
+        BarangPenggunaanPadaDiri barangCloning = new BarangPenggunaanPadaDiri(this.idBarang, this.nama, this.kategoriBarang ,this.deskripsi,
+                this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(), this.kesehatan);
+        barangCloning.daftarEfek.putAll(this.daftarEfek);
+        return barangCloning;
     }
 }

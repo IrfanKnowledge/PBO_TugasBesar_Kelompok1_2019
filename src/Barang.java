@@ -15,35 +15,31 @@ public class Barang {
     private int hargaJual;;
     private int hargaBeli;
 
-    Barang(int idBarang, String nama, String kategoriBarang,String deskripsi, boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli){
+    Barang(int idBarang, String nama, String kategoriBarang,String deskripsi,
+           boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli){
         this.idBarang = idBarang;
         this.nama = nama;
         this.kategoriBarang = kategoriBarang;
         this.kategoriBarang = "belum ditentukan";
         this.deskripsi = deskripsi;
-        this.statusBeli = statusBeli;
         this.statusJual = statusJual;
-        this.hargaBeli = this.filterHarga(hargaBeli);
-        this.hargaJual = this.filterHarga(hargaJual);
+        this.statusBeli = statusBeli;
+        this.setHargaJual(hargaJual);
+        this.setHargaBeli(hargaBeli);
     }
 
     public static void main(String[] args) {
         BarangPenggunaanPadaDiri barangA = new BarangPenggunaanPadaDiri(1, "Medikit", "penggunaan pada diri","Untuk menyembuhkan luka", true, true, 5000, 2500, 100);
     }
 
-    /* private karena hanya digunakan method cloning saja */
-    private Barang prosesCloning(Barang oBarang){
-        return new Barang(oBarang.idBarang, oBarang.nama, oBarang.kategoriBarang ,oBarang.deskripsi, oBarang.statusJual, oBarang.statusBeli, oBarang.getHargaJual(), oBarang.getHargaBeli());
-    }
-
-    /* Cloning barang dan turunannya */
+    /* Cloning barang dan turunannya (polymorphism) */
     public Barang cloning(){
-        return prosesCloning(this);
+        return new Barang(this.idBarang, this.nama, this.kategoriBarang, this.deskripsi, this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli());
     }
 
     /* private karena hanya digunakan pada proses input harga jual dan harga beli, agar harga "tidak negatif" */
     private int filterHarga(int harga){
-        if(harga <= 0){
+        if(harga < 0){
             return 0;
         }
         return harga;

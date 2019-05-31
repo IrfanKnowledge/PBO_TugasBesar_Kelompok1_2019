@@ -3,79 +3,136 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BarangBlueprint extends Barang{
-    private HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting = new HashMap<>();
-    private HashMap<Integer, Barang> daftarSenjataUntukCrafting = new HashMap<>();
-    private Barang senjataUntukCraftingTerpilih;
+
+    /* private karena hanya membutuhkan tambah dan get(+ modifikasi) dan proses internal */
+    private HashMap<Integer, ArrayList<Barang>> daftarKomponenCraftingDiperlukan = new HashMap<>();
+
+    /* private karena membutuhkan proses khusus dan proses internal */
     private Barang hasilCrafting;
+
+    /* private karena terdapat pembatasan minimal nilai */
     private int jumlahHasilCrafting;
 
-    private int peningkatanKekuatan = 0;
-    private int peningkatanBatasMaxKetahanan = 0;
-    private ArrayList<Efek> daftarTambahanEfek = new ArrayList<>();
+    /* private karena hanya membutuhkan proses tambah efek dan get (+ telah dimodifikasi) efek saja */
+    private HashMap<Integer, Efek> daftarEfekTambahan = new HashMap<>();
 
-    BarangBlueprint(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual) {
-        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
+    BarangBlueprint(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
+                    boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual,
+                    int jumlahHasilCrafting) {
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
+
+        this.setJumlahHasilCrafting(jumlahHasilCrafting);
     }
 
-    BarangBlueprint(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int nilaiKesehatan){
-        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual, nilaiKesehatan);
+    public ArrayList<Barang> cloning(Barang oBarang, int jumlahInstance){
+        if(jumlahInstance <= 0){
+            jumlahInstance = 1;
+        }
+        ArrayList<Barang> tempBarang = new ArrayList<>();
+        for(int i=0; i <jumlahInstance; i++){
+            tempBarang.add(oBarang.cloning());
+        }
+        return tempBarang;
     }
 
-    BarangBlueprint(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, HashMap<Integer, Barang> daftarSenjataUntukCrafting, Barang hasilCrafting, int jumlahHasilCrafting){
-        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
-        this.daftarKomponenCrafting = daftarKomponenCrafting;
-        this.daftarSenjataUntukCrafting = daftarSenjataUntukCrafting;
-        this.hasilCrafting = hasilCrafting;
-
-        //Jika hasil crafting TIDAK TERMASUK jenis Senjata Pukul dan Senjata Tembak maka jumlah hasil crafting boleh lebih dari 1
-        if(!this.hasilCrafting.getJenis().equals("Senjata Pukul") && !this.hasilCrafting.getJenis().equals("Senjata Tembak")){
-            this.jumlahHasilCrafting = jumlahHasilCrafting;
-        //jika termasuk senjata pukul dan senjata tembak maka jumlah hasil crafting hanya boleh 1
+    public void tambahdaftarKomponenCraftingDiperlukan(Barang oBarang){
+        if(!this.daftarKomponenCraftingDiperlukan.containsKey(oBarang.idBarang)){
+            ArrayList<Barang> tempBarang = new ArrayList<>();
+            tempBarang.add(oBarang.cloning());
+            this.daftarKomponenCraftingDiperlukan.put(oBarang.idBarang, tempBarang);
         }else{
-            this.jumlahHasilCrafting = 1;
+            this.daftarKomponenCraftingDiperlukan.get(oBarang.idBarang).add(oBarang);
         }
     }
 
-    //constructor untuk blueprint meng-upgrade senjata
-    BarangBlueprint(int idBarang, String nama, String jenis, String kategoriPenyimpanan, String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, HashMap<Integer, Barang> daftarSenjataUntukCrafting, int peningkatanKekuatan, int peningkatanBatasMaxKetahanan, ArrayList<Efek> daftarTambahanEfek){
-        super(idBarang, nama, jenis, kategoriPenyimpanan, deskripsi, statusBeli, statusJual, hargaBeli, hargaJual);
-        this.daftarKomponenCrafting = daftarKomponenCrafting;
-        this.daftarSenjataUntukCrafting = daftarSenjataUntukCrafting;
-        this.hasilCrafting = null;
-        this.jumlahHasilCrafting = 1;
-
-        this.peningkatanKekuatan = peningkatanKekuatan;
-        this.peningkatanBatasMaxKetahanan = peningkatanBatasMaxKetahanan;
-        this.daftarTambahanEfek = daftarTambahanEfek;
-        //menandakan blueprint ini untuk upgrade
-        this.setStatusUpgrade(true);
+    public void tambahDaftarKomponenCraftingDiperlukan(Barang oBarang, int jumlahInstance){
+        ArrayList<Barang> tempBarang = this.cloning(oBarang, jumlahInstance);
+        if(!this.daftarKomponenCraftingDiperlukan.containsKey(oBarang.idBarang)){
+            this.daftarKomponenCraftingDiperlukan.put(oBarang.idBarang, tempBarang);
+        }else{
+            this.daftarKomponenCraftingDiperlukan.get(oBarang.idBarang).addAll(tempBarang);
+        }
     }
 
-    //constructor untuk mengcloning Barang
-    BarangBlueprint(BarangBlueprint oBarang){
-        super(oBarang);
-        this.daftarKomponenCrafting = oBarang.daftarKomponenCrafting;
-        this.daftarSenjataUntukCrafting = oBarang.daftarSenjataUntukCrafting;
-        this.senjataUntukCraftingTerpilih = oBarang.senjataUntukCraftingTerpilih;
-        this.hasilCrafting = oBarang.hasilCrafting;
-        this.jumlahHasilCrafting = oBarang.jumlahHasilCrafting;
-        this.peningkatanKekuatan = oBarang.peningkatanKekuatan;
-        this.peningkatanBatasMaxKetahanan = oBarang.peningkatanBatasMaxKetahanan;
-        this.daftarTambahanEfek = oBarang.daftarTambahanEfek;
+    public void tambahDaftarKomponenCraftingDiperlukan(HashMap<Integer, ArrayList<Barang>> oBarang){
+        for (Map.Entry<Integer, ArrayList<Barang>> isi : oBarang.entrySet()) {
+            this.tambahDaftarKomponenCraftingDiperlukan(isi.getValue().get(0), isi.getValue().size());
+        }
+    }
+
+    private HashMap<Integer, ArrayList<Barang>> prosesCloningDaftarKomponenCraftingDiperlukan(HashMap<Integer, ArrayList<Barang>> oBarang){
+        HashMap<Integer, ArrayList<Barang>> tempList = new HashMap<>();
+        for (Map.Entry<Integer, ArrayList<Barang>> isi : oBarang.entrySet()) {
+            tempList.put(isi.getValue().get(0).idBarang, this.cloning(isi.getValue().get(0), isi.getValue().size()));
+        }
+        return tempList;
+    }
+
+    public HashMap<Integer, ArrayList<Barang>> getDaftarKomponenCraftingDiperlukan() {
+        /* object HashMap dan ArrayList dibedakan agar tidak dapat memanipulasi daftarKomponenCraftingDiperlukan diluar Class ini
+         * selain hanya bisa menggunakan method khusus untuk menambahkan object pada daftarKomponenCraftingDiperlukan, */
+        HashMap<Integer, ArrayList<Barang>> temp = new HashMap<>();
+        for (Map.Entry<Integer, ArrayList<Barang>> isi : this.daftarKomponenCraftingDiperlukan.entrySet()) {
+            ArrayList<Barang> tempBarang = new ArrayList<>();
+            tempBarang.addAll(isi.getValue());
+            temp.put(isi.getKey(), tempBarang);
+        }
+        return temp;
+    }
+
+    public void setHasilCrafting(BarangSenjata hasilCrafting) {
+        this.hasilCrafting = hasilCrafting;
+    }
+
+    private void setJumlahHasilCrafting(int hasilCrafting){
+        if(hasilCrafting <= 0){
+            this.jumlahHasilCrafting = 1;
+        }else{
+            this.jumlahHasilCrafting = hasilCrafting;
+        }
+    }
+
+    public int getJumlahHasilCrafting(){
+        return jumlahHasilCrafting;
+    }
+
+    public void tambahEfek(int id, Efek oEfek){
+        this.daftarEfekTambahan.put(id, oEfek);
+    }
+
+    public void tambahEfek(HashMap<Integer, Efek> oDaftarEfek){
+        this.daftarEfekTambahan.putAll(oDaftarEfek);
+    }
+
+    public HashMap<Integer, Efek> getDaftarEfekTambahan() {
+        /* object HashMap dibedakan agar tidak dapat memanipulasi daftarEfekTambahan diluar Class ini
+         * selain hanya bisa menggunakan method khusus untuk menambahkan object pada daftarEfekTambahan */
+        HashMap<Integer, Efek> temp = new HashMap<>();
+        temp.putAll(this.daftarEfekTambahan);
+        return temp;
+    }
+
+    public BarangBlueprint prosesCloning(BarangBlueprint oBarang){
+        BarangBlueprint barangCloning = new BarangBlueprint(oBarang.idBarang, oBarang.nama, oBarang.kategoriBarang ,oBarang.deskripsi,
+                oBarang.statusJual, oBarang.statusBeli, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.jumlahHasilCrafting);
+
+        this.daftarKomponenCraftingDiperlukan = this.prosesCloningDaftarKomponenCraftingDiperlukan(oBarang.getDaftarKomponenCraftingDiperlukan());
+        this.tambahEfek(oBarang.daftarEfekTambahan);
+
+        return barangCloning;
     }
 
     @Override
     public Barang cloning() {
-        return new BarangBlueprint(this);
+        return prosesCloning(this);
     }
 
-    @Override
-    public ArrayList<Barang> gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, Barang senjata, int efisiensiCrafting) {
+    public ArrayList<Barang> gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCraftingDigunakan, Barang senjata, int efisiensiCrafting) {
 
-        //untuk pencocokan kebutuhan daftarKomponenCrafting dan senjata untuk crafting dengan inputan daftarKomponenCrafting dan Senjata
+        //untuk pencocokan kebutuhan daftarKomponenCraftingDigunakan dan senjata untuk crafting dengan inputan daftarKomponenCraftingDigunakan dan Senjata
         boolean statusKecocokan = true;
 
-        //untuk pencocokan kebutuhan daftarKomponenCrafting untuk blue print ini dengan daftarKomponenCrafting inputan
+        //untuk pencocokan kebutuhan daftarKomponenCraftingDigunakan untuk blue print ini dengan daftarKomponenCrafting inputan
         for (Map.Entry<Integer, ArrayList<Barang>> record: this.daftarKomponenCrafting.entrySet()){
             //jika inputan komponen terdapat key dari kebutuhan komponen crafting maka...
             if(daftarKomponenCrafting.containsKey(record.getKey())){
@@ -155,40 +212,5 @@ public class BarangBlueprint extends Barang{
         }
 
         return daftarHasilCrafting;
-    }
-
-    public HashMap<Integer, ArrayList<Barang>> getDaftarKomponenCrafting() {
-        return daftarKomponenCrafting;
-    }
-
-    public HashMap<Integer, Barang> getDaftarSenjataUntukCrafting() {
-        return daftarSenjataUntukCrafting;
-    }
-
-    public boolean setSenjataUntukCraftingTerpilih(Barang senjataUntukCraftingTerpilih) {
-        if(this.daftarSenjataUntukCrafting.containsKey(senjataUntukCraftingTerpilih.getIdBarang())){
-            this.senjataUntukCraftingTerpilih = senjataUntukCraftingTerpilih;
-            //berhasil karena sesuai daftar tersedia
-            return true;
-        }else{
-            //gagal karena tidak sesuai daftar tersedia
-            return false;
-        }
-    }
-
-    public Barang getSenjataUntukCraftingTerpilih() {
-        return senjataUntukCraftingTerpilih;
-    }
-
-    public int getPeningkatanKekuatan() {
-        return peningkatanKekuatan;
-    }
-
-    public int getPeningkatanBatasMaxKetahanan() {
-        return peningkatanBatasMaxKetahanan;
-    }
-
-    public ArrayList<Efek> getDaftarTambahanEfek() {
-        return daftarTambahanEfek;
     }
 }
