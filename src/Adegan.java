@@ -25,8 +25,7 @@ public class Adegan {
     private ArrayList<Pilihan> daftarPilihan = new ArrayList<>();
 //    private HashMap<String, ArrayList<ArrayList<Barang>>> daftarBarang = new HashMap<>();
 //    private HashMap<String, HashMap<Integer, ArrayList<Barang>>> daftarBarangTetap = new HashMap<>();
-    private HashMap<Integer, ArrayList<Barang>> hashDaftarBarangSemuaBarang = new HashMap<>();
-    private ArrayList<ArrayList<BarangSenjata> > arrDaftarBarangSenjata = new ArrayList<>();
+    private PengelolaanBarang oPengelolaanBarang;
     private ArrayList<Npc> daftarNpc = new ArrayList<>();
     private ArrayList<Lawan> daftarLawan = new ArrayList<>();
 
@@ -64,65 +63,12 @@ public class Adegan {
         this.daftarPilihan.add(oPilihan);
     }
 
-    private void prosesTambahBarang(ArrayList<Barang> daftarBarang){
-        if(!this.hashDaftarBarangSemuaBarang.containsKey(daftarBarang.get(0).idBarang)){
-            this.hashDaftarBarangSemuaBarang.put(daftarBarang.get(0).idBarang, daftarBarang);
-        }else{
-            this.hashDaftarBarangSemuaBarang.get(daftarBarang.get(0).idBarang).addAll(daftarBarang);
-        }
+    public void setPengelolaanBarang(PengelolaanBarang oPengelolaanBarang) {
+        this.oPengelolaanBarang = oPengelolaanBarang;
     }
 
-    private void sinkronisasiSemuaBarangKeSenjata(ArrayList<BarangSenjata> daftarSenjata){
-        if(!(daftarSenjata.get(0) instanceof  BarangSenjataTembak) && !(daftarSenjata.get(0) instanceof  BarangSenjataJarakDekat)){
-            /* dengan asumsi BarangSenjata merupakan senjata yang dilemparkan,
-             *  dan mengambil penyimpanan barang untuk 1 slot secara bertumpuk
-             *  misal 1 slot bisa di-isi 10 shuriken */
-            this.arrDaftarBarangSenjata.add(daftarSenjata);
-        }else{
-            /*  dengan asumsi BarangSenjataTembak dan JarakDekat
-             *  mengambil penyimpanan barang untuk 1 slot secara terpisah,
-             *  misal 1 slot hanya bisa di-isi 1 pistol atau pedang */
-            for (int i=0; i<daftarSenjata.size(); i++){
-                ArrayList<BarangSenjata> temp = new ArrayList<>();
-                temp.add(daftarSenjata.get(i));
-                this.arrDaftarBarangSenjata.add(temp);
-            }
-        }
-    }
-
-    private ArrayList<BarangSenjata> convertBarangKeSenjata(ArrayList<Barang> daftarBarang){
-        ArrayList<BarangSenjata> tempDua = new ArrayList<>();
-        for (Barang isi : daftarBarang) {
-            tempDua.add(((BarangSenjata) isi));
-        }
-        return tempDua;
-    }
-
-    public void tambahBarang(Barang oBarang, int jumlahInstance){
-        ArrayList<Barang> daftarBarang = Cloning.cloning(oBarang, jumlahInstance);
-        this.prosesTambahBarang(daftarBarang);
-
-        /* agar dua list memiliki objectSenjata yang sama */
-        if(oBarang instanceof BarangSenjata){
-            this.sinkronisasiSemuaBarangKeSenjata(this.convertBarangKeSenjata(daftarBarang));
-        }
-    }
-
-    public void tambahBarang(ArrayList<Barang> daftarBarang){
-        this.prosesTambahBarang(daftarBarang);
-
-        /* agar dua list memiliki objectSenjata yang sama */
-        if(daftarBarang.get(0) instanceof BarangSenjata){
-            this.sinkronisasiSemuaBarangKeSenjata(this.convertBarangKeSenjata(daftarBarang));
-        }
-    }
-
-    public HashMap<Integer, ArrayList<Barang>> getDaftarBarang() {
-        return this.hashDaftarBarangSemuaBarang;
-    }
-
-    public int getJumlahBarang(){
-        return this.hashDaftarBarangSemuaBarang.size();
+    public PengelolaanBarang getPengelolaanBarang() {
+        return oPengelolaanBarang;
     }
 
     public void tambahNpc(Npc daftarNpc) {
@@ -164,23 +110,23 @@ public class Adegan {
 
     /* 1. Lihat barang di sekitar -> ambil semua barang */
     public HashMap<Integer, ArrayList<Barang>> ambilSemuaBarang(){
-        if(this.hashDaftarBarangSemuaBarang.isEmpty()){
+        if(this.getPengelolaanBarang().isEmpty()){
             return null;
         }else{
-            return this.hashDaftarBarangSemuaBarang;
+            return this.getPengelolaanBarang().getDaftarBarang();
         }
     }
 
     /* 1. Lihat barang di sekitar - > ambil senjata satu-per-satu */
     public ArrayList<BarangSenjata> pilihBarangSenjataSekitarAdegan(){
-        if(this.arrDaftarBarangSenjata.isEmpty()){
+        if(this.getPengelolaanBarang().isEmpty()){
             return null;
         }else{
             System.out.println();
             System.out.println("Aksi : Ambil senjata satu-per-satu");
 
             int i=0;
-            for (ArrayList<BarangSenjata> oBarangSenjata : this.arrDaftarBarangSenjata) {
+            for (ArrayList<BarangSenjata> oBarangSenjata : this.getPengelolaanBarang().getDaftarBarangSenjata()) {
                 i++;
                 System.out.printf("%2d. %-20s | kekuatan : %-2d ",
                         i,
@@ -201,13 +147,13 @@ public class Adegan {
             System.out.print("Masukkan Pilihan : ");
             int input = oScan.nextInt();
 
-            if(input < 0 || input > this.arrDaftarBarangSenjata.size()){
+            if(input < 0 || input > this.getPengelolaanBarang().getDaftarBarangSenjata().size()){
                 System.out.println();
                 System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
             }else if(input == 0){
                 return null;
             }else{
-                return this.arrDaftarBarangSenjata.get(input-1);
+                return this.getPengelolaanBarang().getDaftarBarangSenjata().get(input-1);
             }
             return null;
         }

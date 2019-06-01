@@ -36,7 +36,7 @@ public class GameEngine {
 
         adeganId1.tambahBarang(new Barang(1,"kunci", "kunci", "memilki permata berwarna merah",
                 true, false, 5, 0), 1);
-        adeganId1.tambahBarangSenjata(new BarangSenjataJarakDekat(4, "pipa tua", "senjata", "pipa tua berkarat berukurang sedang",
+        adeganId1.tambahBarang(new BarangSenjataJarakDekat(4, "pipa tua", "senjata", "pipa tua berkarat berukurang sedang",
                 true, false, 5000, 15000, 35, 20, 20, 3, 0, 1),
                 2);
 
