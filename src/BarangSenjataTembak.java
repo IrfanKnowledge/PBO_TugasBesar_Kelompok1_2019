@@ -70,7 +70,7 @@ public class BarangSenjataTembak extends BarangSenjata{
         return this.cloningDaftarAmunisiCocok(this.daftarAmunisiCocok);
     }
 
-    private boolean validasiAmunisiSedangDigunakan(BarangSenjata oAmunisi){
+    public boolean validasiAmunisiSedangDigunakan(BarangSenjata oAmunisi){
         if(getJumlahKebutuhanIsiAmunisi() == 0){
             System.out.println();
             System.out.println(String.format("[ Jumlah amunisi %s masih penuh ]\n", this.nama));
@@ -87,47 +87,42 @@ public class BarangSenjataTembak extends BarangSenjata{
     }
 
     public void tambahAmunisi(BarangSenjata oAmunisi) {
-        if(this.validasiAmunisiSedangDigunakan(oAmunisi)){
-            this.daftarAmunisiSedangDigunakan.add(oAmunisi.cloning());
-        }
+        this.daftarAmunisiSedangDigunakan.add(oAmunisi.cloning());
     }
 
     public void tambahAmunisi(BarangSenjata oAmunisi, int jumlahInstance) {
-        if(this.validasiAmunisiSedangDigunakan(oAmunisi)){
-            if(jumlahInstance > this.getJumlahKebutuhanIsiAmunisi()){
-                jumlahInstance = this.getJumlahKebutuhanIsiAmunisi();
-            }
-            this.daftarAmunisiSedangDigunakan.addAll(Cloning.cloning(oAmunisi, jumlahInstance));
+        if(jumlahInstance > this.getJumlahKebutuhanIsiAmunisi()){
+            jumlahInstance = this.getJumlahKebutuhanIsiAmunisi();
         }
+        this.daftarAmunisiSedangDigunakan.addAll(Cloning.cloning(oAmunisi, jumlahInstance));
     }
 
     public void tambahAmunisi(ArrayList<BarangSenjata> oDaftarAmunisi){
         if(oDaftarAmunisi.isEmpty()){
             System.out.println();
-            System.out.println("[ Komponen amunisi yang akan digunakan kosong ]");
+            System.out.println("[ Daftar amunisi yang akan digunakan kosong ]");
         }else{
-            if(this.validasiAmunisiSedangDigunakan(oDaftarAmunisi.get(0))){
-                int pengulanganIsiAmunisi;
-                if(this.getJumlahKebutuhanIsiAmunisi() - oDaftarAmunisi.size() <= 0) {
-                    pengulanganIsiAmunisi = this.getJumlahKebutuhanIsiAmunisi();
-                }else{
-                    pengulanganIsiAmunisi = oDaftarAmunisi.size();
-                }
-                /* ArrayList menerapkan Linked List sehingga dapat FIFO (first in first out) */
-                for(int i=0; i<pengulanganIsiAmunisi; i+=0){
+            int pengulanganIsiAmunisi;
+            if(this.getJumlahKebutuhanIsiAmunisi() - oDaftarAmunisi.size() <= 0) {
+                pengulanganIsiAmunisi = this.getJumlahKebutuhanIsiAmunisi();
+            }else{
+                pengulanganIsiAmunisi = oDaftarAmunisi.size();
+            }
+            /* ArrayList menerapkan Linked List sehingga dapat FIFO (first in first out) */
+            for(int i=0; i<pengulanganIsiAmunisi; i+=0){
 
-                    /* selalu di cek karena dalam list inputan bisa saja terdapat amunisi yang berbeda Id */
-                    if(oDaftarAmunisi.get(i).idBarang != this.amunisiUtama.idBarang){
-                        System.out.println();
-                        System.out.println("[ Jenis amunisi yang digunakan tidak cocok ]");
-                        System.out.println(String.format("[ Dibutuhkan %s (%s)]", this.amunisiUtama.nama, this.amunisiUtama.kategoriBarang));
+                /* selalu di cek karena dalam list inputan bisa saja terdapat amunisi yang berbeda Id */
+                if(oDaftarAmunisi.get(i).idBarang != this.amunisiUtama.idBarang){
+                    System.out.println();
+                    System.out.println(String.format("[ Telah bertambah sebanyak %d ]"));
+                    System.out.println("[ Terdapat jenis amunisi yang digunakan tidak cocok ]");
+                    System.out.println(String.format("[ Dibutuhkan %s (%s)]", this.amunisiUtama.nama, this.amunisiUtama.kategoriBarang));
 
-                        /* keluar dari for */
-                        break;
-                    }
-                    this.daftarAmunisiSedangDigunakan.add(oDaftarAmunisi.get(i));
-                    oDaftarAmunisi.remove(i);
+                    /* keluar dari for */
+                    break;
                 }
+                this.daftarAmunisiSedangDigunakan.add(oDaftarAmunisi.get(i));
+                oDaftarAmunisi.remove(i);
             }
         }
     }

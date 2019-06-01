@@ -45,7 +45,7 @@ public class Barang {
                 true, false, 20000, 2500, 1);
         BarangBlueprintSenjataUpgrade oBlueprintSenjataTajam = new BarangBlueprintSenjataUpgrade(8, "Fire burner", "blueprint","Untuk meng-upgrade senjata tajam menjadi ber-efek api",
                 true, false, 10000, 30000, 100, 0);
-        oBlueprintSenjataTajam.validasiSenjataUntukCrafting(oSenjataJarakDekat);
+
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
         oBarang = oBarangPenggunaanPadaDiri;
         ((BarangPenggunaanPadaDiri) oBarang).tambahEfek(new Efek(1, "hantaman godam", 0, 0, 0, 0, 2, 10, 0));

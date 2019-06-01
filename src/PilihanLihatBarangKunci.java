@@ -32,8 +32,8 @@ public class PilihanLihatBarangKunci extends Pilihan {
                         System.out.println("Aksi : Melihat deskripsi kunci");
 
                         System.out.println();
-                        System.out.printf("%-12s : %s\n", "nama", oBarangPilihan.getNama());
-                        System.out.printf("%-12s : %s\n", "Deskripsi", oBarangPilihan.getDeskripsi());
+                        System.out.printf("%-12s : %s\n", "nama", oBarangPilihan.nama);
+                        System.out.printf("%-12s : %s\n", "Deskripsi", oBarangPilihan.deskripsi);
                         System.out.printf("%-12s : %s\n", "Harga beli", "-");
                         System.out.printf("%-12s : %s\n", "Harga jual", "-");
                         System.out.println();
@@ -47,7 +47,7 @@ public class PilihanLihatBarangKunci extends Pilihan {
                                 validasiKembali2 = true;
                                 break;
                             case 1:
-                                if(this.oAdegan.getIdBarangBisaDigunakan() == oBarangPilihan.getIdBarang()){
+                                if(this.oAdegan.idBarangBisaDigunakan == oBarangPilihan.idBarang){
                                     this.oAdegan.gunakanBarang();
                                 }else{
                                     System.out.println();

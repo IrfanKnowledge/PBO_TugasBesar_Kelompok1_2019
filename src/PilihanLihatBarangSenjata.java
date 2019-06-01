@@ -38,8 +38,8 @@ public class PilihanLihatBarangSenjata extends Pilihan {
 
                         System.out.println();
                         if(oBarangPilihan.getJenis().equals("Senjata Pukul")){
-                            System.out.printf("%-25s : %s\n", "nama", oBarangPilihan.getNama());
-                            System.out.printf("%-25s : %s\n", "Deskripsi", oBarangPilihan.getDeskripsi());
+                            System.out.printf("%-25s : %s\n", "nama", oBarangPilihan.nama);
+                            System.out.printf("%-25s : %s\n", "Deskripsi", oBarangPilihan.deskripsi);
                             System.out.printf("%-25s : %s\n", "Harga beli", oBarangPilihan.getHargaBeli());
                             System.out.printf("%-25s : %s\n", "Harga jual", oBarangPilihan.getHargaJual());
                             System.out.printf("%-25s : %d\n", "Kekuatan", oBarangPilihan.getKekuatan());

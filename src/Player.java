@@ -5,19 +5,19 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Player {
-    private int idPlayer;
-    private String nama;
+    public int idPlayer;
+    public String nama;
     private int kesehatan = 100;
     private int batasMaxKesehatan = 100;
 
     /* Waktu melekat pada diri Player, kemudian pada saat malam ketika berada pada adegan yang memiliki Musuh Kuat di malam hari,
     *  maka mereka akan muncul, dan ketika berganti hari maka semua barang-barang dan musuh akan me-refresh
     */
-    private double waktu = 7.00;
-    private double kecepatanPerubahanWaktuNormal = 0.10;
-    private String statusWaktu = "siang";
-    private double batasAwalMalam = 21.00;
-    private double batasAkhirMalam = 6.00;
+//    private double waktu = 7.00;
+//    private double kecepatanPerubahanWaktuNormal = 0.10;
+//    private String statusWaktu = "siang";
+//    private double batasAwalMalam = 21.00;
+//    private double batasAkhirMalam = 6.00;
 
     private double uang = 0;
     public Barang senjata;                         //Belum
@@ -27,31 +27,31 @@ public class Player {
     public Adegan adeganAktif;
 
     /* Berikut Atribut yang dipengaruhi Level */
-    private Level levelBertahanHidup;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private int expBertahanHidup = 0;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private int pointBertahanHidup = 0;             //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private Level levelKekuatan;                    //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private int expKekuatan = 0;                    //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private int pointKekuatan = 0;                  //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private ArrayList<Level> daftarLevelBertahanHidup;  //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private ArrayList<Level> daftarLevelKekuatan;       //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private Level levelBertahanHidup;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private int expBertahanHidup = 0;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private int pointBertahanHidup = 0;             //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private Level levelKekuatan;                    //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private int expKekuatan = 0;                    //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private int pointKekuatan = 0;                  //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private ArrayList<Level> daftarLevelBertahanHidup;  //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private ArrayList<Level> daftarLevelKekuatan;       //Untuk Skill dan level, diakhir saja, utamakan hal lain
 
     /* Berikut Atribut yang dipengaruhi Skill */
-    private int efisiensiSenjata = 0;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private int efisiensiCrafting = 0;              //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private int kemampuanMenawarBarang = 0;         //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private int kemampuanMenjualBarang = 0;         //Untuk Skill dan level, diakhir saja, utamakan hal lain
-    private ArrayList<Skill> daftarSkill;           //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private int efisiensiSenjata = 0;               //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private int efisiensiCrafting = 0;              //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private int kemampuanMenawarBarang = 0;         //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private int kemampuanMenjualBarang = 0;         //Untuk Skill dan level, diakhir saja, utamakan hal lain
+//    private ArrayList<Skill> daftarSkill;           //Untuk Skill dan level, diakhir saja, utamakan hal lain
 
     /* Berikut Atribut yang dipengaruhi Efek */
     private int durasiStun = 0;
-    private int nilaiKetahanan = 0;
-    private int batasMaxKetahanan = 0;
+    private int ketahananTambahan = 0;
+    private int batasMaxKetahananTambahan = 0;
     private int durasiKetahanan = 0;
-    private double nilaiKecepatanTambahan = 0;
-    private int durasiKecepatanTambahan = 0;
-    private int durasiPengelihatanMalam = 0;
-    private int durasiKamuflase = 0;
+//    private double nilaiKecepatanTambahan = 0;
+//    private int durasiKecepatanTambahan = 0;
+//    private int durasiPengelihatanMalam = 0;
+//    private int durasiKamuflase = 0;
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>();
 
     private HashMap<String, HashMap<Integer, ArrayList<Barang>>> penyimpanansStatis;   //Belum

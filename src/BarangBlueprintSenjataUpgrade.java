@@ -90,15 +90,6 @@ public class BarangBlueprintSenjataUpgrade extends BarangBlueprint{
         return peningkatanBatasMaxKetahanan;
     }
 
-    public boolean validasiSenjataUntukCrafting(BarangSenjataJarakDekat senjataUntukCrafting){
-        if(!this.getDaftarSenjataCraftingMendukung().containsKey(senjataUntukCrafting.idBarang)){
-//            System.out.println();
-//            System.out.println("[ Jenis senjata yang digunakan untuk crafting tidak cocok ]");
-            return false;
-        }
-        return true;
-    }
-
     public BarangSenjataJarakDekat getHasilCrafting() {
         if(!this.statusKeberhasilanCrafting){
 //            System.out.println();
