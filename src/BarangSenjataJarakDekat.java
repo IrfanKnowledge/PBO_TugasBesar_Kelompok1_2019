@@ -199,7 +199,7 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         }
     }
 
-    public void upgradeSenjata(BarangBluePrintSenjataUpgrade oBluePrint){
+    public void upgradeSenjata(BarangBlueprintSenjataUpgrade oBluePrint){
         if(!isStatusBisaUpgrade()){
             System.out.println();
             System.out.println("[ Senjata ini sudah tidak dapat diupgrade ]");

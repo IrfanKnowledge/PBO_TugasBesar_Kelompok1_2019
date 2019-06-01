@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BarangBluePrintPenggunaanPadaDiri extends BarangBlueprint {
+public class BarangBlueprintPenggunaanPadaDiri extends BarangBlueprint {
 
     /* private karena membutuhkan proses khusus dan proses internal */
     private BarangPenggunaanPadaDiri hasilCrafting;
@@ -14,7 +14,7 @@ public class BarangBluePrintPenggunaanPadaDiri extends BarangBlueprint {
      *  termasuk mengakses proses tertentu yang hanya dimiliki class spesifik berikut */
     private HashMap<Integer, BarangPenggunaanPadaDiri> daftarBarangPenggunaanPadaDiriUntukCrafting = new HashMap<>();
 
-    BarangBluePrintPenggunaanPadaDiri(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
+    BarangBlueprintPenggunaanPadaDiri(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
                                       boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                                       int jumlahHasilCrafting) {
         super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, jumlahHasilCrafting);

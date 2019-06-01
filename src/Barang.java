@@ -39,16 +39,16 @@ public class Barang {
                 true, false, 5000, 15000, 35, 20, 20, 3, 0, 1);
         BarangSenjataTembak oSenjataTembak = new BarangSenjataTembak(5, "Desert Eagle", "senjata", "pistol sedang dengan kekuatan cukup kuat daripada pistol biasa",
                 true, false, 25000, 100000, 100, 12);
-        BarangBluePrintPenggunaanPadaDiri oBlueprintMedikit = new BarangBluePrintPenggunaanPadaDiri(6, "Blueprint Medikit", "blueprint", "blueprint untuk membuat medikit",
+        BarangBlueprintPenggunaanPadaDiri oBlueprintMedikit = new BarangBlueprintPenggunaanPadaDiri(6, "Blueprint Medikit", "blueprint", "blueprint untuk membuat medikit",
                 true, false, 5000, 10000, 3);
-        BarangBluePrintSenjataBaru oBlueprintBuzzerKiller = new BarangBluePrintSenjataBaru(7, "Buzzer Killer", "blueprint","Untuk membuat senjata Buzzer Killer, sebuah senjata mematikan tajam",
+        BarangBlueprintSenjataBaru oBlueprintBuzzerKiller = new BarangBlueprintSenjataBaru(7, "Buzzer Killer", "blueprint","Untuk membuat senjata Buzzer Killer, sebuah senjata mematikan tajam",
                 true, false, 20000, 2500, 1);
-        BarangBluePrintSenjataUpgrade oBlueprintSenjataTajam = new BarangBluePrintSenjataUpgrade(8, "Fire burner", "blueprint","Untuk meng-upgrade senjata tajam menjadi ber-efek api",
+        BarangBlueprintSenjataUpgrade oBlueprintSenjataTajam = new BarangBlueprintSenjataUpgrade(8, "Fire burner", "blueprint","Untuk meng-upgrade senjata tajam menjadi ber-efek api",
                 true, false, 10000, 30000, 100, 0);
-
+        oBlueprintSenjataTajam.validasiSenjataUntukCrafting(oSenjataJarakDekat);
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
         oBarang = oBarangPenggunaanPadaDiri;
-        ((BarangPenggunaanPadaDiri) oBarang).tambahEfek(new Efek(1, "stun", 0, 2, 10, 1, 10, 1, 1, 1, 1, 1, 1, 1));
+        ((BarangPenggunaanPadaDiri) oBarang).tambahEfek(new Efek(1, "hantaman godam", 0, 0, 0, 0, 2, 10, 0));
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
         oBarang = oSenjata;
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
@@ -57,11 +57,11 @@ public class Barang {
         oBarang = oSenjataTembak;
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
         oBarang = oBlueprintMedikit;
-        System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBluePrintPenggunaanPadaDiri) oBarang).getJumlahHasilCrafting());
-        oBarang = oBlueprintBuzzerKiller;
-        System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBluePrintSenjataBaru) oBarang).getJumlahHasilCrafting());
+        System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBlueprintPenggunaanPadaDiri) oBarang).getJumlahHasilCrafting());
+        //oBarang = oBlueprintBuzzerKiller;
+        //System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBluePrintSenjataBaru) oBarang).getJumlahHasilCrafting());
         oBarang = oBlueprintSenjataTajam;
-        System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBluePrintSenjataUpgrade) oBarang).getJumlahHasilCrafting() );
+        System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBlueprintSenjataUpgrade) oBarang).getJumlahHasilCrafting() );
     }
 
     /* Cloning barang dan turunannya (polymorphism) */

@@ -2,14 +2,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BarangBlueprintSenjata extends BarangBlueprint {
+public class BarangBlueprintSenjataBaru extends BarangBlueprint {
 
     /* private karena hanya membutuhkan tambah dan get(+ modifikasi) dan proses internal */
     private HashMap<Integer, ArrayList<BarangSenjata>> daftarSenjataCraftingMendukung = new HashMap<>();
 
-    BarangBlueprintSenjata(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
-                           boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
-                           int jumlahHasilCrafting) {
+    /* private karena membutuhkan proses khusus */
+    private BarangSenjata hasilCraftingSenjata;
+
+    BarangBlueprintSenjataBaru(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
+                               boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
+                               int jumlahHasilCrafting) {
         super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, jumlahHasilCrafting);
     }
 
@@ -49,26 +52,55 @@ public abstract class BarangBlueprintSenjata extends BarangBlueprint {
         return temp;
     }
 
-    private boolean validasiSenjataUntukCrafting(BarangSenjata senjataUntukCrafting){
-        if(!this.getDaftarSenjataCraftingMendukung().containsKey(senjataUntukCrafting.idBarang)){
-            System.out.println();
-            System.out.println("[ Jenis senjata yang digunakan untuk crafting tidak cocok ]");
+    public void setHasilCraftingSenjata(BarangSenjata oHasilCrafting) {
+        this.hasilCraftingSenjata = oHasilCrafting.cloning();
+    }
 
+    public void setHasilCraftingSenjata(BarangSenjataJarakDekat oHasilCrafting) {
+        this.hasilCraftingSenjata = oHasilCrafting.cloning();
+    }
+    public void setHasilCraftingSenjata(BarangSenjataTembak oHasilCrafting) {
+        this.hasilCraftingSenjata = oHasilCrafting.cloning();
+    }
+
+    public int getHasilCraftingId() {
+        return hasilCraftingSenjata.idBarang;
+    }
+
+    public String getHasilCraftingNama() {
+        return hasilCraftingSenjata.nama;
+    }
+
+    public String getHasilCraftingKategori() {
+        return hasilCraftingSenjata.kategoriBarang;
+    }
+
+    public String getHasilCraftingDeskripsi() {
+        return hasilCraftingSenjata.deskripsi;
+    }
+
+    public HashMap<Integer, Efek> getHasilCraftingDaftarEfek() {
+        return this.hasilCraftingSenjata.getDaftarEfek();
+    }
+
+    public boolean validasiSenjataUntukCrafting(BarangSenjata senjataUntukCrafting){
+        if(!this.getDaftarSenjataCraftingMendukung().containsKey(senjataUntukCrafting.idBarang)){
+//            System.out.println();
+//            System.out.println("[ Jenis senjata yang digunakan untuk crafting tidak cocok ]");
             return false;
         }
         return true;
     }
 
-    public void gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> oDaftarKomponenCrafting, BarangSenjata senjataUntukCrafting){
-        super.gunakanBarangBlueprint(oDaftarKomponenCrafting);
-        if(this.statusKeberhasilanCrafting){
-            if(!this.validasiSenjataUntukCrafting(senjataUntukCrafting)){
-                System.out.println();
-                System.out.println("[ Crafting dibatalkan ]");
-            }else{
-                this.statusKeberhasilanCrafting = true;
-            }
+    public ArrayList<BarangSenjata> getHasilCrafting(){
+        if(!this.statusKeberhasilanCrafting){
+            System.out.println();
+            System.out.println("[ Proses crafting belum dilakukan ]");
+
+            return null;
+        }else {
+            this.statusKeberhasilanCrafting = false;
+            return Cloning.cloning(this.hasilCraftingSenjata, this.getJumlahHasilCrafting());
         }
     }
-
 }

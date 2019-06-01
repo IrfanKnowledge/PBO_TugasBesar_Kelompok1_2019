@@ -4,11 +4,15 @@ import java.util.Map;
 
 public abstract class BarangBlueprint extends Barang{
 
+    /* private karena membutuhkan proses khusus */
+    private BarangSenjata hasilCraftingSenjata;
+
     /* private karena terdapat pembatasan minimal nilai */
     private int jumlahHasilCrafting;
 
     /* private karena hanya membutuhkan tambah dan get(+ modifikasi) dan proses internal */
-    private HashMap<Integer, ArrayList<Barang>> daftarKomponenCraftingDiperlukan = new HashMap<>();
+    private HashMap<Integer, ArrayList<Barang>> daftarKomponenCraftingDiperlukan = new HashMap<>(); //untuk mengetahui komponen yang harus ada
+    private HashMap<Integer, ArrayList<Barang>> daftarKomponenCraftingDigunakan = new HashMap<>();  //untuk diproses
 
     /* private karena hanya membutuhkan proses tambah efek dan get (+ telah dimodifikasi) efek saja */
     private HashMap<Integer, Efek> daftarEfekTambahan = new HashMap<>();
@@ -20,6 +24,7 @@ public abstract class BarangBlueprint extends Barang{
                     int jumlahHasilCrafting) {
         super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli);
 
+        /* tidak dibuat method khusus karena terdapat class turunan yang sudah ditetapkan hanya 1 hasilnya */
         if(jumlahHasilCrafting <= 0){
             this.jumlahHasilCrafting = 1;
         }else{
@@ -31,62 +36,91 @@ public abstract class BarangBlueprint extends Barang{
         return jumlahHasilCrafting;
     }
 
-    public void tambahdaftarKomponenCraftingDiperlukan(Barang oBarang){
+    private void prosesTambahKomponen(Barang oBarang, HashMap<Integer, ArrayList<Barang>> oDaftarKomponen){
         if(!this.daftarKomponenCraftingDiperlukan.containsKey(oBarang.idBarang)){
             ArrayList<Barang> tempBarang = new ArrayList<>();
             tempBarang.add(oBarang.cloning());
-            this.daftarKomponenCraftingDiperlukan.put(oBarang.idBarang, tempBarang);
+            oDaftarKomponen.put(oBarang.idBarang, tempBarang);
         }else{
-            this.daftarKomponenCraftingDiperlukan.get(oBarang.idBarang).add(oBarang.cloning());
+            oDaftarKomponen.get(oBarang.idBarang).add(oBarang.cloning());
         }
     }
 
-    public void tambahDaftarKomponenCraftingDiperlukan(Barang oBarang, int jumlahInstance){
+    private void prosesTambahKomponen(Barang oBarang, int jumlahInstance, HashMap<Integer, ArrayList<Barang>> oDaftarKomponen){
         ArrayList<Barang> tempBarang = Cloning.cloning(oBarang, jumlahInstance);
-        if(!this.daftarKomponenCraftingDiperlukan.containsKey(oBarang.idBarang)){
-            this.daftarKomponenCraftingDiperlukan.put(oBarang.idBarang, tempBarang);
+        if(!oDaftarKomponen.containsKey(oBarang.idBarang)){
+            oDaftarKomponen.put(oBarang.idBarang, tempBarang);
         }else{
-            this.daftarKomponenCraftingDiperlukan.get(oBarang.idBarang).addAll(tempBarang);
+            oDaftarKomponen.get(oBarang.idBarang).addAll(tempBarang);
         }
     }
 
-    public void tambahDaftarKomponenCraftingDiperlukan(HashMap<Integer, ArrayList<Barang>> oBarang){
-        for (Map.Entry<Integer, ArrayList<Barang>> isi : oBarang.entrySet()) {
-            this.tambahDaftarKomponenCraftingDiperlukan(isi.getValue().get(0), isi.getValue().size());
-        }
-    }
-
-    public HashMap<Integer, ArrayList<Barang>> getDaftarKomponenCraftingDiperlukan() {
+    private HashMap<Integer, ArrayList<Barang>> prosesGetKomponen(HashMap<Integer, ArrayList<Barang>> oBarang){
         /* object HashMap dan ArrayList dibedakan agar tidak dapat memanipulasi daftarKomponenCraftingDiperlukan diluar Class ini
          * selain hanya bisa menggunakan method khusus untuk menambahkan object pada daftarKomponenCraftingDiperlukan,
          * kemudian isi HashMap tersebut dibuat object berbeda agar tidak dapat dimanipulasi diluar Class ini */
         HashMap<Integer, ArrayList<Barang>> temp = new HashMap<>();
-        for (Map.Entry<Integer, ArrayList<Barang>> isi : this.daftarKomponenCraftingDiperlukan.entrySet()) {
+        for (Map.Entry<Integer, ArrayList<Barang>> isi : oBarang.entrySet()) {
             temp.put(isi.getKey(), Cloning.cloning(isi.getValue().get(0), isi.getValue().size()));
         }
         return temp;
     }
 
-    private boolean validasiDaftarKomponenCrafting(HashMap<Integer, ArrayList<Barang>> oDaftarKomponenCrafting){
-        if(oDaftarKomponenCrafting.isEmpty()){
-            System.out.println();
-            System.out.println("[ Daftar komponen crafting yang akan digunakan kosong ]");
+    private void prosesTambahKomponen(HashMap<Integer, ArrayList<Barang>> oBarang, HashMap<Integer, ArrayList<Barang>> tempatKomponenDisimpan){
+        for (Map.Entry<Integer, ArrayList<Barang>> isi : oBarang.entrySet()) {
+            this.prosesTambahKomponen(isi.getValue().get(0), isi.getValue().size(), tempatKomponenDisimpan);
+        }
+    }
 
+    public void tambahDaftarKomponenCraftingDiperlukan(Barang oBarang){
+        this.prosesTambahKomponen(oBarang, this.daftarKomponenCraftingDiperlukan);
+    }
+
+    public void tambahDaftarKomponenCraftingDiperlukan(Barang oBarang, int jumlahInstance){
+        this.prosesTambahKomponen(oBarang, jumlahInstance, this.daftarKomponenCraftingDiperlukan);
+    }
+
+    public void tambahDaftarKomponenCraftingDiperlukan(HashMap<Integer, ArrayList<Barang>> oBarang){
+        this.prosesTambahKomponen(oBarang,this.daftarKomponenCraftingDiperlukan);
+    }
+
+    public HashMap<Integer, ArrayList<Barang>> getDaftarKomponenCraftingDiperlukan() {
+        return this.prosesGetKomponen(this.daftarKomponenCraftingDiperlukan);
+    }
+
+    public void tambahdaftarKomponenCraftingDigunakan(Barang oBarang){
+        this.prosesTambahKomponen(oBarang, this.daftarKomponenCraftingDigunakan);
+    }
+
+    public void tambahDaftarKomponenCraftingDigunakan(Barang oBarang, int jumlahInstance){
+        this.prosesTambahKomponen(oBarang, jumlahInstance, this.daftarKomponenCraftingDigunakan);
+    }
+
+    public void tambahDaftarKomponenCraftingDigunakan(HashMap<Integer, ArrayList<Barang>> oBarang){
+        this.prosesTambahKomponen(oBarang, this.daftarKomponenCraftingDigunakan);
+    }
+
+    public HashMap<Integer, ArrayList<Barang>> getDaftarKomponenCraftingDigunakan() {
+        return this.prosesGetKomponen(this.daftarKomponenCraftingDigunakan);
+    }
+
+    public boolean validasiDaftarKomponenCrafting(){
+        if(this.getDaftarKomponenCraftingDigunakan().isEmpty()){
+//            System.out.println();
+//            System.out.println("[ Daftar komponen crafting yang akan digunakan kosong ]");
             return false;
         }else{
             for (Map.Entry<Integer, ArrayList<Barang>> isi : this.getDaftarKomponenCraftingDiperlukan().entrySet()) {
-                if(!oDaftarKomponenCrafting.containsKey(isi.getKey())){
-                    System.out.println();
-                    System.out.println(String.format("[ komponen %s tidak ada dalam daftar komponen crafting yang akan digunakan ]", isi.getValue().get(0).nama));
-
+                if(!this.getDaftarKomponenCraftingDigunakan().containsKey(isi.getKey())){
+//                    System.out.println();
+//                    System.out.println(String.format("[ komponen %s tidak ada dalam daftar komponen crafting yang akan digunakan ]", isi.getValue().get(0).nama));
                     return false;
                 }else{
-                    int selisih = isi.getValue().size() - oDaftarKomponenCrafting.get(isi.getKey()).size();
+                    int selisih = isi.getValue().size() - this.getDaftarKomponenCraftingDigunakan().get(isi.getKey()).size();
                     if(selisih > 0) {
-                        System.out.println();
-                        System.out.println(String.format("[ Jumlah komponen %s untuk crafting yang digunakan kurang ]", isi.getValue().get(0).nama));
-                        System.out.println(String.format("[ Kurang sebanyak %d buah ]", selisih));
-
+//                        System.out.println();
+//                        System.out.println(String.format("[ Jumlah komponen %s untuk crafting yang digunakan kurang ]", isi.getValue().get(0).nama));
+//                        System.out.println(String.format("[ Kurang sebanyak %d buah ]", selisih));
                         return false;
                     }
                 }
@@ -95,26 +129,19 @@ public abstract class BarangBlueprint extends Barang{
         }
     }
 
-    public void gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> oDaftarKomponenCrafting){
-        /* jika lolos validasi, daftar komponen inputan di anggap:
-         *  tidak kosong, memiliki komponen yang dibutuhkan termasuk jumlahnya,
-         *  kemudian senjata inputan dianggap sesuai dengan data senjata crafting mendukung
-         *  jika tidak maka return null */
-        if(!this.validasiDaftarKomponenCrafting(oDaftarKomponenCrafting)){
-            System.out.println();
-            System.out.println("[ Crafting dibatalkan ]");
-
-            this.statusKeberhasilanCrafting = false;
-        }else{
-            for (Map.Entry<Integer, ArrayList<Barang>> isi : this.getDaftarKomponenCraftingDiperlukan().entrySet()) {
-                /* pengulangan mengurangi/me-remove object daftar komponen inputan
-                 *  berdasarkan kebutuhan (jumlahnya sudah dipastikan cukup, pada method validasi di atas) */
-                for(int i=0; i>=isi.getValue().size(); i+=0){
-                    oDaftarKomponenCrafting.get(isi.getKey()).remove(0);
-                }
+    /* jika lolos validasi (validasi digunakan dilaur class ini sebelum menggunakan method ini), daftar komponen inputan di anggap:
+     *  tidak kosong, memiliki komponen yang dibutuhkan termasuk jumlahnya,
+     *  kemudian senjata inputan dianggap sesuai dengan data senjata crafting mendukung,
+     * */
+    public void gunakanBarangBlueprint(){
+        for (Map.Entry<Integer, ArrayList<Barang>> isi : this.getDaftarKomponenCraftingDiperlukan().entrySet()) {
+            /* pengulangan mengurangi/me-remove object daftar komponen inputan
+             *  berdasarkan kebutuhan (jumlahnya sudah dipastikan cukup, pada method validasi di atas) */
+            for(int i=0; i>=isi.getValue().size(); i+=0){
+                this.getDaftarKomponenCraftingDigunakan().get(isi.getKey()).remove(0);
             }
-            this.statusKeberhasilanCrafting = true;
         }
+        this.statusKeberhasilanCrafting = true;
     }
 
     public void tambahEfek(Efek oEfek){
