@@ -110,19 +110,19 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
     }
 
     /* untuk mengetahui jumlah kemampuan diperbaiki yang tersisa */
-    public int jumlahKemampuanDiperbaiki(){
+    public int getJumlahKemampuanDiperbaiki(){
         return this.batasMaxDiperbaiki - this.jumlahDiperbaiki;
     }
 
     private void setStatusKemampuanDiperbaiki(){
-        if(this.jumlahKemampuanDiperbaiki() <= 0){
+        if(this.getJumlahKemampuanDiperbaiki() <= 0){
             this.statusKemampuanDiperbaiki = false;
         }else{
             this.statusKemampuanDiperbaiki = true;
         }
     }
 
-    public boolean isStatusKemampuanDiperbaiki() {
+    private boolean isStatusKemampuanDiperbaiki() {
         return statusKemampuanDiperbaiki;
     }
 
@@ -173,19 +173,22 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         }
     }
 
-    public void perbaikiBarang(Barang komponen){
+    public boolean perbaikiBarang(Barang komponen){
         if(komponen.idBarang != komponenBarangUntukPerbaikan.idBarang && !komponen.kategoriBarang.equals(komponenBarangUntukPerbaikan.kategoriBarang) ){
             System.out.println();
             System.out.println("[ Barang yang digunakan untuk perbaikan tidak cocok ]");
             System.out.println(String.format("[ Dibutuhkan %s (%s)]", komponenBarangUntukPerbaikan.nama, komponenBarangUntukPerbaikan.kategoriBarang));
+            return false;
         }else{
             if(!this.isStatusKemampuanDiperbaiki()){
                 System.out.println();
                 System.out.println("[ Senjata sudah tidak bisa diperbaiki ]");
+                return false;
             }else{
                 if(this.ketahanan == this.batasMaxKetahanan){
                     System.out.println();
                     System.out.println( String.format("[ %s ", this.nama) + "masih memiliki ketahanan 100% ]");
+                    return false;
                 }else{
                     //mengubah nilai ketahanan menjadi nilai maksimal ketahanan senjata
                     this.setKetahanan(this.batasMaxKetahanan);
@@ -194,6 +197,7 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
                     this.setJumlahDiperbaiki(this.jumlahDiperbaiki + 1);
 
                     this.setStatusKemampuanDiperbaiki();
+                    return true;
                 }
             }
         }

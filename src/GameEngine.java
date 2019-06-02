@@ -34,9 +34,9 @@ public class GameEngine {
         Adegan adeganId1 = new Adegan(1, 0, "Tengah Ruangan", "Kamar 03", "","Gedung Tua Asing", "Akhirnya sampai di ruangan yang sepertinya terlihat aman");
         Adegan adeganId2 = new Adegan(2, 28, "Depan Pintu", "Kamar 03", "","Gedung Tua Asing", "Berjalan menuju pintu kuning.. Hmm Pintu ini terkunci");
 
-        adeganId1.tambahBarang(new Barang(1,"kunci", "kunci", "memilki permata berwarna merah",
+        adeganId1.getPengelolaanBarang().tambahBarang(new Barang(1,"kunci", "kunci", "memilki permata berwarna merah",
                 true, false, 5, 0), 1);
-        adeganId1.tambahBarang(new BarangSenjataJarakDekat(4, "pipa tua", "senjata", "pipa tua berkarat berukurang sedang",
+        adeganId1.getPengelolaanBarang().tambahBarang(new BarangSenjataJarakDekat(4, "pipa tua", "senjata", "pipa tua berkarat berukurang sedang",
                 true, false, 5000, 15000, 35, 20, 20, 3, 0, 1),
                 2);
 

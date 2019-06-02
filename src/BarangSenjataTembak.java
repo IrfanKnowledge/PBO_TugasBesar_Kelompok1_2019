@@ -114,7 +114,7 @@ public class BarangSenjataTembak extends BarangSenjata{
         this.daftarAmunisiSedangDigunakan.addAll(Cloning.cloning(oAmunisi, jumlahInstance));
     }
 
-    public void tambahAmunisi(ArrayList<BarangSenjata> oDaftarAmunisi){
+    public void isiAmunisi(ArrayList<BarangSenjata> oDaftarAmunisi){
         int pengulanganIsiAmunisi;
         if(this.getJumlahKebutuhanIsiAmunisi() - oDaftarAmunisi.size() <= 0) {
             pengulanganIsiAmunisi = this.getJumlahKebutuhanIsiAmunisi();
@@ -218,8 +218,9 @@ public class BarangSenjataTembak extends BarangSenjata{
         ArrayList<BarangSenjata> temp = new ArrayList<>();
         temp.addAll(this.daftarAmunisiSedangDigunakan);
         this.daftarAmunisiSedangDigunakan.clear();
-        this.tambahAmunisi(oDaftarAmunisiSedangDigunakan);
-
+        if(this.validasiAmunisiUntukMengisiAmunisi(oDaftarAmunisiSedangDigunakan)){
+            this.isiAmunisi(oDaftarAmunisiSedangDigunakan);
+        }
         return temp;
     }
 }

@@ -23,9 +23,8 @@ public class Adegan {
 
     /* Pada setiap adegan terdapat kemungkinan daftarPilihan, barang, Npc, dan Lawan */
     private ArrayList<Pilihan> daftarPilihan = new ArrayList<>();
-//    private HashMap<String, ArrayList<ArrayList<Barang>>> daftarBarang = new HashMap<>();
-//    private HashMap<String, HashMap<Integer, ArrayList<Barang>>> daftarBarangTetap = new HashMap<>();
     private PengelolaanBarang oPengelolaanBarang;
+    private MenuPengelolaanBarang oMenuPengelolaanBarang;
     private ArrayList<Npc> daftarNpc = new ArrayList<>();
     private ArrayList<Lawan> daftarLawan = new ArrayList<>();
 
@@ -48,6 +47,10 @@ public class Adegan {
         tambahPilihan(this.oPilihanLihatNpcSekitar);
         this.oPilihanKeluarGame = new PilihanKeluarGame("Keluar dari Game.");
         tambahPilihan(this.oPilihanKeluarGame);
+
+        /* defaultkan sementara */
+        this.setPengelolaanBarang(new PengelolaanBarang(10, 1000));
+        this.oMenuPengelolaanBarang = new MenuPengelolaanBarang(this.oPengelolaanBarang);
 
         /* Jika daftar lawan tidak kosong maka tambah pilihan lihat Lawan */
 //        if(!daftarLawan.isEmpty()){
@@ -109,60 +112,24 @@ public class Adegan {
     }
 
     /* 1. Lihat barang di sekitar -> ambil semua barang */
-    public HashMap<Integer, ArrayList<Barang>> ambilSemuaBarang(){
-        if(this.getPengelolaanBarang().isEmpty()){
+    public HashMap<String, HashMap<Integer, ArrayList<Barang>>> ambilSemuaBarang(){
+        if(this.getPengelolaanBarang().isBarangKeseluruhanEmpty()){
             return null;
         }else{
-            return this.getPengelolaanBarang().getDaftarBarang();
+            return this.getPengelolaanBarang().getDaftarBarangKeseluruhanByKategori();
         }
     }
 
     /* 1. Lihat barang di sekitar - > ambil senjata satu-per-satu */
     public ArrayList<BarangSenjata> pilihBarangSenjataSekitarAdegan(){
-        if(this.getPengelolaanBarang().isEmpty()){
-            return null;
-        }else{
-            System.out.println();
-            System.out.println("Aksi : Ambil senjata satu-per-satu");
-
-            int i=0;
-            for (ArrayList<BarangSenjata> oBarangSenjata : this.getPengelolaanBarang().getDaftarBarangSenjata()) {
-                i++;
-                System.out.printf("%2d. %-20s | kekuatan : %-2d ",
-                        i,
-                        oBarangSenjata.get(i).nama,
-                        oBarangSenjata.get(i).getKekuatan());
-                if(oBarangSenjata.get(i) instanceof BarangSenjataJarakDekat){
-                    System.out.printf("| Ketahanan : %d",
-                            ((BarangSenjataJarakDekat) oBarangSenjata.get(i)).getKetahanan());
-                }else if(oBarangSenjata.get(i) instanceof BarangSenjataTembak){
-                    System.out.printf("| Isi Amunisi : %d/%d",
-                            ((BarangSenjataTembak) oBarangSenjata.get(i)).getJumlahAmunisiDigunakan(),
-                            ((BarangSenjataTembak) oBarangSenjata.get(i)).getBatasMaxAmunisiDigunakan());
-                }
-                System.out.println();
-            }
-            System.out.printf("%2d. Kembali\n", 0);
-            Scanner oScan = new Scanner(System.in);
-            System.out.print("Masukkan Pilihan : ");
-            int input = oScan.nextInt();
-
-            if(input < 0 || input > this.getPengelolaanBarang().getDaftarBarangSenjata().size()){
-                System.out.println();
-                System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
-            }else if(input == 0){
-                return null;
-            }else{
-                return this.getPengelolaanBarang().getDaftarBarangSenjata().get(input-1);
-            }
-            return null;
-        }
+        return this.oMenuPengelolaanBarang.pilihBarangSenjata("Aksi : Ambil senjata satu-per-satu");
     }
 
+    /* aksi dari player terhadap adegan */
     public void gunakanBarang(){
         System.out.println();
         System.out.println("Aksi : Menggunakan kunci");
         System.out.println();
-        System.out.println( "[ " + this.oPlayer.getNama() + "menggunakan kunci.. ]");
+        System.out.println( "[ " + this.oPlayer.nama + "menggunakan kunci.. ]");
     }
 }

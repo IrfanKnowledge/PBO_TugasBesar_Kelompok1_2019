@@ -1,5 +1,5 @@
 public abstract class Pilihan {
-    private String dekripsi;
+    public String dekripsi;
 
     Pilihan(String dekripsi){
         this.dekripsi = dekripsi;

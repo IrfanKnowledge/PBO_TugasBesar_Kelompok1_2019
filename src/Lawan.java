@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class Lawan {
     private int idLawan;
-    private String nama;
+    public String nama;
     private int kesehatan;
     private int kekuatan;
     private Barang senjata;
@@ -12,7 +12,7 @@ public class Lawan {
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>(); //masih perlu dipikirkan ulang
     private boolean statusMelihatPlayer;
 
-    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer){
+    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer) {
         this.idLawan = idLawan;
         this.nama = nama;
         this.kesehatan = kesehatan;
@@ -20,41 +20,23 @@ public class Lawan {
         this.statusMelihatPlayer = statusMelihatPlayer;
     }
 
-    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer, Barang senjata){
-        this.idLawan = idLawan;
-        this.nama = nama;
-        this.kesehatan = kesehatan;
-        this.kekuatan = kekuatan;
-        this.statusMelihatPlayer = statusMelihatPlayer;
-        this.senjata = senjata;
+    private int filterMinimalNol(int nilai) {
+        if(nilai < 0){
+            nilai = 0;
+        }
+        return nilai;
     }
 
-    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer, Efek efekMenyerang){
-        this.idLawan = idLawan;
-        this.nama = nama;
-        this.kesehatan = kesehatan;
-        this.kekuatan = kekuatan;
-        this.statusMelihatPlayer = statusMelihatPlayer;
-        this.efekMenyerang = efekMenyerang;
+    public void setKesehatan(int kesehatan) {
+        this.kesehatan = this.filterMinimalNol(kesehatan);
     }
 
-    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer, Efek efekMenyerang, Barang senjata){
-        this.idLawan = idLawan;
-        this.nama = nama;
-        this.kesehatan = kesehatan;
-        this.kekuatan = kekuatan;
-        this.statusMelihatPlayer = statusMelihatPlayer;
-        this.efekMenyerang = efekMenyerang;
-        this.senjata = senjata;
+    public int getKesehatan() {
+        return kesehatan;
     }
 
     private void kurangiKesehatan(int nilaiSerangan){
-        if(this.kesehatan > 0){
-            this.kesehatan -= nilaiSerangan;
-            if(this.kesehatan < 0){
-                this.kesehatan = 0;
-            }
-        }
+        this.setKesehatan(this.kesehatan - nilaiSerangan);
     }
 
     public void tambahSenjata(Barang senjata){
@@ -72,17 +54,9 @@ public class Lawan {
         }
     }
 
-    public void gunakanEfekDiri(){
-
-    }
-
     //masih perlu dipikirkan ulang
-    public void diSerang(Barang oSenjata){
+    public void diSerang(BarangSenjata oSenjata){
         this.kurangiKesehatan(oSenjata.getKekuatan());
         //this.tambahEfekDiri(oSenjata.g);
-    }
-
-    public void printIdentitas(){
-
     }
 }

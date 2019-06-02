@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class PilihanLihatIsiKantong extends Pilihan {
@@ -21,16 +18,16 @@ public class PilihanLihatIsiKantong extends Pilihan {
         boolean validasiKembali = false;
         while (!validasiKembali){
             System.out.println();
-            System.out.println("Aksi : Melihat isi kantong");
+            System.out.println("Aksi : " + this.getDekripsi());
 
             int i=0;
-            System.out.printf("%2d. %s\n", i+1, "Kunci"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Senjata"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Amunisi"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Komponen Crafting"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Blueprint"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Barang Bernilai Jual"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Barang Lainnya"); i++;
+            System.out.printf("%2d. %s\n", ++i, "Kunci");
+            System.out.printf("%2d. %s\n", ++i, "Senjata");
+            System.out.printf("%2d. %s\n", ++i, "Amunisi");
+            System.out.printf("%2d. %s\n", ++i, "Komponen Crafting");
+            System.out.printf("%2d. %s\n", ++i, "Blueprint");
+            System.out.printf("%2d. %s\n", ++i, "Barang Bernilai Jual");
+            System.out.printf("%2d. %s\n", ++i, "Barang Lainnya");
             System.out.printf("%2d. Kembali\n", 0);
 
             System.out.println("Masukkan Pilihan : ");

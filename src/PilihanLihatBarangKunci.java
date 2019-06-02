@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -18,47 +17,41 @@ public class PilihanLihatBarangKunci extends Pilihan {
         boolean validasiKembali1 = false;
         while (!validasiKembali1){
 
-            /* untuk kembali ke menu melihat daftar kunci */
-            HashMap<String, ArrayList<Integer>> temp = this.oAdegan.oPlayer.pilihKategoriIdIndeksBarang("Kunci");
-            if(temp != null){
+            ArrayList<Barang> oBarangKunci = this.oAdegan.oPlayer.pilihBarangKeseluruhanByKategoriTertentu("Lihat Daftar Kunci", "kunci");
+            if(oBarangKunci != null){
+                /* untuk kembali ke menu melihat daftar kunci */
                 boolean validasiKembali2 = false;
                 while (!validasiKembali2){
 
                     /* cukup ambil satu barang */
-                    for (Map.Entry<String, ArrayList<Integer>> oBarang : temp.entrySet()) {
-                        Barang oBarangPilihan = this.oAdegan.oPlayer.pilihBarangSatu(oBarang.getKey(), oBarang.getValue().get(0), oBarang.getValue().get(1));
-
-                        System.out.println();
-                        System.out.println("Aksi : Melihat deskripsi kunci");
-
-                        System.out.println();
-                        System.out.printf("%-12s : %s\n", "nama", oBarangPilihan.nama);
-                        System.out.printf("%-12s : %s\n", "Deskripsi", oBarangPilihan.deskripsi);
-                        System.out.printf("%-12s : %s\n", "Harga beli", "-");
-                        System.out.printf("%-12s : %s\n", "Harga jual", "-");
-                        System.out.println();
-
-                        System.out.printf("%2d. Gunakan Kunci\n", 1);
-                        System.out.printf("%2d. Kembali\n", 0);
-                        System.out.print("Masukkan Pilihan : ");
-                        Scanner oScan = new Scanner(System.in);
-                        switch(oScan.nextInt()){
-                            case 0:
-                                validasiKembali2 = true;
-                                break;
-                            case 1:
-                                if(this.oAdegan.idBarangBisaDigunakan == oBarangPilihan.idBarang){
-                                    this.oAdegan.gunakanBarang();
-                                }else{
-                                    System.out.println();
-                                    System.out.println("[ Kunci ini tidak cocok untuk digunakan. ]");
-                                }
-                                break;
-                            default:
-                                break;
-                        }
+                    Barang oBarangPilihan = oBarangKunci.get(0);
+                    System.out.println();
+                    System.out.println("Aksi : " + this.getDekripsi());
+                    System.out.println();
+                    System.out.printf("%-12s : %s\n", "nama", oBarangPilihan.nama);
+                    System.out.printf("%-12s : %s\n", "Deskripsi", oBarangPilihan.deskripsi);
+                    System.out.printf("%-12s : %s\n", "Harga beli", "-");
+                    System.out.printf("%-12s : %s\n", "Harga jual", "-");
+                    System.out.println();
+                    System.out.printf("%2d. Gunakan Kunci\n", 1);
+                    System.out.printf("%2d. Kembali\n", 0);
+                    System.out.print("Masukkan Pilihan : ");
+                    Scanner oScan = new Scanner(System.in);
+                    switch(oScan.nextInt()){
+                        case 0:
+                            validasiKembali2 = true;
+                            break;
+                        case 1:
+                            if(this.oAdegan.idBarangBisaDigunakan == oBarangPilihan.idBarang){
+                                this.oAdegan.gunakanBarang();
+                            }else{
+                                System.out.println();
+                                System.out.println("[ Kunci ini tidak cocok untuk digunakan. ]");
+                            }
+                            break;
+                        default:
+                            break;
                     }
-
                 }
             }else{
                 validasiKembali1 = true;

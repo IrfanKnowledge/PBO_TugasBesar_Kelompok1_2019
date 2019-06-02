@@ -12,7 +12,7 @@ public class PilihanAmbilBarangSenjataSatuPerSatu extends Pilihan {
     public void aksi() {
         ArrayList<BarangSenjata> oBarangSenjata = this.oAdegan.pilihBarangSenjataSekitarAdegan();
         if(oBarangSenjata != null){
-            this.oAdegan.oPlayer.tambahBarang(oBarangSenjata);
+            this.oAdegan.oPlayer.getPengelolaanBarang().tambahBarangSenjata(oBarangSenjata);
         }
     }
 
