@@ -13,15 +13,12 @@ public class Player {
     /* Menandakan posisi Player berada pada Adegan tertentu */
     public Adegan adeganAktif;
 
-    /* Berikut Atribut yang dipengaruhi Efek */
-    private int durasiStun = 0;
-    private int ketahananTambahan = 0;
-    private int batasMaxKetahananTambahan = 0;
-    private int durasiKetahanan = 0;
+    /* Efek aktif yang menempel pada player */
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>();
 
-    public Barang senjata;                         //Belum
-    public ArrayList<BarangSenjata> senjataLempar; //Belum
+    /* menggunakan senjata tertentu memiliki 1 slot penyimpanan yang
+    *  dapat ditumpuk lebih dari 1 senjata (misal: granade, dll) */
+    private ArrayList<BarangSenjata> senjata;
 
     private PengelolaanBarang oPengelolaanBarang;
     private MenuPengelolaanBarang oMenuPengelolaanBarang;
@@ -32,7 +29,7 @@ public class Player {
     Player(int idPlayer, String nama){
         this.idPlayer = idPlayer;
         this.nama = nama;
-        this.oPengelolaanBarang = new PengelolaanBarang(10, 8);
+        this.oPengelolaanBarang = new PengelolaanBarang(6);
         this.oMenuPengelolaanBarang = new MenuPengelolaanBarang(this.oPengelolaanBarang);
     }
 
@@ -65,20 +62,59 @@ public class Player {
     }
 
     public void kurangiKesehatan(int nilaiSerangan){
-        if(this.kesehatan > 0){
-            this.kesehatan -= nilaiSerangan;
-            if(this.kesehatan < 0){
-                this.kesehatan = 0;
-            }
+        int hasil = 0;
+        for (Map.Entry<Integer, Efek> oEfek : this.daftarEfekDiri.entrySet()) {
+            hasil = oEfek.getValue().gunakanKetahananTambahan(nilaiSerangan);
+            nilaiSerangan = hasil;
+        }
+        this.kesehatan -= nilaiSerangan;
+        if(this.kesehatan < 0){
+            this.kesehatan = 0;
         }
     }
 
-    public ArrayList<Barang> pilihBarangKeseluruhanByKategoriTertentu(String aksi, String kategoriBarang){
-        return this.oMenuPengelolaanBarang.pilihBarangKeseluruhanByKategoriTertentu(aksi, kategoriBarang);
+    public ArrayList<Barang> pilihBarangDariDaftarBarangKeseluruhanByKategoriTertentu(String aksi, String kategoriBarang){
+        boolean validasiPilihan = false;
+        ArrayList<Barang> daftarBarangTerpilih = new ArrayList<>();
+        while (!validasiPilihan){
+            daftarBarangTerpilih = this.oMenuPengelolaanBarang.pilihBarangKeseluruhanByKategoriTertentu(aksi, kategoriBarang);;
+            if(daftarBarangTerpilih != null){
+                validasiPilihan = true;
+            }
+        }
+        return daftarBarangTerpilih;
     }
 
-    public ArrayList<BarangSenjata> pilihBarangSenjata(String aksi){
-        return this.oMenuPengelolaanBarang.pilihBarangSenjata(aksi);
+    public ArrayList<Barang> pilihBarangDariDaftarBarangTerbatas(String aksi){
+        boolean validasiPilihan = false;
+        ArrayList<Barang> daftarBarangTerpilih = new ArrayList<>();
+        while (!validasiPilihan){
+            daftarBarangTerpilih = this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTerbatas(aksi);
+            if(daftarBarangTerpilih != null){
+                validasiPilihan = true;
+            }
+        }
+        return daftarBarangTerpilih;
+    }
+
+    public void gunakanSenjataDariPenyimpanan(BarangSenjata senjataTerpilih){
+        this.senjata.add(senjataTerpilih);
+    }
+
+    public void gunakanSenjataDariPenyimpanan(ArrayList<BarangSenjata> daftarSenjataTerpilih){
+        /* agar object list dari penyimpanan tidak terpengaruhi */
+        ArrayList<BarangSenjata> objectListBerbeda = new ArrayList<>();
+        objectListBerbeda.addAll(daftarSenjataTerpilih);
+        this.senjata.addAll(objectListBerbeda);
+    }
+
+    public void hapusSenjataYangDigunakan(BarangSenjata senjataDihapus){
+        this.oPengelolaanBarang.hapusBarang(senjataDihapus);
+        this.senjata.remove(senjataDihapus);
+    }
+
+    public void simpanKembaliSenjataYangDigunakan(){
+        this.senjata.clear();
     }
 
 //    /* return berupa key sebagai kategori, value indeks 0 = idBarang, value indeks 1 = IndeksBarang*/

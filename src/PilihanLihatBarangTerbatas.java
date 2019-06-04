@@ -2,11 +2,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
-public class PilihanLihatBarangSenjata extends Pilihan {
+public class PilihanLihatBarangTerbatas extends Pilihan {
     private Adegan oAdegan;
-    boolean validasiKembali2;
 
-    PilihanLihatBarangSenjata(String dekripsi, Adegan oAdegan) {
+    PilihanLihatBarangTerbatas(String dekripsi, Adegan oAdegan) {
         super(dekripsi);
         this.oAdegan = oAdegan;
     }
@@ -15,44 +14,43 @@ public class PilihanLihatBarangSenjata extends Pilihan {
     public void aksi() {
 
         /* untuk kembali ke menu melihat isi kantong */
-        boolean validasiKembali1 = false;
-        while (!validasiKembali1){
+        boolean validasiKembaliKeLihatIsiKantong = false;
+        while (!validasiKembaliKeLihatIsiKantong){
+            boolean validasiKembaliKeDaftarBarangTertentu;
+            ArrayList<Barang> daftarBarangTerpilih = this.oAdegan.oPlayer.pilihBarangDariDaftarBarangTerbatas(this.dekripsi);
+            if(daftarBarangTerpilih != null){
 
-            ArrayList<BarangSenjata> oBarangSenjata = this.oAdegan.oPlayer.pilihBarangSenjata("Lihat Daftar Senjata");
-            if(oBarangSenjata != null){
-
-                /* untuk kembali ke menu melihat daftar senjata */
-                this.validasiKembali2 = false;
-                while (!this.validasiKembali2){
-
-                    BarangSenjata oBarangPilihan = oBarangSenjata.get(0);
+                /* untuk kembali ke menu melihat daftar barang terbatas */
+                validasiKembaliKeDaftarBarangTertentu = false;
+                while (!validasiKembaliKeDaftarBarangTertentu){
+                    Barang barangTerpilih = daftarBarangTerpilih.get(0);
                     System.out.println();
-                    System.out.println("Aksi : Melihat deskripsi senjata");
+                    System.out.println("Aksi : " + this.dekripsi + "(rincian barang tertentu)");
 
                     System.out.println();
-                    System.out.printf("%-25s : %s\n", "nama", oBarangPilihan.nama);
-                    System.out.printf("%-25s : %s\n", "Deskripsi", oBarangPilihan.deskripsi);
-                    System.out.printf("%-25s : %s\n", "Harga beli", oBarangPilihan.getHargaBeli());
-                    System.out.printf("%-25s : %s\n", "Harga jual", oBarangPilihan.getHargaJual());
-                    if( !(oBarangPilihan instanceof BarangSenjataJarakDekat) && !(oBarangPilihan instanceof BarangSenjataTembak) ){
-                        System.out.printf("%-25s : %d\n", "Kekuatan", oBarangPilihan.getKekuatan());
+                    System.out.printf("%-25s : %s\n", "nama", barangTerpilih.nama);
+                    System.out.printf("%-25s : %s\n", "Deskripsi", barangTerpilih.deskripsi);
+                    System.out.printf("%-25s : %s\n", "Harga beli", barangTerpilih.getHargaBeli());
+                    System.out.printf("%-25s : %s\n", "Harga jual", barangTerpilih.getHargaJual());
+                    if(barangTerpilih instanceof BarangSenjata){
+                        System.out.printf("%-25s : %d\n", "Kekuatan", ((BarangSenjata) barangTerpilih).getKekuatan());
                     }
-                    if(oBarangPilihan instanceof BarangSenjataJarakDekat){
-                        System.out.printf("%-25s : %d\n", "Ketahanan", ((BarangSenjataJarakDekat) oBarangPilihan).getKetahanan());
-                        System.out.printf("%-25s : %s\n", "Kemampuan diperbaiki", ((BarangSenjataJarakDekat) oBarangPilihan).getJumlahKemampuanDiperbaiki());
+                    if(barangTerpilih instanceof BarangSenjataJarakDekat){
+                        System.out.printf("%-25s : %d\n", "Ketahanan", ((BarangSenjataJarakDekat) barangTerpilih).getKetahanan());
+                        System.out.printf("%-25s : %d\n", "Kemampuan diperbaiki", ((BarangSenjataJarakDekat) barangTerpilih).getJumlahKemampuanDiperbaiki());
                     }
-                    if(oBarangPilihan instanceof BarangSenjataTembak){
-                        System.out.printf("%-12s : %d / %d\n", "Isi peluru", ((BarangSenjataTembak) oBarangPilihan).getJumlahAmunisiDigunakan(),
-                                ((BarangSenjataTembak) oBarangPilihan).getBatasMaxAmunisiDigunakan());
+                    if(barangTerpilih instanceof BarangSenjataTembak){
+                        System.out.printf("%-12s : %d/%d\n", "Isi peluru", ((BarangSenjataTembak) barangTerpilih).getJumlahAmunisiDigunakan(),
+                                ((BarangSenjataTembak) barangTerpilih).getBatasMaxAmunisiDigunakan());
                     }
                     System.out.println();
 
-                    System.out.printf("%2d. Gunakan Senjata\n", 1);
+                    System.out.printf("%2d. Gunakan Barang\n", 1);
 
-                    if(oBarangPilihan instanceof BarangSenjataJarakDekat){
+                    if(barangTerpilih instanceof BarangSenjataJarakDekat){
                         System.out.printf("%2d. %-20s\n", 2, "Perbaiki Barang");
                         System.out.printf("%2d. %-20s | (senjata akan dihapus, tidak dapat dikembalikan)\n", 3, "Buang Senjata");
-                    }else if(oBarangPilihan instanceof BarangSenjataTembak){
+                    }else if(barangTerpilih instanceof BarangSenjataTembak){
                         System.out.printf("%2d. %-20s\n", 2, "Isi Peluru");
                         System.out.printf("%2d. %-20s\n", 3, "Ganti Peluru");
                         System.out.printf("%2d. %-20s | (senjata akan dihapus, tidak dapat dikembalikan)\n", 4, "Buang Senjata");
@@ -65,34 +63,34 @@ public class PilihanLihatBarangSenjata extends Pilihan {
                     Scanner oScan = new Scanner(System.in);
                     switch(oScan.nextInt()){
                         case 0:
-                            this.validasiKembali2 = true;
+                            validasiKembaliKeDaftarBarangTertentu = true;
                             break;
                         case 1:
                             /* Proses gunakan senjata */
-                            this.gunakanSenjata(oBarangPilihan, BarangSenjata);
+                            this.gunakanBarang(barangTerpilih, daftarBarangTerpilih);
                             break;
                         case 2:
                             /* opsi perbaiki senjata jika senjata adalah jenis Senjata Pukul */
-                            if(oBarangPilihan.getJenis().equals("Senjata Pukul")){
-                                this.perbaikiSenjata(oBarangPilihan);
+                            if(barangTerpilih.getJenis().equals("Senjata Pukul")){
+                                this.perbaikiSenjata(barangTerpilih);
 
                                 /* opsi isi peluru jika senjata adalah jenis Senjata Tembak */
-                            }else if(oBarangPilihan.getJenis().equals("Senjata Tembak")){
-                                this.isiPeluru(oBarangPilihan);
+                            }else if(barangTerpilih.getJenis().equals("Senjata Tembak")){
+                                this.isiPeluru(barangTerpilih);
 
                                 /* Opsi membuang senjata jika senjata adalah jenis Senjata Lempar (selain Senjata Pukul dan Senjata Tembak) */
                             }else{
-                                this.buangSenjata(oBarangPilihan, oBarang.getKey(), oBarang.getValue(), oSenjataLempar);
+                                this.buangSenjata(barangTerpilih, oBarang.getKey(), oBarang.getValue(), oSenjataLempar);
                             }
                             break;
                         case 3:
                             /* Opsi membuang senjata jika Senjata jenis Senjata Pukul */
-                            if(oBarangPilihan.getJenis().equals("Senjata Pukul")){
-                                this.buangSenjata(oBarangPilihan, oBarang.getKey(), oBarang.getValue(), oSenjataLempar);
+                            if(barangTerpilih.getJenis().equals("Senjata Pukul")){
+                                this.buangSenjata(barangTerpilih, oBarang.getKey(), oBarang.getValue(), oSenjataLempar);
 
                                 /* Opsi ganti peluru jika Senjata jenis Senjata Tembak*/
-                            }else if(oBarangPilihan.getJenis().equals("Senjata Tembak")){
-                                this.gantiPeluru(oBarangPilihan);
+                            }else if(barangTerpilih.getJenis().equals("Senjata Tembak")){
+                                this.gantiPeluru(barangTerpilih);
 
                             }else{
                                 System.out.println();
@@ -101,8 +99,8 @@ public class PilihanLihatBarangSenjata extends Pilihan {
                             break;
                         case 4:
                             /* Opsi membuang senjata jika Senjata adalah jenis Senjata Tembak */
-                            if(oBarangPilihan.getJenis().equals("Senjata Tembak")){
-                                this.buangSenjata(oBarangPilihan, oBarang.getKey(), oBarang.getValue(), oSenjataLempar);
+                            if(barangTerpilih.getJenis().equals("Senjata Tembak")){
+                                this.buangSenjata(barangTerpilih, oBarang.getKey(), oBarang.getValue(), oSenjataLempar);
 
                             }else{
                                 System.out.println();
@@ -116,25 +114,29 @@ public class PilihanLihatBarangSenjata extends Pilihan {
                             break;
                     }
                     /* ambil key dan value dari hasil memilih senjata */
-                    for (BarangSenjata oBarang : oBarangSenjata) {
+                    for (BarangSenjata oBarang : daftarBarangTerpilih) {
                     }
 
                 }
             }else {
-                validasiKembali1 = true;
+                validasiKembaliKeLihatIsiKantong = true;
             }
         }
     }
 
-    private void gunakanSenjata(BarangSenjata oBarangPilihan, ArrayList<BarangSenjata> oBarangSenjataLempar){
-        if(oBarangPilihan instanceof BarangSenjataJarakDekat || oBarangPilihan instanceof BarangSenjataTembak){
-            this.oAdegan.oPlayer.senjata = oBarangPilihan;
+    private void gunakanBarang(Barang barangPilihan, ArrayList<Barang> daftarBarangPilihan){
+        if(barangPilihan instanceof BarangSenjataJarakDekat || barangPilihan instanceof BarangSenjataTembak){
+            this.oAdegan.oPlayer.simpanKembaliSenjataYangDigunakan();
+            this.oAdegan.oPlayer.gunakanSenjataDariPenyimpanan(((BarangSenjata) barangPilihan));
             System.out.println();
-            System.out.printf("[ %s berhasil digunakan ]\n", oBarangPilihan.nama);
+            System.out.printf("[ %s berhasil digunakan ]\n", barangPilihan.nama);
+        }else if(barangPilihan instanceof BarangSenjata){
+            this.oAdegan.oPlayer.simpanKembaliSenjataYangDigunakan();
+            this.oAdegan.oPlayer.gunakanSenjataDariPenyimpanan(this.oAdegan.oPlayer.getPengelolaanBarang().convertBarangKeSenjata(daftarBarangPilihan));
+            System.out.println();
+            System.out.printf("[ %s berhasil digunakan ]\n", daftarBarangPilihan.get(0).nama);
         }else{
-            this.oAdegan.oPlayer.senjataLempar = oBarangSenjataLempar;
-            System.out.println();
-            System.out.printf("[ %s berhasil digunakan ]\n", oBarangSenjataLempar.get(0).nama);
+
         }
     }
 
@@ -154,30 +156,32 @@ public class PilihanLihatBarangSenjata extends Pilihan {
         }
     }
 
-    private void isiPeluru(Barang oBarangPilihan){
-        /* Ambil id amunisi utama senjata tembak ini */
+    private void isiPeluru(BarangSenjata oBarangPilihan){
+        /* casting tipe data (class) */
+        BarangSenjataTembak oSenjataTembak = (BarangSenjataTembak) oBarangPilihan;
+
+        /* cek kondisi jumlah peluru senjata, masih penuh atau tidak  */
+        if(oSenjataTembak.getJumlahKebutuhanIsiAmunisi() == 0){
+            System.out.println();
+            System.out.printf("[ %s memiliki jumlah peluru yang masih penuh ]\n", oBarangPilihan.nama));
+        }else{
+            ArrayList<Barang> daftarAmunisi = this.oAdegan.oPlayer.getPengelolaanBarang().pilihBarangBanyak(oSenjataTembak.getKategoriAmunisiUtama(), oSenjataTembak.getIdAmunisiUtama());
+            if(daftarAmunisi != null){
+                /* ambil jumlah kebutuhan isi peluru*/
+                int jumlahKebutuhanPeluru = oBarangPilihan.getJumlahKebutuhanIsiPeluru();
+
+                /* proses isi peluru */
+                oBarangPilihan.isiPeluru(daftarAmunisi);
+
+                /* hapus daftarAmunisi yang ada di penyimpanan Player sesuai kebutuhan amunisi yang diperoleh */
+                this.oAdegan.oPlayer.hapusBarangJumlahTertentu(kebutuhanAmunisi.getKey(), kebutuhanAmunisi.getValue(), jumlahKebutuhanPeluru);
+            }else{
+                System.out.println();
+                System.out.println("[ Persediaan Amunisi kosong. ]");
+            }
+        }
         for (Map.Entry<String, Integer> kebutuhanAmunisi : oBarangPilihan.getIdAmunisiUtama().entrySet()) {
 
-            /* cek kondisi jumlah peluru senjata, masih penuh atau tidak  */
-            if(oBarangPilihan.getJumlahKebutuhanIsiPeluru() == 0){
-                System.out.println();
-                System.out.printf("[ %s memiliki jumlah peluru yang masih penuh ]\n", oBarangPilihan.getNama());
-            }else{
-                ArrayList<Barang> daftarAmunisi = this.oAdegan.oPlayer.pilihBarangSemuanya(kebutuhanAmunisi.getKey(), kebutuhanAmunisi.getValue());
-                if(daftarAmunisi != null){
-                    /* ambil jumlah kebutuhan isi peluru*/
-                    int jumlahKebutuhanPeluru = oBarangPilihan.getJumlahKebutuhanIsiPeluru();
-
-                    /* proses isi peluru */
-                    oBarangPilihan.isiPeluru(daftarAmunisi);
-
-                    /* hapus daftarAmunisi yang ada di penyimpanan Player sesuai kebutuhan amunisi yang diperoleh */
-                    this.oAdegan.oPlayer.hapusBarangJumlahTertentu(kebutuhanAmunisi.getKey(), kebutuhanAmunisi.getValue(), jumlahKebutuhanPeluru);
-                }else{
-                    System.out.println();
-                    System.out.println("[ Persediaan Amunisi kosong. ]");
-                }
-            }
         }
     }
 

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 
 public class PilihanLihatBarangKunci extends Pilihan {
@@ -17,7 +16,7 @@ public class PilihanLihatBarangKunci extends Pilihan {
         boolean validasiKembali1 = false;
         while (!validasiKembali1){
 
-            ArrayList<Barang> oBarangKunci = this.oAdegan.oPlayer.pilihBarangKeseluruhanByKategoriTertentu("Lihat Daftar Kunci", "kunci");
+            ArrayList<Barang> oBarangKunci = this.oAdegan.oPlayer.pilihBarangDariDaftarBarangKeseluruhanByKategoriTertentu("Lihat Daftar Kunci", "kunci");
             if(oBarangKunci != null){
                 /* untuk kembali ke menu melihat daftar kunci */
                 boolean validasiKembali2 = false;

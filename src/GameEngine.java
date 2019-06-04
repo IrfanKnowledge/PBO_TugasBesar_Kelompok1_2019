@@ -17,7 +17,7 @@ public class GameEngine {
         Scanner oScan = new Scanner(System.in);
         oScan.nextLine();
         System.out.println();
-        System.out.println("Kemudian " + this.oPlayer.getNama() + "harus melakukan sebuah misi untuk...\n");
+        System.out.println("Kemudian " + this.oPlayer.nama + "harus melakukan sebuah misi untuk...\n");
         System.out.printf("%-10s\n\n", "[Tekan Huruf Apapun kemudian Enter untuk melanjutkan]");
         oScan.nextLine();
         System.out.println();

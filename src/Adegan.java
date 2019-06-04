@@ -122,7 +122,7 @@ public class Adegan {
 
     /* 1. Lihat barang di sekitar - > ambil senjata satu-per-satu */
     public ArrayList<BarangSenjata> pilihBarangSenjataSekitarAdegan(){
-        return this.oMenuPengelolaanBarang.pilihBarangSenjata("Aksi : Ambil senjata satu-per-satu");
+        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTerbatas("Aksi : Ambil senjata satu-per-satu");
     }
 
     /* aksi dari player terhadap adegan */

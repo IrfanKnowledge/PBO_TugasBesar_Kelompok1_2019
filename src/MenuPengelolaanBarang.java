@@ -44,16 +44,18 @@ public class MenuPengelolaanBarang {
         }
     }
 
-    public ArrayList<BarangSenjata> pilihBarangSenjata(String aksi){
+    public ArrayList<Barang> pilihBarangDariDaftarBarangTerbatas(String aksi){
         System.out.println();
         System.out.println("Aksi : " + aksi);
         int i=0;
-        for (ArrayList<BarangSenjata> oDaftarBarang: this.oPengelolaanBarang.getDaftarBarangSenjata()) {
+        for (ArrayList<Barang> oDaftarBarang: this.oPengelolaanBarang.getDaftarBarangTerbatas()) {
             i++;
-            System.out.printf("%2d. %-20s | kekuatan : %d ", i,
-                    oDaftarBarang.get(i).nama, oDaftarBarang.get(0).getKekuatan());
+            System.out.printf("%2d. %-20s (%d)", i, oDaftarBarang.get(0).nama, oDaftarBarang.size());
+            if(oDaftarBarang.get(0) instanceof BarangSenjata){
+                System.out.printf(" | kekuatan : %d ", ((BarangSenjata) oDaftarBarang.get(0)).getKekuatan());
+            }
             if(oDaftarBarang.get(0) instanceof BarangSenjataJarakDekat){
-                System.out.printf("| Ketahanan : %d",
+                System.out.printf(" | Ketahanan : %d",
                         ((BarangSenjataJarakDekat) oDaftarBarang.get(0)).getKetahanan());
             }
             if(oDaftarBarang.get(0) instanceof BarangSenjataTembak){
@@ -69,14 +71,14 @@ public class MenuPengelolaanBarang {
         System.out.print("Masukkan Pilihan : ");
         int input = oScan.nextInt();
 
-        if(input < 0 || input > this.oPengelolaanBarang.getJumlahBarangSenjata()){
+        if(input < 0 || input > this.oPengelolaanBarang.getBatasMaxSlotDaftarBarangTerbatas()){
             System.out.println();
             System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
             return null;
         }else if(input == 0){
             return null;
         }else{
-            return this.oPengelolaanBarang.getDaftarBarangSenjata().get(input-1);
+            return this.oPengelolaanBarang.getDaftarBarangTerbatas().get(input-1);
         }
     }
 }

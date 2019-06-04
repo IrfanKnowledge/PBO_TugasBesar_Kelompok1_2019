@@ -122,10 +122,6 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         }
     }
 
-    private boolean isStatusKemampuanDiperbaiki() {
-        return statusKemampuanDiperbaiki;
-    }
-
     private void setstatusBisaUpgrade(){
         if(this.jumlahUpgrade >= this.batasMaxUpgrade){
             this.statusBisaUpgrade = false;
@@ -142,16 +138,20 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         komponenBarangUntukPerbaikan = oBarang.cloning();
     }
 
-    public String getKategoriBarangUntukPerbaikan() {
-        return komponenBarangUntukPerbaikan.kategoriBarang;
-    }
-
     public int getIdBarangUntukPerbaikan() {
         return komponenBarangUntukPerbaikan.idBarang;
     }
 
+    public String getKategoriBarangUntukPerbaikan() {
+        return komponenBarangUntukPerbaikan.kategoriBarang;
+    }
+
     public String getNamaBarangUntukPerbaikan() {
         return komponenBarangUntukPerbaikan.nama;
+    }
+
+    public String getDeskripsiBarangUntukPerbaikan(){
+        return komponenBarangUntukPerbaikan.deskripsi;
     }
 
     @Override
@@ -180,7 +180,7 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
             System.out.println(String.format("[ Dibutuhkan %s (%s)]", komponenBarangUntukPerbaikan.nama, komponenBarangUntukPerbaikan.kategoriBarang));
             return false;
         }else{
-            if(!this.isStatusKemampuanDiperbaiki()){
+            if(!this.statusKemampuanDiperbaiki){
                 System.out.println();
                 System.out.println("[ Senjata sudah tidak bisa diperbaiki ]");
                 return false;

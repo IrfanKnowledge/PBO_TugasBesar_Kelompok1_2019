@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Efek {
 
     public int idEfek;
@@ -11,23 +13,29 @@ public class Efek {
     private int durasiStun;
     private int peluangTerkenaStun; //satuan persen
     private int durasiDelayStun;
+    private int presentaseKetahananTambahan;
+    private int durasiKetahananTambahan;
+
 //    private double nilaiKecepatan;
 //    private int durasiKecepatan;
 //    private int durasiPengelihatanMalam;
 //    private int durasiKamuflase;
 
     Efek(int idEfek, String nama,
-         int dps, int durasiDps, int peluangTerkenaDps, int durasiDelayDps,
-         int durasiStun, int peluangTerkenaStun, int durasiDelayStun){
+         int dps, int durasiDps, int presentasePeluangTerkenaDps, int durasiDelayDps,
+         int durasiStun, int presentasePeluangTerkenaStun, int durasiDelayStun,
+         int presentaseKetahananTambahan, int durasiKetahananTambahan){
 
        this.idEfek = idEfek;
        this.nama = nama;
        this.setDps(dps);
        this.setDurasiDps(durasiDps);
-       this.setPeluangTerkenaDps(peluangTerkenaDps);
+       this.setPresentasePeluangTerkenaDps(presentasePeluangTerkenaDps);
        this.setDurasiStun(durasiStun);
-       this.setPeluangTerkenaStun(peluangTerkenaStun);
+       this.setPresentasePeluangTerkenaStun(presentasePeluangTerkenaStun);
        this.setDurasiDelayStun(durasiDelayStun);
+       this.setPresentaseKetahananTambahan(presentaseKetahananTambahan);
+       this.setDurasiKetahananTambahan(durasiKetahananTambahan);
 //       this.nilaiKecepatan = nilaiKecepatan;
 //       this.durasiKecepatan = durasiKecepatan;
 //       this.durasiPengelihatanMalam = durasiPengelihatanMalam;
@@ -64,8 +72,8 @@ public class Efek {
         return durasiDps;
     }
 
-    public void setPeluangTerkenaDps(int peluangTerkenaDps) {
-        this.peluangTerkenaDps = this.filterPeluang(peluangTerkenaDps);
+    public void setPresentasePeluangTerkenaDps(int presentasePeluangTerkenaDps) {
+        this.peluangTerkenaDps = this.filterPeluang(presentasePeluangTerkenaDps);
     }
 
     public int getPeluangTerkenaDps() {
@@ -80,8 +88,8 @@ public class Efek {
         return durasiStun;
     }
 
-    public void setPeluangTerkenaStun(int peluangTerkenaStun) {
-        this.peluangTerkenaStun = this.filterPeluang(peluangTerkenaStun);
+    public void setPresentasePeluangTerkenaStun(int presentasePeluangTerkenaStun) {
+        this.peluangTerkenaStun = this.filterPeluang(presentasePeluangTerkenaStun);
     }
 
     public int getPeluangTerkenaStun() {
@@ -102,5 +110,87 @@ public class Efek {
 
     public int getDurasiDelayStun() {
         return durasiDelayStun;
+    }
+
+    public void setPresentaseKetahananTambahan(int presentaseKetahananTambahan) {
+        this.presentaseKetahananTambahan = this.filterMinimalNol(presentaseKetahananTambahan);
+    }
+
+    public int getPresentaseKetahananTambahan() {
+        return presentaseKetahananTambahan;
+    }
+
+    public void setDurasiKetahananTambahan(int durasiKetahananTambahan) {
+        this.durasiKetahananTambahan = this.filterMinimalNol(durasiKetahananTambahan);
+    }
+
+    public int getDurasiKetahananTambahan() {
+        return durasiKetahananTambahan;
+    }
+
+    private boolean peluangBerhasil(int presentasePeluang){
+        Random pengacak = new Random();
+        if(presentasePeluang == 0){
+            return false;
+        }
+        int hasil = pengacak.nextInt(presentasePeluang);
+        if(hasil <= presentasePeluang){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isPeluangDpsBerhasil(){
+        if(this.durasiDps <= 0){
+            return false;
+        }
+        if(this.durasiDelayDps > 0){
+            this.setDurasiDelayDps(this.durasiDelayDps - 1);
+            return false;
+        }
+        this.setDurasiDps(this.durasiDps - 1);
+        if(this.peluangBerhasil(this.peluangTerkenaDps)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isPeluangStunBerhasil(){
+        if(this.durasiStun <= 0){
+            return false;
+        }
+        if(this.durasiDelayStun > 0){
+            this.setDurasiDelayStun(this.durasiDelayStun - 1);
+            return false;
+        }
+        this.setDurasiStun(this.durasiStun - 1);
+        if(this.peluangBerhasil(this.peluangTerkenaStun)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public int gunakanKetahananTambahan(int nilaiSerangan){
+        if(nilaiSerangan < 0){
+            nilaiSerangan = 0;
+        }
+        if(this.durasiKetahananTambahan <= 0){
+            return nilaiSerangan;
+        }
+        this.setDurasiKetahananTambahan(this.durasiKetahananTambahan - 1);
+        return nilaiSerangan - ((nilaiSerangan * this.presentaseKetahananTambahan) / 100);
+    }
+
+    public boolean isSemuaDurasiNol(){
+        if(this.durasiDps <= 0 && this.durasiStun <= 0
+                && this.durasiDelayDps <= 0 && this.durasiDelayStun <= 0
+                && this.durasiKetahananTambahan <= 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
