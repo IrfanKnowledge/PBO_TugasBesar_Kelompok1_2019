@@ -14,6 +14,8 @@ public class PengelolaanBarang {
     private int batasMaxDaftarBarangTerbatas;
     private boolean statusTambahBarangBerhasil = false;
 
+    private ArrayList<Integer> daftarSenjataTermasukAmunisi = new ArrayList<>();
+
     PengelolaanBarang(int batasMaxSlotDaftarBarangTerbatas){
         this.batasMaxDaftarBarangTerbatas = batasMaxSlotDaftarBarangTerbatas;
     }
@@ -90,7 +92,7 @@ public class PengelolaanBarang {
         /* agar bisa menandai setiap penambahan barang => berhasil atau tidak */
         this.daftarBarangUntukDihapus.clear();
         if(daftarBarangInput != null){
-            ArrayList<Barang> tempDaftarBarangTerambil = new ArrayList<>();
+//            ArrayList<Barang> tempDaftarBarangTerambil = new ArrayList<>();
 //        boolean statusBarangTermasukBarangTerbatas;
 //        boolean statusSlotBarangPenuh = false;
 //        boolean statusTambahBarangTerbatasTerakhir = false;
@@ -106,6 +108,8 @@ public class PengelolaanBarang {
                     break;
                 }
 //            ArrayList<Barang> tempBarangTermasukBarangTerbatas = new ArrayList<>();
+
+                /* berikut proses pengaturan penyimpanan terbatas jika barang termasuk 2 Class berikut */
                 if(barangInput instanceof BarangPenggunaanPadaDiri || barangInput instanceof BarangSenjata){
 //                statusBarangTermasukBarangTerbatas = true;
                     if(barangInput instanceof BarangSenjataJarakDekat || barangInput instanceof BarangSenjataTembak){
@@ -127,6 +131,8 @@ public class PengelolaanBarang {
                         boolean statusKetemu = false;
                         for(int i=indeksCekTerakhir; i<this.arrDaftarBarangTerbatas.size(); i++){
                             if(!this.arrDaftarBarangTerbatas.get(i).isEmpty()){
+
+                                /* Proses seleksi kapasitas barang dalam 1 slot penyimpanan terbatas */
                                 if(this.arrDaftarBarangTerbatas.get(i).get(0).idBarang == barangInput.idBarang
                                         && this.arrDaftarBarangTerbatas.get(i).size() < this.hashDaftarPembatasBarang.getOrDefault(barangInput.idBarang, 1)){
                                     statusKetemu = true;
@@ -140,6 +146,7 @@ public class PengelolaanBarang {
                                 }else{
                                     indeksCekTerakhir = (i+1);
                                 }
+                            /* jika penyimpanan terbatas kosong maka tambahkan 1 barang */
                             }else{
                                 statusKetemu = true;
                                 this.arrDaftarBarangTerbatas.get(i).add(barangInput);
@@ -147,6 +154,8 @@ public class PengelolaanBarang {
                                 break;
                             }
                         }
+                        /* jika tidak ada id sama dalam penyimpanan terbatas atau per-slot id yang sama sudah penuh
+                        *  dan penyimpanan terbatas masih memiliki ruang maka...  */
                         if(!statusKetemu && this.arrDaftarBarangTerbatas.size() != this.batasMaxDaftarBarangTerbatas){
                             ArrayList<Barang> tempListBarang = new ArrayList<>();
                             tempListBarang.add(barangInput);
@@ -178,17 +187,13 @@ public class PengelolaanBarang {
 //            if(statusTambahBarangTerbatasTerakhir && !statusSlotBarangPenuh){
 //                statusSlotBarangPenuh = true;
 //            }
-                tempDaftarBarangTerambil.add(barangInput);
+                this.daftarBarangUntukDihapus.add(barangInput);
             }
-            if(daftarBarangInput.isEmpty()){
-                this.statusTambahBarangBerhasil = false;
-            }else if(tempDaftarBarangTerambil.isEmpty()){
-                this.statusTambahBarangBerhasil = false;
-            }else{
-                this.statusTambahBarangBerhasil = true;
-            }
-        }else{
+        }
+        if(this.daftarBarangUntukDihapus.isEmpty()){
             this.statusTambahBarangBerhasil = false;
+        }else{
+            this.statusTambahBarangBerhasil = true;
         }
     }
 
@@ -310,6 +315,17 @@ public class PengelolaanBarang {
                 this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).get(barangInput.idBarang).remove(barangInput);
             }
         }
+    }
+
+    //===================================================================================================
+    /* tambah dan get id senjata tertentu termasuk amunisi */
+    //===================================================================================================
+    public void tambahIdSenjataTertentuTermasukAmunisi(ArrayList<Integer> daftarSenjataTermasukAmunisi) {
+        this.daftarSenjataTermasukAmunisi = daftarSenjataTermasukAmunisi;
+    }
+
+    public ArrayList<Integer> getDaftarSenjataTermasukAmunisi() {
+        return daftarSenjataTermasukAmunisi;
     }
 }
 

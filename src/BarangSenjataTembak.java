@@ -5,13 +5,21 @@ import java.util.Map;
 public class BarangSenjataTembak extends BarangSenjata{
 
     /* private karena hanya untuk set, get tertentu, dan untuk proses internal */
-    private BarangSenjata amunisiUtama;
+    private BarangSenjata amunisiUtamaYangBisaDigunakan;
 
     /* private karena hanya digunakan untuk tambah dan get (+ telah dimodifikasi) dan proses internal */
-    private HashMap<Integer, BarangSenjata> daftarAmunisiCocok = new HashMap<>();
+    private HashMap<Integer, BarangSenjata> daftarAmunisiYangBisaDigunakan = new HashMap<>();
 
     /* private karena hanya digunakan untuk tambah dan get (+ telah dimodifikasi)dan proses internal*/
     private ArrayList<BarangSenjata> daftarAmunisiSedangDigunakan = new ArrayList<>();
+
+    /* daftarSementara mengenai object barang yang berhasil mengisi amunisi */
+    private ArrayList<BarangSenjata> daftarAmunisiYangBerhasilDiambilIsiAmunisi = new ArrayList<>();
+    /* daftarSementara mengenai object barang yang dikeluarkan saat ganti amunisi */
+    private ArrayList<BarangSenjata> daftarAmunisiSedangDigunakanYangDikeluarkan = new ArrayList<>();
+
+    private boolean statusAmunisiBerhasilTerambil = false;
+    private boolean statusAmunisiBerhasilDiganti = false;
 
     /* private karena memiliki batas minimal nilai */
     private int batasMaxAmunisiDigunakan;
@@ -24,125 +32,90 @@ public class BarangSenjataTembak extends BarangSenjata{
         this.setBatasMaxAmunisiDigunakan(batasMaxAmunisiDigunakan);
     }
 
-    public void setAmunisiUtama(BarangSenjata oBarang){
-        this.amunisiUtama = oBarang.cloning();
+    //===================================================================================================
+    /* status */
+    //===================================================================================================
+    public boolean isStatusAmunisiBerhasilTerambil() {
+        return statusAmunisiBerhasilTerambil;
+    }
 
-        if(!this.daftarAmunisiCocok.containsKey(oBarang.idBarang)){
-            this.tambahAmunisiCocok(oBarang);
+    public boolean isStatusAmunisiBerhasilDiganti() {
+        return statusAmunisiBerhasilDiganti;
+    }
+
+    //===================================================================================================
+    /* set, get, tambah amunisi yang bisa digunakan senjata ini */
+    //===================================================================================================
+
+    public void setAmunisiUtamaYangBisaDigunakan(BarangSenjata amunisi){
+        /* object dibuat berbeda karena atribut ini hanya untuk
+        *  mendapat informasi jenis daftar amunisi yang sedang digunakan saja */
+        this.amunisiUtamaYangBisaDigunakan = amunisi.cloning();
+
+        /* jika tidak terdapat amunisi ini pada daftarAmunisiYangBisaDigunakan maka tambahkan */
+        if(!this.daftarAmunisiYangBisaDigunakan.containsKey(amunisi.idBarang)){
+            this.tambahAmunisiYangDiperlukan(amunisi);
         }
     }
 
-    public int getIdAmunisiUtama(){
-        return this.amunisiUtama.idBarang;
+    public int getIdAmunisiUtamaYangBisaDigunakan(){
+        return this.amunisiUtamaYangBisaDigunakan.idBarang;
     }
 
-    public String namaAmunisiUtama(){
-        return this.amunisiUtama.nama;
+    public String getNamaAmunisiUtamaYangDiperlukan(){
+        return this.amunisiUtamaYangBisaDigunakan.nama;
     }
 
-    public String getKategoriAmunisiUtama() {
-        return this.amunisiUtama.kategoriBarang;
+    public String getKategoriAmunisiUtamaYangDiperlukan() {
+        return this.amunisiUtamaYangBisaDigunakan.kategoriBarang;
     }
 
-    public void tambahAmunisiCocok(BarangSenjata oBarang) {
-        this.daftarAmunisiCocok.put(oBarang.idBarang, oBarang.cloning());
+    public String getDeskripsiAmunisiUtamaYangDiperlukan() {
+        return this.amunisiUtamaYangBisaDigunakan.deskripsi;
     }
 
-    private HashMap<Integer, BarangSenjata> cloningDaftarAmunisiCocok(HashMap<Integer, BarangSenjata> daftarAmunisiCocok){
+    public void tambahAmunisiYangDiperlukan(BarangSenjata oBarang) {
+        /* object dibuat berbeda karena atribut ini hanya untuk
+         *  mendapat informasi jenis daftar amunisi yang bisa digunakan saja */
+        this.daftarAmunisiYangBisaDigunakan.put(oBarang.idBarang, oBarang.cloning());
+    }
+
+    private HashMap<Integer, BarangSenjata> cloningDaftarAmunisiCocok(HashMap<Integer, BarangSenjata> daftarAmunisiDiperlukan){
         HashMap<Integer, BarangSenjata> temp = new HashMap<>();
-        for (Map.Entry<Integer, BarangSenjata> isi : daftarAmunisiCocok.entrySet()) {
+        for (Map.Entry<Integer, BarangSenjata> isi : daftarAmunisiDiperlukan.entrySet()) {
             temp.put(isi.getKey(), isi.getValue().cloning());
         }
         return temp;
     }
 
-    /* HashMap input dari parameter berikut tidak dihapus sebab
-    *  tujuan atribut daftarAmunisiCocok pada class ini hanya untuk mengetahui
-    *  kebutuhan jenis amunisi yang cocok untuk digunakan senjata ini */
-    public void tambahAmunisiCocok(HashMap<Integer, BarangSenjata> daftarAmunisiCocok){
-        this.daftarAmunisiCocok.putAll(this.cloningDaftarAmunisiCocok(daftarAmunisiCocok));
+    /* isi object hashmap dibuat berebeda,
+    *  sebab tujuan atribut daftarAmunisiYangBisaDigunakan pada class ini hanya untuk mengetahui
+    *  kebutuhan jenis amunisi yang cocok/bisaDigunakan/sesuai untuk senjata ini */
+    public void tambahAmunisiYangDiperlukan(HashMap<Integer, BarangSenjata> daftarAmunisiDiperlukan){
+        this.daftarAmunisiYangBisaDigunakan.putAll(this.cloningDaftarAmunisiCocok(daftarAmunisiDiperlukan));
     }
 
-    public HashMap<Integer, BarangSenjata> getDaftarAmunisiCocok() {
-        /* object HashMap dibedakan agar tidak dapat memanipulasi daftarAmunisiCocok diluar Class ini,
-        *  selain hanya bisa menggunakan method khusus untuk menambahkan object pada daftarAmunisiCocok,
-        *  kemudian isi HashMap tersebut dibuat object berbeda agar tidak dapat dimanipulasi diluar Class ini */
-        return this.cloningDaftarAmunisiCocok(this.daftarAmunisiCocok);
+    public HashMap<Integer, BarangSenjata> getDaftarAmunisiYangBisaDigunakan() {
+        /* isi object hashmap dibuat berebeda,
+         *  sebab tujuan atribut daftarAmunisiYangBisaDigunakan pada class ini hanya untuk mengetahui
+         *  kebutuhan jenis amunisi yang cocok/bisaDigunakan/sesuai untuk senjata ini */
+        return this.cloningDaftarAmunisiCocok(this.daftarAmunisiYangBisaDigunakan);
     }
 
-    public boolean validasiAmunisiUntukMengisiAmunisi(ArrayList<BarangSenjata> daftarAmunisi){
-        if(daftarAmunisi.isEmpty()){
-            System.out.println();
-            System.out.println("[ Daftar amunisi yang akan digunakan kosong ]");
-            return false;
-        }else if(getJumlahKebutuhanIsiAmunisi() == 0){
-            System.out.println();
-            System.out.println(String.format("[ Jumlah amunisi %s masih penuh ]\n", this.nama));
-            return false;
-        }else if(daftarAmunisi.get(0).idBarang != this.amunisiUtama.idBarang){
-            System.out.println();
-            System.out.println("[ Jenis amunisi yang digunakan tidak cocok ]");
-            System.out.println(String.format("[ Dibutuhkan %s (%s)]", this.amunisiUtama.nama, this.amunisiUtama.kategoriBarang));
-            return false;
-        }else{
-            boolean statusAmunisi = true;
-            /* ArrayList menerapkan Linked List sehingga dapat FIFO (first in first out) */
-            for(int i=0; i<daftarAmunisi.size(); i+=0){
-                /* selalu di cek karena dalam list inputan bisa saja terdapat amunisi yang berbeda Id */
-                if(daftarAmunisi.get(i).idBarang != this.amunisiUtama.idBarang){
-                    System.out.println();
-                    System.out.println("[ Terdapat jenis amunisi yang digunakan tidak cocok ]");
-                    System.out.println(String.format("[ Dibutuhkan %s (%s)]", this.amunisiUtama.nama, this.amunisiUtama.kategoriBarang));
-
-                    statusAmunisi = false;
-                    /* keluar dari for */
-                    break;
-                }
-            }
-            return statusAmunisi;
-        }
+    //===================================================================================================
+    /* get daftar amunisi untuk menampung sementara peluru yang berhasil masuk dan dikeluarkan */
+    //===================================================================================================
+    public ArrayList<BarangSenjata> getDaftarAmunisiYangBerhasilDiambilIsiAmunisi() {
+        return daftarAmunisiYangBerhasilDiambilIsiAmunisi;
     }
 
-    public void isiAmunisi(BarangSenjata oAmunisi) {
-        this.daftarAmunisiSedangDigunakan.add(oAmunisi.cloning());
+    public ArrayList<BarangSenjata> getDaftarAmunisiSedangDigunakanYangDikeluarkan() {
+        return daftarAmunisiSedangDigunakanYangDikeluarkan;
     }
 
-    public void isiAmunisi(BarangSenjata oAmunisi, int jumlahInstance) {
-        if(jumlahInstance > this.getJumlahKebutuhanIsiAmunisi()){
-            jumlahInstance = this.getJumlahKebutuhanIsiAmunisi();
-        }
-        this.daftarAmunisiSedangDigunakan.addAll(Cloning.cloning(oAmunisi, jumlahInstance));
-    }
-
-    public void isiAmunisi(ArrayList<BarangSenjata> oDaftarAmunisi){
-        int pengulanganIsiAmunisi;
-        if(this.getJumlahKebutuhanIsiAmunisi() - oDaftarAmunisi.size() <= 0) {
-            pengulanganIsiAmunisi = this.getJumlahKebutuhanIsiAmunisi();
-        }else{
-            pengulanganIsiAmunisi = oDaftarAmunisi.size();
-        }
-        /* ArrayList menerapkan Linked List sehingga dapat FIFO (first in first out) */
-        for(int i=0; i<pengulanganIsiAmunisi; i+=0){
-
-            /* selalu di cek karena dalam list inputan bisa saja terdapat amunisi yang berbeda Id */
-            if(oDaftarAmunisi.get(i).idBarang != this.amunisiUtama.idBarang){
-                System.out.println();
-                System.out.println(String.format("[ Telah bertambah sebanyak %d ]"));
-                System.out.println("[ Terdapat jenis amunisi yang digunakan tidak cocok ]");
-                System.out.println(String.format("[ Dibutuhkan %s (%s)]", this.amunisiUtama.nama, this.amunisiUtama.kategoriBarang));
-
-                /* keluar dari for */
-                break;
-            }
-            this.daftarAmunisiSedangDigunakan.add(oDaftarAmunisi.get(i));
-            oDaftarAmunisi.remove(i);
-        }
-    }
-
-    public int getJumlahAmunisiDigunakan(){
-        return this.daftarAmunisiSedangDigunakan.size();
-    }
-
+    //===================================================================================================
+    /* set dan get daftar amunisi yang sedang digunakan */
+    //===================================================================================================
     public void setBatasMaxAmunisiDigunakan(int batasMaxAmunisiDigunakan) {
         if(batasMaxAmunisiDigunakan <= 0){
             this.batasMaxAmunisiDigunakan = 1;
@@ -151,76 +124,216 @@ public class BarangSenjataTembak extends BarangSenjata{
         }
     }
 
-    public int getJumlahKebutuhanIsiAmunisi(){
-        return this.batasMaxAmunisiDigunakan - this.daftarAmunisiSedangDigunakan.size();
-    }
-
     public int getBatasMaxAmunisiDigunakan(){
         return batasMaxAmunisiDigunakan;
     }
 
+    public int getJumlahAmunisiSedangDigunakan(){
+        return this.daftarAmunisiSedangDigunakan.size();
+    }
+
+    public int getJumlahKebutuhanIsiAmunisi(){
+        return this.batasMaxAmunisiDigunakan - this.daftarAmunisiSedangDigunakan.size();
+    }
+
+    //===================================================================================================
+    /* Isi amunisi berdasarkan daftarAmunisiYangBisaDigunakan yang telah ditentukan */
+    //===================================================================================================
+
+    private void prosesIsiAmunisi(ArrayList<BarangSenjata> daftarAmunisiInput){
+        this.daftarAmunisiYangBerhasilDiambilIsiAmunisi.clear();
+        if(daftarAmunisiInput != null) {
+            if (!daftarAmunisiInput.isEmpty()) {
+                if (this.getJumlahKebutuhanIsiAmunisi() > 0) {
+                    if (this.amunisiUtamaYangBisaDigunakan != null) {
+                        int idIndeksAwal = daftarAmunisiInput.get(0).idBarang;
+                        for (BarangSenjata amunisiInput : daftarAmunisiInput) {
+                            if (amunisiInput.idBarang != this.amunisiUtamaYangBisaDigunakan.idBarang) {
+                                break;
+                            }
+                            if (amunisiInput.idBarang != idIndeksAwal) {
+                                break;
+                            }
+                            this.daftarAmunisiSedangDigunakan.add(amunisiInput);
+                            this.daftarAmunisiYangBerhasilDiambilIsiAmunisi.add(amunisiInput);
+                            if (this.getJumlahKebutuhanIsiAmunisi() <= 0) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        if(this.daftarAmunisiYangBerhasilDiambilIsiAmunisi.isEmpty()){
+            this.statusAmunisiBerhasilTerambil = false;
+        }else{
+            this.statusAmunisiBerhasilTerambil = true;
+        }
+    }
+
+    public void isiAmunisi(BarangSenjata amunisiInput) {
+        if(amunisiInput == null){
+            this.statusAmunisiBerhasilTerambil = false;
+        }else{
+            ArrayList<BarangSenjata> tempDaftarAmunisiInput = new ArrayList<>();
+            tempDaftarAmunisiInput.add(amunisiInput.cloning());
+            this.prosesIsiAmunisi(tempDaftarAmunisiInput);
+        }
+    }
+
+    public void isiAmunisi(BarangSenjata amunisiInput, int jumlahInstance) {
+        if(amunisiInput == null){
+            this.statusAmunisiBerhasilTerambil = false;
+        }else{
+            if(jumlahInstance > this.getJumlahKebutuhanIsiAmunisi()){
+                jumlahInstance = this.getJumlahKebutuhanIsiAmunisi();
+            }
+            ArrayList<BarangSenjata> tempDaftarAmunisiInput = new ArrayList<>();
+            tempDaftarAmunisiInput.addAll(Cloning.cloning(amunisiInput, jumlahInstance));
+            this.prosesIsiAmunisi(tempDaftarAmunisiInput);
+        }
+    }
+
+    public void isiAmunisi(ArrayList<BarangSenjata> daftarAmunisiInput){
+        this.prosesIsiAmunisi(daftarAmunisiInput);
+    }
+
+    //===================================================================================================
+    /* gunakan dan ganti amunisi  */
+    //===================================================================================================
+    public BarangSenjata gunakanSenjata() {
+        if(this.daftarAmunisiSedangDigunakan == null){
+            return null;
+        }
+        if(this.daftarAmunisiSedangDigunakan.isEmpty()){
+            //proses gagal atau dianggap tidak bisa menembak karena habis amunisi
+            return null;
+        }
+        BarangSenjata amunisiDitembakkan = this.daftarAmunisiSedangDigunakan.get(0);
+
+        /* nilai kekuatan peluru dipengaruhi nilai kekuatan benda yang menembakkannya
+         *  (misal pistol, busur dll) ketika ditembakkan atau firepower */
+        amunisiDitembakkan.setKekuatan(amunisiDitembakkan.getKekuatan() + this.getKekuatan());
+
+        //amunisi dalam senjata berkurang 1
+        this.daftarAmunisiSedangDigunakan.remove(0);
+
+        //proses menembak berhasil
+        return amunisiDitembakkan;
+    }
+
+    public void gantiAmunisiYangSedangDigunakan(ArrayList<BarangSenjata> daftarAmunisiInput){
+        this.daftarAmunisiSedangDigunakanYangDikeluarkan.clear();
+
+        if(this.daftarAmunisiYangBisaDigunakan == null){
+            this.statusAmunisiBerhasilDiganti = false;
+        }else if(this.daftarAmunisiYangBisaDigunakan.isEmpty()){
+            this.statusAmunisiBerhasilDiganti = false;
+        }else if(!this.daftarAmunisiYangBisaDigunakan.containsKey(daftarAmunisiInput.get(0).idBarang)){
+            this.statusAmunisiBerhasilDiganti = false;
+        }else{
+            this.daftarAmunisiSedangDigunakanYangDikeluarkan.addAll(this.daftarAmunisiSedangDigunakan);
+            this.daftarAmunisiSedangDigunakan.clear();
+            this.prosesIsiAmunisi(daftarAmunisiInput);
+            this.statusAmunisiBerhasilDiganti = true;
+        }
+
+//        if(this.daftarAmunisiYangBisaDigunakan.isEmpty()){
+//            System.out.println("[ daftarAmunisiYangBisaDigunakan masih kosong, belum didefinisikan atau ditambahkan ]");
+//            System.out.println();
+//        }else{
+//        }
+//            if(inputPilihan < this.daftarAmunisiYangBisaDigunakan.size() || inputPilihan > this.daftarAmunisiYangBisaDigunakan.size()){
+//                System.out.println("[ pilihan tidak tersedia ]");
+//                System.out.println();
+//            }else{
+//            }
+    }
+
+    //===================================================================================================
+    /* setiap Class Barang dan turunan memiliki kemampuan cloning */
+    //===================================================================================================
     public BarangSenjataTembak cloning() {
         BarangSenjataTembak barangCloning = new BarangSenjataTembak(this.idBarang, this.nama, this.kategoriBarang ,this.deskripsi,
                 this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(),
                 this.getKekuatan(), this.batasMaxAmunisiDigunakan);
 
-        barangCloning.setAmunisiUtama(this.amunisiUtama);
-        barangCloning.tambahAmunisiCocok(this.daftarAmunisiCocok);
-        barangCloning.isiAmunisi(this.daftarAmunisiSedangDigunakan.get(0), this.getJumlahAmunisiDigunakan());
+        barangCloning.setAmunisiUtamaYangBisaDigunakan(this.amunisiUtamaYangBisaDigunakan);
+        barangCloning.tambahAmunisiYangDiperlukan(this.daftarAmunisiYangBisaDigunakan);
+        barangCloning.isiAmunisi(this.daftarAmunisiSedangDigunakan.get(0), this.getJumlahAmunisiSedangDigunakan());
 
         return barangCloning;
     }
 
-    public BarangSenjata gunakanBarangSenjata() {
-        if(this.daftarAmunisiSedangDigunakan.size() < 1){
-            //proses gagal atau dianggap tidak bisa menembak karena habis amunisi
-            return null;
-        }else{
-            //memindahkan amunisi ke variable sementara
-            BarangSenjata oAmunisi = this.daftarAmunisiSedangDigunakan.get(0);
-
-            //amunisi dalam senjata berkurang 1
-            this.daftarAmunisiSedangDigunakan.remove(0);
-
-            /* nilai kekuatan peluru dipengaruhi nilai kekuatan benda yang menembakkannya (misal pistol, busur dll)
-            *  ketika ditembakkan */
-            oAmunisi.setKekuatan(oAmunisi.getKekuatan() + this.getKekuatan());
-
-            //proses menembak berhasil
-            return oAmunisi;
-        }
-    }
-
-    public void gantiAmunisiUtama(int inputPilihan){
-        if(this.daftarAmunisiCocok.isEmpty()){
-            System.out.println("[ daftarAmunisiCocok masih kosong, belum didefinisikan atau ditambahkan ]");
-            System.out.println();
-        }else{
-            if(inputPilihan < this.daftarAmunisiCocok.size() || inputPilihan > this.daftarAmunisiCocok.size()){
-                System.out.println("[ pilihan tidak tersedia ]");
-                System.out.println();
-            }else{
-                int i=0;
-                for (Map.Entry<Integer, BarangSenjata> oDaftarAmunisiCocok : this.daftarAmunisiCocok.entrySet()) {
-                    if(i == inputPilihan-1){
-                        this.amunisiUtama = oDaftarAmunisiCocok.getValue();
-
-                        /* keluar dari for */
-                        break;
-                    }
-                    i++;
-                }
-            }
-        }
-    }
-
-    public ArrayList<BarangSenjata> tukarDaftarAmunisi(ArrayList<BarangSenjata> oDaftarAmunisiSedangDigunakan){
-        ArrayList<BarangSenjata> temp = new ArrayList<>();
-        temp.addAll(this.daftarAmunisiSedangDigunakan);
-        this.daftarAmunisiSedangDigunakan.clear();
-        if(this.validasiAmunisiUntukMengisiAmunisi(oDaftarAmunisiSedangDigunakan)){
-            this.isiAmunisi(oDaftarAmunisiSedangDigunakan);
-        }
-        return temp;
-    }
+//    public ArrayList<BarangSenjata> tukarDaftarAmunisi(ArrayList<BarangSenjata> oDaftarAmunisiSedangDigunakan){
+//        ArrayList<BarangSenjata> temp = new ArrayList<>();
+//        temp.addAll(this.daftarAmunisiSedangDigunakan);
+//        this.daftarAmunisiSedangDigunakan.clear();
+//        if(this.validasiAmunisiUntukMengisiAmunisi(oDaftarAmunisiSedangDigunakan)){
+//            this.isiAmunisi(oDaftarAmunisiSedangDigunakan);
+//        }
+//        return temp;
+//    }
 }
+
+//    public void isiAmunisi(ArrayList<BarangSenjata> daftarAmunisiInput){
+//        int pengulanganIsiAmunisi;
+//        if(this.getJumlahKebutuhanIsiAmunisi() - daftarAmunisiInput.size() <= 0) {
+//            pengulanganIsiAmunisi = this.getJumlahKebutuhanIsiAmunisi();
+//        }else{
+//            pengulanganIsiAmunisi = daftarAmunisiInput.size();
+//        }
+//        /* ArrayList menerapkan Linked List sehingga dapat FIFO (first in first out) */
+//        for(int i=0; i<pengulanganIsiAmunisi; i+=0){
+//
+//            /* selalu di cek karena dalam list inputan bisa saja terdapat amunisi yang berbeda Id */
+//            if(daftarAmunisiInput.get(i).idBarang != this.amunisiUtamaYangBisaDigunakan.idBarang){
+//                System.out.println();
+//                System.out.println(String.format("[ Telah bertambah sebanyak %d ]"));
+//                System.out.println("[ Terdapat jenis amunisi yang digunakan tidak cocok ]");
+//                System.out.println(String.format("[ Dibutuhkan %s (%s)]", this.amunisiUtamaYangBisaDigunakan.nama, this.amunisiUtamaYangBisaDigunakan.kategoriBarang));
+//
+//                /* keluar dari for */
+//                break;
+//            }
+//            this.daftarAmunisiSedangDigunakan.add(daftarAmunisiInput.get(i));
+//            daftarAmunisiInput.remove(i);
+//        }
+//    }
+
+//    public boolean validasiAmunisiUntukMengisiAmunisi(ArrayList<BarangSenjata> daftarAmunisi){
+//        if(daftarAmunisi == null){
+//            return false;
+//        }
+//        if(daftarAmunisi.isEmpty()){
+////            System.out.println();
+////            System.out.println("[ Daftar amunisi yang akan digunakan kosong ]");
+//            return false;
+//        }else if(getJumlahKebutuhanIsiAmunisi() == 0){
+////            System.out.println();
+////            System.out.println(String.format("[ Jumlah amunisi %s masih penuh ]\n", this.nama));
+//            return false;
+//        }else if(daftarAmunisi.get(0).idBarang != this.amunisiUtamaYangBisaDigunakan.idBarang){
+//            System.out.println();
+//            System.out.println("[ Jenis amunisi yang digunakan tidak cocok ]");
+//            System.out.println(String.format("[ Dibutuhkan %s (%s)]", this.amunisiUtamaYangBisaDigunakan.nama, this.amunisiUtamaYangBisaDigunakan.kategoriBarang));
+//            return false;
+//        }else{
+//            boolean statusAmunisi = true;
+//            /* ArrayList menerapkan Linked List sehingga dapat FIFO (first in first out) */
+//            for(int i=0; i<daftarAmunisi.size(); i+=0){
+//                /* selalu di cek karena dalam list inputan bisa saja terdapat amunisi yang berbeda Id */
+//                if(daftarAmunisi.get(i).idBarang != this.amunisiUtamaYangBisaDigunakan.idBarang){
+//                    System.out.println();
+//                    System.out.println("[ Terdapat jenis amunisi yang digunakan tidak cocok ]");
+//                    System.out.println(String.format("[ Dibutuhkan %s (%s)]", this.amunisiUtamaYangBisaDigunakan.nama, this.amunisiUtamaYangBisaDigunakan.kategoriBarang));
+//
+//                    statusAmunisi = false;
+//                    /* keluar dari for */
+//                    break;
+//                }
+//            }
+//            return statusAmunisi;
+//        }
+//    }

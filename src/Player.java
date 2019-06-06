@@ -61,6 +61,13 @@ public class Player {
         return oPengelolaanBarang;
     }
 
+    public void tambahKesehatan(int penambahKesehatan){
+        this.kesehatan += penambahKesehatan;
+        if(this.kesehatan > this.batasMaxKesehatan){
+            this.kesehatan = this.batasMaxKesehatan;
+        }
+    }
+
     public void kurangiKesehatan(int nilaiSerangan){
         int hasil = 0;
         for (Map.Entry<Integer, Efek> oEfek : this.daftarEfekDiri.entrySet()) {
@@ -73,28 +80,20 @@ public class Player {
         }
     }
 
+    public void tambahEfek(Efek oEfek){
+        this.daftarEfekDiri.put(oEfek.idEfek, oEfek);
+    }
+
+    public void tambahEfek(HashMap<Integer, Efek> daftarEfek){
+        this.daftarEfekDiri.putAll(daftarEfek);
+    }
+
     public ArrayList<Barang> pilihBarangDariDaftarBarangKeseluruhanByKategoriTertentu(String aksi, String kategoriBarang){
-        boolean validasiPilihan = false;
-        ArrayList<Barang> daftarBarangTerpilih = new ArrayList<>();
-        while (!validasiPilihan){
-            daftarBarangTerpilih = this.oMenuPengelolaanBarang.pilihBarangKeseluruhanByKategoriTertentu(aksi, kategoriBarang);;
-            if(daftarBarangTerpilih != null){
-                validasiPilihan = true;
-            }
-        }
-        return daftarBarangTerpilih;
+        return this.oMenuPengelolaanBarang.pilihBarangKeseluruhanByKategoriTertentu(aksi, kategoriBarang);
     }
 
     public ArrayList<Barang> pilihBarangDariDaftarBarangTerbatas(String aksi){
-        boolean validasiPilihan = false;
-        ArrayList<Barang> daftarBarangTerpilih = new ArrayList<>();
-        while (!validasiPilihan){
-            daftarBarangTerpilih = this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTerbatas(aksi);
-            if(daftarBarangTerpilih != null){
-                validasiPilihan = true;
-            }
-        }
-        return daftarBarangTerpilih;
+        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTerbatas(aksi);
     }
 
     public void gunakanSenjataDariPenyimpanan(BarangSenjata senjataTerpilih){
@@ -102,16 +101,20 @@ public class Player {
     }
 
     public void gunakanSenjataDariPenyimpanan(ArrayList<BarangSenjata> daftarSenjataTerpilih){
-        /* agar object list dari penyimpanan tidak terpengaruhi */
-        ArrayList<BarangSenjata> objectListBerbeda = new ArrayList<>();
-        objectListBerbeda.addAll(daftarSenjataTerpilih);
-        this.senjata.addAll(objectListBerbeda);
+        this.senjata.addAll(daftarSenjataTerpilih);
     }
 
-    public void hapusSenjataYangDigunakan(BarangSenjata senjataDihapus){
-        this.oPengelolaanBarang.hapusBarang(senjataDihapus);
-        this.senjata.remove(senjataDihapus);
+    public void hapusBarangDariPenyimpanan(Barang barangDihapus){
+        this.oPengelolaanBarang.hapusBarang(barangDihapus);
+        this.senjata.remove(barangDihapus);
     }
+
+    public void hapusBarangDariPenyimpanan(ArrayList<Barang> daftarBarangDihapus){
+        for (Barang barangDihapus : daftarBarangDihapus) {
+            this.hapusBarangDariPenyimpanan(barangDihapus);
+        }
+    }
+
 
     public void simpanKembaliSenjataYangDigunakan(){
         this.senjata.clear();
