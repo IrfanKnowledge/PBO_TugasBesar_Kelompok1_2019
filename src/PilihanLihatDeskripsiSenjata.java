@@ -63,7 +63,7 @@ public class PilihanLihatDeskripsiSenjata extends Pilihan {
             System.out.println();
             System.out.printf("[ %s berhasil digunakan ]\n", barangPilihan.get(0).nama);
         }else{
-            PilihanLihatDeskripsiGunakanAmunisi oPilihanLihatDeskripsiGunakanAmunisi = new PilihanLihatDeskripsiGunakanAmunisi(this.dekripsi + "(Amunisi)", this.oAdegan, this.daftarBarangTerpilih);
+            PilihanLihatDeskripsiGunakanAmunisi oPilihanLihatDeskripsiGunakanAmunisi = new PilihanLihatDeskripsiGunakanAmunisi(this.dekripsi + "(Gunakan Amunisi)", this.oAdegan, this.daftarBarangTerpilih);
             oPilihanLihatDeskripsiGunakanAmunisi.aksi();
         }
     }

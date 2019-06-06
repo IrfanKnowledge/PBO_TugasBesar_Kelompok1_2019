@@ -49,7 +49,7 @@ public class Adegan {
         tambahPilihan(this.oPilihanKeluarGame);
 
         /* defaultkan sementara */
-        this.setPengelolaanBarang(new PengelolaanBarang(10, 1000));
+        this.setPengelolaanBarang(new PengelolaanBarang(100));
         this.oMenuPengelolaanBarang = new MenuPengelolaanBarang(this.oPengelolaanBarang);
 
         /* Jika daftar lawan tidak kosong maka tambah pilihan lihat Lawan */
@@ -111,18 +111,9 @@ public class Adegan {
         }
     }
 
-    /* 1. Lihat barang di sekitar -> ambil semua barang */
-    public HashMap<String, HashMap<Integer, ArrayList<Barang>>> ambilSemuaBarang(){
-        if(this.getPengelolaanBarang().isBarangKeseluruhanEmpty()){
-            return null;
-        }else{
-            return this.getPengelolaanBarang().getDaftarBarangKeseluruhanByKategori();
-        }
-    }
-
     /* 1. Lihat barang di sekitar - > ambil senjata satu-per-satu */
-    public ArrayList<BarangSenjata> pilihBarangSenjataSekitarAdegan(){
-        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTerbatas("Aksi : Ambil senjata satu-per-satu");
+    public ArrayList<Barang> pilihBarangSekitarAdegan(){
+        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTerbatas("Aksi : Ambil Barang");
     }
 
     /* aksi dari player terhadap adegan */
@@ -133,3 +124,13 @@ public class Adegan {
         System.out.println( "[ " + this.oPlayer.nama + "menggunakan kunci.. ]");
     }
 }
+
+
+//    /* 1. Lihat barang di sekitar -> ambil semua barang */
+//    public HashMap<String, HashMap<Integer, ArrayList<Barang>>> ambilSemuaBarang(){
+//        if(this.getPengelolaanBarang().isBarangKeseluruhanEmpty()){
+//            return null;
+//        }else{
+//            return this.getPengelolaanBarang().getDaftarBarangKeseluruhanByKategori();
+//        }
+//    }

@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+//import java.util.ArrayList;
+//import java.util.HashMap;
 
 public class PilihanAmbilSemuaBarang extends Pilihan {
     private Adegan oAdegan;
@@ -12,13 +12,13 @@ public class PilihanAmbilSemuaBarang extends Pilihan {
     @Override
     public void aksi() {
         /* Mengambil semua barang dengan proses seleksi yang melibatkan parameter/inputan jumlahSlotSenjataKosong milik Player */
-        HashMap<String, HashMap<Integer, ArrayList<Barang>>> oBarangPilihan = this.oAdegan.ambilSemuaBarang();
-
-        /* Jika hasil ambil semua barang tidak kosong maka.. */
-        if(oBarangPilihan != null){
-
-            /* tambahkan barang tersebut ke Player */
-            this.oAdegan.oPlayer.getPengelolaanBarang().tambahBarang(oBarangPilihan);
-        }
+//        HashMap<String, HashMap<Integer, ArrayList<Barang>>> oBarangPilihan = this.oAdegan.ambilSemuaBarang();
+//
+//        /* Jika hasil ambil semua barang tidak kosong maka.. */
+//        if(oBarangPilihan != null){
+//
+//            /* tambahkan barang tersebut ke Player */
+//            this.oAdegan.oPlayer.getPengelolaanBarang().tambahBarang(oBarangPilihan);
+//        }
     }
 }

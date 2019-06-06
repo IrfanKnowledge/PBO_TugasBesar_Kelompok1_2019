@@ -317,6 +317,14 @@ public class PengelolaanBarang {
         }
     }
 
+    public void hapusBarang(ArrayList<Barang> daftarBarangInput){
+        if(daftarBarangInput != null){
+            for (Barang barangInput : daftarBarangInput) {
+                this.hapusBarang(barangInput);
+            }
+        }
+    }
+
     //===================================================================================================
     /* tambah dan get id senjata tertentu termasuk amunisi */
     //===================================================================================================

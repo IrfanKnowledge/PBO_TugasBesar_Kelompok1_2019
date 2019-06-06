@@ -110,9 +110,7 @@ public class Player {
     }
 
     public void hapusBarangDariPenyimpanan(ArrayList<Barang> daftarBarangDihapus){
-        for (Barang barangDihapus : daftarBarangDihapus) {
-            this.hapusBarangDariPenyimpanan(barangDihapus);
-        }
+        this.oPengelolaanBarang.hapusBarang(daftarBarangDihapus);
     }
 
 

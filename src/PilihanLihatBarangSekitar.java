@@ -29,7 +29,7 @@ public class PilihanLihatBarangSekitar extends Pilihan {
 
             /* daftar pilihan jika barang tidak kosong */
             PilihanAmbilSemuaBarang oPilihanAmbilSemuaBarang = new PilihanAmbilSemuaBarang("Ambil semua barang", this.oAdegan);
-            PilihanAmbilBarangSenjataSatuPerSatu oPilihanAmbilBarangSenjataSatuPerSatu =  new PilihanAmbilBarangSenjataSatuPerSatu("Ambil senjata satu-per-satu", this.oAdegan);
+            PilihanAmbilBarangSekitarAdegan oPilihanAmbilBarangSenjataSatuPerSatu =  new PilihanAmbilBarangSekitarAdegan("Ambil senjata satu-per-satu", this.oAdegan);
 
             /* jika barang di adegan ini kosong maka */
             if(this.oAdegan.getPengelolaanBarang().isBarangKeseluruhanEmpty()){

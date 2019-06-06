@@ -48,7 +48,7 @@ public class Barang {
 
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
         oBarang = oBarangPenggunaanPadaDiri;
-        ((BarangPenggunaanPadaDiri) oBarang).tambahEfek(new Efek(1, "hantaman godam", 0, 0, 0, 0, 2, 10, 0));
+        ((BarangPenggunaanPadaDiri) oBarang).tambahEfek(new Efek(1, "hantaman godam", 0, 0, 0, 0, 2, 10, 0, 50, 10));
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
         oBarang = oSenjata;
         System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);

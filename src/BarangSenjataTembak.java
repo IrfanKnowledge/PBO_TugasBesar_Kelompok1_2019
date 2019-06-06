@@ -233,7 +233,9 @@ public class BarangSenjataTembak extends BarangSenjata{
         }else if(!this.daftarAmunisiYangBisaDigunakan.containsKey(daftarAmunisiInput.get(0).idBarang)){
             this.statusAmunisiBerhasilDiganti = false;
         }else{
-            this.daftarAmunisiSedangDigunakanYangDikeluarkan.addAll(this.daftarAmunisiSedangDigunakan);
+            if(!this.daftarAmunisiSedangDigunakan.isEmpty() ){
+                this.daftarAmunisiSedangDigunakanYangDikeluarkan.addAll(this.daftarAmunisiSedangDigunakan);
+            }
             this.daftarAmunisiSedangDigunakan.clear();
             this.prosesIsiAmunisi(daftarAmunisiInput);
             this.statusAmunisiBerhasilDiganti = true;

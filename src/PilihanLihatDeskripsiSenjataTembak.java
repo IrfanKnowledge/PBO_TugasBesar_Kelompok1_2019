@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 
 public class PilihanLihatDeskripsiSenjataTembak extends Pilihan {
@@ -82,10 +81,14 @@ public class PilihanLihatDeskripsiSenjataTembak extends Pilihan {
                 barangPilihan.isiAmunisi(this.oAdegan.oPlayer.getPengelolaanBarang().convertBarangKeSenjata(daftarAmunisi));
 
                 /* hapus daftarAmunisi yang ada di penyimpanan Player sesuai kebutuhan amunisi yang diperoleh */
-                for (BarangSenjata amunisi : barangPilihan.getDaftarAmunisiYangBerhasilDiambilIsiAmunisi()) {
-                    this.oAdegan.oPlayer.hapusBarangDariPenyimpanan(amunisi);
+                for (BarangSenjata amunisiTerambil : barangPilihan.getDaftarAmunisiYangBerhasilDiambilIsiAmunisi()) {
+                    this.oAdegan.oPlayer.hapusBarangDariPenyimpanan(amunisiTerambil);
                 }
-
+                if(!barangPilihan.getDaftarAmunisiSedangDigunakanYangDikeluarkan().isEmpty()){
+                    ArrayList<Barang> amunisiTerambil = new ArrayList<>();
+                    amunisiTerambil.addAll(this.oAdegan.oPlayer.getPengelolaanBarang().convertSenjataKeBarang(barangPilihan.getDaftarAmunisiSedangDigunakanYangDikeluarkan()));
+                    this.oAdegan.oPlayer.getPengelolaanBarang().tambahBarang(amunisiTerambil);
+                }
                 System.out.println();
                 System.out.println("[ Isi amunisi berhasil dilakukan ]");
             }
