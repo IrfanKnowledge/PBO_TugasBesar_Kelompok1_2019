@@ -49,6 +49,8 @@ public class PilihanLihatBarangKunci extends Pilihan {
                             }
                             break;
                         default:
+                            System.out.println();
+                            System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
                             break;
                     }
                 }

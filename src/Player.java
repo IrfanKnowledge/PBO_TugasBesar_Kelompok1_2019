@@ -18,7 +18,7 @@ public class Player {
 
     /* menggunakan senjata tertentu memiliki 1 slot penyimpanan yang
     *  dapat ditumpuk lebih dari 1 senjata (misal: granade, dll) */
-    private ArrayList<BarangSenjata> senjata;
+    private ArrayList<BarangSenjata> senjata = new ArrayList<>();
 
     private PengelolaanBarang oPengelolaanBarang;
     private MenuPengelolaanBarang oMenuPengelolaanBarang;

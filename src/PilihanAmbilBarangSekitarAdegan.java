@@ -10,11 +10,19 @@ public class PilihanAmbilBarangSekitarAdegan extends Pilihan {
 
     @Override
     public void aksi() {
-        ArrayList<Barang> barangPilihan = this.oAdegan.pilihBarangSekitarAdegan();
-        if(barangPilihan != null){
-            this.oAdegan.oPlayer.getPengelolaanBarang().tambahBarang(barangPilihan);
-            if(!this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangUntukDihapus().isEmpty()){
-                this.oAdegan.getPengelolaanBarang().hapusBarang(this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangUntukDihapus());
+        boolean validasiKembaliKeDaftarBarangAdegan = false;
+        while(!validasiKembaliKeDaftarBarangAdegan){
+            ArrayList<Barang> barangPilihan = this.oAdegan.pilihBarangSekitarAdegan(this.dekripsi);
+            if(barangPilihan != null){
+                this.oAdegan.oPlayer.getPengelolaanBarang().tambahBarang(barangPilihan);
+                if(!this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangUntukDihapus().isEmpty()){
+                    this.oAdegan.hapusDaftarBarangTertentu(barangPilihan, this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangUntukDihapus());
+                }else{
+                    System.out.println();
+                    System.out.println("[ Penyimpanan Utama Penuh ]");
+                }
+            }else{
+                validasiKembaliKeDaftarBarangAdegan = true;
             }
         }
     }

@@ -92,6 +92,12 @@ public class BarangSenjataTembak extends BarangSenjata{
     *  sebab tujuan atribut daftarAmunisiYangBisaDigunakan pada class ini hanya untuk mengetahui
     *  kebutuhan jenis amunisi yang cocok/bisaDigunakan/sesuai untuk senjata ini */
     public void tambahAmunisiYangDiperlukan(HashMap<Integer, BarangSenjata> daftarAmunisiDiperlukan){
+        if(this.amunisiUtamaYangBisaDigunakan == null){
+            for (Map.Entry<Integer, BarangSenjata> amunisiUtama : daftarAmunisiDiperlukan.entrySet()) {
+                this.amunisiUtamaYangBisaDigunakan = amunisiUtama.getValue();
+                break;
+            }
+        }
         this.daftarAmunisiYangBisaDigunakan.putAll(this.cloningDaftarAmunisiCocok(daftarAmunisiDiperlukan));
     }
 
@@ -263,7 +269,9 @@ public class BarangSenjataTembak extends BarangSenjata{
 
         barangCloning.setAmunisiUtamaYangBisaDigunakan(this.amunisiUtamaYangBisaDigunakan);
         barangCloning.tambahAmunisiYangDiperlukan(this.daftarAmunisiYangBisaDigunakan);
-        barangCloning.isiAmunisi(this.daftarAmunisiSedangDigunakan.get(0), this.getJumlahAmunisiSedangDigunakan());
+        if(!this.daftarAmunisiSedangDigunakan.isEmpty()){
+            barangCloning.isiAmunisi(this.daftarAmunisiSedangDigunakan.get(0), this.getJumlahAmunisiSedangDigunakan());
+        }
 
         return barangCloning;
     }

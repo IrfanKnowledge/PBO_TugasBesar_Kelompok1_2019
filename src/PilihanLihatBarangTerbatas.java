@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PilihanLihatBarangTerbatas extends Pilihan {
     private Adegan oAdegan;
@@ -15,38 +16,51 @@ public class PilihanLihatBarangTerbatas extends Pilihan {
         boolean validasiKembaliKeLihatIsiKantong = false;
         while (!validasiKembaliKeLihatIsiKantong){
             boolean validasiKembaliKeDaftarBarangTerbatas = false;
-            while(!validasiKembaliKeDaftarBarangTerbatas){
-                ArrayList<Barang> daftarBarangTerpilih = this.oAdegan.oPlayer.pilihBarangDariDaftarBarangTerbatas(this.dekripsi);
-                if(daftarBarangTerpilih == null){
-                    validasiKembaliKeDaftarBarangTerbatas = true;
-                    validasiKembaliKeLihatIsiKantong = true;
-                }else if(daftarBarangTerpilih.isEmpty()){
-                    validasiKembaliKeDaftarBarangTerbatas = true;
-                    validasiKembaliKeLihatIsiKantong = true;
-                }else{
-                    Barang barangTerpilih = daftarBarangTerpilih.get(0);
+            ArrayList<Barang> daftarBarangTerpilih = this.oAdegan.oPlayer.pilihBarangDariDaftarBarangTerbatas(this.dekripsi);
+            if(daftarBarangTerpilih == null){
+                validasiKembaliKeLihatIsiKantong = true;
+            }else if(daftarBarangTerpilih.isEmpty()){
+                validasiKembaliKeLihatIsiKantong = true;
+            }else{
+                while(!validasiKembaliKeDaftarBarangTerbatas){
                     System.out.println();
-                    System.out.println("Aksi : " + this.dekripsi);
-                    System.out.println();
-                    System.out.printf("%-25s : %s\n", "nama", barangTerpilih.nama);
-                    System.out.printf("%-25s : %s\n", "Deskripsi", barangTerpilih.deskripsi);
-                    System.out.printf("%-25s : %s\n", "Harga beli", barangTerpilih.getHargaBeli());
-                    System.out.printf("%-25s : %s\n", "Harga jual", barangTerpilih.getHargaJual());
+                    System.out.println("Aksi : " + this.dekripsi + " (Deskripsi)");
+                    if(daftarBarangTerpilih.isEmpty()){
+                        break;
+                    }else{
+                        Barang barangTerpilih = daftarBarangTerpilih.get(0);
+                        System.out.println();
+                        System.out.printf("%-25s : %s\n", "nama", barangTerpilih.nama);
+                        System.out.printf("%-25s : %s\n", "Deskripsi", barangTerpilih.deskripsi);
+                        System.out.printf("%-25s : %s\n", "Harga beli", barangTerpilih.getHargaBeli());
+                        System.out.printf("%-25s : %s\n", "Harga jual", barangTerpilih.getHargaJual());
 
-                    if(barangTerpilih instanceof BarangSenjataTembak){
-                        PilihanLihatDeskripsiSenjataTembak oPilihanLihatDeskripsiSenjataTembak = new PilihanLihatDeskripsiSenjataTembak(this.dekripsi + "(senjata tembak)", this.oAdegan, ((BarangSenjataTembak) barangTerpilih));
-                        oPilihanLihatDeskripsiSenjataTembak.aksi();
-                    }else if(barangTerpilih instanceof BarangSenjataJarakDekat){
-                        PilihanLihatDeskripsiSenjataJarakDekat oPilihanLihatDeskripsiSenjataJarakDekat = new PilihanLihatDeskripsiSenjataJarakDekat(this.dekripsi + "(senjata jarak dekat)", this.oAdegan, (BarangSenjataJarakDekat) barangTerpilih);
-                        oPilihanLihatDeskripsiSenjataJarakDekat.aksi();
-                    }else if(barangTerpilih instanceof BarangSenjata){
-                        PilihanLihatDeskripsiSenjata oPilihanLihatDeskripsiSenjata = new PilihanLihatDeskripsiSenjata(this.dekripsi + "(senjata lempar / amunisi)", this.oAdegan, daftarBarangTerpilih);
-                        oPilihanLihatDeskripsiSenjata.aksi();
-                    }else if(barangTerpilih instanceof BarangPenggunaanPadaDiri){
-                        PilihanLihatDeskripsiBarangPenggunaanPadaDiri oPilihanLihatDeskripsiBarangPenggunaanPadaDiri = new PilihanLihatDeskripsiBarangPenggunaanPadaDiri(this.dekripsi + "(penggunaan pada diri)", this.oAdegan, (BarangPenggunaanPadaDiri) barangTerpilih);
-                        oPilihanLihatDeskripsiBarangPenggunaanPadaDiri.aksi();
+                        if(barangTerpilih instanceof BarangSenjataTembak){
+                            PilihanLihatDeskripsiSenjataTembak oPilihanLihatDeskripsiSenjataTembak = new PilihanLihatDeskripsiSenjataTembak(this.dekripsi + "(senjata tembak)", this.oAdegan, ((BarangSenjataTembak) barangTerpilih));
+                            oPilihanLihatDeskripsiSenjataTembak.aksi();
+                            if(oPilihanLihatDeskripsiSenjataTembak.isValidasiKembaliKeDaftarBarangTerbatas()){
+                                break;
+                            }
+                        }else if(barangTerpilih instanceof BarangSenjataJarakDekat){
+                            PilihanLihatDeskripsiSenjataJarakDekat oPilihanLihatDeskripsiSenjataJarakDekat = new PilihanLihatDeskripsiSenjataJarakDekat(this.dekripsi + "(senjata jarak dekat)", this.oAdegan, (BarangSenjataJarakDekat) barangTerpilih);
+                            oPilihanLihatDeskripsiSenjataJarakDekat.aksi();
+                            if(oPilihanLihatDeskripsiSenjataJarakDekat.isValidasiKembaliKeDaftarBarangTerbatas()){
+                                break;
+                            }
+                        }else if(barangTerpilih instanceof BarangSenjata){
+                            PilihanLihatDeskripsiSenjata oPilihanLihatDeskripsiSenjata = new PilihanLihatDeskripsiSenjata(this.dekripsi + "(senjata lempar / amunisi)", this.oAdegan, daftarBarangTerpilih);
+                            oPilihanLihatDeskripsiSenjata.aksi();
+                            if(oPilihanLihatDeskripsiSenjata.isValidasiKembaliKeDaftarBarangTerbatas()){
+                                break;
+                            }
+                        }else if(barangTerpilih instanceof BarangPenggunaanPadaDiri){
+                            PilihanLihatDeskripsiBarangPenggunaanPadaDiri oPilihanLihatDeskripsiBarangPenggunaanPadaDiri = new PilihanLihatDeskripsiBarangPenggunaanPadaDiri(this.dekripsi + "(penggunaan pada diri)", this.oAdegan, (BarangPenggunaanPadaDiri) barangTerpilih);
+                            oPilihanLihatDeskripsiBarangPenggunaanPadaDiri.aksi();
+                            if(oPilihanLihatDeskripsiBarangPenggunaanPadaDiri.isValidasiKembaliKeDaftarBarangTerbatas()){
+                                break;
+                            }
+                        }
                     }
-                    validasiKembaliKeDaftarBarangTerbatas = true;
                 }
             }
         }

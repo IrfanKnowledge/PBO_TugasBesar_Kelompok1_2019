@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class PilihanLihatBarangSekitar extends Pilihan {
@@ -18,28 +16,20 @@ public class PilihanLihatBarangSekitar extends Pilihan {
         while(!validasiPilihanKembali){
             System.out.println();
             System.out.println("Aksi : Melihat barang di sekitar");
-
-            for(Map.Entry<String, HashMap<Integer, ArrayList<Barang>>> oKategoriBarang : this.oAdegan.getPengelolaanBarang().getDaftarBarangKeseluruhanByKategori().entrySet()){
-                for (Map.Entry<Integer, ArrayList<Barang>> oDaftarBarang : oKategoriBarang.getValue().entrySet()) {
-                    if(!oDaftarBarang.getValue().isEmpty()){
-                        System.out.printf("-%-20s (%d)\n", oDaftarBarang.getValue().get(0).nama, oDaftarBarang.getValue().size());
-                    }
+            for(ArrayList<Barang> daftarBarangTertentu : this.oAdegan.getDaftarBarang()){
+                if(!daftarBarangTertentu.isEmpty()){
+                    System.out.printf("-%-20s (%d)\n", daftarBarangTertentu.get(0).nama, daftarBarangTertentu.size());
                 }
             }
-
-            /* daftar pilihan jika barang tidak kosong */
-            PilihanAmbilSemuaBarang oPilihanAmbilSemuaBarang = new PilihanAmbilSemuaBarang("Ambil semua barang", this.oAdegan);
-            PilihanAmbilBarangSekitarAdegan oPilihanAmbilBarangSenjataSatuPerSatu =  new PilihanAmbilBarangSekitarAdegan("Ambil senjata satu-per-satu", this.oAdegan);
-
+            PilihanAmbilBarangSekitarAdegan oPilihanAmbilBarangSekitarAdegan =  new PilihanAmbilBarangSekitarAdegan("Ambil barang sekitar adegan", this.oAdegan);
             /* jika barang di adegan ini kosong maka */
-            if(this.oAdegan.getPengelolaanBarang().isBarangKeseluruhanEmpty()){
+            if(this.oAdegan.getDaftarBarang().isEmpty()){
                 System.out.println("");
                 System.out.println("[ Tidak ditemukan barang apapun. ]");
                 System.out.println("");
                 System.out.printf("%2d. %s\n", 0, "Kembali");
-            }else {
-                System.out.printf("%2d. %s\n", 1, oPilihanAmbilSemuaBarang.getDekripsi());
-                System.out.printf("%2d. %s\n", 2, oPilihanAmbilBarangSenjataSatuPerSatu.getDekripsi());
+            }else{
+                System.out.printf("%2d. %s\n", 1, oPilihanAmbilBarangSekitarAdegan.getDekripsi());
                 System.out.printf("%2d. %s\n", 0, "Kembali");
             }
 
@@ -54,20 +44,15 @@ public class PilihanLihatBarangSekitar extends Pilihan {
                     break;
                 case 1:
                     /* Jika daftarBarang tidak kosong maka... */
-                    if(!this.oAdegan.getPengelolaanBarang().isBarangKeseluruhanEmpty()){
-
-                        /* Jalankan aksi ambil semua barang */
-                        oPilihanAmbilSemuaBarang.aksi();
+                    if(!this.oAdegan.getDaftarBarang().isEmpty()){
+                        /* Jalankan aksi ambil barang secara per-daftar-barang tertentu */
+                        oPilihanAmbilBarangSekitarAdegan.aksi();
+                    }else{
+                        System.out.println();
+                        System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
                     }
                     break;
-                case 2:
-                    /* Jika daftarBarang tidak kosong maka... */
-                    if(!this.oAdegan.getPengelolaanBarang().isBarangKeseluruhanEmpty()){
 
-                        /* Jalankan aksi ambil barang secara satu-per-satu */
-                        oPilihanAmbilBarangSenjataSatuPerSatu.aksi();
-                    }
-                    break;
                 default:
                     System.out.println();
                     System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
@@ -76,3 +61,17 @@ public class PilihanLihatBarangSekitar extends Pilihan {
         }
     }
 }
+
+
+/* daftar pilihan jika barang tidak kosong */
+//            PilihanAmbilSemuaBarang oPilihanAmbilSemuaBarang = new PilihanAmbilSemuaBarang("Ambil semua barang", this.oAdegan);
+
+//  System.out.printf("%2d. %s\n", 1, oPilihanAmbilSemuaBarang.getDekripsi());
+
+//            for(Map.Entry<String, HashMap<Integer, ArrayList<Barang>>> oKategoriBarang : this.oAdegan.getPengelolaanBarang().getDaftarBarangKeseluruhanByKategori().entrySet()){
+//                for (Map.Entry<Integer, ArrayList<Barang>> oDaftarBarang : oKategoriBarang.getValue().entrySet()) {
+//                    if(!oDaftarBarang.getValue().isEmpty()){
+//                        System.out.printf("-%-20s (%d)\n", oDaftarBarang.getValue().get(0).nama, oDaftarBarang.getValue().size());
+//                    }
+//                }
+//            }

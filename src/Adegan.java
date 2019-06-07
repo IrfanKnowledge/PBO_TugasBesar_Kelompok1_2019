@@ -23,7 +23,7 @@ public class Adegan {
 
     /* Pada setiap adegan terdapat kemungkinan daftarPilihan, barang, Npc, dan Lawan */
     private ArrayList<Pilihan> daftarPilihan = new ArrayList<>();
-    private PengelolaanBarang oPengelolaanBarang;
+    private ArrayList<ArrayList<Barang>> daftarBarang = new ArrayList<>();
     private MenuPengelolaanBarang oMenuPengelolaanBarang;
     private ArrayList<Npc> daftarNpc = new ArrayList<>();
     private ArrayList<Lawan> daftarLawan = new ArrayList<>();
@@ -45,12 +45,10 @@ public class Adegan {
         tambahPilihan(this.oPilihanLihatIsiKantong);
         this.oPilihanLihatNpcSekitar = new PilihanLihatNpcSekitar("Lihat keberadaan orang sekitar");
         tambahPilihan(this.oPilihanLihatNpcSekitar);
-        this.oPilihanKeluarGame = new PilihanKeluarGame("Keluar dari Game.");
+        this.oPilihanKeluarGame = new PilihanKeluarGame("Keluar dari Game");
         tambahPilihan(this.oPilihanKeluarGame);
 
-        /* defaultkan sementara */
-        this.setPengelolaanBarang(new PengelolaanBarang(100));
-        this.oMenuPengelolaanBarang = new MenuPengelolaanBarang(this.oPengelolaanBarang);
+        this.oMenuPengelolaanBarang = new MenuPengelolaanBarang();
 
         /* Jika daftar lawan tidak kosong maka tambah pilihan lihat Lawan */
 //        if(!daftarLawan.isEmpty()){
@@ -64,14 +62,6 @@ public class Adegan {
 
     public void tambahPilihan(Pilihan oPilihan){
         this.daftarPilihan.add(oPilihan);
-    }
-
-    public void setPengelolaanBarang(PengelolaanBarang oPengelolaanBarang) {
-        this.oPengelolaanBarang = oPengelolaanBarang;
-    }
-
-    public PengelolaanBarang getPengelolaanBarang() {
-        return oPengelolaanBarang;
     }
 
     public void tambahNpc(Npc daftarNpc) {
@@ -90,6 +80,9 @@ public class Adegan {
         return this.daftarLawan.size();
     }
 
+    //===================================================================================================
+    /* Menu Utama Adegan */
+    //===================================================================================================
     public void mainkan(){
         System.out.println();
         //System.out.printf("Waktu: %1.2f\n", this.oPlayer.getWaktu());
@@ -111,9 +104,12 @@ public class Adegan {
         }
     }
 
-    /* 1. Lihat barang di sekitar - > ambil senjata satu-per-satu */
-    public ArrayList<Barang> pilihBarangSekitarAdegan(){
-        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTerbatas("Aksi : Ambil Barang");
+    //===================================================================================================
+    /* Sub-Menu Adegan atau Respon Adegan dari aksi Player */
+    //===================================================================================================
+    /* 1. Melihat barang di sekitar - > Ambil barang sekitar adegan */
+    public ArrayList<Barang> pilihBarangSekitarAdegan(String aksi){
+        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTertentu(aksi, this.daftarBarang);
     }
 
     /* aksi dari player terhadap adegan */
@@ -122,6 +118,66 @@ public class Adegan {
         System.out.println("Aksi : Menggunakan kunci");
         System.out.println();
         System.out.println( "[ " + this.oPlayer.nama + "menggunakan kunci.. ]");
+    }
+
+    //===================================================================================================
+    /* pengaturan barang */
+    //===================================================================================================
+    private void prosesTambahBarang(ArrayList<Barang> daftarBarangInput){
+        if(daftarBarangInput != null){
+            for (Barang barangInput: daftarBarangInput) {
+                ArrayList<Barang> temp = new ArrayList<>();
+                if(barangInput instanceof BarangSenjataJarakDekat || barangInput instanceof BarangSenjataTembak){
+                    temp.add(barangInput);
+                    this.daftarBarang.add(temp);
+                }else if(this.daftarBarang.isEmpty()){
+                    temp.add(barangInput);
+                    this.daftarBarang.add(temp);
+                }else if(this.daftarBarang.get(this.daftarBarang.size()-1).isEmpty()){
+                    this.daftarBarang.get(this.daftarBarang.size()-1).add(barangInput);
+                }else if(this.daftarBarang.get(this.daftarBarang.size()-1).get(0).idBarang != barangInput.idBarang){
+                    temp.add(barangInput);
+                    this.daftarBarang.add(temp);
+                }else if(this.daftarBarang.get(this.daftarBarang.size()-1).get(0).idBarang == barangInput.idBarang){
+                    this.daftarBarang.get(this.daftarBarang.size()-1).add(barangInput);
+                }
+            }
+        }
+    }
+
+    public void tambahBarang(Barang barangInput){
+        if(barangInput != null){
+            ArrayList<Barang> daftarBarangInput = new ArrayList<>();
+            daftarBarangInput.add(barangInput);
+            this.prosesTambahBarang(daftarBarangInput);
+        }
+    }
+
+    public void tambahBarang(ArrayList<Barang> barangInput){
+        if(daftarBarang != null){
+            this.prosesTambahBarang(barangInput);
+        }
+    }
+
+    public void tambahBarang(Barang barangInput, int jumlahInstanceUlang){
+        if(barangInput != null){
+            this.prosesTambahBarang(Cloning.cloning(barangInput, jumlahInstanceUlang));
+        }
+    }
+
+    public ArrayList<ArrayList<Barang>> getDaftarBarang(){
+        return this.daftarBarang;
+    }
+
+    public void hapusDaftarBarangTertentu(ArrayList<Barang> targetDaftarBarangYangAkanDihapus, ArrayList<Barang> sumberDaftarBarangPemberiInfoDaftarBarangYangAkanDihapus){
+        if(targetDaftarBarangYangAkanDihapus != null && sumberDaftarBarangPemberiInfoDaftarBarangYangAkanDihapus != null){
+            for (Barang barangUntukDihapus : sumberDaftarBarangPemberiInfoDaftarBarangYangAkanDihapus){
+                targetDaftarBarangYangAkanDihapus.remove(barangUntukDihapus);
+            }
+            if(targetDaftarBarangYangAkanDihapus.isEmpty()){
+                this.daftarBarang.remove(targetDaftarBarangYangAkanDihapus);
+            }
+        }
     }
 }
 
@@ -133,4 +189,9 @@ public class Adegan {
 //        }else{
 //            return this.getPengelolaanBarang().getDaftarBarangKeseluruhanByKategori();
 //        }
+//    }
+
+    /* 1. Melihat barang di sekitar - > Ambil barang sekitar adegan */
+//    public ArrayList<Barang> pilihBarangSekitarAdegan(String aksi){
+//        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTerbatas("Aksi : " + aksi);
 //    }

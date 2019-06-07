@@ -103,15 +103,19 @@ public class PengelolaanBarang {
                 idIndeksAwalBarangInput = daftarBarangInput.get(0).idBarang;
             }
             for (Barang barangInput : daftarBarangInput) {
+
                 /* agar dalam 1 daftarBarangInput konsisten memiliki 1 buah idBarang */
                 if(barangInput.idBarang != idIndeksAwalBarangInput){
                     break;
+
                 }
-//            ArrayList<Barang> tempBarangTermasukBarangTerbatas = new ArrayList<>();
+
+//            ArrayList<Barang> tempBarangTermasukBarangTerbatas =
 
                 /* berikut proses pengaturan penyimpanan terbatas jika barang termasuk 2 Class berikut */
                 if(barangInput instanceof BarangPenggunaanPadaDiri || barangInput instanceof BarangSenjata){
 //                statusBarangTermasukBarangTerbatas = true;
+
                     if(barangInput instanceof BarangSenjataJarakDekat || barangInput instanceof BarangSenjataTembak){
                         if(this.arrDaftarBarangTerbatas.size() != this.batasMaxDaftarBarangTerbatas){
                             ArrayList<Barang> temp = new ArrayList<>();
@@ -124,10 +128,13 @@ public class PengelolaanBarang {
                             continue;
                         }
                     }else{
-                        if(indeksCekTerakhir == this.arrDaftarBarangTerbatas.size()
-                                && this.arrDaftarBarangTerbatas.size() == this.batasMaxDaftarBarangTerbatas){
-                            continue;
-                        }
+//                        if(indeksCekTerakhir == this.arrDaftarBarangTerbatas.size()
+//                                && this.arrDaftarBarangTerbatas.size() == this.batasMaxDaftarBarangTerbatas){
+//                            continue;
+//                        }
+                        /* pengulangan mencari slot-barang yang memiliki id sama dan
+                        *  batasMax penumpukan barang tertentu yang belum penuh
+                        *  (Misal: Amunisi pistol 9mm dalam 1 slot dapat berisikan 60 amunisi/peluru)*/
                         boolean statusKetemu = false;
                         for(int i=indeksCekTerakhir; i<this.arrDaftarBarangTerbatas.size(); i++){
                             if(!this.arrDaftarBarangTerbatas.get(i).isEmpty()){
@@ -157,9 +164,12 @@ public class PengelolaanBarang {
                         /* jika tidak ada id sama dalam penyimpanan terbatas atau per-slot id yang sama sudah penuh
                         *  dan penyimpanan terbatas masih memiliki ruang maka...  */
                         if(!statusKetemu && this.arrDaftarBarangTerbatas.size() != this.batasMaxDaftarBarangTerbatas){
+                            System.out.println(barangInput.nama);
                             ArrayList<Barang> tempListBarang = new ArrayList<>();
                             tempListBarang.add(barangInput);
                             this.arrDaftarBarangTerbatas.add(tempListBarang);
+                        }else{
+                            continue;
                         }
                     }
                 }
@@ -305,6 +315,7 @@ public class PengelolaanBarang {
             this.arrDaftarBarangTerbatas.get(i).remove(barangInput);
         }
     }
+
 
     public void hapusBarang(Barang barangInput){
         if(barangInput instanceof BarangPenggunaanPadaDiri || barangInput instanceof BarangSenjata){

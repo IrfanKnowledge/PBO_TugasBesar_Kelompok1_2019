@@ -20,7 +20,6 @@ public class Barang {
         this.idBarang = idBarang;
         this.nama = nama;
         this.kategoriBarang = kategoriBarang;
-        this.kategoriBarang = "belum ditentukan";
         this.deskripsi = deskripsi;
         this.statusJual = statusJual;
         this.statusBeli = statusBeli;

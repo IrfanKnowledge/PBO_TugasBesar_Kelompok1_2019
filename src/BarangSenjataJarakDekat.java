@@ -85,18 +85,30 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
     }
 
     public int getIdBarangUntukPerbaikan() {
+        if(komponenBarangUntukPerbaikan == null){
+            return -1;
+        }
         return komponenBarangUntukPerbaikan.idBarang;
     }
 
     public String getNamaBarangUntukPerbaikan() {
+        if(komponenBarangUntukPerbaikan == null){
+            return null;
+        }
         return komponenBarangUntukPerbaikan.nama;
     }
 
     public String getKategoriBarangUntukPerbaikan() {
+        if(komponenBarangUntukPerbaikan == null){
+            return null;
+        }
         return komponenBarangUntukPerbaikan.kategoriBarang;
     }
 
     public String getDeskripsiBarangUntukPerbaikan(){
+        if(komponenBarangUntukPerbaikan == null){
+            return null;
+        }
         return komponenBarangUntukPerbaikan.deskripsi;
     }
 
@@ -177,14 +189,12 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         return jumlahUpgrade;
     }
 
-    //===================================================================================================
-    /* setiap Class Barang dan turunan memiliki kemampuan cloning */
-    //===================================================================================================
     @Override
     public BarangSenjataJarakDekat cloning() {
-        BarangSenjataJarakDekat barangCloning = new BarangSenjataJarakDekat(this.idBarang, this.nama, this.kategoriBarang ,this.deskripsi,
+        BarangSenjataJarakDekat barangCloning = new BarangSenjataJarakDekat(
+                this.idBarang, this.nama, this.kategoriBarang , this.deskripsi,
                 this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(),
-                this.getKekuatan(), this.batasMaxKetahanan, this.batasMaxDiperbaiki, this.batasMaxUpgrade,
+                this.getKekuatan(), this.batasMaxKetahanan, this.ketahanan,this.batasMaxDiperbaiki,
                 this.jumlahDiperbaiki, this.batasMaxUpgrade);
 
         return barangCloning;
