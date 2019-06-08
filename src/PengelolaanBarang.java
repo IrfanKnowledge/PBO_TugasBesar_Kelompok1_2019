@@ -92,53 +92,33 @@ public class PengelolaanBarang {
         /* agar bisa menandai setiap penambahan barang => berhasil atau tidak */
         this.daftarBarangUntukDihapus.clear();
         if(daftarBarangInput != null){
-//            ArrayList<Barang> tempDaftarBarangTerambil = new ArrayList<>();
-//        boolean statusBarangTermasukBarangTerbatas;
-//        boolean statusSlotBarangPenuh = false;
-//        boolean statusTambahBarangTerbatasTerakhir = false;
             int indeksCekTerakhir = 0;
-//        boolean statusBarangTerbatasSerupaPenuh = false;
             int idIndeksAwalBarangInput = -1;
             if(!daftarBarangInput.isEmpty()){
                 idIndeksAwalBarangInput = daftarBarangInput.get(0).idBarang;
             }
             for (Barang barangInput : daftarBarangInput) {
-
                 /* agar dalam 1 daftarBarangInput konsisten memiliki 1 buah idBarang */
                 if(barangInput.idBarang != idIndeksAwalBarangInput){
                     break;
-
                 }
-
-//            ArrayList<Barang> tempBarangTermasukBarangTerbatas =
-
                 /* berikut proses pengaturan penyimpanan terbatas jika barang termasuk 2 Class berikut */
                 if(barangInput instanceof BarangPenggunaanPadaDiri || barangInput instanceof BarangSenjata){
-//                statusBarangTermasukBarangTerbatas = true;
-
                     if(barangInput instanceof BarangSenjataJarakDekat || barangInput instanceof BarangSenjataTembak){
                         if(this.arrDaftarBarangTerbatas.size() != this.batasMaxDaftarBarangTerbatas){
                             ArrayList<Barang> temp = new ArrayList<>();
                             temp.add(barangInput);
                             this.arrDaftarBarangTerbatas.add(temp);
-//                        if(this.arrDaftarBarangTerbatas.size() == this.batasMaxDaftarBarangTerbatas){
-////                            statusTambahBarangTerbatasTerakhir = true;
-//                        }
                         }else{
                             continue;
                         }
                     }else{
-//                        if(indeksCekTerakhir == this.arrDaftarBarangTerbatas.size()
-//                                && this.arrDaftarBarangTerbatas.size() == this.batasMaxDaftarBarangTerbatas){
-//                            continue;
-//                        }
                         /* pengulangan mencari slot-barang yang memiliki id sama dan
                         *  batasMax penumpukan barang tertentu yang belum penuh
                         *  (Misal: Amunisi pistol 9mm dalam 1 slot dapat berisikan 60 amunisi/peluru)*/
                         boolean statusKetemu = false;
                         for(int i=indeksCekTerakhir; i<this.arrDaftarBarangTerbatas.size(); i++){
                             if(!this.arrDaftarBarangTerbatas.get(i).isEmpty()){
-
                                 /* Proses seleksi kapasitas barang dalam 1 slot penyimpanan terbatas */
                                 if(this.arrDaftarBarangTerbatas.get(i).get(0).idBarang == barangInput.idBarang
                                         && this.arrDaftarBarangTerbatas.get(i).size() < this.hashDaftarPembatasBarang.getOrDefault(barangInput.idBarang, 1)){
@@ -158,27 +138,24 @@ public class PengelolaanBarang {
                                 statusKetemu = true;
                                 this.arrDaftarBarangTerbatas.get(i).add(barangInput);
                                 indeksCekTerakhir = i;
+                                System.out.println(this.arrDaftarBarangTerbatas.get(i).size());
                                 break;
                             }
                         }
                         /* jika tidak ada id sama dalam penyimpanan terbatas atau per-slot id yang sama sudah penuh
                         *  dan penyimpanan terbatas masih memiliki ruang maka...  */
                         if(!statusKetemu && this.arrDaftarBarangTerbatas.size() != this.batasMaxDaftarBarangTerbatas){
-                            System.out.println(barangInput.nama);
                             ArrayList<Barang> tempListBarang = new ArrayList<>();
                             tempListBarang.add(barangInput);
                             this.arrDaftarBarangTerbatas.add(tempListBarang);
-                        }else{
+                        /* jika tidak ada id saam dalam penyimpanan terbatas
+                        *  atau per-s;ot id yang sama sudah penuh
+                        *  dan penyimpanan terbatas sudah penuh maka continue */
+                        }else if(!statusKetemu){
                             continue;
                         }
                     }
                 }
-//            else{
-//                statusBarangTermasukBarangTerbatas = false;
-//            }
-//            if(statusBarangTermasukBarangTerbatas && statusSlotBarangPenuh){
-//                continue;
-//            }
                 if(!this.hashDaftarBarangByKategori.containsKey(barangInput.kategoriBarang)){
                     HashMap<Integer, ArrayList<Barang>> tempHash = new HashMap<>();
                     ArrayList<Barang> tempArr = new ArrayList<>();
@@ -312,7 +289,13 @@ public class PengelolaanBarang {
     //===================================================================================================
     private void hapusDaftarBarangTerbatas(Barang barangInput){
         for(int i=0; i<this.arrDaftarBarangTerbatas.size(); i++){
-            this.arrDaftarBarangTerbatas.get(i).remove(barangInput);
+            if(this.arrDaftarBarangTerbatas.get(i).contains(barangInput)){
+                this.arrDaftarBarangTerbatas.get(i).remove(barangInput);
+                if(this.arrDaftarBarangTerbatas.get(i).isEmpty()){
+                    this.arrDaftarBarangTerbatas.remove(i);
+                }
+                break;
+            }
         }
     }
 
@@ -324,6 +307,9 @@ public class PengelolaanBarang {
         if(this.hashDaftarBarangByKategori.containsKey(barangInput.kategoriBarang)){
             if(this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).containsKey(barangInput.idBarang)){
                 this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).get(barangInput.idBarang).remove(barangInput);
+                if(this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).get(barangInput.idBarang).isEmpty()){
+                    this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).remove(barangInput.idBarang);
+                }
             }
         }
     }

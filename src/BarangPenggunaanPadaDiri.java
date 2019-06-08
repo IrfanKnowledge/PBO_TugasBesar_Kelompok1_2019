@@ -9,8 +9,9 @@ public class BarangPenggunaanPadaDiri extends Barang {
     private HashMap<Integer, Efek> daftarEfek = new HashMap<>();
 
     BarangPenggunaanPadaDiri(int idBarang, String nama, String kategoriBarang,String deskripsi,
+                             boolean statusDapatDigunakanAdeganTertentu,
                              boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli, int kesehatan) {
-        super(idBarang, nama, kategoriBarang,deskripsi, statusJual, statusBeli, hargaJual, hargaBeli);
+        super(idBarang, nama, kategoriBarang, deskripsi, statusDapatDigunakanAdeganTertentu, statusJual, statusBeli, hargaJual, hargaBeli);
         this.setKesehatan(kesehatan);
     }
 
@@ -35,8 +36,7 @@ public class BarangPenggunaanPadaDiri extends Barang {
     }
 
     public HashMap<Integer, Efek> getDaftarEfek() {
-        /* object HashMap dibedakan agar tidak dapat memanipulasi daftarEfek diluar Class ini
-         * selain hanya bisa menggunakan method khusus untuk menambahkan object pada daftarEfek */
+        /* object HashMap dibedakan agar tidak dapat memanipulasi HashMap tersebut diluar Class ini */
         HashMap<Integer, Efek> temp = new HashMap<>();
         temp.putAll(this.daftarEfek);
         return temp;
@@ -44,7 +44,7 @@ public class BarangPenggunaanPadaDiri extends Barang {
 
     @Override
     public BarangPenggunaanPadaDiri cloning() {
-        BarangPenggunaanPadaDiri barangCloning = new BarangPenggunaanPadaDiri(this.idBarang, this.nama, this.kategoriBarang ,this.deskripsi,
+        BarangPenggunaanPadaDiri barangCloning = new BarangPenggunaanPadaDiri(this.idBarang, this.nama, this.kategoriBarang ,this.deskripsi, this.statusDapatDigunakanAdeganTertentu,
                 this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(), this.kesehatan);
         barangCloning.daftarEfek.putAll(this.daftarEfek);
         return barangCloning;

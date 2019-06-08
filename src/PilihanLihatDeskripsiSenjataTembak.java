@@ -20,8 +20,7 @@ public class PilihanLihatDeskripsiSenjataTembak extends Pilihan {
         System.out.println();
         System.out.printf("%2d. Gunakan Senjata\n", 1);
         System.out.printf("%2d. %-20s\n", 2, "Isi Amunisi");
-        System.out.printf("%2d. %-20s\n", 3, "Ganti Amunisi");
-        System.out.printf("%2d. %-20s | (senjata akan dihapus, tidak dapat dikembalikan)\n", 4, "Buang Senjata");
+        System.out.printf("%2d. %-20s | (senjata akan dihapus, tidak dapat dikembalikan)\n", 3, "Buang Senjata");
         System.out.printf("%2d. Kembali\n", 0);
         System.out.print("Masukkan Pilihan : ");
         Scanner oScan = new Scanner(System.in);
@@ -36,6 +35,7 @@ public class PilihanLihatDeskripsiSenjataTembak extends Pilihan {
                 break;
             case 2:
                 this.isiPeluru(barangTerpilih);
+                break;
             case 3:
                 System.out.println();
                 System.out.println("[ Apakah anda yakin akan menghapus barang ini ? | tidak(t) / ya(y) ]");

@@ -7,7 +7,7 @@ public class Adegan {
     public static Player oPlayer;
 
     /* Pada setiap adegan terdapat hal berikut dan memiliki kemungkinan dapat melakukan aksi penggunaan barang */
-    public int idAdegan;
+    public final int idAdegan;
     public int idBarangBisaDigunakan;
     public String posisiPlayer;
     public String namaRuangan;

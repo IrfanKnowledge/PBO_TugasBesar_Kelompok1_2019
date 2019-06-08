@@ -65,11 +65,13 @@ public class MenuPengelolaanBarang {
         boolean validasiPilihan = false;
         int input = 0;
         while(!validasiPilihan){
+            System.out.println();
+            System.out.println("Aksi : " + aksi);
             if(daftarBarangInput.isEmpty()){
-                return null;
-            }else{
                 System.out.println();
-                System.out.println("Aksi : " + aksi);
+                System.out.println("[ Tidak ada barang yang dapat diambil ]");
+                System.out.println();
+            }else{
                 int i=0;
                 ArrayList<ArrayList<Barang>> daftarYangKosong = new ArrayList<>();
                 for (ArrayList<Barang> daftarBarangTertentu : daftarBarangInput) {
@@ -114,7 +116,7 @@ public class MenuPengelolaanBarang {
                 System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
             }else if(input == 0){
                 validasiPilihan = true;
-            }else {
+            }else{
                 validasiPilihan = true;
             }
         }

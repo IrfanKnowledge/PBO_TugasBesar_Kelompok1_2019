@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class PilihanLihatBarangSekitar extends Pilihan {
 
@@ -12,56 +11,64 @@ public class PilihanLihatBarangSekitar extends Pilihan {
 
     @Override
     public void aksi() {
-        boolean validasiPilihanKembali = false;
-        while(!validasiPilihanKembali){
-            System.out.println();
-            System.out.println("Aksi : Melihat barang di sekitar");
-            for(ArrayList<Barang> daftarBarangTertentu : this.oAdegan.getDaftarBarang()){
-                if(!daftarBarangTertentu.isEmpty()){
-                    System.out.printf("-%-20s (%d)\n", daftarBarangTertentu.get(0).nama, daftarBarangTertentu.size());
-                }
-            }
-            PilihanAmbilBarangSekitarAdegan oPilihanAmbilBarangSekitarAdegan =  new PilihanAmbilBarangSekitarAdegan("Ambil barang sekitar adegan", this.oAdegan);
-            /* jika barang di adegan ini kosong maka */
-            if(this.oAdegan.getDaftarBarang().isEmpty()){
-                System.out.println("");
-                System.out.println("[ Tidak ditemukan barang apapun. ]");
-                System.out.println("");
-                System.out.printf("%2d. %s\n", 0, "Kembali");
+        boolean kembaliKeMenuUtama = false;
+        while(!kembaliKeMenuUtama){
+            ArrayList<Barang> barangPilihan = this.oAdegan.pilihBarangSekitarAdegan(this.dekripsi);
+            if(barangPilihan != null){
+                PilihanAmbilBarangSekitarAdegan oPilihanAmbilBarangSekitarAdegan = new PilihanAmbilBarangSekitarAdegan(this.dekripsi, this.oAdegan, barangPilihan);
+                oPilihanAmbilBarangSekitarAdegan.aksi();
             }else{
-                System.out.printf("%2d. %s\n", 1, oPilihanAmbilBarangSekitarAdegan.getDekripsi());
-                System.out.printf("%2d. %s\n", 0, "Kembali");
-            }
-
-            /* mengecek saja, bisa di buat komentar */
-            //System.out.println("DaftarBarang = " + this.oAdegan.getDaftarBarangById());
-
-            System.out.print("Masukkan Pilihan : ");
-            Scanner oScan = new Scanner(System.in);
-            switch (oScan.nextInt()){
-                case 0:
-                    validasiPilihanKembali = true;
-                    break;
-                case 1:
-                    /* Jika daftarBarang tidak kosong maka... */
-                    if(!this.oAdegan.getDaftarBarang().isEmpty()){
-                        /* Jalankan aksi ambil barang secara per-daftar-barang tertentu */
-                        oPilihanAmbilBarangSekitarAdegan.aksi();
-                    }else{
-                        System.out.println();
-                        System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
-                    }
-                    break;
-
-                default:
-                    System.out.println();
-                    System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
-                    break;
+                kembaliKeMenuUtama = true;
             }
         }
     }
 }
 
+
+//        boolean validasiPilihanKembali = false;
+//        while(!validasiPilihanKembali){
+//            System.out.println();
+//            System.out.println("Aksi : Melihat barang di sekitar");
+//            for(ArrayList<Barang> daftarBarangTertentu : this.oAdegan.getDaftarBarang()){
+//                if(!daftarBarangTertentu.isEmpty()){
+//                    System.out.printf("-%-20s (%d)\n", daftarBarangTertentu.get(0).nama, daftarBarangTertentu.size());
+//                }
+//            }
+//            PilihanAmbilBarangSekitarAdegan oPilihanAmbilBarangSekitarAdegan =  new PilihanAmbilBarangSekitarAdegan("Ambil barang sekitar adegan", this.oAdegan);
+//            /* jika barang di adegan ini kosong maka */
+//            if(this.oAdegan.getDaftarBarang().isEmpty()){
+//                System.out.println("");
+//                System.out.println("[ Tidak ditemukan barang apapun. ]");
+//                System.out.println("");
+//                System.out.printf("%2d. %s\n", 0, "Kembali");
+//            }else{
+//                System.out.printf("%2d. %s\n", 1, oPilihanAmbilBarangSekitarAdegan.getDekripsi());
+//                System.out.printf("%2d. %s\n", 0, "Kembali");
+//            }
+//
+//            /* mengecek saja, bisa di buat komentar */
+//            //System.out.println("DaftarBarang = " + this.oAdegan.getDaftarBarangById());
+//
+//            System.out.print("Masukkan Pilihan : ");
+//            Scanner oScan = new Scanner(System.in);
+//            switch (oScan.nextInt()){
+//                case 0:
+//                    validasiPilihanKembali = true;
+//                    break;
+//                case 1:
+//                    /* Jika daftarBarang tidak kosong maka... */
+//                    if(!this.oAdegan.getDaftarBarang().isEmpty()){
+//                        /* Jalankan aksi ambil barang secara per-daftar-barang tertentu */
+//                        oPilihanAmbilBarangSekitarAdegan.aksi();
+//                        break;
+//                    }
+//
+//                default:
+//                    System.out.println();
+//                    System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
+//                    break;
+//            }
+//        }
 
 /* daftar pilihan jika barang tidak kosong */
 //            PilihanAmbilSemuaBarang oPilihanAmbilSemuaBarang = new PilihanAmbilSemuaBarang("Ambil semua barang", this.oAdegan);

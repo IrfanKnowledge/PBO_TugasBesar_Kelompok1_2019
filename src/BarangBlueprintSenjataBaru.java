@@ -11,9 +11,10 @@ public class BarangBlueprintSenjataBaru extends BarangBlueprint {
     private BarangSenjata hasilCraftingSenjata;
 
     BarangBlueprintSenjataBaru(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
+                               boolean statusDapatDigunakanAdeganTertentu,
                                boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                                int jumlahHasilCrafting) {
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, jumlahHasilCrafting);
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusDapatDigunakanAdeganTertentu, statusJual, statusBeli, hargaJual, hargaBeli, jumlahHasilCrafting);
     }
 
     public void tambahDaftarSenjataCraftingMendukung(BarangSenjata oBarang){

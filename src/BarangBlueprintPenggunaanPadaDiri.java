@@ -15,9 +15,10 @@ public class BarangBlueprintPenggunaanPadaDiri extends BarangBlueprint {
     private HashMap<Integer, BarangPenggunaanPadaDiri> daftarBarangPenggunaanPadaDiriUntukCrafting = new HashMap<>();
 
     BarangBlueprintPenggunaanPadaDiri(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
+                                      boolean statusDapatDigunakanAdeganTertentu,
                                       boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                                       int jumlahHasilCrafting) {
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, jumlahHasilCrafting);
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusDapatDigunakanAdeganTertentu, statusJual, statusBeli, hargaJual, hargaBeli, jumlahHasilCrafting);
 
     }
 

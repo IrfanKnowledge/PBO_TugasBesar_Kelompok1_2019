@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class Player {
-    public int idPlayer;
+    public final int idPlayer;
     public String nama;
     private int kesehatan = 100;
     private int batasMaxKesehatan = 100;

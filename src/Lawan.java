@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Lawan {
-    private int idLawan;
+    public final int idLawan;
     public String nama;
     private int kesehatan;
     private int kekuatan;

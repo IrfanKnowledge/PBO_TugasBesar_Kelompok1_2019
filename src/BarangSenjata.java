@@ -9,20 +9,17 @@ public class BarangSenjata extends Barang{
     private HashMap<Integer, Efek> daftarEfek = new HashMap<>();
 
     BarangSenjata(int idBarang, String nama, String kategoriBarang, String deskripsi,
+                  boolean statusDapatDigunakanAdeganTertentu,
                   boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli, int kekuatan) {
-        super(idBarang, nama, kategoriBarang, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli);
+        super(idBarang, nama, kategoriBarang, deskripsi, statusDapatDigunakanAdeganTertentu, statusJual, statusBeli, hargaJual, hargaBeli);
         this.setKekuatan(kekuatan);
     }
 
-    private int minimalKekuatan(int kekuatan){
-        if(kekuatan < 0 ){
-            return 0;
-        }
-        return kekuatan;
-    }
-
     public void setKekuatan(int kekuatan) {
-        this.kekuatan = this.minimalKekuatan(kekuatan);
+        if(kekuatan < 0 ){
+            kekuatan = 0;
+        }
+        this.kekuatan = kekuatan;
     }
 
     public int getKekuatan() {
@@ -38,8 +35,7 @@ public class BarangSenjata extends Barang{
     }
 
     public HashMap<Integer, Efek> getDaftarEfek() {
-        /* object HashMap dibedakan agar tidak dapat memanipulasi daftarEfek diluar Class ini
-         * selain hanya bisa menggunakan method khusus untuk menambahkan object pada daftarEfek */
+        /* object HashMap dibedakan agar tidak dapat memanipulasi HashMap tersebut diluar Class ini */
         HashMap<Integer, Efek> temp = new HashMap<>();
         temp.putAll(this.daftarEfek);
         return temp;
@@ -47,7 +43,7 @@ public class BarangSenjata extends Barang{
 
     @Override
     public BarangSenjata cloning() {
-        BarangSenjata barangCloning = new BarangSenjata(this.idBarang, this.nama, this.kategoriBarang, this.deskripsi,
+        BarangSenjata barangCloning = new BarangSenjata(this.idBarang, this.nama, this.kategoriBarang, this.deskripsi, this.statusDapatDigunakanAdeganTertentu,
                 this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(), this.kekuatan);
         barangCloning.daftarEfek.putAll(this.daftarEfek);
 

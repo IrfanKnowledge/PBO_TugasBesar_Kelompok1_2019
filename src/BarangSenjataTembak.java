@@ -25,11 +25,23 @@ public class BarangSenjataTembak extends BarangSenjata{
     private int batasMaxAmunisiDigunakan;
 
     BarangSenjataTembak(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
+                        boolean statusDapatDigunakanAdeganTertentu,
                         boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                         int kekuatan, int batasMaxAmunisiDigunakan){
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, kekuatan);
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusDapatDigunakanAdeganTertentu, statusJual, statusBeli, hargaJual, hargaBeli, kekuatan);
 
         this.setBatasMaxAmunisiDigunakan(batasMaxAmunisiDigunakan);
+    }
+
+    //===================================================================================================
+    /* get kekuatan yang dimodifikasi */
+    //===================================================================================================
+    @Override
+    public int getKekuatan() {
+        if(!daftarAmunisiSedangDigunakan.isEmpty()){
+            return (super.getKekuatan() + daftarAmunisiSedangDigunakan.get(0).getKekuatan());
+        }
+        return super.getKekuatan();
     }
 
     //===================================================================================================
@@ -59,18 +71,30 @@ public class BarangSenjataTembak extends BarangSenjata{
     }
 
     public int getIdAmunisiUtamaYangBisaDigunakan(){
+        if(this.amunisiUtamaYangBisaDigunakan == null){
+            return -1;
+        }
         return this.amunisiUtamaYangBisaDigunakan.idBarang;
     }
 
     public String getNamaAmunisiUtamaYangDiperlukan(){
+        if(this.amunisiUtamaYangBisaDigunakan == null){
+            return null;
+        }
         return this.amunisiUtamaYangBisaDigunakan.nama;
     }
 
     public String getKategoriAmunisiUtamaYangDiperlukan() {
+        if(this.amunisiUtamaYangBisaDigunakan == null){
+            return null;
+        }
         return this.amunisiUtamaYangBisaDigunakan.kategoriBarang;
     }
 
     public String getDeskripsiAmunisiUtamaYangDiperlukan() {
+        if(this.amunisiUtamaYangBisaDigunakan == null){
+            return null;
+        }
         return this.amunisiUtamaYangBisaDigunakan.deskripsi;
     }
 
@@ -150,8 +174,8 @@ public class BarangSenjataTembak extends BarangSenjata{
         this.daftarAmunisiYangBerhasilDiambilIsiAmunisi.clear();
         if(daftarAmunisiInput != null) {
             if (!daftarAmunisiInput.isEmpty()) {
-                if (this.getJumlahKebutuhanIsiAmunisi() > 0) {
-                    if (this.amunisiUtamaYangBisaDigunakan != null) {
+                if (this.amunisiUtamaYangBisaDigunakan != null) {
+                    if (this.getJumlahKebutuhanIsiAmunisi() > 0) {
                         int idIndeksAwal = daftarAmunisiInput.get(0).idBarang;
                         for (BarangSenjata amunisiInput : daftarAmunisiInput) {
                             if (amunisiInput.idBarang != this.amunisiUtamaYangBisaDigunakan.idBarang) {
@@ -192,12 +216,15 @@ public class BarangSenjataTembak extends BarangSenjata{
         if(amunisiInput == null){
             this.statusAmunisiBerhasilTerambil = false;
         }else{
-            if(jumlahInstance > this.getJumlahKebutuhanIsiAmunisi()){
+            if(this.getJumlahKebutuhanIsiAmunisi() <= 0){
+                this.statusAmunisiBerhasilTerambil = false;
+            }else if(jumlahInstance > this.getJumlahKebutuhanIsiAmunisi()){
                 jumlahInstance = this.getJumlahKebutuhanIsiAmunisi();
+
+                ArrayList<BarangSenjata> tempDaftarAmunisiInput = new ArrayList<>();
+                tempDaftarAmunisiInput.addAll(Cloning.cloning(amunisiInput, jumlahInstance));
+                this.prosesIsiAmunisi(tempDaftarAmunisiInput);
             }
-            ArrayList<BarangSenjata> tempDaftarAmunisiInput = new ArrayList<>();
-            tempDaftarAmunisiInput.addAll(Cloning.cloning(amunisiInput, jumlahInstance));
-            this.prosesIsiAmunisi(tempDaftarAmunisiInput);
         }
     }
 
@@ -232,20 +259,42 @@ public class BarangSenjataTembak extends BarangSenjata{
     public void gantiAmunisiYangSedangDigunakan(ArrayList<BarangSenjata> daftarAmunisiInput){
         this.daftarAmunisiSedangDigunakanYangDikeluarkan.clear();
 
-        if(this.daftarAmunisiYangBisaDigunakan == null){
+        if(daftarAmunisiInput == null){
+            this.statusAmunisiBerhasilDiganti = false;
+        }else if(daftarAmunisiInput.isEmpty()){
             this.statusAmunisiBerhasilDiganti = false;
         }else if(this.daftarAmunisiYangBisaDigunakan.isEmpty()){
             this.statusAmunisiBerhasilDiganti = false;
         }else if(!this.daftarAmunisiYangBisaDigunakan.containsKey(daftarAmunisiInput.get(0).idBarang)){
             this.statusAmunisiBerhasilDiganti = false;
         }else{
-            if(!this.daftarAmunisiSedangDigunakan.isEmpty() ){
+            if(!this.daftarAmunisiSedangDigunakan.isEmpty()){
                 this.daftarAmunisiSedangDigunakanYangDikeluarkan.addAll(this.daftarAmunisiSedangDigunakan);
             }
             this.daftarAmunisiSedangDigunakan.clear();
             this.prosesIsiAmunisi(daftarAmunisiInput);
             this.statusAmunisiBerhasilDiganti = true;
         }
+    }
+
+    //===================================================================================================
+    /* setiap Class Barang dan turunan memiliki kemampuan cloning */
+    //===================================================================================================
+    public BarangSenjataTembak cloning() {
+        BarangSenjataTembak barangCloning = new BarangSenjataTembak(this.idBarang, this.nama, this.kategoriBarang ,this.deskripsi, this.statusDapatDigunakanAdeganTertentu,
+                this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(),
+                this.getKekuatan(), this.batasMaxAmunisiDigunakan);
+
+        if(this.amunisiUtamaYangBisaDigunakan != null){
+            barangCloning.setAmunisiUtamaYangBisaDigunakan(this.amunisiUtamaYangBisaDigunakan);
+        }
+        barangCloning.tambahAmunisiYangDiperlukan(this.daftarAmunisiYangBisaDigunakan);
+        if(!this.daftarAmunisiSedangDigunakan.isEmpty()){
+            barangCloning.isiAmunisi(this.daftarAmunisiSedangDigunakan.get(0), this.getJumlahAmunisiSedangDigunakan());
+        }
+
+        return barangCloning;
+    }
 
 //        if(this.daftarAmunisiYangBisaDigunakan.isEmpty()){
 //            System.out.println("[ daftarAmunisiYangBisaDigunakan masih kosong, belum didefinisikan atau ditambahkan ]");
@@ -257,24 +306,6 @@ public class BarangSenjataTembak extends BarangSenjata{
 //                System.out.println();
 //            }else{
 //            }
-    }
-
-    //===================================================================================================
-    /* setiap Class Barang dan turunan memiliki kemampuan cloning */
-    //===================================================================================================
-    public BarangSenjataTembak cloning() {
-        BarangSenjataTembak barangCloning = new BarangSenjataTembak(this.idBarang, this.nama, this.kategoriBarang ,this.deskripsi,
-                this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(),
-                this.getKekuatan(), this.batasMaxAmunisiDigunakan);
-
-        barangCloning.setAmunisiUtamaYangBisaDigunakan(this.amunisiUtamaYangBisaDigunakan);
-        barangCloning.tambahAmunisiYangDiperlukan(this.daftarAmunisiYangBisaDigunakan);
-        if(!this.daftarAmunisiSedangDigunakan.isEmpty()){
-            barangCloning.isiAmunisi(this.daftarAmunisiSedangDigunakan.get(0), this.getJumlahAmunisiSedangDigunakan());
-        }
-
-        return barangCloning;
-    }
 
 //    public ArrayList<BarangSenjata> tukarDaftarAmunisi(ArrayList<BarangSenjata> oDaftarAmunisiSedangDigunakan){
 //        ArrayList<BarangSenjata> temp = new ArrayList<>();

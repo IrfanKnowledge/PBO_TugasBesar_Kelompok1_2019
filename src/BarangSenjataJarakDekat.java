@@ -23,10 +23,11 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
     private boolean statusUpgradeBarangBerhasil;
 
     BarangSenjataJarakDekat(int idBarang, String nama, String kategoriBarang, String deskripsi,
+                            boolean statusDapatDigunakanAdeganTertentu,
                             boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                             int kekuatan, int batasMaxKetahanan, int ketahanan,
                             int batasMaxDiperbaiki, int jumlahDiperbaiki, int batasMaxUpgrade){
-        super(idBarang, nama, kategoriBarang, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, kekuatan);
+        super(idBarang, nama, kategoriBarang, deskripsi, statusDapatDigunakanAdeganTertentu, statusJual, statusBeli, hargaJual, hargaBeli, kekuatan);
 
         this.setBatasMaxKetahanan(batasMaxKetahanan);
         this.setKetahanan(ketahanan);
@@ -36,8 +37,6 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         this.jumlahUpgrade = 0;
         this.setStatusKemampuanDiperbaiki();
         this.setstatusBisaUpgrade();
-        this.statusPerbaikiBarangBerhasil = false;
-        this.statusBisaUpgrade = false;
     }
 
     private int filterMinimalNol(int nilai){
@@ -193,6 +192,7 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
     public BarangSenjataJarakDekat cloning() {
         BarangSenjataJarakDekat barangCloning = new BarangSenjataJarakDekat(
                 this.idBarang, this.nama, this.kategoriBarang , this.deskripsi,
+                this.statusDapatDigunakanAdeganTertentu,
                 this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(),
                 this.getKekuatan(), this.batasMaxKetahanan, this.ketahanan,this.batasMaxDiperbaiki,
                 this.jumlahDiperbaiki, this.batasMaxUpgrade);
@@ -217,32 +217,30 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
     public void perbaikiBarang(Barang komponen){
         if(komponen == null){
             this.statusPerbaikiBarangBerhasil = false;
+        }else if(komponenBarangUntukPerbaikan == null){
+            this.statusUpgradeBarangBerhasil = false;
+        }else if(komponen.idBarang != komponenBarangUntukPerbaikan.idBarang) {
+            this.statusPerbaikiBarangBerhasil = false;
+        }else if(!this.statusKemampuanDiperbaiki) {
+            this.statusPerbaikiBarangBerhasil = false;
+        }else if(this.isStatusKetahananMasihMaksimal()) {
+            this.statusPerbaikiBarangBerhasil = false;
         }else{
-            if(komponen.idBarang != komponenBarangUntukPerbaikan.idBarang){
-                this.statusPerbaikiBarangBerhasil = false;
-            }else{
-                if(!this.statusKemampuanDiperbaiki){
-                    this.statusPerbaikiBarangBerhasil = false;
-                }else{
-                    if(this.isStatusKetahananMasihMaksimal()){
-                        this.statusPerbaikiBarangBerhasil = false;
-                    }else{
-                        //mengubah nilai ketahanan menjadi nilai maksimal ketahanan senjata
-                        this.setKetahanan(this.batasMaxKetahanan);
+            //mengubah nilai ketahanan menjadi nilai maksimal ketahanan senjata
+            this.setKetahanan(this.batasMaxKetahanan);
 
-                        //menambah nilai jumlah diperbaiki pada senjata
-                        this.setJumlahDiperbaiki(this.jumlahDiperbaiki + 1);
+            //menambah nilai jumlah diperbaiki pada senjata
+            this.setJumlahDiperbaiki(this.jumlahDiperbaiki + 1);
 
-                        this.setStatusKemampuanDiperbaiki();
-                        this.statusPerbaikiBarangBerhasil = true;
-                    }
-                }
-            }
+            this.setStatusKemampuanDiperbaiki();
+            this.statusPerbaikiBarangBerhasil = true;
         }
     }
 
     public void upgradeSenjata(BarangBlueprintSenjataUpgrade oBluePrint){
-        if(!isStatusBisaUpgrade()){
+        if(oBluePrint == null){
+            this.statusUpgradeBarangBerhasil = false;
+        }else if(!isStatusBisaUpgrade()){
             this.statusUpgradeBarangBerhasil = false;
         }else{
             this.setKekuatan(this.getKekuatan() + oBluePrint.getPeningkatanKekuatan());

@@ -15,9 +15,10 @@ public class BarangBlueprintSenjataUpgrade extends BarangBlueprint{
     private int peningkatanBatasMaxKetahanan;
 
     BarangBlueprintSenjataUpgrade(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
+                                  boolean statusDapatDigunakanAdeganTertentu,
                                   boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                                   int peningkatanKekuatan, int peningkatanBatasMaxKetahanan) {
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli, 1);
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusDapatDigunakanAdeganTertentu, statusJual, statusBeli, hargaJual, hargaBeli, 1);
 
         this.setPeningkatanKekuatan(peningkatanKekuatan);
         this.setPeningkatanBatasMaxKetahanan(peningkatanBatasMaxKetahanan);

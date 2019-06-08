@@ -20,9 +20,10 @@ public abstract class BarangBlueprint extends Barang{
     public boolean statusKeberhasilanCrafting;
 
     BarangBlueprint(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
+                    boolean statusDapatDigunakanAdeganTertentu,
                     boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                     int jumlahHasilCrafting) {
-        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusJual, statusBeli, hargaJual, hargaBeli);
+        super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusDapatDigunakanAdeganTertentu, statusJual, statusBeli, hargaJual, hargaBeli);
 
         /* tidak dibuat method khusus karena terdapat class turunan yang sudah ditetapkan hanya 1 hasilnya */
         if(jumlahHasilCrafting <= 0){
