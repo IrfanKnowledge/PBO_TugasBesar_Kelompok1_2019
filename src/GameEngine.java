@@ -25,7 +25,8 @@ public class GameEngine {
 
     public static void main(String[] args){
         GameEngine oGameEgnine = new GameEngine();
-        Barang kunci = new Barang(29, "Old Key", "kunci", "Kunci usang",false, false, false, 0, 0);
+        Barang jewelBox = new Barang(24, "Jewel Box", "barang bernilai", "kotak berisikan permata", false, true, false, 50000, 0);
+        Barang oldKey = new Barang(29, "Old Key", "kunci", "Kunci usang",true, false, false, 0, 0);
         Barang metalParts = new Barang(2, "Metal Parts", "komponen crafting", "Bisa digunakan untuk memperbaiki senjata", false, false, true, 0, 1000);
         BarangPenggunaanPadaDiri medikit = new BarangPenggunaanPadaDiri(1, "Medikit", "penggunaan pada diri", "Untuk menyembuhkan luka", false, false, true, 0, 10000, 100);
         BarangPenggunaanPadaDiri resistanceBooster = new BarangPenggunaanPadaDiri(20, "Resistancce Booster", "penggunaan pada diri", "untuk membuat fisik menjadi lebih tahan terhadap serangan", false, false, false, 0, 0, 0);
@@ -46,8 +47,9 @@ public class GameEngine {
         Adegan adeganId1 = new Adegan(1, 0, "Tengah Ruangan", "Kamar 03", "","Gedung Tua Asing", "Akhirnya sampai di ruangan yang sepertinya terlihat aman");
         Adegan adeganId2 = new Adegan(2, 28, "Depan Pintu", "Kamar 03", "","Gedung Tua Asing", "Berjalan menuju pintu kuning.. Hmm Pintu ini terkunci");
 
-        BarangSenjataJarakDekat.setKomponenUntukPerbaikan(kunci);
-        adeganId1.tambahBarang(kunci, 1);
+        BarangSenjataJarakDekat.setKomponenUntukPerbaikan(metalParts);
+        adeganId1.tambahBarang(jewelBox, 2);
+        adeganId1.tambahBarang(oldKey, 1);
         adeganId1.tambahBarang(metalParts, 2);
         adeganId1.tambahBarang(medikit, 1);
         adeganId1.tambahBarang(resistanceBooster, 1);
@@ -55,7 +57,7 @@ public class GameEngine {
         adeganId1.tambahBarang(regularArrow, 2);
         adeganId1.tambahBarang(increniaryArrow, 1);
         adeganId1.tambahBarang(bow, 1);
-//        adeganId1.tambahBarang(pipaTua, 2);
+        adeganId1.tambahBarang(pipaTua, 2);
         adeganId1.tambahBarang(regularArrow, 2);
         oGameEgnine.oPlayer.getPengelolaanBarang().setBatasMaxClassBarangSenjataIdTertentu(11, 5);
         oGameEgnine.oPlayer.adeganAktif = adeganId1;

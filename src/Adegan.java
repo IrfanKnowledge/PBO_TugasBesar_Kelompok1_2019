@@ -109,7 +109,7 @@ public class Adegan {
     //===================================================================================================
     /* 1. Melihat barang di sekitar - > Ambil barang sekitar adegan */
     public ArrayList<Barang> pilihBarangSekitarAdegan(String aksi){
-        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTertentu(aksi, this.daftarBarang);
+        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTertentu(aksi, this.daftarBarang, false);
     }
 
     /* aksi dari player terhadap adegan */
@@ -193,5 +193,5 @@ public class Adegan {
 
     /* 1. Melihat barang di sekitar - > Ambil barang sekitar adegan */
 //    public ArrayList<Barang> pilihBarangSekitarAdegan(String aksi){
-//        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTerbatas("Aksi : " + aksi);
+//        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTertentu("Aksi : " + aksi);
 //    }

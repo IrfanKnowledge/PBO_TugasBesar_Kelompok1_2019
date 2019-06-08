@@ -38,19 +38,21 @@ public class PilihanLihatIsiKantong extends Pilihan {
                     validasiKembali = true;
                     break;
                 case 1:
-                    (new PilihanLihatBarangKunci("Lihat Daftar Kunci", this.oAdegan)).aksi();
+                    (new PilihanLihatBarangKategoriTertentu("Lihat Daftar Kunci", this.oAdegan, "kunci")).aksi();
                     break;
                 case 2:
                     (new PilihanLihatBarangTerbatas("Lihat Penyimpanan Utama", this.oAdegan)).aksi();
                     break;
                 case 3:
-                    System.out.println(this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangKeseluruhanByKategori());
+                    (new PilihanLihatBarangKategoriTertentu("Lihat Daftar Komponen Crafting", this.oAdegan, "komponen crafting")).aksi();
                     break;
                 case 4:
                     break;
                 case 5:
+                    (new PilihanLihatBarangKategoriTertentu("Lihat Daftar Barang Bernilai", this.oAdegan, "barang bernilai")).aksi();
                     break;
                 case 6:
+                    System.out.println(this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangKeseluruhanByKategori());
                     for (ArrayList<Barang>  daftarBarang : this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangTerbatas()) {
                         for (Barang barangTertentu : daftarBarang) {
                             System.out.println(barangTertentu.nama);

@@ -17,11 +17,11 @@ public class MenuPengelolaanBarang {
     public ArrayList<Barang> pilihBarangKeseluruhanByKategoriTertentu(String aksi, String kategori){
         boolean validasiPilihan = false;
         int input = 0;
+        int jumlahSlotTergunakan = 0;
         HashMap<Integer, Barang> tempPilihan = new HashMap<>();
         while(!validasiPilihan){
             System.out.println();
             System.out.println("Aksi : " + aksi);
-            int jumlahSlotTersedia = 0;
             if(!this.oPengelolaanBarang.getDaftarBarangKeseluruhanByKategori().containsKey(kategori)){
                 System.out.println();
                 System.out.printf("[ Barang %s tidak ada atau kosong ]\n", kategori);
@@ -35,15 +35,15 @@ public class MenuPengelolaanBarang {
                     System.out.println(String.format("%2d. %-20s | (%d)",
                             ++i, oDaftarBarang.getValue().get(0).nama, oDaftarBarang.getValue().size()));
                     tempPilihan.put(i, oDaftarBarang.getValue().get(0));
+                    jumlahSlotTergunakan++;
                 }
-                jumlahSlotTersedia = this.oPengelolaanBarang.getDaftarBarangKeseluruhanByKategori().get(kategori).size();
             }
             System.out.printf("%2d. Kembali\n", 0);
             Scanner oScan = new Scanner(System.in);
             System.out.print("Masukkan Pilihan : ");
             input = oScan.nextInt();
 
-            if(input < 0 || input > jumlahSlotTersedia){
+            if(input < 0 || input > jumlahSlotTergunakan){
                 System.out.println();
                 System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
             }else if(input == 0){
@@ -52,16 +52,14 @@ public class MenuPengelolaanBarang {
                 validasiPilihan = true;
             }
         }
-        if(!this.oPengelolaanBarang.getDaftarBarangKeseluruhanByKategori().containsKey(kategori)){
-            return null;
-        }else if(input == 0){
+        if(input == 0){
             return null;
         }else{
             return this.oPengelolaanBarang.getDaftarBarangKeseluruhanByKategori().get(kategori).get(tempPilihan.get(input).idBarang);
         }
     }
 
-    private ArrayList<Barang> pilihBarang(String aksi, ArrayList<ArrayList<Barang>> daftarBarangInput){
+    private ArrayList<Barang> pilihBarang(String aksi, ArrayList<ArrayList<Barang>> daftarBarangInput, boolean statusDaftarBarangBersifatTerbatas){
         boolean validasiPilihan = false;
         int input = 0;
         while(!validasiPilihan){
@@ -75,27 +73,32 @@ public class MenuPengelolaanBarang {
                 int i=0;
                 ArrayList<ArrayList<Barang>> daftarYangKosong = new ArrayList<>();
                 for (ArrayList<Barang> daftarBarangTertentu : daftarBarangInput) {
-                    if(daftarBarangTertentu .isEmpty()){
-                        daftarYangKosong.add(daftarBarangTertentu);
-                        continue;
+                    if(daftarBarangTertentu.isEmpty()){
+                        if(!statusDaftarBarangBersifatTerbatas){
+                            daftarYangKosong.add(daftarBarangTertentu);
+                            continue;
+                        }else{
+                            System.out.printf("%2d. < slot kosong >\n", ++i);
+                        }
+                    }else{
+                        System.out.printf("%2d. %-20s (%d)", ++i, daftarBarangTertentu .get(0).nama, daftarBarangTertentu .size());
+                        if(daftarBarangTertentu .get(0) instanceof BarangSenjata){
+                            System.out.printf(" | kekuatan : %d ", ((BarangSenjata) daftarBarangTertentu .get(0)).getKekuatan());
+                        }
+                        if(daftarBarangTertentu .get(0) instanceof BarangSenjataJarakDekat){
+                            System.out.printf(" | Ketahanan : %d/%d",
+                                    ((BarangSenjataJarakDekat) daftarBarangTertentu.get(0)).getKetahanan(),
+                                    ((BarangSenjataJarakDekat) daftarBarangTertentu.get(0)).getBatasMaxKetahanan());
+                        }
+                        if(daftarBarangTertentu .get(0) instanceof BarangSenjataTembak){
+                            System.out.printf("| Isi Amunisi : %d/%d",
+                                    ((BarangSenjataTembak) daftarBarangTertentu .get(0)).getJumlahAmunisiSedangDigunakan(),
+                                    ((BarangSenjataTembak) daftarBarangTertentu .get(0)).getBatasMaxAmunisiDigunakan());
+                        }
+                        System.out.println();
                     }
-                    System.out.printf("%2d. %-20s (%d)", ++i, daftarBarangTertentu .get(0).nama, daftarBarangTertentu .size());
-                    if(daftarBarangTertentu .get(0) instanceof BarangSenjata){
-                        System.out.printf(" | kekuatan : %d ", ((BarangSenjata) daftarBarangTertentu .get(0)).getKekuatan());
-                    }
-                    if(daftarBarangTertentu .get(0) instanceof BarangSenjataJarakDekat){
-                        System.out.printf(" | Ketahanan : %d/%d",
-                                ((BarangSenjataJarakDekat) daftarBarangTertentu.get(0)).getKetahanan(),
-                                ((BarangSenjataJarakDekat) daftarBarangTertentu.get(0)).getBatasMaxKetahanan());
-                    }
-                    if(daftarBarangTertentu .get(0) instanceof BarangSenjataTembak){
-                        System.out.printf("| Isi Amunisi : %d/%d",
-                                ((BarangSenjataTembak) daftarBarangTertentu .get(0)).getJumlahAmunisiSedangDigunakan(),
-                                ((BarangSenjataTembak) daftarBarangTertentu .get(0)).getBatasMaxAmunisiDigunakan());
-                    }
-                    System.out.println();
                 }
-                if(!daftarYangKosong.isEmpty() && daftarYangKosong.size() == daftarBarangInput.size()){
+                if(!daftarYangKosong.isEmpty() && daftarYangKosong.size() >= daftarBarangInput.size()){
                     System.out.println();
                     System.out.println("[ kosong ]");
                     System.out.println();
@@ -116,6 +119,9 @@ public class MenuPengelolaanBarang {
                 System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
             }else if(input == 0){
                 validasiPilihan = true;
+            }else if(daftarBarangInput.get(input-1).isEmpty()){
+                System.out.println();
+                System.out.println("[ Slot tersebut kosong. ]");
             }else{
                 validasiPilihan = true;
             }
@@ -127,11 +133,7 @@ public class MenuPengelolaanBarang {
         }
     }
 
-    public ArrayList<Barang> pilihBarangDariDaftarBarangTerbatas(String aksi){
-        return this.pilihBarang(aksi, this.oPengelolaanBarang.getDaftarBarangTerbatas());
-    }
-
-    public ArrayList<Barang> pilihBarangDariDaftarBarangTertentu(String aksi, ArrayList<ArrayList<Barang>> daftarBarangInput){
-        return this.pilihBarang(aksi, daftarBarangInput);
+    public ArrayList<Barang> pilihBarangDariDaftarBarangTertentu(String aksi, ArrayList<ArrayList<Barang>> daftarBarangInput, boolean statusDaftarBarangBersifatTerbatas){
+        return this.pilihBarang(aksi, daftarBarangInput, statusDaftarBarangBersifatTerbatas);
     }
 }

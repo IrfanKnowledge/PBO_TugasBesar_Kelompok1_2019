@@ -17,7 +17,15 @@ public class PengelolaanBarang {
     private ArrayList<Integer> daftarSenjataTermasukAmunisi = new ArrayList<>();
 
     PengelolaanBarang(int batasMaxSlotDaftarBarangTerbatas){
-        this.batasMaxDaftarBarangTerbatas = batasMaxSlotDaftarBarangTerbatas;
+        this.setBatasMaxDaftarBarangTerbatas(batasMaxSlotDaftarBarangTerbatas);
+        /* Class ini sudah di desain memiliki 2 cara penyimpanan barang, terbatas dan tidak terbatas,
+        *  namun penyimpanan barang tidak terbatas menampung semua barang termasuk yang ada pada
+        *  penyimpanan terbatas agar memberi kemudahan akses barang.
+        *  Sehingga secara default, agar user lebih mudah melihat penyimpanan terbatas
+        *  maka slot kosong diperlihatkan */
+        for (int i=0; i<this.batasMaxDaftarBarangTerbatas; i++) {
+            this.arrDaftarBarangTerbatas.add(new ArrayList<>());
+        }
     }
 
     private int filterMinimalSatu(int nilai){
@@ -79,10 +87,19 @@ public class PengelolaanBarang {
     }
 
     //===================================================================================================
-    /* get jumlah slot daftar barang terbatas */
+    /* get jumlah slot daftar barang terbatas dan jumlah slot kosong */
     //===================================================================================================
     public int getBatasMaxSlotDaftarBarangTerbatas(){
         return this.batasMaxDaftarBarangTerbatas;
+    }
+    public int getJumlahSlotKosongPadaDaftarBarangTerbatas(){
+        int jumlah = 0;
+        for (ArrayList<Barang> daftarBarangTertentu : this.arrDaftarBarangTerbatas) {
+            if(daftarBarangTertentu.isEmpty()){
+                jumlah++;
+            }
+        }
+        return jumlah;
     }
 
     //===================================================================================================
@@ -92,8 +109,9 @@ public class PengelolaanBarang {
         /* agar bisa menandai setiap penambahan barang => berhasil atau tidak */
         this.daftarBarangUntukDihapus.clear();
         if(daftarBarangInput != null){
-            int indeksCekTerakhir = 0;
             int idIndeksAwalBarangInput = -1;
+            int indeksCekTerakhirSlotKosong = 0;
+            int indeksCekTerakhirSlotTertentuBelumPenuh = 0;
             if(!daftarBarangInput.isEmpty()){
                 idIndeksAwalBarangInput = daftarBarangInput.get(0).idBarang;
             }
@@ -105,52 +123,70 @@ public class PengelolaanBarang {
                 /* berikut proses pengaturan penyimpanan terbatas jika barang termasuk 2 Class berikut */
                 if(barangInput instanceof BarangPenggunaanPadaDiri || barangInput instanceof BarangSenjata){
                     if(barangInput instanceof BarangSenjataJarakDekat || barangInput instanceof BarangSenjataTembak){
-                        if(this.arrDaftarBarangTerbatas.size() != this.batasMaxDaftarBarangTerbatas){
-                            ArrayList<Barang> temp = new ArrayList<>();
-                            temp.add(barangInput);
-                            this.arrDaftarBarangTerbatas.add(temp);
-                        }else{
-                            continue;
+                        /* jika semua slot sudah penuh atau habis maka... */
+                        if(getJumlahSlotKosongPadaDaftarBarangTerbatas() <= 0){
+                            /* keluar dari for */
+                            break;
+                        }
+                        for (int i=indeksCekTerakhirSlotKosong; i<this.arrDaftarBarangTerbatas.size(); i++) {
+                            if(this.arrDaftarBarangTerbatas.get(i).isEmpty()){
+//                                ArrayList<Barang> temp = new ArrayList<>();
+//                                temp.add(barangInput);
+                                this.arrDaftarBarangTerbatas.get(i).add(barangInput);
+                                indeksCekTerakhirSlotKosong = (i+1);
+                                /* keluar dari for */
+                                break;
+                            }
                         }
                     }else{
                         /* pengulangan mencari slot-barang yang memiliki id sama dan
                         *  batasMax penumpukan barang tertentu yang belum penuh
                         *  (Misal: Amunisi pistol 9mm dalam 1 slot dapat berisikan 60 amunisi/peluru)*/
                         boolean statusKetemu = false;
-                        for(int i=indeksCekTerakhir; i<this.arrDaftarBarangTerbatas.size(); i++){
+                        for(int i=indeksCekTerakhirSlotTertentuBelumPenuh; i<this.arrDaftarBarangTerbatas.size(); i++){
+                            /* jika terdapat slot yang tidak kosong (terisi) maka... */
                             if(!this.arrDaftarBarangTerbatas.get(i).isEmpty()){
-                                /* Proses seleksi kapasitas barang dalam 1 slot penyimpanan terbatas */
+                                /* jika dalam slot tersebut memiliki idBarang yang sama dan masih belum penuh maka... */
                                 if(this.arrDaftarBarangTerbatas.get(i).get(0).idBarang == barangInput.idBarang
                                         && this.arrDaftarBarangTerbatas.get(i).size() < this.hashDaftarPembatasBarang.getOrDefault(barangInput.idBarang, 1)){
                                     statusKetemu = true;
                                     this.arrDaftarBarangTerbatas.get(i).add(barangInput);
+                                    /* jika dalam slot tersebut memiliki idBarang yang sama dan masih belum penuh maka... */
                                     if(this.arrDaftarBarangTerbatas.get(i).size() < this.hashDaftarPembatasBarang.getOrDefault(barangInput.idBarang, 1)){
-                                        indeksCekTerakhir = i;
+                                        indeksCekTerakhirSlotTertentuBelumPenuh = i;
+                                        /* keluar dari for */
                                         break;
                                     }else{
-                                        indeksCekTerakhir = (i+1);
+                                        indeksCekTerakhirSlotTertentuBelumPenuh = (i+1);
+                                        /* keluar dari for */
+                                        break;
                                     }
+                                /* jika slot tersebut idBarangnya tidak sama atau slot tersebut sudah penuh maka... */
                                 }else{
-                                    indeksCekTerakhir = (i+1);
+                                    indeksCekTerakhirSlotTertentuBelumPenuh = (i+1);
                                 }
-                            /* jika penyimpanan terbatas kosong maka tambahkan 1 barang */
+                            /* jika slot tersebut kosong maka */
                             }else{
+                                /* jika slot tertentu kosong maka tambahkan 1 barang */
                                 statusKetemu = true;
                                 this.arrDaftarBarangTerbatas.get(i).add(barangInput);
-                                indeksCekTerakhir = i;
-                                System.out.println(this.arrDaftarBarangTerbatas.get(i).size());
+                                if(this.arrDaftarBarangTerbatas.get(i).size() >= this.hashDaftarPembatasBarang.getOrDefault(barangInput.idBarang, 1)){
+                                    indeksCekTerakhirSlotTertentuBelumPenuh = (i+1);
+                                }
+                                /* keluar dari for */
                                 break;
                             }
-                        }
+                    }
+
                         /* jika tidak ada id sama dalam penyimpanan terbatas atau per-slot id yang sama sudah penuh
                         *  dan penyimpanan terbatas masih memiliki ruang maka...  */
-                        if(!statusKetemu && this.arrDaftarBarangTerbatas.size() != this.batasMaxDaftarBarangTerbatas){
+                        if(!statusKetemu && this.getJumlahSlotKosongPadaDaftarBarangTerbatas() != 0){
                             ArrayList<Barang> tempListBarang = new ArrayList<>();
                             tempListBarang.add(barangInput);
                             this.arrDaftarBarangTerbatas.add(tempListBarang);
-                        /* jika tidak ada id saam dalam penyimpanan terbatas
-                        *  atau per-s;ot id yang sama sudah penuh
-                        *  dan penyimpanan terbatas sudah penuh maka continue */
+                        /* jika tidak ada id sama dalam penyimpanan terbatas
+                        *  atau per-slot id yang sama sudah penuh
+                        *  dan jumlah slot penyimpanan terbatas sudah penuh/habis maka continue */
                         }else if(!statusKetemu){
                             continue;
                         }
@@ -171,9 +207,6 @@ public class PengelolaanBarang {
                         this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).get(barangInput.idBarang).add(barangInput);
                     }
                 }
-//            if(statusTambahBarangTerbatasTerakhir && !statusSlotBarangPenuh){
-//                statusSlotBarangPenuh = true;
-//            }
                 this.daftarBarangUntukDihapus.add(barangInput);
             }
         }
@@ -291,9 +324,10 @@ public class PengelolaanBarang {
         for(int i=0; i<this.arrDaftarBarangTerbatas.size(); i++){
             if(this.arrDaftarBarangTerbatas.get(i).contains(barangInput)){
                 this.arrDaftarBarangTerbatas.get(i).remove(barangInput);
-                if(this.arrDaftarBarangTerbatas.get(i).isEmpty()){
-                    this.arrDaftarBarangTerbatas.remove(i);
-                }
+                /* class ini berencana digunakan dengan memperlihatkan slot kosong pada user */
+//                if(this.arrDaftarBarangTerbatas.get(i).isEmpty()){
+//                    this.arrDaftarBarangTerbatas.remove(i);
+//                }
                 break;
             }
         }
@@ -309,6 +343,9 @@ public class PengelolaanBarang {
                 this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).get(barangInput.idBarang).remove(barangInput);
                 if(this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).get(barangInput.idBarang).isEmpty()){
                     this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).remove(barangInput.idBarang);
+                }
+                if(this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).isEmpty()){
+                    this.hashDaftarBarangByKategori.remove(barangInput.kategoriBarang);
                 }
             }
         }

@@ -93,7 +93,7 @@ public class Player {
     }
 
     public ArrayList<Barang> pilihBarangDariDaftarBarangTerbatas(String aksi){
-        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTerbatas(aksi);
+        return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTertentu(aksi, this.getPengelolaanBarang().getDaftarBarangTerbatas(), true);
     }
 
     public void gunakanSenjataDariPenyimpanan(BarangSenjata senjataTerpilih){
