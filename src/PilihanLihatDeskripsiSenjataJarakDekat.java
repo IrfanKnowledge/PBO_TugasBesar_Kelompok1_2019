@@ -1,21 +1,27 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class PilihanLihatDeskripsiSenjataJarakDekat extends Pilihan {
-    private Adegan oAdegan;
-    private BarangSenjataJarakDekat barangTerpilih;
-    private boolean validasiKembaliKeDaftarBarangTerbatas = false;
+public class PilihanLihatDeskripsiSenjataJarakDekat extends PilihanLihatIsiKantong {
+    private int indeksSenjataJarakDekatTerpilih;
+    private BarangSenjataJarakDekat senjataJarakDekatTerpilih;
+    private ArrayList<Pilihan> daftarPilihan = new ArrayList<>();
 
-    PilihanLihatDeskripsiSenjataJarakDekat(String dekripsi, Adegan oAdegan, BarangSenjataJarakDekat barangTerpilih){
-        super(dekripsi);
+    PilihanLihatDeskripsiSenjataJarakDekat(String dekripsi, Adegan oAdegan, int indeksSenjataJarakDekatTerpilih, BarangSenjataJarakDekat senjataJarakDekatTerpilih){
+        super(dekripsi, oAdegan);
         this.oAdegan = oAdegan;
-        this.barangTerpilih = barangTerpilih;
+        this.indeksSenjataJarakDekatTerpilih = indeksSenjataJarakDekatTerpilih;
+        this.senjataJarakDekatTerpilih = senjataJarakDekatTerpilih;
+        ArrayList<BarangSenjata> daftarSenjata = new ArrayList<>();
+        daftarSenjata.add(senjataJarakDekatTerpilih);
+        this.daftarPilihan.add(new PilihanGunakanSenjata("Gunakan Barang", this.oAdegan, daftarSenjata));
     }
 
     @Override
     public void aksi() {
-        System.out.printf("%-25s : %d\n", "Kekuatan", barangTerpilih.getKekuatan());
-        System.out.printf("%-25s : %d / %d\n", "Ketahanan", barangTerpilih.getKetahanan(), barangTerpilih.getBatasMaxKetahanan());
-        System.out.printf("%-25s : %d\n", "Kemampuan diperbaiki", barangTerpilih.getJumlahKemampuanDiperbaiki());
+        System.out.printf("%-25s : %d\n", "Kekuatan", senjataJarakDekatTerpilih.getKekuatan());
+        System.out.printf("%-25s : %d / %d\n", "Ketahanan", senjataJarakDekatTerpilih.getKetahanan(), senjataJarakDekatTerpilih.getBatasMaxKetahanan());
+        System.out.printf("%-25s : %d\n", "Kemampuan diperbaiki", senjataJarakDekatTerpilih.getJumlahKemampuanDiperbaiki());
         System.out.println();
         System.out.printf("%2d. Gunakan Senjata\n", 1);
         System.out.printf("%2d. %-20s\n", 2, "Perbaiki Senjata");
@@ -26,23 +32,25 @@ public class PilihanLihatDeskripsiSenjataJarakDekat extends Pilihan {
 
         switch(oScan.nextInt()){
             case 0:
-                this.validasiKembaliKeDaftarBarangTerbatas = true;
+                this.kembaliKeMenuSebelumnya = true;
                 break;
             case 1:
                 /* Proses gunakan senjata */
-                this.gunakanBarang(barangTerpilih);
+                this.gunakanBarang(senjataJarakDekatTerpilih);
                 break;
             case 2:
-                this.perbaikiSenjata(barangTerpilih);
+                this.perbaikiSenjata(senjataJarakDekatTerpilih);
                 break;
             case 3:
                 System.out.println();
-                System.out.println("[ Apakah anda yakin akan menghapus barang ini ? | tidak(t) / ya(y) ]");
+                System.out.println("[ Apakah anda yakin akan menghapus senjata ini ? | tidak(t) / ya(y) ]");
+                System.out.printf("Masukkan Pilihan : ");
                 String input = oScan.next();
                 if(!input.equals("t")){
-                    this.oAdegan.oPlayer.hapusBarangDariPenyimpanan(barangTerpilih);
+                    this.oAdegan.oPlayer.hapusBarangDariDaftarBarangTerbatas(indeksSenjataJarakDekatTerpilih, senjataJarakDekatTerpilih);
                     System.out.println();
-                    System.out.println("[ Barang telah dihapus ]");
+                    System.out.println("[ Senjata telah dihapus ]");
+                    this.kembaliKeMenuSebelumnya = true;
                 }
                 break;
 
@@ -54,8 +62,7 @@ public class PilihanLihatDeskripsiSenjataJarakDekat extends Pilihan {
     }
 
     private void gunakanBarang(BarangSenjataJarakDekat barangPilihan){
-        this.oAdegan.oPlayer.simpanKembaliSenjataYangDigunakan();
-        this.oAdegan.oPlayer.gunakanSenjataDariPenyimpanan(barangPilihan);
+        this.oAdegan.oPlayer.gunakanSenjataDariDaftarBarangTerbatas(barangPilihan);
         System.out.println();
         System.out.printf("[ %s berhasil digunakan ]\n", barangPilihan.nama);
     }
@@ -69,28 +76,24 @@ public class PilihanLihatDeskripsiSenjataJarakDekat extends Pilihan {
             System.out.println(String.format("[ %s ", barangPilihan.nama) + "masih memiliki ketahanan 100% ]");
         }else{
             /* ambil kebutuhan komponen Crafting untuk perbaikan */
-            Barang komponenCrafting = this.oAdegan.oPlayer.getPengelolaanBarang().pilihBarang(barangPilihan.getKategoriBarangUntukPerbaikan(), barangPilihan.getIdBarangUntukPerbaikan());
+            Barang komponenCrafting = this.oAdegan.oPlayer.getPengelolaanBarang().pilihBarangDariDaftarBarangTidakTerbatas(barangPilihan.getKategoriBarangUntukPerbaikan(), barangPilihan.getIdBarangUntukPerbaikan());
             if(komponenCrafting != null){
                 /* proses memperbaiki barang */
                 barangPilihan.perbaikiBarang(komponenCrafting);
                 if(!barangPilihan.isStatusPerbaikiBarangBerhasil()){
                     System.out.println();
-                    System.out.println("[ Perbaiki barang gagal (id barang komponen tidak sesuai) ]");
+                    System.out.println("[ Perbaiki senjata gagal (id barang komponen tidak sesuai) ]");
                 }else{
                     System.out.println();
-                    System.out.println("[ Perbaiki barang berhasil ]");
+                    System.out.println("[ Perbaiki senjata berhasil ]");
                 }
                 /* hapus satu komponen crafting tersebut di penyimpanan */
-                this.oAdegan.oPlayer.getPengelolaanBarang().hapusBarang(komponenCrafting);
+                this.oAdegan.oPlayer.getPengelolaanBarang().hapusBarangDariPenyimpananTidakTerbatas(komponenCrafting);
             }else{
                 System.out.println();
                 System.out.println("[ Persediaan Komponen Crafting untuk perbaikan senjata, kosong. ]");
             }
         }
 
-    }
-
-    public boolean isValidasiKembaliKeDaftarBarangTerbatas() {
-        return validasiKembaliKeDaftarBarangTerbatas;
     }
 }

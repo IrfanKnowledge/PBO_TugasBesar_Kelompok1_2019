@@ -1,8 +1,13 @@
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PilihanLihatBarangTerbatas extends Pilihan {
-    private Adegan oAdegan;
+    public Adegan oAdegan;
+    public boolean kembaliKeMenuSebelumnya;
+    private ArrayList<PilihanLihatIsiKantong> daftarPilihan = new ArrayList<>();
+    public int indeksBarangTerpilih;
+    public ArrayList<Barang> daftarBarangTerpilih = new ArrayList<>();
 
     PilihanLihatBarangTerbatas(String dekripsi, Adegan oAdegan) {
         super(dekripsi);
@@ -11,54 +16,57 @@ public class PilihanLihatBarangTerbatas extends Pilihan {
 
     @Override
     public void aksi() {
-
+        this.kembaliKeMenuSebelumnya = false;
         /* untuk kembali ke menu melihat isi kantong */
-        boolean validasiKembaliKeLihatIsiKantong = false;
-        while (!validasiKembaliKeLihatIsiKantong){
-            boolean validasiKembaliKeDaftarBarangTerbatas = false;
-            ArrayList<Barang> daftarBarangTerpilih = this.oAdegan.oPlayer.pilihBarangDariDaftarBarangTerbatas(this.dekripsi);
-            if(daftarBarangTerpilih == null){
-                validasiKembaliKeLihatIsiKantong = true;
-            }else if(daftarBarangTerpilih.isEmpty()){
-                validasiKembaliKeLihatIsiKantong = true;
+        while (!this.kembaliKeMenuSebelumnya){
+            boolean kembaliKeDaftarBarangTerbatas = false;
+            HashMap<Integer, ArrayList<Barang>>  hashTempBarangTerpilih = this.oAdegan.oPlayer.pilihBarangDariDaftarBarangTerbatas(this.dekripsi);
+            if(hashTempBarangTerpilih == null){
+                this.kembaliKeMenuSebelumnya = true;
             }else{
-                while(!validasiKembaliKeDaftarBarangTerbatas){
-                    System.out.println();
-                    System.out.println("Aksi : " + this.dekripsi + " (Deskripsi)");
+                daftarBarangTerpilih.clear();
+                indeksBarangTerpilih = -1;
+                for (Map.Entry<Integer, ArrayList<Barang>> tempBarangTerpilih: hashTempBarangTerpilih.entrySet()) {
+                    daftarBarangTerpilih.addAll(tempBarangTerpilih.getValue());
+                    indeksBarangTerpilih = tempBarangTerpilih.getKey();
+                }
+                Barang barangTerpilih = daftarBarangTerpilih.get(0);
+                this.daftarPilihan.clear();
+                if(barangTerpilih instanceof BarangSenjataTembak){
+                    PilihanLihatDeskripsiSenjataTembak oPilihanLihatDeskripsiSenjataTembak = new PilihanLihatDeskripsiSenjataTembak(this.dekripsi + "(senjata tembak)", this.oAdegan, indeksBarangTerpilih, (BarangSenjataTembak) barangTerpilih);
+                    this.daftarPilihan.add(oPilihanLihatDeskripsiSenjataTembak);
+                }else if(barangTerpilih instanceof BarangSenjataJarakDekat){
+                    PilihanLihatDeskripsiSenjataJarakDekat oPilihanLihatDeskripsiSenjataJarakDekat = new PilihanLihatDeskripsiSenjataJarakDekat(this.dekripsi + "(senjata jarak dekat)", this.oAdegan, indeksBarangTerpilih, (BarangSenjataJarakDekat) barangTerpilih);
+                    this.daftarPilihan.add(oPilihanLihatDeskripsiSenjataJarakDekat);
+                }else if(barangTerpilih instanceof BarangSenjata){
+                    PilihanLihatDeskripsiSenjata oPilihanLihatDeskripsiSenjata = new PilihanLihatDeskripsiSenjata(this.dekripsi, this.oAdegan, indeksBarangTerpilih , PengelolaanBarang.convertBarangKeSenjata(daftarBarangTerpilih));
+                    this.daftarPilihan.add(oPilihanLihatDeskripsiSenjata);
+                }else if(barangTerpilih instanceof BarangPenggunaanPadaDiri){
+                    PilihanLihatDeskripsiBarangPenggunaanPadaDiri oPilihanLihatDeskripsiBarangPenggunaanPadaDiri = new PilihanLihatDeskripsiBarangPenggunaanPadaDiri(this.dekripsi + "(penggunaan pada diri)", this.oAdegan, indeksBarangTerpilih, (BarangPenggunaanPadaDiri) barangTerpilih);
+                    this.daftarPilihan.add(oPilihanLihatDeskripsiBarangPenggunaanPadaDiri);
+                }
+                while(!kembaliKeDaftarBarangTerbatas){
                     if(daftarBarangTerpilih.isEmpty()){
-                        break;
+                        kembaliKeDaftarBarangTerbatas = true;
                     }else{
-                        Barang barangTerpilih = daftarBarangTerpilih.get(0);
+                        System.out.println();
+                        System.out.println("Aksi : " + this.dekripsi + " (Rincian Barang)");
                         System.out.println();
                         System.out.printf("%-25s : %s\n", "nama", barangTerpilih.nama);
                         System.out.printf("%-25s : %s\n", "Deskripsi", barangTerpilih.deskripsi);
-                        System.out.printf("%-25s : %s\n", "Harga beli", barangTerpilih.getHargaBeli());
-                        System.out.printf("%-25s : %s\n", "Harga jual", barangTerpilih.getHargaJual());
-
-                        if(barangTerpilih instanceof BarangSenjataTembak){
-                            PilihanLihatDeskripsiSenjataTembak oPilihanLihatDeskripsiSenjataTembak = new PilihanLihatDeskripsiSenjataTembak(this.dekripsi + "(senjata tembak)", this.oAdegan, ((BarangSenjataTembak) barangTerpilih));
-                            oPilihanLihatDeskripsiSenjataTembak.aksi();
-                            if(oPilihanLihatDeskripsiSenjataTembak.isValidasiKembaliKeDaftarBarangTerbatas()){
-                                break;
-                            }
-                        }else if(barangTerpilih instanceof BarangSenjataJarakDekat){
-                            PilihanLihatDeskripsiSenjataJarakDekat oPilihanLihatDeskripsiSenjataJarakDekat = new PilihanLihatDeskripsiSenjataJarakDekat(this.dekripsi + "(senjata jarak dekat)", this.oAdegan, (BarangSenjataJarakDekat) barangTerpilih);
-                            oPilihanLihatDeskripsiSenjataJarakDekat.aksi();
-                            if(oPilihanLihatDeskripsiSenjataJarakDekat.isValidasiKembaliKeDaftarBarangTerbatas()){
-                                break;
-                            }
-                        }else if(barangTerpilih instanceof BarangSenjata){
-                            PilihanLihatDeskripsiSenjata oPilihanLihatDeskripsiSenjata = new PilihanLihatDeskripsiSenjata(this.dekripsi + "(senjata lempar / amunisi)", this.oAdegan, daftarBarangTerpilih);
-                            oPilihanLihatDeskripsiSenjata.aksi();
-                            if(oPilihanLihatDeskripsiSenjata.isValidasiKembaliKeDaftarBarangTerbatas()){
-                                break;
-                            }
-                        }else if(barangTerpilih instanceof BarangPenggunaanPadaDiri){
-                            PilihanLihatDeskripsiBarangPenggunaanPadaDiri oPilihanLihatDeskripsiBarangPenggunaanPadaDiri = new PilihanLihatDeskripsiBarangPenggunaanPadaDiri(this.dekripsi + "(penggunaan pada diri)", this.oAdegan, (BarangPenggunaanPadaDiri) barangTerpilih);
-                            oPilihanLihatDeskripsiBarangPenggunaanPadaDiri.aksi();
-                            if(oPilihanLihatDeskripsiBarangPenggunaanPadaDiri.isValidasiKembaliKeDaftarBarangTerbatas()){
-                                break;
-                            }
+                        if(!barangTerpilih.statusBeli){
+                            System.out.printf("%-25s : -\n", "Harga beli");
+                        }else{
+                            System.out.printf("%-25s : %s\n", "Harga beli", barangTerpilih.getHargaBeli());
+                        }
+                        if(!barangTerpilih.statusJual){
+                            System.out.printf("%-25s : -\n", "Harga jual");
+                        }else{
+                            System.out.printf("%-25s : %s\n", "Harga jual", barangTerpilih.getHargaJual());
+                        }
+                        this.daftarPilihan.get(0).aksi();
+                        if(this.daftarPilihan.get(0).kembaliKeMenuSebelumnya){
+                            kembaliKeDaftarBarangTerbatas = true;
                         }
                     }
                 }
@@ -67,69 +75,3 @@ public class PilihanLihatBarangTerbatas extends Pilihan {
     }
 
 }
-
-
-
-//    private void gantiPeluru(Barang oBarangPilihan){
-//        for (Map.Entry<String, ArrayList<Integer>> oDaftarIdAmunisi : oBarangPilihan.getDaftarIdAmunisi().entrySet()) {
-//            System.out.println();
-//            for(int i=0; i<oDaftarIdAmunisi.getValue().size(); i++){
-//                System.out.println();
-//                System.out.printf("%2d. %s\n", i+1, oDaftarIdAmunisi.getValue().get(i));
-//            }
-//            System.out.printf("%2d. Batal ganti peluru\n", 0);
-//            System.out.printf("Masukkan pilihan : \n");
-//            Scanner oScan = new Scanner(System.in);
-//            int pilihanGantiAmunisi = oScan.nextInt();
-//
-//            /* jika pilihan == 0 maka jangan lakukan apapun */
-//            if(pilihanGantiAmunisi == 0){
-//
-//            }else if(pilihanGantiAmunisi < 0 || pilihanGantiAmunisi > oDaftarIdAmunisi.getValue().size()){
-//                System.out.println();
-//                System.out.println("[ Pilihan tidak tersedia ]");
-//            }else{
-//                oBarangPilihan.gantiPeluru(pilihanGantiAmunisi-1);
-//
-//                System.out.println();
-//                System.out.println("[ Peluru utama senjata telah diganti ]");
-//            }
-//        }
-//
-//        /* jika kosong maka */
-//        if(oBarangPilihan.getDaftarIdAmunisi().isEmpty()){
-//            System.out.println();
-//            System.out.println("[ Daftar amunisi kosong ]");
-//        }
-//    }
-//
-//    private void buangSenjata(Barang oBarangPilihan, String kategori , ArrayList<Integer> oBarang, ArrayList<Barang> oSenjataLempar){
-//        if(oBarangPilihan.getJenis().equals("Senjata Pukul") || oBarangPilihan.getJenis().equals("Senjata Tembak")){
-//            this.oAdegan.oPlayer.hapusBarangSatuIndeksTertentu(kategori, oBarang.get(0), oBarang.get(1));
-//            System.out.println();
-//            System.out.println("[ Senjata telah dihapus. ]");
-//
-//            this.validasiKembali2 = true;
-//        }else{
-//            System.out.println();
-//            System.out.printf("%2d. Batal membuang senjata\n", 0);
-//            System.out.printf("Masukkan jumlah senjata yang akan dibuang (dihapus) : ");
-//            Scanner oScan = new Scanner(System.in);
-//            int jumlahHapus = oScan.nextInt();
-//
-//            /* jika 0 maka tidak melakukan apapun */
-//            if(jumlahHapus == 0){
-//
-//            }else if(jumlahHapus < 0 || jumlahHapus > oSenjataLempar.size()){
-//                System.out.println();
-//                System.out.println("[ jumlah tidak valid ]");
-//            }else{
-//                this.oAdegan.oPlayer.hapusBarangJumlahTertentu(oBarangPilihan.getKategoriPenyimpanan(), oBarangPilihan.getIdBarang(), jumlahHapus);
-//                System.out.println();
-//                System.out.println("[ Senjata telah dihapus/dikurangi. ]");
-//                if(jumlahHapus == oSenjataLempar.size()){
-//                    this.validasiKembali2 = true;
-//                }
-//            }
-//        }
-//    }

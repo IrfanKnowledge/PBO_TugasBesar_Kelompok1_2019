@@ -2,8 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PilihanLihatBarangKategoriTertentu extends Pilihan {
-    private Adegan oAdegan;
-    private String kategori;
+    public Adegan oAdegan;
+    public boolean kembaliKeMenuSebelumnya = false;
+    public String kategori;
+
 
     PilihanLihatBarangKategoriTertentu(String dekripsi, Adegan oAdegan, String kategori) {
         super(dekripsi);
@@ -13,12 +15,12 @@ public class PilihanLihatBarangKategoriTertentu extends Pilihan {
 
     @Override
     public void aksi() {
-
         /* untuk kembali ke menu melihat isi kantong */
-        boolean kembaliKeLihatIsiKantong = false;
-        while (!kembaliKeLihatIsiKantong){
+        while (!this.kembaliKeMenuSebelumnya){
             ArrayList<Barang> daftarBarangPilihan = this.oAdegan.oPlayer.pilihBarangDariDaftarBarangKeseluruhanByKategoriTertentu(this.dekripsi, kategori);
-            if(daftarBarangPilihan != null){
+            if(daftarBarangPilihan == null){
+                this.kembaliKeMenuSebelumnya = true;
+            }else{
                 /* untuk kembali ke menu melihat daftar barang kategori tertentu */
                 boolean kembaliKeDaftarBarangTertentu = false;
                 while (!kembaliKeDaftarBarangTertentu){
@@ -45,8 +47,8 @@ public class PilihanLihatBarangKategoriTertentu extends Pilihan {
                     }
                     System.out.printf("%2d. Kembali\n", 0);
                     System.out.print("Masukkan Pilihan : ");
-                    Scanner oScan = new Scanner(System.in);
-                    switch(oScan.nextInt()){
+                    Scanner input = new Scanner(System.in);
+                    switch(input.nextInt()){
                         case 0:
                             kembaliKeDaftarBarangTertentu = true;
                             break;
@@ -66,8 +68,6 @@ public class PilihanLihatBarangKategoriTertentu extends Pilihan {
                             break;
                     }
                 }
-            }else{
-                kembaliKeLihatIsiKantong = true;
             }
         }
 

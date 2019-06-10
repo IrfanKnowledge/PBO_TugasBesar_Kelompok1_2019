@@ -49,18 +49,22 @@ public class PengelolaanBarang {
     //===================================================================================================
     /* convert/casting daftar barang ke daftar senjata atau sebaliknya */
     //===================================================================================================
-    public ArrayList<BarangSenjata> convertBarangKeSenjata(ArrayList<Barang> daftarBarangInput){
+    static public ArrayList<BarangSenjata> convertBarangKeSenjata(ArrayList<Barang> daftarBarangInput){
         if(daftarBarangInput == null){
             return null;
         }
         ArrayList<BarangSenjata> tempDaftarBarangInput = new ArrayList<>();
         for (Barang barangInput : daftarBarangInput) {
-            tempDaftarBarangInput.add(((BarangSenjata) barangInput));
+            if(barangInput instanceof BarangSenjata){
+                tempDaftarBarangInput.add(((BarangSenjata) barangInput));
+            }else{
+                return null;
+            }
         }
         return tempDaftarBarangInput;
     }
 
-    public ArrayList<Barang> convertSenjataKeBarang(ArrayList<BarangSenjata> daftarBarangInput){
+    static public ArrayList<Barang> convertSenjataKeBarang(ArrayList<BarangSenjata> daftarBarangInput){
         if(daftarBarangInput == null){
             return null;
         }
@@ -273,22 +277,7 @@ public class PengelolaanBarang {
     //===================================================================================================
     /* pilih barang */
     //===================================================================================================
-    public Barang pilihBarang(Barang barangYangDicari){
-        if(barangYangDicari == null){
-            return null;
-        }
-        if(!this.hashDaftarBarangByKategori.containsKey(barangYangDicari.kategoriBarang)){
-            return null;
-        }else {
-            if(!this.hashDaftarBarangByKategori.get(barangYangDicari.kategoriBarang).containsKey(barangYangDicari.idBarang)){
-                return null;
-            }else {
-                return this.hashDaftarBarangByKategori.get(barangYangDicari.kategoriBarang).get(barangYangDicari.idBarang).get(0);
-            }
-        }
-    }
-
-    public Barang pilihBarang(String kategoriBarang, int idBarang){
+    public Barang pilihBarangDariDaftarBarangTidakTerbatas(String kategoriBarang, int idBarang){
         if(!this.hashDaftarBarangByKategori.containsKey(kategoriBarang)){
             return null;
         }else if(!this.hashDaftarBarangByKategori.get(kategoriBarang).containsKey(idBarang)){
@@ -298,18 +287,7 @@ public class PengelolaanBarang {
         }
     }
 
-    public ArrayList<Barang> pilihBarangBanyak(Barang barangYangDicari){
-        if(barangYangDicari == null){
-            return null;
-        }
-        if(!this.hashDaftarBarangByKategori.containsKey(barangYangDicari.kategoriBarang)){
-            return null;
-        }else{
-            return this.hashDaftarBarangByKategori.get(barangYangDicari.kategoriBarang).getOrDefault(barangYangDicari.idBarang, null);
-        }
-    }
-
-    public ArrayList<Barang> pilihBarangBanyak(String kategoriBarang, int idBarang){
+    public  ArrayList<Barang> pilihBarangDariDaftarBarangTidakTerbatasDenganJumlahBanyak(String kategoriBarang, int idBarang){
         if(!this.hashDaftarBarangByKategori.containsKey(kategoriBarang)){
             return null;
         }else{
@@ -317,44 +295,74 @@ public class PengelolaanBarang {
         }
     }
 
+    public HashMap<Integer, ArrayList<Barang>>  pilihBarangDariPenyimpananTerbatasDenganJumlahBanyak(int idBarang){
+        int indeks = 0;
+        for (ArrayList<Barang> barangTertentu : this.arrDaftarBarangTerbatas) {
+            if(!barangTertentu.isEmpty()){
+                if(barangTertentu.get(0).idBarang == idBarang){
+                    HashMap<Integer, ArrayList<Barang>> temp = new HashMap<>();
+                    temp.put(indeks, barangTertentu);
+                    return temp;
+                }
+            }
+            indeks++;
+        }
+        return null;
+    }
+
     //===================================================================================================
     /* hapus barang */
     //===================================================================================================
-    private void hapusDaftarBarangTerbatas(Barang barangInput){
-        for(int i=0; i<this.arrDaftarBarangTerbatas.size(); i++){
-            if(this.arrDaftarBarangTerbatas.get(i).contains(barangInput)){
-                this.arrDaftarBarangTerbatas.get(i).remove(barangInput);
-                /* class ini berencana digunakan dengan memperlihatkan slot kosong pada user */
-//                if(this.arrDaftarBarangTerbatas.get(i).isEmpty()){
-//                    this.arrDaftarBarangTerbatas.remove(i);
-//                }
-                break;
+    private void prosesHapusBarangDariDaftarBarangTerbatas(int indeksSumberBarangDiambil, Barang barangInput){
+        /* class ini sudah dirancang agar jika daftar tertentu kosong, jangan menghapus daftar tersebut */
+        this.arrDaftarBarangTerbatas.get(indeksSumberBarangDiambil).remove(barangInput);
+    }
+
+    private void prosesHapusBarangDariDaftarBarangTidakTerbatas(Barang barangInput){
+        if(barangInput != null){
+            if(this.hashDaftarBarangByKategori.containsKey(barangInput.kategoriBarang)){
+                if(this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).containsKey(barangInput.idBarang)){
+                    this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).get(barangInput.idBarang).remove(barangInput);
+                    if(this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).get(barangInput.idBarang).isEmpty()){
+                        this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).remove(barangInput.idBarang);
+                    }
+                    if(this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).isEmpty()){
+                        this.hashDaftarBarangByKategori.remove(barangInput.kategoriBarang);
+                    }
+                }
             }
         }
     }
 
 
-    public void hapusBarang(Barang barangInput){
+    public void hapusBarangDariDaftarBarangTerbatas(int indeksSumberBarangDiambil, Barang barangInput){
         if(barangInput instanceof BarangPenggunaanPadaDiri || barangInput instanceof BarangSenjata){
-            this.hapusDaftarBarangTerbatas(barangInput);
-        }
-        if(this.hashDaftarBarangByKategori.containsKey(barangInput.kategoriBarang)){
-            if(this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).containsKey(barangInput.idBarang)){
-                this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).get(barangInput.idBarang).remove(barangInput);
-                if(this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).get(barangInput.idBarang).isEmpty()){
-                    this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).remove(barangInput.idBarang);
-                }
-                if(this.hashDaftarBarangByKategori.get(barangInput.kategoriBarang).isEmpty()){
-                    this.hashDaftarBarangByKategori.remove(barangInput.kategoriBarang);
-                }
-            }
+            this.prosesHapusBarangDariDaftarBarangTerbatas(indeksSumberBarangDiambil, barangInput);
         }
     }
 
-    public void hapusBarang(ArrayList<Barang> daftarBarangInput){
+    public void hapusBarangDariDaftarBarangTerbatas(int indeksSumberBarangDiambil , ArrayList<Barang> daftarBarangInput){
         if(daftarBarangInput != null){
             for (Barang barangInput : daftarBarangInput) {
-                this.hapusBarang(barangInput);
+                this.hapusBarangDariDaftarBarangTerbatas(indeksSumberBarangDiambil, barangInput);
+            }
+        }
+    }
+
+    public void hapusBarangDariPenyimpananTidakTerbatas(Barang barangInput){
+        if(barangInput != null){
+            if(!(barangInput instanceof BarangPenggunaanPadaDiri) && !(barangInput instanceof BarangSenjata) ){
+                this.prosesHapusBarangDariDaftarBarangTidakTerbatas(barangInput);
+            }
+        }
+    }
+
+    public void hapusBarangDariPenyimpananTidakTerbatas(ArrayList<Barang> daftarBarangInput){
+        if(daftarBarangInput != null){
+            if(!daftarBarangInput.isEmpty()){
+                for (Barang barangInput : daftarBarangInput) {
+                    this.hapusBarangDariPenyimpananTidakTerbatas(barangInput);
+                }
             }
         }
     }
@@ -362,12 +370,24 @@ public class PengelolaanBarang {
     //===================================================================================================
     /* tambah dan get id senjata tertentu termasuk amunisi */
     //===================================================================================================
-    public void tambahIdSenjataTertentuTermasukAmunisi(ArrayList<Integer> daftarSenjataTermasukAmunisi) {
-        this.daftarSenjataTermasukAmunisi = daftarSenjataTermasukAmunisi;
+    public void tambahIdSenjataTertentuTermasukAmunisi(int daftarSenjataTermasukAmunisi) {
+        this.daftarSenjataTermasukAmunisi.add(daftarSenjataTermasukAmunisi);
     }
 
     public ArrayList<Integer> getDaftarSenjataTermasukAmunisi() {
         return daftarSenjataTermasukAmunisi;
+    }
+
+    //===================================================================================================
+    /* fitur tukar slot barang */
+    //===================================================================================================
+    public void tukarSlotBarangPadaDaftarBarangTerbatas(int indeksBarangSatu, int indeksBarangDua){
+        ArrayList<Barang> temp = new ArrayList<>();
+        temp.addAll(this.arrDaftarBarangTerbatas.get(indeksBarangSatu));
+        this.arrDaftarBarangTerbatas.get(indeksBarangSatu).clear();
+        this.arrDaftarBarangTerbatas.get(indeksBarangSatu).addAll(this.arrDaftarBarangTerbatas.get(indeksBarangDua));
+        this.arrDaftarBarangTerbatas.get(indeksBarangDua).clear();
+        this.arrDaftarBarangTerbatas.get(indeksBarangDua).addAll(temp);
     }
 }
 
@@ -611,7 +631,7 @@ public class PengelolaanBarang {
 ////            }
 ////            if(!daftarSenjata.isEmpty()){
 ////                for (Barang senjata : daftarSenjata) {
-////                    this.hapusBarang(senjata);
+////                    this.hapusBarangDariDaftarBarangTerbatas(senjata);
 ////                }
 ////            }
 ////        }

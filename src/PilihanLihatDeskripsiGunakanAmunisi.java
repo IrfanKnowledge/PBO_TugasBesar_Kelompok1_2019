@@ -3,27 +3,32 @@ import java.util.Scanner;
 
 public class PilihanLihatDeskripsiGunakanAmunisi extends Pilihan {
     private Adegan oAdegan;
-    private ArrayList<BarangSenjata> daftarBarangTerpilih;
+    private ArrayList<BarangSenjata> daftarAmunisiTerpilih;
+    private int indeksAmunisiTerpilih;
+    private boolean validasiKembaliKeDeskripsiSenjata = false;
 
-    PilihanLihatDeskripsiGunakanAmunisi(String dekripsi, Adegan oAdegan, ArrayList<BarangSenjata> daftarBarangTerpilih) {
+    PilihanLihatDeskripsiGunakanAmunisi(String dekripsi, Adegan oAdegan, ArrayList<BarangSenjata> daftarAmunisiTerpilih, int indeksAmunisiTerpilih) {
         super(dekripsi);
         this.oAdegan = oAdegan;
-        this.daftarBarangTerpilih = daftarBarangTerpilih;
+        this.daftarAmunisiTerpilih = daftarAmunisiTerpilih;
+        this.indeksAmunisiTerpilih = indeksAmunisiTerpilih;
     }
 
     @Override
     public void aksi() {
-        boolean validasiKembaliKeDeskripsiSenjata = false;
         while(!validasiKembaliKeDeskripsiSenjata){
             System.out.println();
             System.out.println("Aksi : " + this.dekripsi);
             int i =0;
             for (ArrayList<Barang> barangTerbatas : this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangTerbatas()) {
                 i++;
-                System.out.printf("%2d. %-20s (%d)", i, barangTerbatas.get(0).nama, barangTerbatas.size());
+                if(barangTerbatas.isEmpty()){
+                    System.out.printf("%2d. < slot kosong >\n", i);
+                }else {
+                    System.out.printf("%2d. %-20s (%d)\n", i, barangTerbatas.get(0).nama, barangTerbatas.size());
+                }
             }
             System.out.printf("%2d. Kembali\n", 0);
-            System.out.println();
             System.out.print("Masukkan Pilihan : ");
             Scanner oScan = new Scanner(System.in);
             int input = oScan.nextInt();
@@ -32,32 +37,37 @@ public class PilihanLihatDeskripsiGunakanAmunisi extends Pilihan {
                 System.out.println("[ Pilihan tidak tersedia ]");
             }else if(input == 0){
                 validasiKembaliKeDeskripsiSenjata = true;
+            }else if(this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangTerbatas().get(input-1).isEmpty()){
+                System.out.println();
+                System.out.println("[ Slot tersebut kosong. ]");
             }else if(!(this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangTerbatas().get(input-1).get(0) instanceof BarangSenjataTembak)){
                 System.out.println();
-                System.out.println("[ Barang bukan senjata tembak ]");
+                System.out.println("[ Tidak dapat digunakan ke barang tersebut ]");
             }else{
                 BarangSenjataTembak senjataTembakPilihan = (BarangSenjataTembak) this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangTerbatas().get(input-1).get(0);
-                /* proses isi atau tukar amunisi */
-                if(senjataTembakPilihan.getIdAmunisiUtamaYangBisaDigunakan() != daftarBarangTerpilih.get(0).idBarang && !senjataTembakPilihan.getDaftarAmunisiYangBisaDigunakan().containsKey(daftarBarangTerpilih.get(0).idBarang)){
+                if(senjataTembakPilihan.getIdAmunisiUtamaYangBisaDigunakan() == daftarAmunisiTerpilih.get(0).idBarang){
+                    /* proses isi amunisi */
+                    PilihanIsiPeluru oPilihanIsiPeluru = new PilihanIsiPeluru("Isi Peluru", this.oAdegan, senjataTembakPilihan, daftarAmunisiTerpilih, indeksAmunisiTerpilih);
+                    oPilihanIsiPeluru.aksi();
+                    if(oPilihanIsiPeluru.isStatusIsiAmunisiBerhasil()){
+                        validasiKembaliKeDeskripsiSenjata = true;
+                    }
+                /* proses tukar amunisi */
+                }else if(senjataTembakPilihan.getDaftarAmunisiYangBisaDigunakan().containsKey(daftarAmunisiTerpilih.get(0).idBarang)){
+//                    senjataTembakPilihan.gantiAmunisiYangSedangDigunakan(daftarAmunisiTerpilih);
+//                    for (BarangSenjata amunisiTerambil : senjataTembakPilihan.getDaftarAmunisiYangBerhasilDiambilIsiAmunisi()) {
+//                        this.oAdegan.oPlayer.hapusBarangDariDaftarBarangTerbatas(amunisiTerambil);
+//                    }
+                    validasiKembaliKeDeskripsiSenjata = true;
+                }else{
                     System.out.println();
                     System.out.println("[ Amunisi tidak cocok ]");
-
-                /* proses isi amunisi */
-                }else if(senjataTembakPilihan.getIdAmunisiUtamaYangBisaDigunakan() == daftarBarangTerpilih.get(0).idBarang){
-                    senjataTembakPilihan.isiAmunisi(daftarBarangTerpilih);
-                    for (BarangSenjata amunisiTerambil : senjataTembakPilihan.getDaftarAmunisiYangBerhasilDiambilIsiAmunisi()) {
-                        this.oAdegan.oPlayer.hapusBarangDariPenyimpanan(amunisiTerambil);
-                    }
-                    validasiKembaliKeDeskripsiSenjata = true;
-                /* proses tukar amunisi */
-                }else if(senjataTembakPilihan.getDaftarAmunisiYangBisaDigunakan().containsKey(daftarBarangTerpilih.get(0).idBarang)){
-                    senjataTembakPilihan.gantiAmunisiYangSedangDigunakan(daftarBarangTerpilih);
-                    for (BarangSenjata amunisiTerambil : senjataTembakPilihan.getDaftarAmunisiYangBerhasilDiambilIsiAmunisi()) {
-                        this.oAdegan.oPlayer.hapusBarangDariPenyimpanan(amunisiTerambil);
-                    }
-                    validasiKembaliKeDeskripsiSenjata = true;
                 }
             }
         }
+    }
+
+    public boolean isValidasiKembaliKeDeskripsiSenjata(){
+        return this.validasiKembaliKeDeskripsiSenjata;
     }
 }

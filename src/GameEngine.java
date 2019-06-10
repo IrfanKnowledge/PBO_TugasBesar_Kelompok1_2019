@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+
 public class GameEngine {
     private Player oPlayer;
 //    private Adegan daftarAdegan;
@@ -54,12 +58,13 @@ public class GameEngine {
         adeganId1.tambahBarang(medikit, 1);
         adeganId1.tambahBarang(resistanceBooster, 1);
         adeganId1.tambahBarang(granade, 1);
-        adeganId1.tambahBarang(regularArrow, 2);
+        adeganId1.tambahBarang(regularArrow, 50);
         adeganId1.tambahBarang(increniaryArrow, 1);
         adeganId1.tambahBarang(bow, 1);
         adeganId1.tambahBarang(pipaTua, 2);
         adeganId1.tambahBarang(regularArrow, 2);
         oGameEgnine.oPlayer.getPengelolaanBarang().setBatasMaxClassBarangSenjataIdTertentu(11, 5);
+        oGameEgnine.oPlayer.getPengelolaanBarang().tambahIdSenjataTertentuTermasukAmunisi(11);
         oGameEgnine.oPlayer.adeganAktif = adeganId1;
         oGameEgnine.mulaiGame();
     }

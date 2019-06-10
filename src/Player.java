@@ -6,7 +6,7 @@ import java.util.Random;
 public class Player {
     public final int idPlayer;
     public String nama;
-    private int kesehatan = 100;
+    private int kesehatan = 30;
     private int batasMaxKesehatan = 100;
     private double uang = 0;
 
@@ -68,6 +68,10 @@ public class Player {
         }
     }
 
+    public int getKesehatan() {
+        return kesehatan;
+    }
+
     public void kurangiKesehatan(int nilaiSerangan){
         int hasil = 0;
         for (Map.Entry<Integer, Efek> oEfek : this.daftarEfekDiri.entrySet()) {
@@ -88,34 +92,48 @@ public class Player {
         this.daftarEfekDiri.putAll(daftarEfek);
     }
 
+    public HashMap<Integer, Efek> getDaftarEfekDiri() {
+        HashMap<Integer, Efek> temp = new HashMap<>();
+        temp.putAll(this.daftarEfekDiri);
+        return temp;
+    }
+
+    public String getNamaSenjataDigunakan(){
+        if(senjata.isEmpty()){
+            return "< slot kosong >";
+        }
+        return this.senjata.get(0).nama;
+    }
+
     public ArrayList<Barang> pilihBarangDariDaftarBarangKeseluruhanByKategoriTertentu(String aksi, String kategoriBarang){
         return this.oMenuPengelolaanBarang.pilihBarangKeseluruhanByKategoriTertentu(aksi, kategoriBarang);
     }
 
-    public ArrayList<Barang> pilihBarangDariDaftarBarangTerbatas(String aksi){
+    public HashMap<Integer, ArrayList<Barang>> pilihBarangDariDaftarBarangTerbatas(String aksi){
         return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTertentu(aksi, this.getPengelolaanBarang().getDaftarBarangTerbatas(), true);
     }
 
-    public void gunakanSenjataDariPenyimpanan(BarangSenjata senjataTerpilih){
-        this.senjata.add(senjataTerpilih);
+    public void gunakanSenjataDariDaftarBarangTerbatas(BarangSenjata daftarSenjataTerpilih){
+        /* agar senjata yang digunakan menunjuk pada penyimpanan yang sama */
+        this.senjata.clear();
+        this.senjata.add(daftarSenjataTerpilih);
     }
 
-    public void gunakanSenjataDariPenyimpanan(ArrayList<BarangSenjata> daftarSenjataTerpilih){
+    public void gunakanSenjataDariDaftarBarangTerbatas(ArrayList<BarangSenjata> daftarSenjataTerpilih){
+        /* agar senjata yang digunakan menunjuk pada penyimpanan yang sama */
+        this.senjata.clear();
         this.senjata.addAll(daftarSenjataTerpilih);
     }
 
-    public void hapusBarangDariPenyimpanan(Barang barangDihapus){
-        this.oPengelolaanBarang.hapusBarang(barangDihapus);
-        this.senjata.remove(barangDihapus);
+    public void hapusBarangDariDaftarBarangTerbatas(int indeksSumberBarangDiambil , Barang barangDihapus){
+        this.oPengelolaanBarang.hapusBarangDariDaftarBarangTerbatas(indeksSumberBarangDiambil, barangDihapus);
+        if(barangDihapus instanceof BarangSenjata){
+            this.senjata.remove(barangDihapus);
+        }
     }
 
-    public void hapusBarangDariPenyimpanan(ArrayList<Barang> daftarBarangDihapus){
-        this.oPengelolaanBarang.hapusBarang(daftarBarangDihapus);
-    }
-
-
-    public void simpanKembaliSenjataYangDigunakan(){
-        this.senjata.clear();
+    public void hapusBarangDariDaftarBarangTerbatas(int indeksSumberBarangDiambil , ArrayList<Barang> daftarBarangDihapus){
+        this.oPengelolaanBarang.hapusBarangDariDaftarBarangTerbatas(indeksSumberBarangDiambil, daftarBarangDihapus);
     }
 
 //    /* return berupa key sebagai kategori, value indeks 0 = idBarang, value indeks 1 = IndeksBarang*/

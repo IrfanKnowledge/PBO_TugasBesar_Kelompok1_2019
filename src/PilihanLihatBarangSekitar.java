@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PilihanLihatBarangSekitar extends Pilihan {
 
@@ -13,7 +14,7 @@ public class PilihanLihatBarangSekitar extends Pilihan {
     public void aksi() {
         boolean kembaliKeMenuUtama = false;
         while(!kembaliKeMenuUtama){
-            ArrayList<Barang> barangPilihan = this.oAdegan.pilihBarangSekitarAdegan(this.dekripsi);
+            HashMap<Integer, ArrayList<Barang>> barangPilihan = this.oAdegan.pilihBarangSekitarAdegan(this.dekripsi);
             if(barangPilihan != null){
                 PilihanAmbilBarangSekitarAdegan oPilihanAmbilBarangSekitarAdegan = new PilihanAmbilBarangSekitarAdegan(this.dekripsi, this.oAdegan, barangPilihan);
                 oPilihanAmbilBarangSekitarAdegan.aksi();

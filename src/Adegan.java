@@ -86,6 +86,10 @@ public class Adegan {
     public void mainkan(){
         System.out.println();
         //System.out.printf("Waktu: %1.2f\n", this.oPlayer.getWaktu());
+        System.out.println("Nama : " + this.oPlayer.getNama());
+        System.out.println("Senjata : " + this.oPlayer.getNamaSenjataDigunakan());
+        System.out.println("Kesehatan : " + this.oPlayer.getKesehatan());
+        System.out.println("Daftar Efek : " + this.oPlayer.getDaftarEfekDiri());
         System.out.println("Nama Tempat : " + this.namaTempat);
         System.out.println("Narasi : " + this.narasi);
         int i = 0;
@@ -108,7 +112,7 @@ public class Adegan {
     /* Sub-Menu Adegan atau Respon Adegan dari aksi Player */
     //===================================================================================================
     /* 1. Melihat barang di sekitar - > Ambil barang sekitar adegan */
-    public ArrayList<Barang> pilihBarangSekitarAdegan(String aksi){
+    public HashMap<Integer, ArrayList<Barang>>  pilihBarangSekitarAdegan(String aksi){
         return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTertentu(aksi, this.daftarBarang, false);
     }
 
@@ -169,13 +173,13 @@ public class Adegan {
         return this.daftarBarang;
     }
 
-    public void hapusDaftarBarangTertentu(ArrayList<Barang> targetDaftarBarangYangAkanDihapus, ArrayList<Barang> sumberDaftarBarangPemberiInfoDaftarBarangYangAkanDihapus){
-        if(targetDaftarBarangYangAkanDihapus != null && sumberDaftarBarangPemberiInfoDaftarBarangYangAkanDihapus != null){
+    public void hapusDaftarBarangTertentu(int indeksSumberDaftarBarangDiambil, ArrayList<Barang> sumberDaftarBarangPemberiInfoDaftarBarangYangAkanDihapus){
+        if(sumberDaftarBarangPemberiInfoDaftarBarangYangAkanDihapus != null){
             for (Barang barangUntukDihapus : sumberDaftarBarangPemberiInfoDaftarBarangYangAkanDihapus){
-                targetDaftarBarangYangAkanDihapus.remove(barangUntukDihapus);
+                this.daftarBarang.get(indeksSumberDaftarBarangDiambil).remove(barangUntukDihapus);
             }
-            if(targetDaftarBarangYangAkanDihapus.isEmpty()){
-                this.daftarBarang.remove(targetDaftarBarangYangAkanDihapus);
+            if(this.daftarBarang.get(indeksSumberDaftarBarangDiambil).isEmpty()){
+                this.daftarBarang.remove(this.daftarBarang.get(indeksSumberDaftarBarangDiambil));
             }
         }
     }

@@ -17,9 +17,9 @@ public class MenuPengelolaanBarang {
     public ArrayList<Barang> pilihBarangKeseluruhanByKategoriTertentu(String aksi, String kategori){
         boolean validasiPilihan = false;
         int input = 0;
-        int jumlahSlotTergunakan = 0;
         HashMap<Integer, Barang> tempPilihan = new HashMap<>();
         while(!validasiPilihan){
+            int jumlahSlotTergunakan = 0;
             System.out.println();
             System.out.println("Aksi : " + aksi);
             if(!this.oPengelolaanBarang.getDaftarBarangKeseluruhanByKategori().containsKey(kategori)){
@@ -59,7 +59,7 @@ public class MenuPengelolaanBarang {
         }
     }
 
-    private ArrayList<Barang> pilihBarang(String aksi, ArrayList<ArrayList<Barang>> daftarBarangInput, boolean statusDaftarBarangBersifatTerbatas){
+    private HashMap<Integer, ArrayList<Barang>> pilihBarang(String aksi, ArrayList<ArrayList<Barang>> daftarBarangInput, boolean statusDaftarBarangBersifatTerbatas){
         boolean validasiPilihan = false;
         int input = 0;
         while(!validasiPilihan){
@@ -129,11 +129,13 @@ public class MenuPengelolaanBarang {
         if(input == 0){
             return null;
         }else{
-            return daftarBarangInput.get(input-1);
+            HashMap<Integer, ArrayList<Barang>> temp = new HashMap<>();
+            temp.put((input-1), daftarBarangInput.get(input-1));
+            return temp;
         }
     }
 
-    public ArrayList<Barang> pilihBarangDariDaftarBarangTertentu(String aksi, ArrayList<ArrayList<Barang>> daftarBarangInput, boolean statusDaftarBarangBersifatTerbatas){
+    public HashMap<Integer, ArrayList<Barang>>  pilihBarangDariDaftarBarangTertentu(String aksi, ArrayList<ArrayList<Barang>> daftarBarangInput, boolean statusDaftarBarangBersifatTerbatas){
         return this.pilihBarang(aksi, daftarBarangInput, statusDaftarBarangBersifatTerbatas);
     }
 }
