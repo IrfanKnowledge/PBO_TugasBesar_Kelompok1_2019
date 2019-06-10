@@ -296,7 +296,14 @@ public class BarangSenjataTembak extends BarangSenjata{
         return barangCloning;
     }
 
-//        if(this.daftarAmunisiYangBisaDigunakan.isEmpty()){
+    @Override
+    public void print() {
+        super.print();
+        System.out.printf("%-25s : %d/%d\n", "Isi Amunisi", this.getJumlahAmunisiSedangDigunakan(),
+                this.getBatasMaxAmunisiDigunakan());
+    }
+
+    //        if(this.daftarAmunisiYangBisaDigunakan.isEmpty()){
 //            System.out.println("[ daftarAmunisiYangBisaDigunakan masih kosong, belum didefinisikan atau ditambahkan ]");
 //            System.out.println();
 //        }else{

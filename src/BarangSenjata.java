@@ -49,4 +49,10 @@ public class BarangSenjata extends Barang{
 
         return barangCloning;
     }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.printf("%-25s : %d\n", "Kekuatan", this.getKekuatan());
+    }
 }

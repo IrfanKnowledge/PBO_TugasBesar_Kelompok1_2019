@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PilihanIsiPeluru extends Pilihan {
+public class PilihanIsiAmunisi extends Pilihan {
     private Adegan oAdegan;
     private BarangSenjataTembak senjataTembakTerpilih;
     private boolean statusIsiAmunisiBerhasil = false;
@@ -10,13 +10,13 @@ public class PilihanIsiPeluru extends Pilihan {
     ArrayList<BarangSenjata> daftarAmunisi = new ArrayList<>();
     int indeksAmunisiTerpilih = -1;
 
-    PilihanIsiPeluru(String dekripsi, Adegan oAdegan, BarangSenjataTembak senjataTembakTerpilih) {
+    PilihanIsiAmunisi(String dekripsi, Adegan oAdegan, BarangSenjataTembak senjataTembakTerpilih) {
         super(dekripsi);
         this.oAdegan = oAdegan;
         this.senjataTembakTerpilih = senjataTembakTerpilih;
     }
 
-    PilihanIsiPeluru(String dekripsi, Adegan oAdegan, BarangSenjataTembak senjataTembakTerpilih, ArrayList<BarangSenjata> daftarAmunisi, int indeksAmunisiTerpilih) {
+    PilihanIsiAmunisi(String dekripsi, Adegan oAdegan, BarangSenjataTembak senjataTembakTerpilih, ArrayList<BarangSenjata> daftarAmunisi, int indeksAmunisiTerpilih) {
         super(dekripsi);
         this.oAdegan = oAdegan;
         this.senjataTembakTerpilih = senjataTembakTerpilih;

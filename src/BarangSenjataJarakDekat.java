@@ -1,7 +1,7 @@
 public class BarangSenjataJarakDekat extends BarangSenjata {
 
     /* private karena hanya untuk set, get tertentu, dan untuk proses internal,
-     *  static karena semua senjataJarakDekat memiliki komponen untuk perbaikan yang sama */
+     *  static karena semua senjataJarakDekatTerpilih memiliki komponen untuk perbaikan yang sama */
     static private Barang komponenBarangUntukPerbaikan;
 
     /* private karena memiliki batas minimal nilai */
@@ -174,7 +174,7 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
         }
     }
 
-    /* bisa terdapat senjataJarakDekat yang tidak bisa di upgrade */
+    /* bisa terdapat senjataJarakDekatTerpilih yang tidak bisa di upgrade */
     public void setBatasMaxUpgrade(int batasMaxUpgrade) {
         this.batasMaxUpgrade = this.filterMinimalNol(batasMaxUpgrade);
         this.setstatusBisaUpgrade();
@@ -251,5 +251,12 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
             this.setstatusBisaUpgrade();
             this.statusUpgradeBarangBerhasil = true;
         }
+    }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.printf("%-25s : %d / %d\n", "Ketahanan", this.getKetahanan(), this.getBatasMaxKetahanan());
+        System.out.printf("%-25s : %d\n", "Kemampuan diperbaiki", this.getJumlahKemampuanDiperbaiki());
     }
 }

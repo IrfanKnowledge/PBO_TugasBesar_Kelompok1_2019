@@ -10,7 +10,7 @@ public class PilihanLihatIsiKantong extends Pilihan {
         super(dekripsi);
         this.oAdegan = oAdegan;
         this.daftarPilihan.add(new PilihanLihatBarangKategoriTertentu("Lihat Daftar Kunci", this.oAdegan, "kunci"));
-        this.daftarPilihan.add(new PilihanLihatBarangTerbatas("Lihat Penyimpanan Utama", this.oAdegan));
+        this.daftarPilihan.add(new PilihanLihatBarangTerbatas("Lihat Penyimpanan Utama", oAdegan));
         this.daftarPilihan.add(new PilihanLihatBarangKategoriTertentu("Lihat Daftar Komponen Crafting", this.oAdegan, "komponen crafting"));
         /* blurprint belum dibuat pilihannya */
 //        this.daftarPilihan.add();

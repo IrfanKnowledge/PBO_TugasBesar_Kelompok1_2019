@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class PilihanLihatBarangKategoriTertentu extends Pilihan {
     public Adegan oAdegan;
-    public boolean kembaliKeMenuSebelumnya = false;
     public String kategori;
 
 
@@ -15,6 +14,7 @@ public class PilihanLihatBarangKategoriTertentu extends Pilihan {
 
     @Override
     public void aksi() {
+        this.kembaliKeMenuSebelumnya = false;
         /* untuk kembali ke menu melihat isi kantong */
         while (!this.kembaliKeMenuSebelumnya){
             ArrayList<Barang> daftarBarangPilihan = this.oAdegan.oPlayer.pilihBarangDariDaftarBarangKeseluruhanByKategoriTertentu(this.dekripsi, kategori);

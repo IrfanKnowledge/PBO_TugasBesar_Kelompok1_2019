@@ -47,9 +47,9 @@ public class PilihanLihatDeskripsiGunakanAmunisi extends Pilihan {
                 BarangSenjataTembak senjataTembakPilihan = (BarangSenjataTembak) this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangTerbatas().get(input-1).get(0);
                 if(senjataTembakPilihan.getIdAmunisiUtamaYangBisaDigunakan() == daftarAmunisiTerpilih.get(0).idBarang){
                     /* proses isi amunisi */
-                    PilihanIsiPeluru oPilihanIsiPeluru = new PilihanIsiPeluru("Isi Peluru", this.oAdegan, senjataTembakPilihan, daftarAmunisiTerpilih, indeksAmunisiTerpilih);
-                    oPilihanIsiPeluru.aksi();
-                    if(oPilihanIsiPeluru.isStatusIsiAmunisiBerhasil()){
+                    PilihanIsiAmunisi oPilihanIsiAmunisi = new PilihanIsiAmunisi("Isi Peluru", this.oAdegan, senjataTembakPilihan, daftarAmunisiTerpilih, indeksAmunisiTerpilih);
+                    oPilihanIsiAmunisi.aksi();
+                    if(oPilihanIsiAmunisi.isStatusIsiAmunisiBerhasil()){
                         validasiKembaliKeDeskripsiSenjata = true;
                     }
                 /* proses tukar amunisi */

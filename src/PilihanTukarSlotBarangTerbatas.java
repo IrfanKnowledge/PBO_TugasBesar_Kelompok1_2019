@@ -2,12 +2,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PilihanTukatSlotBarangTerbatas extends Pilihan {
+public class PilihanTukarSlotBarangTerbatas extends Pilihan {
     private Adegan oAdegan;
     private int indeksBarangPertama;
 
 
-    PilihanTukatSlotBarangTerbatas(String dekripsi, Adegan oAdegan, int indeksBarangPertama) {
+    PilihanTukarSlotBarangTerbatas(String dekripsi, Adegan oAdegan, int indeksBarangPertama) {
         super(dekripsi);
         this.oAdegan = oAdegan;
         this.indeksBarangPertama = indeksBarangPertama;

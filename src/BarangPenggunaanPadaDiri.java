@@ -49,4 +49,10 @@ public class BarangPenggunaanPadaDiri extends Barang {
         barangCloning.daftarEfek.putAll(this.daftarEfek);
         return barangCloning;
     }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.printf("%-25s : %d\n", "Kesehatan", this.getKesehatan());
+    }
 }
