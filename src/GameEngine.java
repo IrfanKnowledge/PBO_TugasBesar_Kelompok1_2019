@@ -35,11 +35,11 @@ public class GameEngine {
         BarangPenggunaanPadaDiri medikit = new BarangPenggunaanPadaDiri(1, "Medikit", "penggunaan pada diri", "Untuk menyembuhkan luka", false, false, true, 0, 10000, 100);
         BarangPenggunaanPadaDiri resistanceBooster = new BarangPenggunaanPadaDiri(20, "Resistancce Booster", "penggunaan pada diri", "untuk membuat fisik menjadi lebih tahan terhadap serangan", false, false, false, 0, 0, 0);
         resistanceBooster.tambahEfek(new Efek(1, "Ketahanan Fisik", 0, 0, 0, 0, 0, 0, 0, 50, 10));
-        BarangSenjata granade = new BarangSenjata(32, "Granade", "senjata", "saat dilemparkan akan meledak", false, true, true, 250000, 500000, 100);
+        BarangSenjata granade = new BarangSenjata(32, "Granade", "senjata", "saat dilemparkan akan meledak", false, true, true, true, 250000, 500000, 100);
         granade.tambahEfek(new Efek(2, "Ledakan", 0, 0,0, 0, 3, 100, 1, 0, 0));
         BarangSenjataTembak bow = new BarangSenjataTembak(12, "Bow", "senjata", "busur yang memanah dengan kekuatan tinggi", false, true, true, 500000, 1500000, 220, 1);
-        BarangSenjata regularArrow = new BarangSenjata(11, "Regular Arrow", "amunisi", "anak panah biasa yang tidak memiliki efek apapun", false, false, true, 0, 50000, 30);
-        BarangSenjata increniaryArrow = new BarangSenjata(10, "Incendiary Arrow", "amunisi", "anak panah yang memiliki efek api", false, false, true, 0, 60000, 30);
+        BarangSenjata regularArrow = new BarangSenjata(11, "Regular Arrow", "amunisi", "anak panah biasa yang tidak memiliki efek apapun", false, false, false, true, 0, 50000, 30);
+        BarangSenjata increniaryArrow = new BarangSenjata(10, "Incendiary Arrow", "amunisi", "anak panah yang memiliki efek api", false, false, false, true, 0, 60000, 30);
         increniaryArrow.tambahEfek(new Efek(3, "Api", 50, 10, 100, 0, 0, 0, 0, 0, 0));
         bow.tambahAmunisiYangDiperlukan(regularArrow);
         bow.tambahAmunisiYangDiperlukan(increniaryArrow);
@@ -60,11 +60,11 @@ public class GameEngine {
         adeganId1.tambahBarang(granade, 1);
         adeganId1.tambahBarang(regularArrow, 50);
         adeganId1.tambahBarang(increniaryArrow, 1);
+        adeganId1.tambahBarang(regularArrow, 5);
         adeganId1.tambahBarang(bow, 1);
-        adeganId1.tambahBarang(pipaTua, 2);
         adeganId1.tambahBarang(regularArrow, 2);
+        adeganId1.tambahBarang(pipaTua, 2);
         oGameEgnine.oPlayer.getPengelolaanBarang().setBatasMaxClassBarangSenjataIdTertentu(11, 5);
-        oGameEgnine.oPlayer.getPengelolaanBarang().tambahIdSenjataTertentuTermasukAmunisi(11);
         oGameEgnine.oPlayer.adeganAktif = adeganId1;
         oGameEgnine.mulaiGame();
     }

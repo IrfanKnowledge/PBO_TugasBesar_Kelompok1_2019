@@ -105,6 +105,10 @@ public class Player {
         return this.senjata.get(0).nama;
     }
 
+    public int pilihIndeksSlotBarang(){
+        return this.oMenuPengelolaanBarang.pilihIndeksSlotBarangDariDaftarBarangTertentu("Pilih Slot Barang Tujuan", this.getPengelolaanBarang().getDaftarBarangTerbatas());
+    }
+
     public ArrayList<Barang> pilihBarangDariDaftarBarangKeseluruhanByKategoriTertentu(String aksi, String kategoriBarang){
         return this.oMenuPengelolaanBarang.pilihBarangKeseluruhanByKategoriTertentu(aksi, kategoriBarang);
     }

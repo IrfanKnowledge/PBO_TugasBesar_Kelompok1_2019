@@ -13,8 +13,7 @@ public class PengelolaanBarang {
     private ArrayList<Barang> daftarBarangUntukDihapus = new ArrayList<>();
     private int batasMaxDaftarBarangTerbatas;
     private boolean statusTambahBarangBerhasil = false;
-
-    private ArrayList<Integer> daftarSenjataTermasukAmunisi = new ArrayList<>();
+    private boolean statusKombinasiAmunisiBerhasil = false;
 
     PengelolaanBarang(int batasMaxSlotDaftarBarangTerbatas){
         this.setBatasMaxDaftarBarangTerbatas(batasMaxSlotDaftarBarangTerbatas);
@@ -44,6 +43,10 @@ public class PengelolaanBarang {
 
     public boolean isStatusTambahBarangBerhasil() {
         return statusTambahBarangBerhasil;
+    }
+
+    public boolean isStatusKombinasiAmunisiBerhasil() {
+        return statusKombinasiAmunisiBerhasil;
     }
 
     //===================================================================================================
@@ -368,17 +371,6 @@ public class PengelolaanBarang {
     }
 
     //===================================================================================================
-    /* tambah dan get id senjata tertentu termasuk amunisi */
-    //===================================================================================================
-    public void tambahIdSenjataTertentuTermasukAmunisi(int daftarSenjataTermasukAmunisi) {
-        this.daftarSenjataTermasukAmunisi.add(daftarSenjataTermasukAmunisi);
-    }
-
-    public ArrayList<Integer> getDaftarSenjataTermasukAmunisi() {
-        return daftarSenjataTermasukAmunisi;
-    }
-
-    //===================================================================================================
     /* fitur tukar slot barang */
     //===================================================================================================
     public void tukarSlotBarangPadaDaftarBarangTerbatas(int indeksBarangSatu, int indeksBarangDua){
@@ -388,6 +380,46 @@ public class PengelolaanBarang {
         this.arrDaftarBarangTerbatas.get(indeksBarangSatu).addAll(this.arrDaftarBarangTerbatas.get(indeksBarangDua));
         this.arrDaftarBarangTerbatas.get(indeksBarangDua).clear();
         this.arrDaftarBarangTerbatas.get(indeksBarangDua).addAll(temp);
+    }
+
+    //===================================================================================================
+    /* fitur kombinasi amunisi */
+    //===================================================================================================
+    public void kombinasiAmunisiPadaDaftarBarangTerbatas(int indeksTujuanPadaDaftarBarangTerbatas, int indeksDaftarAmunisiDiambil,ArrayList<Barang> daftarAmunisi){
+        if(this.arrDaftarBarangTerbatas.get(indeksTujuanPadaDaftarBarangTerbatas).get(0).idBarang != daftarAmunisi.get(0).idBarang){
+            this.statusKombinasiAmunisiBerhasil = false;
+        }else{
+            this.daftarBarangUntukDihapus.clear();
+            int i = 0;
+            while(this.arrDaftarBarangTerbatas.get(indeksTujuanPadaDaftarBarangTerbatas).size() < this.hashDaftarPembatasBarang.getOrDefault(this.arrDaftarBarangTerbatas.get(indeksTujuanPadaDaftarBarangTerbatas).get(0).idBarang, 1)
+                    && i < daftarAmunisi.size()){
+                this.arrDaftarBarangTerbatas.get(indeksTujuanPadaDaftarBarangTerbatas).add(daftarAmunisi.get(i));
+                this.daftarBarangUntukDihapus.add(daftarAmunisi.get(i));
+                i++;
+            }
+            if(this.daftarBarangUntukDihapus.isEmpty()){
+                this.statusKombinasiAmunisiBerhasil = false;
+            }else{
+                this.hapusBarangDariDaftarBarangTerbatas(indeksDaftarAmunisiDiambil, this.daftarBarangUntukDihapus);
+                this.statusKombinasiAmunisiBerhasil = true;
+            }
+        }
+    }
+
+
+
+
+
+    public void print(){
+        int i =0;
+        for (ArrayList<Barang> barangTerbatasTertentu : this.arrDaftarBarangTerbatas) {
+            i++;
+            if(barangTerbatasTertentu.isEmpty()){
+                System.out.printf("%2d. < slot kosong >\n", i);
+            }else {
+                System.out.printf("%2d. %-20s (%d)\n", i, barangTerbatasTertentu.get(0).nama, barangTerbatasTertentu.size());
+            }
+        }
     }
 }
 

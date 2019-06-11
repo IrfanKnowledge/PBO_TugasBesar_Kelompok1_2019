@@ -6,7 +6,7 @@ public class Barang {
     public String kategoriBarang;
     public String deskripsi;
 
-    public boolean statusDapatDigunakanAdeganTertentu;
+    public final boolean statusDapatDigunakanAdeganTertentu;
 
     /* status ini berguna untuk membedakan mana barang yang dapat bernilai 0 namun bisa diberikan gratis oleh penjual
     *  atau barang yang tidak bisa dibeli dari penjual tapi bisa dijual, atau sebaliknya (bisa dibeli, tidak bisa dijual)*/
@@ -37,7 +37,7 @@ public class Barang {
         BarangPenggunaanPadaDiri oBarangPenggunaanPadaDiri = new BarangPenggunaanPadaDiri(2, "Medikit", "penggunaan pada diri",
                 "Untuk menyembuhkan luka", false, true, false, 5000, 2500, 100);
         BarangSenjata oSenjata = new BarangSenjata(3, "shuriken", "senjata", "berukuran sedang berbentuk seperti bintang tajam",
-                false, true, false, 5000, 10000, 10);
+                false, true, true, false, 5000, 10000, 10);
         BarangSenjataJarakDekat oSenjataJarakDekat = new BarangSenjataJarakDekat(4, "pipa tua", "senjata", "pipa tua berkarat berukurang sedang",
                 false, true, false, 5000, 15000, 35, 20, 20, 3, 0, 1);
         BarangSenjataTembak oSenjataTembak = new BarangSenjataTembak(5, "Desert Eagle", "senjata", "pistol sedang dengan kekuatan cukup kuat daripada pistol biasa",
@@ -98,7 +98,7 @@ public class Barang {
 
     public void print(){
         System.out.println();
-        System.out.println("Aksi : " + this.deskripsi + " (Rincian Barang)");
+        System.out.println("Aksi : Lihat Rincian Barang");
         System.out.println();
         System.out.printf("%-25s : %s\n", "nama", this.nama);
         System.out.printf("%-25s : %s\n", "Deskripsi", this.deskripsi);

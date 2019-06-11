@@ -27,7 +27,7 @@ public class BarangSenjataJarakDekat extends BarangSenjata {
                             boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
                             int kekuatan, int batasMaxKetahanan, int ketahanan,
                             int batasMaxDiperbaiki, int jumlahDiperbaiki, int batasMaxUpgrade){
-        super(idBarang, nama, kategoriBarang, deskripsi, statusDapatDigunakanAdeganTertentu, statusJual, statusBeli, hargaJual, hargaBeli, kekuatan);
+        super(idBarang, nama, kategoriBarang, deskripsi, statusDapatDigunakanAdeganTertentu, true, statusJual, statusBeli, hargaJual, hargaBeli, kekuatan);
 
         this.setBatasMaxKetahanan(batasMaxKetahanan);
         this.setKetahanan(ketahanan);

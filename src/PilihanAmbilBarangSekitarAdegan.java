@@ -4,22 +4,24 @@ import java.util.Map;
 
 public class PilihanAmbilBarangSekitarAdegan extends Pilihan {
     private Adegan oAdegan;
-    private ArrayList<Barang> barangPilihan = new ArrayList<>();
     private int indeksBarangPilihan = -1;
+    private ArrayList<Barang> barangPilihan = new ArrayList<>();
+    private boolean barangBerhasilDitambahkanSemua;
 
     PilihanAmbilBarangSekitarAdegan(String dekripsi, Adegan oAdegan, HashMap<Integer, ArrayList<Barang>> barangPilihan) {
         super(dekripsi);
         this.oAdegan = oAdegan;
         if(barangPilihan != null){
             for (Map.Entry<Integer, ArrayList<Barang>> temp : barangPilihan.entrySet()) {
-                this.barangPilihan.addAll(temp.getValue());
                 this.indeksBarangPilihan = temp.getKey();
+                this.barangPilihan.addAll(temp.getValue());
             }
         }
     }
 
     @Override
     public void aksi() {
+        this.barangBerhasilDitambahkanSemua = false;
         if(!barangPilihan.isEmpty()){
             this.oAdegan.oPlayer.getPengelolaanBarang().tambahBarang(barangPilihan);
             System.out.println();
@@ -28,11 +30,16 @@ public class PilihanAmbilBarangSekitarAdegan extends Pilihan {
                     System.out.println("[ Barang berhasil terambil sebagian, karena tidak cukup. ]");
                 }else{
                     System.out.println("[ Barang berhasil terambil ]");
+                    this.barangBerhasilDitambahkanSemua = true;
                 }
                 this.oAdegan.hapusDaftarBarangTertentu(indeksBarangPilihan, this.oAdegan.oPlayer.getPengelolaanBarang().getDaftarBarangUntukDihapus());
             }else{
                 System.out.println("[ Penyimpanan Utama Penuh ]");
             }
         }
+    }
+
+    public boolean isBarangBerhasilDitambahkanSemua() {
+        return barangBerhasilDitambahkanSemua;
     }
 }

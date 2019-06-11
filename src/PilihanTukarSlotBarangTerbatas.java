@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 public class PilihanTukarSlotBarangTerbatas extends Pilihan {
     private Adegan oAdegan;
     private int indeksBarangPertama;
@@ -15,13 +11,10 @@ public class PilihanTukarSlotBarangTerbatas extends Pilihan {
 
     @Override
     public void aksi() {
-        HashMap<Integer,ArrayList<Barang>> hashDaftarBarangTertentu = this.oAdegan.oPlayer.pilihBarangDariDaftarBarangTerbatas(this.dekripsi);
-        if(hashDaftarBarangTertentu != null){
-            for (Map.Entry<Integer, ArrayList<Barang>> daftarBarangTertentu : hashDaftarBarangTertentu.entrySet()) {
-                this.oAdegan.oPlayer.getPengelolaanBarang().tukarSlotBarangPadaDaftarBarangTerbatas(indeksBarangPertama, daftarBarangTertentu.getKey());
-            }
-            System.out.println();
-            System.out.println("[ Menukar barang berhasil ]");
-        }
+        int indeksSlotBarangTujuan = this.oAdegan.oPlayer.pilihIndeksSlotBarang();
+        this.oAdegan.oPlayer.getPengelolaanBarang().tukarSlotBarangPadaDaftarBarangTerbatas(indeksBarangPertama, indeksSlotBarangTujuan);
+        System.out.println();
+        System.out.println("[ Menukar barang berhasil ]");
+        this.kembaliKeMenuSebelumnya = true;
     }
 }

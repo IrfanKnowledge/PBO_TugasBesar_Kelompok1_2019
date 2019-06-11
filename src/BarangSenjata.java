@@ -8,11 +8,15 @@ public class BarangSenjata extends Barang{
     /* private karena hanya membutuhkan proses tambah efek dan get (+ telah dimodifikasi) efek saja */
     private HashMap<Integer, Efek> daftarEfek = new HashMap<>();
 
+    /* Untuk membedakan amunisi atau bukan amunisi */
+    public final boolean senjataDapatDigunakanLangsung;
+
     BarangSenjata(int idBarang, String nama, String kategoriBarang, String deskripsi,
-                  boolean statusDapatDigunakanAdeganTertentu,
+                  boolean statusDapatDigunakanAdeganTertentu, boolean senjataDapatDigunakanLangsung,
                   boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli, int kekuatan) {
         super(idBarang, nama, kategoriBarang, deskripsi, statusDapatDigunakanAdeganTertentu, statusJual, statusBeli, hargaJual, hargaBeli);
         this.setKekuatan(kekuatan);
+        this.senjataDapatDigunakanLangsung = senjataDapatDigunakanLangsung;
     }
 
     public void setKekuatan(int kekuatan) {
@@ -43,7 +47,7 @@ public class BarangSenjata extends Barang{
 
     @Override
     public BarangSenjata cloning() {
-        BarangSenjata barangCloning = new BarangSenjata(this.idBarang, this.nama, this.kategoriBarang, this.deskripsi, this.statusDapatDigunakanAdeganTertentu,
+        BarangSenjata barangCloning = new BarangSenjata(this.idBarang, this.nama, this.kategoriBarang, this.deskripsi, this.statusDapatDigunakanAdeganTertentu, this.senjataDapatDigunakanLangsung,
                 this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(), this.kekuatan);
         barangCloning.daftarEfek.putAll(this.daftarEfek);
 
