@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/Player.java" line="29" />
+    <bookmark url="file://$PROJECT_DIR$/src/Player.java" line="30" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf83a169-ddbc-4d9f-bc0e-3d206c669074" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/PilihanKombinasiAmunisi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PilihanTukarJenisAmunisi.java" afterDir="false" />
+    <list default="true" id="cf83a169-ddbc-4d9f-bc0e-3d206c669074" name="Default Changelist" comment="Perubahan Class Adegan, Player, dan Lawan yang disesuaikan untuk battle Game termasuk isi amunisi otomatis, penghapusan senjata yang digunakan dengan cara dilemparkan, teknis saat batle, sehingga kedepannya yang perlu dikerjakan adalah teknis penggunaan efek, teknis reward yang muncul setelah mengalahkan lawan, teknis perpindahan adegan normal dan bertarung,">
+      <change afterPath="$PROJECT_DIR$/src/AdeganNormal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PilihanGantiAdegan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Adegan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Adegan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AdeganBertarung.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdeganBertarung.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Barang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Barang.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BarangSenjata.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BarangSenjata.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BarangSenjataJarakDekat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BarangSenjataJarakDekat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BarangSenjataTembak.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BarangSenjataTembak.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MenuPengelolaanBarang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MenuPengelolaanBarang.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lawan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lawan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PengelolaanBarang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PengelolaanBarang.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pilihan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pilihan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PilihanAmbilBarangSekitarAdegan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanAmbilBarangSekitarAdegan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PilihanLihatDeskripsiGunakanAmunisi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanGunakanAmunisi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PilihanGunakanSenjata.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanGunakanSenjata.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PilihanIsiAmunisi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanIsiAmunisi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PilihanKeluarGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanKeluarGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PilihanLihatBarangKategoriTertentu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanLihatBarangKategoriTertentu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PilihanLihatBarangSekitar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanLihatBarangSekitar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PilihanLihatIsiKantong.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanLihatIsiKantong.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PilihanLihatLawanSekitar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanLihatLawanSekitar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PilihanLihatNpcSekitar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanLihatNpcSekitar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PilihanLihatRincianBarangTertentu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanLihatRincianBarangTertentu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PilihanSerang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanSerang.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PilihanTukarSlotBarangTerbatas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PilihanTukarSlotBarangTerbatas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
     </list>
@@ -51,97 +60,17 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PilihanLihatBarangTerbatas.java">
+        <entry file="file://$PROJECT_DIR$/src/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+            <state relative-caret-position="209">
+              <caret line="58" column="34" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#4258#4259#0" expanded="true" />
+                <element signature="e#4299#4300#0" expanded="true" />
+                <element signature="e#5603#5604#0" expanded="true" />
+                <element signature="e#5650#5651#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PilihanLihatRincianBarangTertentu.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="33" column="68" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GameEngine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" column="38" lean-forward="true" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PengelolaanBarang.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="46" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2007#2008#0" expanded="true" />
-                <element signature="e#2056#2057#0" expanded="true" />
-                <element signature="e#2091#2092#0" expanded="true" />
-                <element signature="e#2144#2145#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/PilihanGunakanAmunisi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="29" column="26" lean-forward="true" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PilihanKombinasiAmunisi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="30" column="22" lean-forward="true" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MenuPengelolaanBarang.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-839">
-              <caret line="102" column="48" selection-start-line="102" selection-start-column="48" selection-end-line="102" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#323#324#0" expanded="true" />
-                <element signature="e#383#384#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PilihanTukarSlotBarangTerbatas.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -149,8 +78,40 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Adegan.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+            <state relative-caret-position="88">
+              <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PilihanTukarSlotBarangTerbatas.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="16" column="87" selection-start-line="16" selection-start-column="87" selection-end-line="16" selection-end-column="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PengelolaanBarang.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6292">
+              <caret line="300" column="74" selection-start-line="300" selection-start-column="74" selection-end-line="300" selection-end-column="74" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2091#2092#0" expanded="true" />
+                <element signature="e#2144#2145#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PilihanLihatBarangTerbatas.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="792">
+              <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -159,14 +120,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Player.java">
+        <entry file="file://$PROJECT_DIR$/src/Lawan.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="116" column="52" lean-forward="true" selection-start-line="116" selection-start-column="52" selection-end-line="116" selection-end-column="52" />
+            <state relative-caret-position="990">
+              <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2388#2389#0" expanded="true" />
-                <element signature="e#2420#2421#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/GameEngine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="62" column="62" selection-start-line="62" selection-start-column="62" selection-end-line="62" selection-end-column="62" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -184,7 +155,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>jumlahInstance</find>
       <find>prosesCloningBarang</find>
       <find>jumlahKemampuanDiperbaiki</find>
       <find>jumlahdiperbaiki</find>
@@ -214,6 +184,7 @@
       <find>E</find>
       <find>senjataTembak</find>
       <find>Masukkan</find>
+      <find>kekuatan</find>
     </findStrings>
     <replaceStrings>
       <replace>daftarLevelBertahanHidup</replace>
@@ -258,15 +229,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/BarangBluePrintSenjataUpgrade.java" />
-        <option value="$PROJECT_DIR$/src/PilihanAmbilBarangSenjataSatuPerSatu.java" />
-        <option value="$PROJECT_DIR$/src/Cloning.java" />
-        <option value="$PROJECT_DIR$/src/PilihanLihatBarangSenjata.java" />
-        <option value="$PROJECT_DIR$/src/EfekPenggunaanPadaDiri.java" />
-        <option value="$PROJECT_DIR$/src/Efek.java" />
-        <option value="$PROJECT_DIR$/src/PilihanAmbilSemuaBarang.java" />
-        <option value="$PROJECT_DIR$/src/Lawan.java" />
-        <option value="$PROJECT_DIR$/src/Npc.java" />
         <option value="$PROJECT_DIR$/src/Skill.java" />
         <option value="$PROJECT_DIR$/src/temporary/Skill.java" />
         <option value="$PROJECT_DIR$/src/SkillEfisiensiCrafting.java" />
@@ -274,17 +236,12 @@
         <option value="$PROJECT_DIR$/src/BarangBlueprintSenjataBaru.java" />
         <option value="$PROJECT_DIR$/src/BarangBlueprintSenjataUpgrade.java" />
         <option value="$PROJECT_DIR$/src/PilihanLihatBarangKunci.java" />
-        <option value="$PROJECT_DIR$/src/PilihanLihatBarangSekitar.java" />
         <option value="$PROJECT_DIR$/src/PilihanIsiPeluru.java" />
-        <option value="$PROJECT_DIR$/src/Adegan.java" />
         <option value="$PROJECT_DIR$/src/PilihanTukatSlotBarangTerbatas.java" />
         <option value="$PROJECT_DIR$/src/PilihanGunakanBarang.java" />
-        <option value="$PROJECT_DIR$/src/PilihanLihatIsiKantong.java" />
         <option value="$PROJECT_DIR$/src/PilihanSubMenu.java" />
         <option value="$PROJECT_DIR$/src/PilihanPerbaikiSenjata.java" />
         <option value="$PROJECT_DIR$/src/PilihanHapusBarang.java" />
-        <option value="$PROJECT_DIR$/src/PilihanGunakanSenjata.java" />
-        <option value="$PROJECT_DIR$/src/PilihanLihatBarangKategoriTertentu.java" />
         <option value="$PROJECT_DIR$/src/PilihanLihatDeskripsiSenjataJarakDekat.java" />
         <option value="$PROJECT_DIR$/src/PilihanLihatDeskripsiSenjata.java" />
         <option value="$PROJECT_DIR$/src/BarangBlueprintPenggunaanPadaDiri.java" />
@@ -293,22 +250,36 @@
         <option value="$PROJECT_DIR$/src/PilihanLihatDeskripsiBarangPenggunaanPadaDiri.java" />
         <option value="$PROJECT_DIR$/src/PilihanLihatDeskripsiSenjataTembak.java" />
         <option value="$PROJECT_DIR$/src/PilihanLihatBarangTerbatas.java" />
-        <option value="$PROJECT_DIR$/src/Pilihan.java" />
         <option value="$PROJECT_DIR$/src/PilihanLihatDeskripsiGunakanAmunisi.java" />
-        <option value="$PROJECT_DIR$/src/BarangSenjataTembak.java" />
         <option value="$PROJECT_DIR$/src/BarangSenjataJarakDekat.java" />
-        <option value="$PROJECT_DIR$/src/BarangSenjata.java" />
         <option value="$PROJECT_DIR$/src/PilihanTukarJenisAmunisi.java" />
-        <option value="$PROJECT_DIR$/src/PilihanAmbilBarangSekitarAdegan.java" />
-        <option value="$PROJECT_DIR$/src/Barang.java" />
         <option value="$PROJECT_DIR$/src/MenuPengelolaanBarang.java" />
-        <option value="$PROJECT_DIR$/src/Player.java" />
-        <option value="$PROJECT_DIR$/src/PilihanTukarSlotBarangTerbatas.java" />
-        <option value="$PROJECT_DIR$/src/PengelolaanBarang.java" />
-        <option value="$PROJECT_DIR$/src/PilihanLihatRincianBarangTertentu.java" />
-        <option value="$PROJECT_DIR$/src/GameEngine.java" />
         <option value="$PROJECT_DIR$/src/PilihanKombinasiAmunisi.java" />
         <option value="$PROJECT_DIR$/src/PilihanGunakanAmunisi.java" />
+        <option value="$PROJECT_DIR$/src/PilihanLihatNpcSekitar.java" />
+        <option value="$PROJECT_DIR$/src/PilihanKeluarGame.java" />
+        <option value="$PROJECT_DIR$/src/PilihanLihatLawanSekitar.java" />
+        <option value="$PROJECT_DIR$/src/PilihanLihatIsiKantong.java" />
+        <option value="$PROJECT_DIR$/src/BarangSenjata.java" />
+        <option value="$PROJECT_DIR$/src/AdeganNormal.java" />
+        <option value="$PROJECT_DIR$/src/PilihanLihatBarangKategoriTertentu.java" />
+        <option value="$PROJECT_DIR$/src/PilihanAmbilBarangSekitarAdegan.java" />
+        <option value="$PROJECT_DIR$/src/PilihanLihatBarangSekitar.java" />
+        <option value="$PROJECT_DIR$/src/Pilihan.java" />
+        <option value="$PROJECT_DIR$/src/PilihanGantiAdegan.java" />
+        <option value="$PROJECT_DIR$/src/Lawan.java" />
+        <option value="$PROJECT_DIR$/src/Adegan.java" />
+        <option value="$PROJECT_DIR$/src/AdeganBertarung.java" />
+        <option value="$PROJECT_DIR$/src/PilihanLihatRincianBarangTertentu.java" />
+        <option value="$PROJECT_DIR$/src/PilihanGunakanSenjata.java" />
+        <option value="$PROJECT_DIR$/src/Barang.java" />
+        <option value="$PROJECT_DIR$/src/PilihanSerang.java" />
+        <option value="$PROJECT_DIR$/src/BarangSenjataTembak.java" />
+        <option value="$PROJECT_DIR$/src/PengelolaanBarang.java" />
+        <option value="$PROJECT_DIR$/src/PilihanIsiAmunisi.java" />
+        <option value="$PROJECT_DIR$/src/PilihanTukarSlotBarangTerbatas.java" />
+        <option value="$PROJECT_DIR$/src/Player.java" />
+        <option value="$PROJECT_DIR$/src/GameEngine.java" />
       </list>
     </option>
   </component>
@@ -320,7 +291,6 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
-    <option name="y" value="-10" />
     <option name="width" value="980" />
     <option name="height" value="1090" />
   </component>
@@ -329,6 +299,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -345,7 +316,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -519,7 +489,13 @@
       <workItem from="1560156277276" duration="164000" />
       <workItem from="1560156696746" duration="4257000" />
       <workItem from="1560167356465" duration="11591000" />
-      <workItem from="1560209960242" duration="6943000" />
+      <workItem from="1560209960242" duration="8749000" />
+      <workItem from="1560221988624" duration="6286000" />
+      <workItem from="1560234591699" duration="7000" />
+      <workItem from="1560237342097" duration="4308000" />
+      <workItem from="1560247623540" duration="11352000" />
+      <workItem from="1560301592078" duration="1442000" />
+      <workItem from="1560303108214" duration="288000" />
     </task>
     <task id="LOCAL-00001" summary="2">
       <created>1556208069346</created>
@@ -780,11 +756,18 @@
       <option name="project" value="LOCAL" />
       <updated>1560173386816</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Masih Penataan Class Pilihan, pengubahan class barang lain yang berkaitan dengan menu + penanda barang merupakan amunisi atau bukan diatur pada Class BarangSenjata, penambahan fitur kombinasi amunisi dan tukar slot barang. Pemberian penanda syntax final pada atribut di beberapa Class (mengenai fitur tukar jenis amunisi belum selesai, lewat terlebih dahulu atau kerjakan nanti)">
+      <created>1560217237719</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1560217237719</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="729891000" />
+    <option name="totallyTimeSpent" value="755380000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -799,7 +782,7 @@
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.27479893" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18364611" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -809,7 +792,7 @@
       <window_info active="true" anchor="bottom" id="GitHub Pull Requests" order="0" weight="0.32928476" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.21686748" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" sideWeight="0.49865952" visible="true" weight="0.06291834" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49865952" weight="0.44846052" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -831,7 +814,7 @@
       <window_info anchor="right" id="Maven" order="8" side_tool="true" weight="0.3297587" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27144772" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28284183" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -841,7 +824,7 @@
       <window_info active="true" anchor="bottom" id="GitHub Pull Requests" order="0" weight="0.32928476" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.21686748" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49865952" weight="0.7496653" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" sideWeight="0.49865952" visible="true" weight="0.39892906" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -917,7 +900,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Perubahan melihat isi kantong dan Efek Sedikit pisan." />
     <MESSAGE value="Fix Bug, progres Kunci dan Senjata" />
     <MESSAGE value="Fix Bug, progres Kunci dan Senjata (Part 2)" />
     <MESSAGE value="Progress Lihat Senjata. (Ganti Peluru belum)" />
@@ -942,89 +924,14 @@
     <MESSAGE value="fix bug proses tambahBarang di pengelolaan barang, revisi algoritma hapus di Class PengelolaanBarang + tambah barang + constructor, revisi menu-pengelolaan barang, revisi PilihanLihatIsiKantong dan PilihanLihatBarangKunci menjadi PiihanLihatBarangKategoriTertentu. (semua perubahan itu tujuannya membuat tampilan slot kosong penyimpanan utama bisa terlihat kosong, efisiensi kode program menu, dan membetulkan bug di dalam Class PengelolaanBarang)" />
     <MESSAGE value="Penataan Class Pilihan dan Turunan (belum beres)" />
     <MESSAGE value="Masih Penataan Class Pilihan, Deskripsi tiap barang pada barangTerbatas menjadi disatukan pada 2 Class yaitu Class PilihanLihatBarantTerbatas dan PilihanLihatRincianBarangTertentu." />
-    <option name="LAST_COMMIT_MESSAGE" value="Masih Penataan Class Pilihan, Deskripsi tiap barang pada barangTerbatas menjadi disatukan pada 2 Class yaitu Class PilihanLihatBarantTerbatas dan PilihanLihatRincianBarangTertentu." />
+    <MESSAGE value="Masih Penataan Class Pilihan, pengubahan class barang lain yang berkaitan dengan menu + penanda barang merupakan amunisi atau bukan diatur pada Class BarangSenjata, penambahan fitur kombinasi amunisi dan tukar slot barang. Pemberian penanda syntax final pada atribut di beberapa Class (mengenai fitur tukar jenis amunisi belum selesai, lewat terlebih dahulu atau kerjakan nanti)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Masih Penataan Class Pilihan, pengubahan class barang lain yang berkaitan dengan menu + penanda barang merupakan amunisi atau bukan diatur pada Class BarangSenjata, penambahan fitur kombinasi amunisi dan tukar slot barang. Pemberian penanda syntax final pada atribut di beberapa Class (mengenai fitur tukar jenis amunisi belum selesai, lewat terlebih dahulu atau kerjakan nanti)" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Cloning.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Npc.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="27" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
-          <folding>
-            <element signature="e#74#75#0" expanded="true" />
-            <element signature="e#108#109#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Lawan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-          <folding>
-            <element signature="e#864#865#0" expanded="true" />
-            <element signature="e#929#930#0" expanded="true" />
-            <element signature="e#1049#1050#0" expanded="true" />
-            <element signature="e#1114#1115#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MyPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="33" column="42" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PilihanKeluarGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Skill.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="22" selection-start-column="22" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SkillMenjualBarang.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SkillMenawarBarang.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SkillKesehatan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/SkillKapasitasSenjataDinamis.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1084,23 +991,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jrt://C:/Program Files/JetBrains/IntelliJ IDEA 2019.1/jre64!/java.base/java/util/ArrayList.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="31" column="80" lean-forward="true" selection-start-line="31" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PilihanLihatIsiKantong.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="55" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PilihanSubMenu.java" />
     <entry file="file://$PROJECT_DIR$/src/PilihanHapusBarang.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1136,61 +1026,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PilihanGunakanSenjata.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PilihanLihatDeskripsiBarangPenggunaanPadaDiri.java" />
     <entry file="file://$PROJECT_DIR$/src/PilihanLihatDeskripsiSenjataJarakDekat.java" />
     <entry file="file://$PROJECT_DIR$/src/PilihanLihatDeskripsiSenjataTembak.java" />
     <entry file="file://$PROJECT_DIR$/src/PilihanLihatDeskripsiSenjata.java" />
-    <entry file="file://$PROJECT_DIR$/src/PilihanLihatBarangSekitar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="16" column="93" lean-forward="true" selection-start-line="16" selection-start-column="93" selection-end-line="16" selection-end-column="93" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PilihanSerang.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pilihan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="36" column="70" lean-forward="true" selection-start-line="36" selection-start-column="70" selection-end-line="36" selection-end-column="70" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BarangSenjataJarakDekat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="29" column="97" selection-start-line="29" selection-start-column="97" selection-end-line="29" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PilihanLihatBarangKategoriTertentu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PilihanTukarJenisAmunisi.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -1201,140 +1040,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BarangSenjataTembak.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="35">
-          <caret line="258" column="16" selection-start-line="258" selection-start-column="16" selection-end-line="258" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#10702#10703#0" expanded="true" />
-            <element signature="e#10759#10760#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PilihanIsiAmunisi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="55" column="47" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PilihanAmbilBarangSekitarAdegan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1859#1860#0" expanded="true" />
-            <element signature="e#1912#1913#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BarangSenjata.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PilihanPerbaikiSenjata.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Barang.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="114" column="5" selection-start-line="114" selection-start-column="5" selection-end-line="114" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Adegan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PilihanLihatRincianBarangTertentu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="33" column="68" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="38" lean-forward="true" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PengelolaanBarang.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2007#2008#0" expanded="true" />
-            <element signature="e#2056#2057#0" expanded="true" />
-            <element signature="e#2091#2092#0" expanded="true" />
-            <element signature="e#2144#2145#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PilihanLihatBarangTerbatas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="116" column="52" lean-forward="true" selection-start-line="116" selection-start-column="52" selection-end-line="116" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2388#2389#0" expanded="true" />
-            <element signature="e#2420#2421#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PilihanTukarSlotBarangTerbatas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MenuPengelolaanBarang.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-839">
-          <caret line="102" column="48" selection-start-line="102" selection-start-column="48" selection-end-line="102" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#323#324#0" expanded="true" />
-            <element signature="e#383#384#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1348,10 +1057,267 @@
         </state>
       </provider>
     </entry>
+    <entry file="jrt://C:/Program Files/JetBrains/IntelliJ IDEA 2019.1/jre64!/java.base/java/util/ArrayList.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanLihatNpcSekitar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanKeluarGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanLihatLawanSekitar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BarangSenjata.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitattributes">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanAmbilBarangSekitarAdegan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanLihatBarangSekitar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanGantiAdegan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pilihan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanLihatBarangKategoriTertentu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1232">
+          <caret line="57" column="84" selection-start-line="57" selection-start-column="84" selection-end-line="57" selection-end-column="84" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Efek.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3432">
+          <caret line="182" column="62" selection-start-line="182" selection-start-column="62" selection-end-line="182" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanLihatIsiKantong.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AdeganNormal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="619">
+          <caret line="112" column="16" selection-start-line="112" selection-start-column="16" selection-end-line="112" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/PilihanGunakanAmunisi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="29" column="26" lean-forward="true" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+        <state relative-caret-position="148">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanGunakanSenjata.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="57" lean-forward="true" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BarangSenjataJarakDekat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="28" column="93" lean-forward="true" selection-start-line="28" selection-start-column="93" selection-end-line="28" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AdeganBertarung.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="946">
+          <caret line="49" column="101" selection-start-line="49" selection-start-column="101" selection-end-line="49" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MenuPengelolaanBarang.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1518">
+          <caret line="74" column="16" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#323#324#0" expanded="true" />
+            <element signature="e#383#384#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanLihatRincianBarangTertentu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="51" column="49" lean-forward="true" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BarangSenjataTembak.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="193" column="8" selection-start-line="193" selection-start-column="8" selection-end-line="193" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#10573#10574#0" expanded="true" />
+            <element signature="e#10630#10631#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanIsiAmunisi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="55" column="48" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanSerang.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="50" column="52" selection-start-line="50" selection-start-column="52" selection-end-line="50" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Barang.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="99" column="16" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="58" column="34" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4258#4259#0" expanded="true" />
+            <element signature="e#4299#4300#0" expanded="true" />
+            <element signature="e#5603#5604#0" expanded="true" />
+            <element signature="e#5650#5651#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Adegan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanTukarSlotBarangTerbatas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="16" column="87" selection-start-line="16" selection-start-column="87" selection-end-line="16" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PengelolaanBarang.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6292">
+          <caret line="300" column="74" selection-start-line="300" selection-start-column="74" selection-end-line="300" selection-end-column="74" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2091#2092#0" expanded="true" />
+            <element signature="e#2144#2145#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilihanLihatBarangTerbatas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Lawan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="62" column="62" selection-start-line="62" selection-start-column="62" selection-end-line="62" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

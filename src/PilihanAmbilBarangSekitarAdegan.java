@@ -3,12 +3,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PilihanAmbilBarangSekitarAdegan extends Pilihan {
-    private Adegan oAdegan;
+    private AdeganNormal oAdegan;
     private int indeksBarangPilihan = -1;
     private ArrayList<Barang> barangPilihan = new ArrayList<>();
     private boolean barangBerhasilDitambahkanSemua;
 
-    PilihanAmbilBarangSekitarAdegan(String dekripsi, Adegan oAdegan, HashMap<Integer, ArrayList<Barang>> barangPilihan) {
+    PilihanAmbilBarangSekitarAdegan(String dekripsi, AdeganNormal oAdegan, HashMap<Integer, ArrayList<Barang>> barangPilihan) {
         super(dekripsi);
         this.oAdegan = oAdegan;
         if(barangPilihan != null){

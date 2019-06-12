@@ -40,8 +40,9 @@ public class Barang {
                 false, true, true, false, 5000, 10000, 10);
         BarangSenjataJarakDekat oSenjataJarakDekat = new BarangSenjataJarakDekat(4, "pipa tua", "senjata", "pipa tua berkarat berukurang sedang",
                 false, true, false, 5000, 15000, 35, 20, 20, 3, 0, 1);
+        BarangSenjata regularArrow = new BarangSenjata(11, "Regular Arrow", "amunisi", "anak panah biasa yang tidak memiliki efek apapun", false, false, false, true, 0, 50000, 30);
         BarangSenjataTembak oSenjataTembak = new BarangSenjataTembak(5, "Desert Eagle", "senjata", "pistol sedang dengan kekuatan cukup kuat daripada pistol biasa",
-                false, true, false, 25000, 100000, 100, 12);
+                false, true, false, 25000, 100000, 100, 12, regularArrow);
         BarangBlueprintPenggunaanPadaDiri oBlueprintMedikit = new BarangBlueprintPenggunaanPadaDiri(6, "Blueprint Medikit", "blueprint", "blueprint untuk membuat medikit",
                 false, true, false, 5000, 10000, 3);
         BarangBlueprintSenjataBaru oBlueprintBuzzerKiller = new BarangBlueprintSenjataBaru(7, "Buzzer Killer", "blueprint","Untuk membuat senjata Buzzer Killer, sebuah senjata mematikan tajam",

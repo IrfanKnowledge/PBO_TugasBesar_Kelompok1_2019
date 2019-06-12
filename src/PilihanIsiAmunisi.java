@@ -35,7 +35,7 @@ public class PilihanIsiAmunisi extends Pilihan {
                 /* jika kosong maka... */
                 if(daftarAmunisi.isEmpty()){
                     /* ambil daftar amunisi yang dibutuhkan */
-                    HashMap<Integer, ArrayList<Barang>> tempDaftarAmunisi = this.oAdegan.oPlayer.getPengelolaanBarang().pilihBarangDariPenyimpananTerbatasDenganJumlahBanyak(senjataTembakTerpilih.getIdAmunisiUtamaYangBisaDigunakan());
+                    HashMap<Integer, ArrayList<Barang>> tempDaftarAmunisi = this.oAdegan.oPlayer.getPengelolaanBarang().pilihBarangDariDaftarBarangTerbatasDenganJumlahBanyak(senjataTembakTerpilih.getIdAmunisiUtamaYangBisaDigunakan());
                     if(tempDaftarAmunisi != null){
                         for (Map.Entry<Integer, ArrayList<Barang>> temp : tempDaftarAmunisi.entrySet()) {
                             if(!temp.getValue().isEmpty()){
@@ -67,6 +67,8 @@ public class PilihanIsiAmunisi extends Pilihan {
                     this.statusIsiAmunisiBerhasil = true;
                 }
             }
+        }else{
+            this.statusIsiAmunisiBerhasil = false;
         }
     }
 

@@ -298,7 +298,7 @@ public class PengelolaanBarang {
         }
     }
 
-    public HashMap<Integer, ArrayList<Barang>>  pilihBarangDariPenyimpananTerbatasDenganJumlahBanyak(int idBarang){
+    public HashMap<Integer, ArrayList<Barang>> pilihBarangDariDaftarBarangTerbatasDenganJumlahBanyak(int idBarang){
         int indeks = 0;
         for (ArrayList<Barang> barangTertentu : this.arrDaftarBarangTerbatas) {
             if(!barangTertentu.isEmpty()){

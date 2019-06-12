@@ -53,14 +53,16 @@ public class PilihanLihatBarangKategoriTertentu extends Pilihan {
                             kembaliKeDaftarBarangTertentu = true;
                             break;
                         case 1:
-                            if(barangPilihan.statusDapatDigunakanAdeganTertentu){
-                                if(this.oAdegan.idBarangBisaDigunakan != barangPilihan.idBarang){
-                                    System.out.println();
-                                    System.out.println("[ Kunci ini tidak cocok untuk digunakan. ]");
-                                }else{
-                                    this.oAdegan.gunakanBarang();
+                            if(this.oAdegan instanceof AdeganNormal){
+                                if(barangPilihan.statusDapatDigunakanAdeganTertentu){
+                                    if(((AdeganNormal) this.oAdegan).idBarangBisaDigunakan != barangPilihan.idBarang){
+                                        System.out.println();
+                                        System.out.println("[ Kunci ini tidak cocok untuk digunakan. ]");
+                                    }else{
+                                        ((AdeganNormal) this.oAdegan).gunakanBarang();
+                                    }
+                                    break;
                                 }
-                                break;
                             }
                         default:
                             System.out.println();

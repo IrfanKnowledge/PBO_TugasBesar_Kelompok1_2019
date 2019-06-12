@@ -3,9 +3,9 @@ import java.util.HashMap;
 
 public class PilihanLihatBarangSekitar extends Pilihan {
 
-    private Adegan oAdegan;
+    private AdeganNormal oAdegan;
 
-    PilihanLihatBarangSekitar(String dekripsi, Adegan oAdegan) {
+    PilihanLihatBarangSekitar(String dekripsi, AdeganNormal oAdegan) {
         super(dekripsi);
         this.oAdegan = oAdegan;
     }

@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,17 +6,15 @@ public class Lawan {
     public String nama;
     private int kesehatan;
     private int kekuatan;
-    private Barang senjata;
+    public BarangSenjata senjata;
     private Efek efekMenyerang;
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>(); //masih perlu dipikirkan ulang
-    private boolean statusMelihatPlayer;
 
-    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer) {
+    Lawan(int idLawan, String nama, int kesehatan, int kekuatan) {
         this.idLawan = idLawan;
         this.nama = nama;
         this.kesehatan = kesehatan;
         this.kekuatan = kekuatan;
-        this.statusMelihatPlayer = statusMelihatPlayer;
     }
 
     private int filterMinimalNol(int nilai) {
@@ -27,6 +24,9 @@ public class Lawan {
         return nilai;
     }
 
+    //===================================================================================================
+    /* pengaturan kesehatan */
+    //===================================================================================================
     public void setKesehatan(int kesehatan) {
         this.kesehatan = this.filterMinimalNol(kesehatan);
     }
@@ -39,24 +39,46 @@ public class Lawan {
         this.setKesehatan(this.kesehatan - nilaiSerangan);
     }
 
-    public void tambahSenjata(Barang senjata){
-        this.senjata = senjata;
-    }
 
+    //===================================================================================================
+    /* pengaturan efek */
+    //===================================================================================================
     public void tambahEfekMenyerang(Efek efekMenyerang){
         this.efekMenyerang = efekMenyerang;
     }
 
     //masih perlu dipikirkan ulang
     public void tambahEfekDiri(HashMap<Integer, Efek> efekLuar){
-        for (Map.Entry<Integer, Efek> record : efekLuar.entrySet()) {
-            daftarEfekDiri.put(record.getKey(), record.getValue());
+        for (Map.Entry<Integer, Efek> efekTertentu : efekLuar.entrySet()) {
+            daftarEfekDiri.put(efekTertentu.getKey(), efekTertentu.getValue());
         }
     }
 
-    //masih perlu dipikirkan ulang
+    //===================================================================================================
+    /* pengaturan diserang */
+    //===================================================================================================
     public void diSerang(BarangSenjata oSenjata){
         this.kurangiKesehatan(oSenjata.getKekuatan());
-        //this.tambahEfekDiri(oSenjata.g);
+        this.tambahEfekDiri(oSenjata.getDaftarEfek());
+    }
+
+    //===================================================================================================
+    /* pengaturan print diri */
+    //===================================================================================================
+    public void print(){
+        System.out.printf("%-15s : %s\n", "Nama : ", this.nama);
+        System.out.printf("%-15s : %s\n", "Kesehatan : ", this.kesehatan);
+        System.out.printf("%-15s : %s\n", "Kekuatan : ", this.kekuatan);
+    }
+
+    //===================================================================================================
+    /* pengaturan kekuatan */
+    //===================================================================================================
+
+    public int getKekuatan() {
+        if(this.senjata != null){
+            return kekuatan + senjata.getKekuatan();
+        }
+        return kekuatan;
     }
 }

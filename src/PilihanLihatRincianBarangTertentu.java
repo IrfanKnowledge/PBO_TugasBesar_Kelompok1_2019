@@ -11,20 +11,20 @@ public class PilihanLihatRincianBarangTertentu extends Pilihan {
         this.oAdegan = oAdegan;
         this.indeksBarangTerpilih = indeksBarangTerpilih;
         this.daftarBarangTerpilih = daftarBarangTerpilih;
+
         if(daftarBarangTerpilih.get(0) instanceof BarangSenjataTembak){
-            this.daftarPilihan.add(new PilihanGunakanSenjata("Gunakan Barang", this.oAdegan, PengelolaanBarang.convertBarangKeSenjata(daftarBarangTerpilih)));
+            this.daftarPilihan.add(new PilihanGunakanSenjata("Gunakan Barang", this.oAdegan, this.indeksBarangTerpilih, PengelolaanBarang.convertBarangKeSenjata(daftarBarangTerpilih)));
             this.daftarPilihan.add(new PilihanIsiAmunisi("Isi Amunisi", this.oAdegan, (BarangSenjataTembak) daftarBarangTerpilih.get(0)));
             this.daftarPilihan.add(new PilihanTukarSlotBarangTerbatas("Tukar Slot Barang", this.oAdegan, this.indeksBarangTerpilih));
             this.daftarPilihan.add(new PilihanHapusBarang("Hapus Barang", this.indeksBarangTerpilih, daftarBarangTerpilih));
         }else if(daftarBarangTerpilih.get(0) instanceof BarangSenjataJarakDekat){
-            this.daftarPilihan.add(new PilihanGunakanSenjata("Gunakan Barang", this.oAdegan, PengelolaanBarang.convertBarangKeSenjata(daftarBarangTerpilih)));
+            this.daftarPilihan.add(new PilihanGunakanSenjata("Gunakan Barang", this.oAdegan, this.indeksBarangTerpilih, PengelolaanBarang.convertBarangKeSenjata(daftarBarangTerpilih)));
             this.daftarPilihan.add(new PilihanPerbaikiSenjata("Perbaiki Barang", this.oAdegan, (BarangSenjataJarakDekat) daftarBarangTerpilih.get(0)));
             this.daftarPilihan.add(new PilihanTukarSlotBarangTerbatas("Tukar Slot Barang", this.oAdegan, this.indeksBarangTerpilih));
             this.daftarPilihan.add(new PilihanHapusBarang("Hapus Barang", this.indeksBarangTerpilih, daftarBarangTerpilih));
         }else if(daftarBarangTerpilih.get(0) instanceof BarangSenjata){
-            this.daftarBarangTerpilih.addAll(daftarBarangTerpilih);
             if(((BarangSenjata) daftarBarangTerpilih.get(0)).senjataDapatDigunakanLangsung){
-                this.daftarPilihan.add(new PilihanGunakanSenjata("Gunakan Barang", this.oAdegan, PengelolaanBarang.convertBarangKeSenjata(daftarBarangTerpilih)));
+                this.daftarPilihan.add(new PilihanGunakanSenjata("Gunakan Barang", this.oAdegan, this.indeksBarangTerpilih, PengelolaanBarang.convertBarangKeSenjata(daftarBarangTerpilih)));
             }else{
                 ArrayList<BarangSenjata> tempDaftarAmunisi = PengelolaanBarang.convertBarangKeSenjata(daftarBarangTerpilih);
                 this.daftarPilihan.add(new PilihanGunakanAmunisi("Gunakan Barang", this.oAdegan, this.indeksBarangTerpilih, tempDaftarAmunisi));
@@ -52,6 +52,6 @@ public class PilihanLihatRincianBarangTertentu extends Pilihan {
         this.daftarBarangTerpilih.get(0).print();
         System.out.println();
         this.printDaftarPilihan(this.daftarPilihan);
-        this.pemilihan(this.daftarPilihan);
+        this.pemilihanSubMenu(this.daftarPilihan);
     }
 }

@@ -4,6 +4,8 @@ import java.util.Map;
 
 public class BarangSenjataTembak extends BarangSenjata{
 
+    private int kekuatanSebelumMenggunakanAmunisi;
+
     /* private karena hanya untuk set, get tertentu, dan untuk proses internal */
     private BarangSenjata amunisiUtamaYangBisaDigunakan;
 
@@ -27,23 +29,12 @@ public class BarangSenjataTembak extends BarangSenjata{
     BarangSenjataTembak(int idBarang, String nama, String kategoriPenyimpanan, String deskripsi,
                         boolean statusDapatDigunakanAdeganTertentu,
                         boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli,
-                        int kekuatan, int batasMaxAmunisiDigunakan){
+                        int kekuatan, int batasMaxAmunisiDigunakan, BarangSenjata amunisiUtamaYangBisaDigunakan){
         super(idBarang, nama, kategoriPenyimpanan, deskripsi, statusDapatDigunakanAdeganTertentu, true, statusJual, statusBeli, hargaJual, hargaBeli, kekuatan);
-
+        this.setAmunisiUtamaYangBisaDigunakan(amunisiUtamaYangBisaDigunakan);
         this.setBatasMaxAmunisiDigunakan(batasMaxAmunisiDigunakan);
+        this.kekuatanSebelumMenggunakanAmunisi = this.getKekuatan();
     }
-
-    //===================================================================================================
-    /* get kekuatan yang dimodifikasi */
-    //===================================================================================================
-    @Override
-    public int getKekuatan() {
-        if(!daftarAmunisiSedangDigunakan.isEmpty()){
-            return (super.getKekuatan() + daftarAmunisiSedangDigunakan.get(0).getKekuatan());
-        }
-        return super.getKekuatan();
-    }
-
     //===================================================================================================
     /* status */
     //===================================================================================================
@@ -199,6 +190,7 @@ public class BarangSenjataTembak extends BarangSenjata{
             this.statusAmunisiBerhasilTerambil = false;
         }else{
             this.statusAmunisiBerhasilTerambil = true;
+            this.setKekuatan(this.kekuatanSebelumMenggunakanAmunisi + this.daftarAmunisiSedangDigunakan.get(0).getKekuatan());
         }
     }
 
@@ -252,6 +244,10 @@ public class BarangSenjataTembak extends BarangSenjata{
         //amunisi dalam senjata berkurang 1
         this.daftarAmunisiSedangDigunakan.remove(0);
 
+        if(this.daftarAmunisiSedangDigunakan.isEmpty()){
+            this.setKekuatan(this.kekuatanSebelumMenggunakanAmunisi);
+        }
+
         //proses menembak berhasil
         return amunisiDitembakkan;
     }
@@ -283,7 +279,7 @@ public class BarangSenjataTembak extends BarangSenjata{
     public BarangSenjataTembak cloning() {
         BarangSenjataTembak barangCloning = new BarangSenjataTembak(this.idBarang, this.nama, this.kategoriBarang ,this.deskripsi, this.statusDapatDigunakanAdeganTertentu,
                 this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli(),
-                this.getKekuatan(), this.batasMaxAmunisiDigunakan);
+                this.getKekuatan(), this.batasMaxAmunisiDigunakan, this.amunisiUtamaYangBisaDigunakan.cloning());
 
         if(this.amunisiUtamaYangBisaDigunakan != null){
             barangCloning.setAmunisiUtamaYangBisaDigunakan(this.amunisiUtamaYangBisaDigunakan);

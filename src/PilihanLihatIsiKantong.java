@@ -22,7 +22,7 @@ public class PilihanLihatIsiKantong extends Pilihan {
         this.kembaliKeMenuSebelumnya = false;
         while (!this.kembaliKeMenuSebelumnya){
             System.out.println();
-            System.out.println("Aksi : " + this.getDekripsi());
+            System.out.println("Aksi : " + this.dekripsi);
             int i=0;
             for (Pilihan oPilihan : this.daftarPilihan) {
                 System.out.printf("%2d. %s\n", ++i, oPilihan.dekripsi);
@@ -41,9 +41,5 @@ public class PilihanLihatIsiKantong extends Pilihan {
                 this.daftarPilihan.get(input-1).aksi();
             }
         }
-    }
-
-    public ArrayList<Pilihan> getDaftarPilihan() {
-        return daftarPilihan;
     }
 }

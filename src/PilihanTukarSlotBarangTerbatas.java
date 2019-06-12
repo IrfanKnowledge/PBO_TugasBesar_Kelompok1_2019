@@ -13,6 +13,9 @@ public class PilihanTukarSlotBarangTerbatas extends Pilihan {
     public void aksi() {
         int indeksSlotBarangTujuan = this.oAdegan.oPlayer.pilihIndeksSlotBarang();
         this.oAdegan.oPlayer.getPengelolaanBarang().tukarSlotBarangPadaDaftarBarangTerbatas(indeksBarangPertama, indeksSlotBarangTujuan);
+        if(this.oAdegan.oPlayer.getIndeksSlotSenjataDiambil() == this.indeksBarangPertama){
+            this.oAdegan.oPlayer.tukarIndeksSlotSenjataDiambil(indeksSlotBarangTujuan);
+        }
         System.out.println();
         System.out.println("[ Menukar barang berhasil ]");
         this.kembaliKeMenuSebelumnya = true;

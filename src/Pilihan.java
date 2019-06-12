@@ -15,7 +15,19 @@ public abstract class Pilihan {
         return dekripsi;
     }
 
-    public void pemilihan(ArrayList<Pilihan> daftarPilihan){
+    public static void pemilihanMenuUtama(ArrayList<Pilihan> daftarPilihan){
+        System.out.print("Masukkan Pilihan : ");
+        Scanner oScan = new Scanner(System.in);
+        int input = oScan.nextInt();
+        if(input < 1 || input > daftarPilihan.size()){
+            System.out.println();
+            System.out.println("[ Pilihan tidak tersedia. ]");
+        }else{
+            daftarPilihan.get(input-1).aksi();
+        }
+    }
+
+    public void pemilihanSubMenu(ArrayList<Pilihan> daftarPilihan){
         System.out.printf("%2d. Kembali\n", 0);
         System.out.print("Masukkan Pilihan : ");
         Scanner oScan = new Scanner(System.in);
@@ -31,7 +43,7 @@ public abstract class Pilihan {
         }
     }
 
-    public void printDaftarPilihan(ArrayList<Pilihan> daftarPilihan){
+    public static void printDaftarPilihan(ArrayList<Pilihan> daftarPilihan){
         int i = 0;
         for (Pilihan oPilihan : daftarPilihan) {
             System.out.printf("%2d. %-25s\n", i+1, oPilihan.dekripsi);

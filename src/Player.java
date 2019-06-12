@@ -6,8 +6,8 @@ import java.util.Random;
 public class Player {
     public final int idPlayer;
     public String nama;
-    private int kesehatan = 30;
-    private int batasMaxKesehatan = 100;
+    private int kesehatan = 200;
+    private int batasMaxKesehatan = 200;
     private double uang = 0;
 
     /* Menandakan posisi Player berada pada Adegan tertentu */
@@ -19,6 +19,7 @@ public class Player {
     /* menggunakan senjata tertentu memiliki 1 slot penyimpanan yang
     *  dapat ditumpuk lebih dari 1 senjata (misal: granade, dll) */
     private ArrayList<BarangSenjata> senjata = new ArrayList<>();
+    private int indeksSlotSenjataDiambil;
 
     private PengelolaanBarang oPengelolaanBarang;
     private MenuPengelolaanBarang oMenuPengelolaanBarang;
@@ -29,7 +30,7 @@ public class Player {
     Player(int idPlayer, String nama){
         this.idPlayer = idPlayer;
         this.nama = nama;
-        this.oPengelolaanBarang = new PengelolaanBarang(6);
+        this.oPengelolaanBarang = new PengelolaanBarang(8);
         this.oMenuPengelolaanBarang = new MenuPengelolaanBarang(this.oPengelolaanBarang);
     }
 
@@ -49,18 +50,21 @@ public class Player {
         }
         //==============================================================================
     }
-    public String getNama() {
-        return nama;
-    }
 
+    //===================================================================================================
+    /* Pengaturan Penanda game selesai yang melekat pada player yang bermain*/
+    //===================================================================================================
     public boolean isSelesai() {
+        if(this.kesehatan <= 0){
+            this.isSelesai = true;
+        }
         return isSelesai;
     }
 
-    public PengelolaanBarang getPengelolaanBarang() {
-        return oPengelolaanBarang;
-    }
 
+    //===================================================================================================
+    /* Pengaturan Kesehatan */
+    //===================================================================================================
     public void tambahKesehatan(int penambahKesehatan){
         this.kesehatan += penambahKesehatan;
         if(this.kesehatan > this.batasMaxKesehatan){
@@ -84,6 +88,10 @@ public class Player {
         }
     }
 
+    //===================================================================================================
+    /* Pengaturan Efek */
+    //===================================================================================================
+
     public void tambahEfek(Efek oEfek){
         this.daftarEfekDiri.put(oEfek.idEfek, oEfek);
     }
@@ -98,11 +106,11 @@ public class Player {
         return temp;
     }
 
-    public String getNamaSenjataDigunakan(){
-        if(senjata.isEmpty()){
-            return "< slot kosong >";
-        }
-        return this.senjata.get(0).nama;
+    //===================================================================================================
+    /* Pengaturan Barang */
+    //===================================================================================================
+    public PengelolaanBarang getPengelolaanBarang() {
+        return oPengelolaanBarang;
     }
 
     public int pilihIndeksSlotBarang(){
@@ -117,16 +125,20 @@ public class Player {
         return this.oMenuPengelolaanBarang.pilihBarangDariDaftarBarangTertentu(aksi, this.getPengelolaanBarang().getDaftarBarangTerbatas(), true);
     }
 
-    public void gunakanSenjataDariDaftarBarangTerbatas(BarangSenjata daftarSenjataTerpilih){
-        /* agar senjata yang digunakan menunjuk pada penyimpanan yang sama */
+    public void gunakanSenjataDariDaftarBarangTerbatas(int indeksBarangTerpilih, ArrayList<BarangSenjata> daftarSenjataTerpilih){
         this.senjata.clear();
-        this.senjata.add(daftarSenjataTerpilih);
+        this.indeksSlotSenjataDiambil = indeksBarangTerpilih;
+        this.senjata.addAll(daftarSenjataTerpilih);
     }
 
-    public void gunakanSenjataDariDaftarBarangTerbatas(ArrayList<BarangSenjata> daftarSenjataTerpilih){
-        /* agar senjata yang digunakan menunjuk pada penyimpanan yang sama */
-        this.senjata.clear();
-        this.senjata.addAll(daftarSenjataTerpilih);
+    public void tukarIndeksSlotSenjataDiambil(int indeksSlotTujuan){
+        if(indeksSlotTujuan > -1 && indeksSlotTujuan < this.oPengelolaanBarang.getBatasMaxSlotDaftarBarangTerbatas()){
+            this.indeksSlotSenjataDiambil = indeksSlotTujuan;
+        }
+    }
+
+    public int getIndeksSlotSenjataDiambil() {
+        return indeksSlotSenjataDiambil;
     }
 
     public void hapusBarangDariDaftarBarangTerbatas(int indeksSumberBarangDiambil , Barang barangDihapus){
@@ -138,6 +150,95 @@ public class Player {
 
     public void hapusBarangDariDaftarBarangTerbatas(int indeksSumberBarangDiambil , ArrayList<Barang> daftarBarangDihapus){
         this.oPengelolaanBarang.hapusBarangDariDaftarBarangTerbatas(indeksSumberBarangDiambil, daftarBarangDihapus);
+    }
+
+    //===================================================================================================
+    /* Pengaturan jika diserang */
+    //===================================================================================================
+
+    public void diSerang(int kekuatanSerangan, HashMap<Integer, Efek> daftarEfek){
+        this.kurangiKesehatan(kekuatanSerangan);
+        this.tambahEfek(daftarEfek);
+    }
+
+    public void diSerang(int kekuatanSerangan){
+        this.kurangiKesehatan(kekuatanSerangan);
+    }
+
+    //===================================================================================================
+    /* Pengaturan Senjata */
+    //===================================================================================================
+
+    public boolean isPlayerMenggunakanSenjata() {
+        if(this.senjata.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isSenjataDigunakanMerupakanSenjataTembak(){
+        if(this.senjata.isEmpty()){
+            return false;
+        }else{
+            if(this.senjata.get(0) instanceof  BarangSenjataTembak) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public boolean isAmunisiYangDigunakanKosong(){
+        if(this.isSenjataDigunakanMerupakanSenjataTembak()){
+            if( ((BarangSenjataTembak) this.senjata.get(0)).getJumlahAmunisiSedangDigunakan() > 0 ){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    public void isiAmunisiSenjataYangDigunakan(){
+        if(this.isSenjataDigunakanMerupakanSenjataTembak()){
+            if(this.isPlayerMenggunakanSenjata()){
+                PilihanIsiAmunisi oPilihanIsiAmunisi = new PilihanIsiAmunisi("Isi Amunisi", this.adeganAktif,(BarangSenjataTembak) this.senjata.get(0));
+                oPilihanIsiAmunisi.aksi();
+            }
+        }
+    }
+
+    public BarangSenjata gunakanSenjataPadaLawan(){
+        if(!this.senjata.isEmpty()){
+            BarangSenjata senjataDigunakan = this.senjata.get(0);
+            if(senjataDigunakan instanceof BarangSenjataJarakDekat){
+                ((BarangSenjataJarakDekat) senjataDigunakan).gunakanBarangSenjata();
+                return senjataDigunakan;
+            }else if(this.senjata.get(0) instanceof BarangSenjataTembak){
+                return ((BarangSenjataTembak) senjataDigunakan).gunakanSenjata();
+            }else{
+                this.hapusBarangDariDaftarBarangTerbatas(this.indeksSlotSenjataDiambil, senjataDigunakan);
+                return senjataDigunakan;
+            }
+        }else{
+            return null;
+        }
+    }
+
+    public String getNamaSenjataDigunakan(){
+        if(senjata.isEmpty()){
+            return "< slot kosong >";
+        }
+        return this.senjata.get(0).nama;
+    }
+
+    //===================================================================================================
+    /* Pengaturan Print Identitas Diri */
+    //===================================================================================================
+    public void print(){
+        System.out.printf("%-15s : %s\n", "Nama : ", this.nama);
+        System.out.printf("%-15s : %s\n", "Kesehatan : ", this.kesehatan);
     }
 
 //    /* return berupa key sebagai kategori, value indeks 0 = idBarang, value indeks 1 = IndeksBarang*/
