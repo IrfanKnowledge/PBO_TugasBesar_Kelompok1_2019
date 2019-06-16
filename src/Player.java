@@ -24,21 +24,24 @@ public class Player {
     private PengelolaanBarang oPengelolaanBarang;
     private MenuPengelolaanBarang oMenuPengelolaanBarang;
 
-    /* Menandakan Game ini telah selesai atau tidak */
-    private boolean isSelesai = false;
+    public Barang kotakSuratSuaraYangDicari;
 
-    Player(int idPlayer, String nama){
+    /* Menandakan Game ini telah selesai atau tidak */
+    public boolean isSelesai = false;
+
+    Player(int idPlayer, String nama, Barang kotakSuratSuaraYangDicari){
         this.idPlayer = idPlayer;
         this.nama = nama;
         this.oPengelolaanBarang = new PengelolaanBarang(8);
         this.oMenuPengelolaanBarang = new MenuPengelolaanBarang(this.oPengelolaanBarang);
+        this.kotakSuratSuaraYangDicari = kotakSuratSuaraYangDicari;
     }
 
     public static void main(String[] args) {
         //==============================================================================
         // berikut proses percobaan
-        Player A = new Player(1, "irfan");
-        Player B = new Player(2, "dani");
+//        Player A = new Player(1, "irfan");
+//        Player B = new Player(2, "dani");
         //System.out.println(A.daftarLevelBertahanHidup.get(3).nilaiLevel);
         //A.daftarSkill.get(0).unlockSkill(A.levelBertahanHidup, A.pointBertahanHidup);
         //if(A.testing == null){
@@ -52,13 +55,18 @@ public class Player {
     }
 
     //===================================================================================================
-    /* Pengaturan Penanda game selesai yang melekat pada player yang bermain*/
+    /* Pengaturan Status Ending */
     //===================================================================================================
-    public boolean isSelesai() {
-        if(this.kesehatan <= 0){
-            this.isSelesai = true;
+    public boolean isKotakSuaraTertemukan(){
+        if(this.oPengelolaanBarang.getDaftarBarangKeseluruhanByKategori().containsKey(this.kotakSuratSuaraYangDicari.kategoriBarang)){
+           if(this.oPengelolaanBarang.getDaftarBarangKeseluruhanByKategori().get(this.kotakSuratSuaraYangDicari.kategoriBarang).containsKey(this.kotakSuratSuaraYangDicari.idBarang)){
+               return true;
+           }else{
+               return false;
+           }
+        }else{
+            return false;
         }
-        return isSelesai;
     }
 
 

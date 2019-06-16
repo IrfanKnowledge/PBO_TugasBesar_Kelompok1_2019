@@ -9,7 +9,11 @@ public class AdeganBertarung extends Adegan {
     private ArrayList<Pilihan> daftarPilihan = new ArrayList<>();
     private ArrayList<Lawan> daftarLawan = new ArrayList<>();
 
-    AdeganBertarung(int idAdegan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String narasi) {
+    /* setiap adegan bertarung terdapat adegan normal */
+    private AdeganNormal oAdeganNormal;
+    public boolean adeganBertarungTelahBerakhir;
+
+    AdeganBertarung(int idAdegan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String narasi, AdeganNormal oAdeganNormal) {
         super(idAdegan, posisiPlayer, namaRuangan, namaLuarRuangan, namaTempat, narasi);
         oPilihanSerang = new PilihanSerang("Serang", this);
         this.daftarPilihan.add(oPilihanSerang);
@@ -17,13 +21,26 @@ public class AdeganBertarung extends Adegan {
         tambahPilihan(this.oPilihanLihatIsiKantong);
         this.oPilihanKeluarGame = new PilihanKeluarGame("Keluar dari Game");
         tambahPilihan(this.oPilihanKeluarGame);
+        this.oAdeganNormal = oAdeganNormal;
+        this.adeganBertarungTelahBerakhir = false;
     }
+
 
     @Override
     public void mainkan() {
-        super.mainkan();
-        Pilihan.printDaftarPilihan(this.daftarPilihan);
-        Pilihan.pemilihanMenuUtama(this.daftarPilihan);
+        if(this.oAdeganNormal != null){
+            if(this.adeganBertarungTelahBerakhir){
+                this.oPlayer.adeganAktif = this.oAdeganNormal;
+            }else{
+                super.mainkan();
+                Pilihan.printDaftarPilihan(this.daftarPilihan);
+                Pilihan.pemilihanMenuUtama(this.daftarPilihan);
+            }
+        }else{
+            super.mainkan();
+            Pilihan.printDaftarPilihan(this.daftarPilihan);
+            Pilihan.pemilihanMenuUtama(this.daftarPilihan);
+        }
     }
 
     //===================================================================================================
@@ -79,6 +96,26 @@ public class AdeganBertarung extends Adegan {
         return this.daftarLawan.get(input);
     }
 
+    public boolean isBarangDijatuhkanLawanKosong(int input){
+        if(input < 1 && input > this.getJumlahLawan()){
+            return true;
+        }else{
+            if(this.daftarLawan.get(input-1).getoPengelolaanBarangSederhana().getDaftarBarang().isEmpty()) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public ArrayList<ArrayList<Barang>> getBarangDijatuhkanLawan(int input){
+        if(this.isBarangDijatuhkanLawanKosong(input)){
+            return null;
+        }else{
+            return this.daftarLawan.get(input-1).getoPengelolaanBarangSederhana().getDaftarBarang();
+        }
+    }
+
     //===================================================================================================
     /* pengaturan serang dan diserang */
     //===================================================================================================
@@ -103,6 +140,12 @@ public class AdeganBertarung extends Adegan {
         }
     }
 
-
-
+    //===================================================================================================
+    /* pengaturan reward atah perpindahan barang lawan yang terjatuh ke adegan normal */
+    //===================================================================================================
+    public void tambahBarangPadaAdeganNormal(ArrayList<ArrayList<Barang>> daftarBarangInput){
+        for (ArrayList<Barang> daftarBarangInputTertentu: daftarBarangInput) {
+            this.oAdeganNormal.getPengelolaanBarangSederhana().tambahBarang(daftarBarangInputTertentu);
+        }
+    }
 }

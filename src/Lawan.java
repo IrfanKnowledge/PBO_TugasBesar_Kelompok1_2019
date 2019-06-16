@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,13 +10,34 @@ public class Lawan {
     public BarangSenjata senjata;
     private Efek efekMenyerang;
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>(); //masih perlu dipikirkan ulang
+    private PengelolaanBarangSederhana oPengelolaanBarangSederhana;
 
     Lawan(int idLawan, String nama, int kesehatan, int kekuatan) {
         this.idLawan = idLawan;
         this.nama = nama;
         this.kesehatan = kesehatan;
         this.kekuatan = kekuatan;
+        this.oPengelolaanBarangSederhana = new PengelolaanBarangSederhana();
     }
+
+    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, Barang barangInput, int jumlahInstance){
+        this(idLawan, nama, kesehatan, kekuatan);
+        this.getoPengelolaanBarangSederhana().tambahBarang(barangInput, jumlahInstance);
+    }
+
+    Lawan(Lawan oLawan){
+        this(oLawan.idLawan, oLawan.nama, oLawan.kesehatan, oLawan.kekuatan);
+        for (ArrayList<Barang> daftarBarangTertentu: oLawan.oPengelolaanBarangSederhana.getDaftarBarang()) {
+            this.oPengelolaanBarangSederhana.tambahBarang(daftarBarangTertentu);
+        }
+    }
+
+    Lawan(Lawan oLawan, Barang barangInput, int jumlahInstance){
+        this(oLawan.idLawan, oLawan.nama, oLawan.kesehatan, oLawan.kekuatan);
+        this.getoPengelolaanBarangSederhana().tambahBarang(barangInput, jumlahInstance);
+    }
+
+
 
     private int filterMinimalNol(int nilai) {
         if(nilai < 0){
@@ -80,5 +102,21 @@ public class Lawan {
             return kekuatan + senjata.getKekuatan();
         }
         return kekuatan;
+    }
+
+    //===================================================================================================
+    /* pengaturan barang */
+    //===================================================================================================
+
+    public PengelolaanBarangSederhana getoPengelolaanBarangSederhana() {
+        return oPengelolaanBarangSederhana;
+    }
+
+    //===================================================================================================
+    /* pengaturan cloning lawan */
+    //===================================================================================================
+    public Lawan cloning(Lawan oLawan){
+        Lawan lawanCloning = new Lawan(oLawan);
+        return lawanCloning;
     }
 }

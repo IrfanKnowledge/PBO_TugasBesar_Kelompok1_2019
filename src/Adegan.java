@@ -12,7 +12,6 @@ public abstract class Adegan {
     public String namaTempat;
     public String narasi;
 
-    /* tanpa namaLuarRuangan */
     Adegan(int idAdegan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String narasi){
         this.idAdegan = idAdegan;
         this.posisiPlayer = posisiPlayer;
@@ -20,6 +19,14 @@ public abstract class Adegan {
         this.namaLuarRuangan = namaLuarRuangan;
         this.namaTempat = namaTempat;
         this.narasi = narasi;
+    }
+
+    Adegan(int idAdegan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat){
+        this.idAdegan = idAdegan;
+        this.posisiPlayer = posisiPlayer;
+        this.namaRuangan = namaRuangan;
+        this.namaLuarRuangan = namaLuarRuangan;
+        this.namaTempat = namaTempat;
     }
 
     //===================================================================================================

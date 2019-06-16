@@ -1,28 +1,35 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.Scanner;
 
-public class GameEngine {
+public class GameEngine extends Thread {
     private Player oPlayer;
+    private Barang kotakSuara = new Barang(100, "Kotak Suara", "barang bernilai", "kotak berisikan surat suara", false, false, false, 0, 0);
 //    private Adegan daftarAdegan;
 
     GameEngine(){
-        this.oPlayer = new Player(1, "Abdi Mukti");
+        this.oPlayer = new Player(1, "Abdi Mukti", this.kotakSuara.cloning());
         Adegan.oPlayer = this.oPlayer;
     }
 
+    @Override
+    public void run() {
+        System.out.println("Hello World");
+    }
+
     private void mulaiGame(){
-//        System.out.println("Pada suatu hari..\n");
-//        System.out.printf("%-10s\n\n", "[Tekan Huruf Apapun kemudian Enter untuk melanjutkan]");
-//        Scanner oScan = new Scanner(System.in);
-//        oScan.nextLine();
-//        System.out.println();
-//        System.out.println("Kemudian " + this.oPlayer.nama + "harus melakukan sebuah misi untuk...\n");
-//        System.out.printf("%-10s\n\n", "[Tekan Huruf Apapun kemudian Enter untuk melanjutkan]");
-//        oScan.nextLine();
-//        System.out.println();
-//        System.out.println("Selamat bermain");
-        while (!this.oPlayer.isSelesai()){
+        System.out.println("Pada suatu hari..\n");
+        System.out.printf("%-10s\n\n", "[Tekan Huruf Apapun kemudian Enter untuk melanjutkan]");
+        Scanner oScan = new Scanner(System.in);
+        oScan.nextLine();
+        System.out.println();
+        System.out.println("Kemudian " + this.oPlayer.nama + "harus melakukan sebuah misi untuk...\n");
+        System.out.printf("%-10s\n\n", "[Tekan Huruf Apapun kemudian Enter untuk melanjutkan]");
+        oScan.nextLine();
+        System.out.println();
+        System.out.println("Selamat bermain");
+        CobaSwing test = new CobaSwing();
+//        test.start();
+        while (!this.oPlayer.isSelesai){
+//            System.out.println(test.isAlive());
             this.oPlayer.adeganAktif.mainkan();
         }
         if(this.oPlayer.getKesehatan() <= 0){
@@ -31,6 +38,14 @@ public class GameEngine {
         }else{
             System.out.println();
             System.out.println("[ The End ]");
+        }
+        if(this.oPlayer.isKotakSuaraTertemukan()){
+            System.out.println();
+            System.out.println("[ Selamat Kotak Suara Sudah Tertemukan ]");
+            System.out.println("[ Created By: ]");
+            System.out.println("[ ............. ]");
+            System.out.println("[ ............. ]");
+            System.out.println("[ ............. ]");
         }
     }
 
@@ -52,19 +67,19 @@ public class GameEngine {
         bow.tambahAmunisiYangDiperlukan(increniaryArrow);
         BarangSenjataJarakDekat pipaTua = new BarangSenjataJarakDekat(4, "pipa tua", "senjata", "pipa tua berkarat berukurang sedang",
                 false, true, false, 5000, 15000, 35, 20, 5, 3, 0, 1);
-
+        BarangSenjataJarakDekat pisau = new BarangSenjataJarakDekat(5, "pisau", "senjata", "pipa tua berkarat berukurang sedang",
+                false, true, false, 5000, 15000, 35, 20, 5, 3, 0, 1);
         /* contoh adegan */
-        AdeganNormal adeganId1 = new AdeganNormal(1, 0, "Tengah Ruangan", "Kamar 03", "","Gedung Tua Asing", "Akhirnya sampai di ruangan yang sepertinya terlihat aman");
-        AdeganBertarung adeganId2 = new AdeganBertarung(2, "Depan Pintu", "Kamar 03", "","Gedung Tua Asing", "Berjalan menuju pintu kuning.. Hmm Pintu ini terkunci");
-        adeganId1.tambahPilihan(new PilihanGantiAdegan("Melawan Zombie", adeganId2));
-
-        /* contoh lawan */
-        adeganId2.tambahLawan(new Lawan(1, "Zombie biasa", 100, 10));
-        adeganId2.tambahLawan(new Lawan(1, "Zombie biasa", 100, 10));
+        AdeganNormal adeganId1 = new AdeganNormal(1, 0, "Tangga Lantai 1", "Lantai 01", "","Gedung Tua Asing", "Sampai pada tangga lantai 1");
+        AdeganBertarung adeganId2 = new AdeganBertarung(2, "Tangga Lantai 1", "Lantai 01", "","Gedung Tua Asing", "Berjalan menuju tangga lantai 1.. Tiba-tiba sekumpulan zombie bermunculan dari arah atas !", adeganId1);
+        AdeganNormal adeganId3 = new AdeganPintu(3, 29, "Depan Pintu Keluar Ruangan", "Kamar 03", "", "Gedung Tua Asing", "Pintu menuju tangga lantai 1", new PilihanGantiAdegan("Menuju tangga di lantai 1", adeganId1));
+        adeganId1.tambahAdeganBertarung(adeganId2);
 
         BarangSenjataJarakDekat.setKomponenUntukPerbaikan(metalParts);
+
+        adeganId3.tambahBarang(oldKey, 1);
+
         adeganId1.tambahBarang(jewelBox, 2);
-        adeganId1.tambahBarang(oldKey, 1);
         adeganId1.tambahBarang(metalParts, 2);
         adeganId1.tambahBarang(medikit, 1);
         adeganId1.tambahBarang(resistanceBooster, 1);
@@ -73,16 +88,25 @@ public class GameEngine {
         adeganId1.tambahBarang(increniaryArrow, 1);
         adeganId1.tambahBarang(regularArrow, 5);
         adeganId1.tambahBarang(bow, 1);
-        adeganId1.tambahBarang(regularArrow, 2);
         adeganId1.tambahBarang(pipaTua, 2);
+        adeganId1.tambahBarang(regularArrow, 2);
+        adeganId1.tambahBarang(new Barang(100, "Kotak Suara", "barang bernilai", "kotak berisikan surat suara", false, false, false, 0, 0), 1);
+
+        /* contoh lawan */
+        Lawan lawanId1 = new Lawan(1, "Zombie biasa", 100, 10);
+        lawanId1.getoPengelolaanBarangSederhana().tambahBarang(medikit, 5);
+        adeganId2.tambahLawan(lawanId1);
+        adeganId2.tambahLawan(new Lawan(lawanId1, pipaTua, 1));
+
 
         oGameEgnine.oPlayer.getPengelolaanBarang().setBatasMaxClassBarangSenjataIdTertentu(10, 5);
         oGameEgnine.oPlayer.getPengelolaanBarang().setBatasMaxClassBarangSenjataIdTertentu(11, 10);
         oGameEgnine.oPlayer.getPengelolaanBarang().setBatasMaxClassBarangSenjataIdTertentu(32, 5);
+        oGameEgnine.oPlayer.getPengelolaanBarang().setBatasMaxClassBarangPenggunaanPadaDiriIdTertentu(1, 5);
         oGameEgnine.oPlayer.getPengelolaanBarang().tambahBarang(granade, 5);
         oGameEgnine.oPlayer.getPengelolaanBarang().tambahBarang(increniaryArrow, 5);
         oGameEgnine.oPlayer.getPengelolaanBarang().tambahBarang(bow, 1);
-        oGameEgnine.oPlayer.adeganAktif = adeganId2;
+        oGameEgnine.oPlayer.adeganAktif = adeganId3;
         oGameEgnine.mulaiGame();
     }
 }

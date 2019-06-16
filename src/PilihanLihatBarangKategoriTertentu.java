@@ -26,24 +26,12 @@ public class PilihanLihatBarangKategoriTertentu extends Pilihan {
                 while (!kembaliKeDaftarBarangTertentu){
                     /* cukup ambil satu barang */
                     Barang barangPilihan = daftarBarangPilihan.get(0);
+                    barangPilihan.print();
                     System.out.println();
-                    System.out.printf("Aksi : Lihat Deskripsi Barang (kategori: %s)\n", kategori);
-                    System.out.println();
-                    System.out.printf("%-12s : %s\n", "nama", barangPilihan.nama);
-                    System.out.printf("%-12s : %s\n", "Deskripsi", barangPilihan.deskripsi);
-                    if(!barangPilihan.statusJual){
-                        System.out.printf("%-12s : %s\n", "Harga jual", "-");
-                    }else{
-                        System.out.printf("%-12s : %s\n", "Harga jual", barangPilihan.getHargaJual());
-                    }
-                    if(!barangPilihan.statusBeli){
-                        System.out.printf("%-12s : %s\n", "Harga beli", "-");
-                    }else{
-                        System.out.printf("%-12s : %s\n", "Harga beli", barangPilihan.getHargaBeli());
-                    }
-                    System.out.println();
-                    if(barangPilihan.statusDapatDigunakanAdeganTertentu){
-                        System.out.printf("%2d. Gunakan Barang\n", 1);
+                    if(this.oAdegan instanceof AdeganPintu){
+                        if(barangPilihan.statusDapatDigunakanAdeganTertentu){
+                            System.out.printf("%2d. Gunakan Barang\n", 1);
+                        }
                     }
                     System.out.printf("%2d. Kembali\n", 0);
                     System.out.print("Masukkan Pilihan : ");
@@ -53,13 +41,20 @@ public class PilihanLihatBarangKategoriTertentu extends Pilihan {
                             kembaliKeDaftarBarangTertentu = true;
                             break;
                         case 1:
-                            if(this.oAdegan instanceof AdeganNormal){
+                            if(this.oAdegan instanceof AdeganPintu){
                                 if(barangPilihan.statusDapatDigunakanAdeganTertentu){
-                                    if(((AdeganNormal) this.oAdegan).idBarangBisaDigunakan != barangPilihan.idBarang){
+                                    if(((AdeganPintu) this.oAdegan).idBarangBisaDigunakan != barangPilihan.idBarang){
                                         System.out.println();
                                         System.out.println("[ Kunci ini tidak cocok untuk digunakan. ]");
                                     }else{
-                                        ((AdeganNormal) this.oAdegan).gunakanBarang();
+                                        if(!((AdeganPintu) this.oAdegan).isTerkunci()){
+                                            System.out.println();
+                                            System.out.println("[ Pintu sudah terbuka ]");
+                                        }else{
+                                            ((AdeganPintu) this.oAdegan).gunakanBarang(barangPilihan);
+                                            System.out.println();
+                                            System.out.println("[ " + ((AdeganPintu) this.oAdegan).narasi + " ]");
+                                        }
                                     }
                                     break;
                                 }

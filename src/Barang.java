@@ -99,7 +99,7 @@ public class Barang {
 
     public void print(){
         System.out.println();
-        System.out.println("Aksi : Lihat Rincian Barang");
+        System.out.println("Aksi : Lihat Rincian Barang (" + "Kategori : "+ this.kategoriBarang + ")");
         System.out.println();
         System.out.printf("%-25s : %s\n", "nama", this.nama);
         System.out.printf("%-25s : %s\n", "Deskripsi", this.deskripsi);

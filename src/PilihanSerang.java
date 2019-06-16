@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 public class PilihanSerang extends Pilihan {
-    private AdeganBertarung oAdegan;
+    private AdeganBertarung oAdeganBertarung;
 
-    PilihanSerang(String deskripsi, AdeganBertarung oAdegan){
+    PilihanSerang(String deskripsi, AdeganBertarung oAdeganBertarung){
         super(deskripsi);
-        this.oAdegan = oAdegan;
+        this.oAdeganBertarung = oAdeganBertarung;
     }
 
     @Override
@@ -14,41 +14,51 @@ public class PilihanSerang extends Pilihan {
         while(!this.kembaliKeMenuSebelumnya){
             System.out.println();
             System.out.println("Aksi : " + this.dekripsi);
-            this.oAdegan.printDaftarLawan();
+            this.oAdeganBertarung.printDaftarLawan();
             System.out.printf("%2d. Kembali\n", 0);
             Scanner oScan = new Scanner(System.in);
             System.out.print("Masukkan Pilihan : ");
             int input = oScan.nextInt();
-            if(input < 0 || input > this.oAdegan.getJumlahLawan()){
+            if(input < 0 || input > this.oAdeganBertarung.getJumlahLawan()){
                 System.out.println();
                 System.out.println("[ Pilihan tidak tersedia. ]");
             }else if(input == 0){
                 this.kembaliKeMenuSebelumnya = true;
             }else{
                 boolean statusDapatMenyerang = false;
-                if(!this.oAdegan.oPlayer.isPlayerMenggunakanSenjata()){
+                if(!this.oAdeganBertarung.oPlayer.isPlayerMenggunakanSenjata()){
                     System.out.println();
                     System.out.println("[ Tidak memilki senjata untuk menyerang ]");
-                }else if(!this.oAdegan.oPlayer.isSenjataDigunakanMerupakanSenjataTembak()){
+                }else if(!this.oAdeganBertarung.oPlayer.isSenjataDigunakanMerupakanSenjataTembak()){
                     statusDapatMenyerang = true;
-                }else if(this.oAdegan.oPlayer.isAmunisiYangDigunakanKosong()){
-                    this.oAdegan.oPlayer.isiAmunisiSenjataYangDigunakan();
-                    if(!this.oAdegan.oPlayer.isAmunisiYangDigunakanKosong()){
+                }else if(this.oAdeganBertarung.oPlayer.isAmunisiYangDigunakanKosong()){
+                    this.oAdeganBertarung.oPlayer.isiAmunisiSenjataYangDigunakan();
+                    if(!this.oAdeganBertarung.oPlayer.isAmunisiYangDigunakanKosong()){
                         statusDapatMenyerang = true;
                     }
                 }else{
                     statusDapatMenyerang = true;
                 }
                 if(statusDapatMenyerang){
-                    this.oAdegan.serangLawan(input);
-                    if(this.oAdegan.isLawanYangDiserangMati(input)){
-                        this.oAdegan.hapusLawanYangMati(input);
+                    this.oAdeganBertarung.serangLawan(input);
+                    if(this.oAdeganBertarung.isLawanYangDiserangMati(input)){
+                        if(!this.oAdeganBertarung.isBarangDijatuhkanLawanKosong(input)){
+                            System.out.println();
+                            System.out.println("[ Lawan menjatuhkan barang ! ]");
+                            this.oAdeganBertarung.tambahBarangPadaAdeganNormal(this.oAdeganBertarung.getBarangDijatuhkanLawan(input));
+                        }
+                        this.oAdeganBertarung.hapusLawanYangMati(input);
                     }
-                    this.oAdegan.lawanMenyerang();
+                    this.oAdeganBertarung.lawanMenyerang();
                 }
             }
-            if(this.oAdegan.oPlayer.isSelesai()){
+            if(this.oAdeganBertarung.getJumlahLawan() <= 0){
                 this.kembaliKeMenuSebelumnya = true;
+                this.oAdeganBertarung.adeganBertarungTelahBerakhir = true;
+            }
+            if(this.oAdeganBertarung.oPlayer.getKesehatan() <= 0){
+                this.kembaliKeMenuSebelumnya = true;
+                this.oAdeganBertarung.oPlayer.isSelesai = true;
             }
         }
     }

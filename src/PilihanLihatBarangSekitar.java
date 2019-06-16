@@ -18,6 +18,9 @@ public class PilihanLihatBarangSekitar extends Pilihan {
             if(barangPilihan != null){
                 PilihanAmbilBarangSekitarAdegan oPilihanAmbilBarangSekitarAdegan = new PilihanAmbilBarangSekitarAdegan(this.dekripsi, this.oAdegan, barangPilihan);
                 oPilihanAmbilBarangSekitarAdegan.aksi();
+                if(this.oAdegan.oPlayer.isKotakSuaraTertemukan()){
+                    kembaliKeMenuUtama = true;
+                }
             }else{
                 kembaliKeMenuUtama = true;
             }
