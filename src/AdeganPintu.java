@@ -5,8 +5,8 @@ public class AdeganPintu extends AdeganNormal {
     public String narasiTerbuka;
     public PilihanGantiAdegan pilihanMenujuAdeganLain;
 
-    AdeganPintu(int idAdegan, int idBarangBisaDigunakan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String deskripsiPintu, PilihanGantiAdegan pilihanMenujuAdeganLain) {
-        super(idAdegan, idBarangBisaDigunakan, posisiPlayer, namaRuangan, namaLuarRuangan, namaTempat);
+    AdeganPintu(int idAdegan, int idPosisi, int idLantai, int idBarangBisaDigunakan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String deskripsiPintu, PilihanGantiAdegan pilihanMenujuAdeganLain) {
+        super(idAdegan, idPosisi, idLantai, idBarangBisaDigunakan, posisiPlayer, namaRuangan, namaLuarRuangan, namaTempat);
         this.deskripsiPintu = deskripsiPintu;
         this.narasiTerkunci = narasiTerkunci = this.oPlayer.nama + " mendekati pintu " + this.deskripsiPintu  + ". " + this.oPlayer.nama + " mencoba membuka pintu. \"Pintu ini terkunci!\"";
         this.narasiTerbuka =  this.oPlayer.nama + " mencoba membuka pintu dan terbuka!";

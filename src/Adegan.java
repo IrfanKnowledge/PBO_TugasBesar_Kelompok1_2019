@@ -6,14 +6,19 @@ public abstract class Adegan {
 
     /* Pada setiap adegan terdapat hal berikut dan memiliki kemungkinan dapat melakukan aksi penggunaan barang */
     public final int idAdegan;
+    public final int idPosisi;
+    public final int idLantai;
+
     public String posisiPlayer;
     public String namaRuangan;
     public String namaLuarRuangan;
     public String namaTempat;
     public String narasi;
 
-    Adegan(int idAdegan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String narasi){
+    Adegan(int idAdegan, int idPosisi, int idLantai, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String narasi){
         this.idAdegan = idAdegan;
+        this.idPosisi = idPosisi;
+        this.idLantai = idLantai;
         this.posisiPlayer = posisiPlayer;
         this.namaRuangan = namaRuangan;
         this.namaLuarRuangan = namaLuarRuangan;
@@ -21,8 +26,10 @@ public abstract class Adegan {
         this.narasi = narasi;
     }
 
-    Adegan(int idAdegan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat){
+    Adegan(int idAdegan, int idPosisi, int idLantai, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat){
         this.idAdegan = idAdegan;
+        this.idPosisi = idPosisi;
+        this.idLantai = idLantai;
         this.posisiPlayer = posisiPlayer;
         this.namaRuangan = namaRuangan;
         this.namaLuarRuangan = namaLuarRuangan;

@@ -13,8 +13,8 @@ public class AdeganBertarung extends Adegan {
     private AdeganNormal oAdeganNormal;
     public boolean adeganBertarungTelahBerakhir;
 
-    AdeganBertarung(int idAdegan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String narasi, AdeganNormal oAdeganNormal) {
-        super(idAdegan, posisiPlayer, namaRuangan, namaLuarRuangan, namaTempat, narasi);
+    AdeganBertarung(int idAdegan, int idPosisi, int idLantai, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String narasi, AdeganNormal oAdeganNormal) {
+        super(idAdegan, idPosisi, idLantai, posisiPlayer, namaRuangan, namaLuarRuangan, namaTempat, narasi);
         oPilihanSerang = new PilihanSerang("Serang", this);
         this.daftarPilihan.add(oPilihanSerang);
         this.oPilihanLihatIsiKantong = new PilihanLihatIsiKantong("Lihat isi kantong", this);

@@ -19,8 +19,8 @@ public class AdeganNormal extends Adegan {
     /* setiap adegan normal dapat memiliki adegan bertarung */
     private AdeganBertarung oAdeganBertarung;
 
-    AdeganNormal(int idAdegan, int idBarangBisaDigunakan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String narasi){
-        super(idAdegan, posisiPlayer, namaRuangan, namaLuarRuangan, namaTempat, narasi);
+    AdeganNormal(int idAdegan, int idPosisi, int idLantai, int idBarangBisaDigunakan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat, String narasi){
+        super(idAdegan, idPosisi, idLantai, posisiPlayer, namaRuangan, namaLuarRuangan, namaTempat, narasi);
         //inisiasi pilihan awal di setiap Adegan
         this.idBarangBisaDigunakan = idBarangBisaDigunakan;
         this.oPilihanLihatBarangSekitar = new PilihanLihatBarangSekitar("Lihat barang sekitar tempat ini", this);
@@ -35,8 +35,8 @@ public class AdeganNormal extends Adegan {
         this.oPengelolaanBarangSederhana = new PengelolaanBarangSederhana();
     }
 
-    AdeganNormal(int idAdegan, int idBarangBisaDigunakan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat){
-        super(idAdegan, posisiPlayer, namaRuangan, namaLuarRuangan, namaTempat);
+    AdeganNormal(int idAdegan, int idPosisi, int idLantai, int idBarangBisaDigunakan, String posisiPlayer, String namaRuangan, String namaLuarRuangan, String namaTempat){
+        super(idAdegan, idPosisi, idLantai, posisiPlayer, namaRuangan, namaLuarRuangan, namaTempat);
         //inisiasi pilihan awal di setiap Adegan
         this.idBarangBisaDigunakan = idBarangBisaDigunakan;
         this.oPilihanLihatBarangSekitar = new PilihanLihatBarangSekitar("Lihat barang sekitar tempat ini", this);

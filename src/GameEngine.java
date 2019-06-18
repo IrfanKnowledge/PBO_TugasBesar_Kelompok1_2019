@@ -122,6 +122,7 @@ public class GameEngine extends Thread {
         BarangSenjataJarakDekat.setKomponenUntukPerbaikan(metalParts);
 
         adeganId3.tambahBarang(oldKey, 1);
+//        adeganId3.tambahBarang(new Barang(100, "Kotak Suara", "barang bernilai", "kotak berisikan surat suara", false, false, false, 0, 0), 1);
 
         adeganId1.tambahBarang(jewelBox, 2);
         adeganId1.tambahBarang(metalParts, 2);
@@ -170,7 +171,7 @@ public class GameEngine extends Thread {
         oGameEgnine.oPlayer.getPengelolaanBarang().setBatasMaxClassBarangSenjataIdTertentu(32, 5);
         oGameEgnine.oPlayer.getPengelolaanBarang().setBatasMaxClassBarangPenggunaanPadaDiriIdTertentu(1, 5);
 //        oGameEgnine.oPlayer.getPengelolaanBarang().tambahBarang(granade, 5);
-        oGameEgnine.oPlayer.getPengelolaanBarang().tambahBarang(increniaryArrow, 30);
+        oGameEgnine.oPlayer.getPengelolaanBarang().tambahBarang(increniaryArrow, 1);
         oGameEgnine.oPlayer.getPengelolaanBarang().tambahBarang(bow, 1);
         oGameEgnine.oPlayer.adeganAktif = adeganId3;
         oGameEgnine.mulaiGame();
