@@ -4,9 +4,18 @@ import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import java.awt.*;
 
-public class CobaSwing {
+public class CobaSwing extends Thread {
 
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+
+    @Override
+    public void run() {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();

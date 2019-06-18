@@ -3,86 +3,120 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Lawan {
-    private int idLawan;
-    private String nama;
+    public final int idLawan;
+    public String nama;
     private int kesehatan;
     private int kekuatan;
-    private Barang senjata;
+    public BarangSenjata senjata;
     private Efek efekMenyerang;
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>(); //masih perlu dipikirkan ulang
-    private boolean statusMelihatPlayer;
+    private PengelolaanBarangSederhana oPengelolaanBarangSederhana;
 
-    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer){
+    Lawan(int idLawan, String nama, int kesehatan, int kekuatan) {
         this.idLawan = idLawan;
         this.nama = nama;
         this.kesehatan = kesehatan;
         this.kekuatan = kekuatan;
-        this.statusMelihatPlayer = statusMelihatPlayer;
+        this.oPengelolaanBarangSederhana = new PengelolaanBarangSederhana();
     }
 
-    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer, Barang senjata){
-        this.idLawan = idLawan;
-        this.nama = nama;
-        this.kesehatan = kesehatan;
-        this.kekuatan = kekuatan;
-        this.statusMelihatPlayer = statusMelihatPlayer;
-        this.senjata = senjata;
+    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, Barang barangInput, int jumlahInstance){
+        this(idLawan, nama, kesehatan, kekuatan);
+        this.getoPengelolaanBarangSederhana().tambahBarang(barangInput, jumlahInstance);
     }
 
-    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer, Efek efekMenyerang){
-        this.idLawan = idLawan;
-        this.nama = nama;
-        this.kesehatan = kesehatan;
-        this.kekuatan = kekuatan;
-        this.statusMelihatPlayer = statusMelihatPlayer;
-        this.efekMenyerang = efekMenyerang;
-    }
-
-    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, boolean statusMelihatPlayer, Efek efekMenyerang, Barang senjata){
-        this.idLawan = idLawan;
-        this.nama = nama;
-        this.kesehatan = kesehatan;
-        this.kekuatan = kekuatan;
-        this.statusMelihatPlayer = statusMelihatPlayer;
-        this.efekMenyerang = efekMenyerang;
-        this.senjata = senjata;
-    }
-
-    private void kurangiKesehatan(int nilaiSerangan){
-        if(this.kesehatan > 0){
-            this.kesehatan -= nilaiSerangan;
-            if(this.kesehatan < 0){
-                this.kesehatan = 0;
-            }
+    Lawan(Lawan oLawan){
+        this(oLawan.idLawan, oLawan.nama, oLawan.kesehatan, oLawan.kekuatan);
+        for (ArrayList<Barang> daftarBarangTertentu: oLawan.oPengelolaanBarangSederhana.getDaftarBarang()) {
+            this.oPengelolaanBarangSederhana.tambahBarang(daftarBarangTertentu);
         }
     }
 
-    public void tambahSenjata(Barang senjata){
-        this.senjata = senjata;
+    Lawan(Lawan oLawan, Barang barangInput, int jumlahInstance){
+        this(oLawan.idLawan, oLawan.nama, oLawan.kesehatan, oLawan.kekuatan);
+        this.getoPengelolaanBarangSederhana().tambahBarang(barangInput, jumlahInstance);
     }
 
+
+
+    private int filterMinimalNol(int nilai) {
+        if(nilai < 0){
+            nilai = 0;
+        }
+        return nilai;
+    }
+
+    //===================================================================================================
+    /* pengaturan kesehatan */
+    //===================================================================================================
+    public void setKesehatan(int kesehatan) {
+        this.kesehatan = this.filterMinimalNol(kesehatan);
+    }
+
+    public int getKesehatan() {
+        return kesehatan;
+    }
+
+    private void kurangiKesehatan(int nilaiSerangan){
+        this.setKesehatan(this.kesehatan - nilaiSerangan);
+    }
+
+
+    //===================================================================================================
+    /* pengaturan efek */
+    //===================================================================================================
     public void tambahEfekMenyerang(Efek efekMenyerang){
         this.efekMenyerang = efekMenyerang;
     }
 
     //masih perlu dipikirkan ulang
     public void tambahEfekDiri(HashMap<Integer, Efek> efekLuar){
-        for (Map.Entry<Integer, Efek> record : efekLuar.entrySet()) {
-            daftarEfekDiri.put(record.getKey(), record.getValue());
+        for (Map.Entry<Integer, Efek> efekTertentu : efekLuar.entrySet()) {
+            daftarEfekDiri.put(efekTertentu.getKey(), efekTertentu.getValue());
         }
     }
 
-    public void gunakanEfekDiri(){
-
-    }
-
-    //masih perlu dipikirkan ulang
-    public void diSerang(Barang oSenjata){
+    //===================================================================================================
+    /* pengaturan diserang */
+    //===================================================================================================
+    public void diSerang(BarangSenjata oSenjata){
         this.kurangiKesehatan(oSenjata.getKekuatan());
-        //this.tambahEfekDiri(oSenjata.g);
+        this.tambahEfekDiri(oSenjata.getDaftarEfek());
     }
 
-    public void printIdentitas(){
+    //===================================================================================================
+    /* pengaturan print diri */
+    //===================================================================================================
+    public void print(){
+        System.out.printf("%-15s : %s\n", "Nama : ", this.nama);
+        System.out.printf("%-15s : %s\n", "Kesehatan : ", this.kesehatan);
+        System.out.printf("%-15s : %s\n", "Kekuatan : ", this.kekuatan);
+    }
 
+    //===================================================================================================
+    /* pengaturan kekuatan */
+    //===================================================================================================
+
+    public int getKekuatan() {
+        if(this.senjata != null){
+            return kekuatan + senjata.getKekuatan();
+        }
+        return kekuatan;
+    }
+
+    //===================================================================================================
+    /* pengaturan barang */
+    //===================================================================================================
+
+    public PengelolaanBarangSederhana getoPengelolaanBarangSederhana() {
+        return oPengelolaanBarangSederhana;
+    }
+
+    //===================================================================================================
+    /* pengaturan cloning lawan */
+    //===================================================================================================
+    public Lawan cloning(Lawan oLawan){
+        Lawan lawanCloning = new Lawan(oLawan);
+        return lawanCloning;
     }
 }

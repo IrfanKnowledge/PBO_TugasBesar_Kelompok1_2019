@@ -1,6 +1,6 @@
 public abstract class Skill {
     protected Player oPlayer;
-    protected int idSkill;
+    protected final int idSkill;
     protected String nama;
     protected int idLevelDibutuhkan;
     protected int nilaiLevelDibutuhkan;
