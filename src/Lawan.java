@@ -7,7 +7,7 @@ public class Lawan {
     public String nama;
     private int kesehatan;
     private int kekuatan;
-    public BarangSenjata senjata;
+    public BarangSenjataJarakDekat senjata;
     private Efek efekMenyerang;
     private HashMap<Integer, Efek> daftarEfekDiri = new HashMap<>(); //masih perlu dipikirkan ulang
     private PengelolaanBarangSederhana oPengelolaanBarangSederhana;
@@ -20,9 +20,9 @@ public class Lawan {
         this.oPengelolaanBarangSederhana = new PengelolaanBarangSederhana();
     }
 
-    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, Barang barangInput, int jumlahInstance){
+    Lawan(int idLawan, String nama, int kesehatan, int kekuatan, Barang barangYangDijatuhkan, int jumlahInstance){
         this(idLawan, nama, kesehatan, kekuatan);
-        this.getoPengelolaanBarangSederhana().tambahBarang(barangInput, jumlahInstance);
+        this.getoPengelolaanBarangSederhana().tambahBarang(barangYangDijatuhkan, jumlahInstance);
     }
 
     Lawan(Lawan oLawan){
@@ -32,9 +32,9 @@ public class Lawan {
         }
     }
 
-    Lawan(Lawan oLawan, Barang barangInput, int jumlahInstance){
+    Lawan(Lawan oLawan, Barang barangYangDijatuhkan, int jumlahInstance){
         this(oLawan.idLawan, oLawan.nama, oLawan.kesehatan, oLawan.kekuatan);
-        this.getoPengelolaanBarangSederhana().tambahBarang(barangInput, jumlahInstance);
+        this.getoPengelolaanBarangSederhana().tambahBarang(barangYangDijatuhkan, jumlahInstance);
     }
 
 
@@ -110,6 +110,15 @@ public class Lawan {
 
     public PengelolaanBarangSederhana getoPengelolaanBarangSederhana() {
         return oPengelolaanBarangSederhana;
+    }
+
+    //===================================================================================================
+    /* pengaturan senjata */
+    //===================================================================================================
+    public void gunakanSenjata(){
+        if(this.senjata != null){
+            this.senjata.gunakanBarangSenjata();
+        }
     }
 
     //===================================================================================================

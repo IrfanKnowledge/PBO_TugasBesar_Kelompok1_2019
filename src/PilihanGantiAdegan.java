@@ -2,7 +2,7 @@ public class PilihanGantiAdegan extends Pilihan{
     private Adegan oAdegan;
     private Player oPlayer;
 
-    PilihanGantiAdegan(String dekripsi, Adegan oAdegan) {
+    PilihanGantiAdegan(String dekripsi, AdeganNormal oAdegan) {
         super(dekripsi);
         this.oAdegan = oAdegan;
         this.oPlayer = this.oAdegan.oPlayer;

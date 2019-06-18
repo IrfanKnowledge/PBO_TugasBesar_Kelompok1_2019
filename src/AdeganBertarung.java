@@ -22,7 +22,8 @@ public class AdeganBertarung extends Adegan {
         this.oPilihanKeluarGame = new PilihanKeluarGame("Keluar dari Game");
         tambahPilihan(this.oPilihanKeluarGame);
         this.oAdeganNormal = oAdeganNormal;
-        this.adeganBertarungTelahBerakhir = false;
+        /* karena belum didefinisikan lawannya */
+        this.adeganBertarungTelahBerakhir = true;
     }
 
 
@@ -135,6 +136,7 @@ public class AdeganBertarung extends Adegan {
             System.out.println();
             System.out.printf("[ %s menyerang %s ]\n", this.daftarLawan.get(i).nama, this.oPlayer.nama);
             this.oPlayer.diSerang(this.daftarLawan.get(i).getKekuatan());
+            this.daftarLawan.get(i).gunakanSenjata();
             System.out.println();
             this.oPlayer.print();
         }
