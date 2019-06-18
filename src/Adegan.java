@@ -38,7 +38,7 @@ public abstract class Adegan {
         System.out.println("Nama : " + this.oPlayer.nama);
         System.out.println("Senjata : " + this.oPlayer.getNamaSenjataDigunakan());
         System.out.println("Kesehatan : " + this.oPlayer.getKesehatan());
-        System.out.println("Daftar Efek : " + this.oPlayer.getDaftarEfekDiri());
+//        System.out.println("Daftar Efek : " + this.oPlayer.getDaftarEfekDiri());
         System.out.println("Nama Tempat : " + this.namaTempat);
         System.out.println("Narasi : " + this.narasi);
     }

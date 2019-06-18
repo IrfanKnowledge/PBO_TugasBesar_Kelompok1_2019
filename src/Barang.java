@@ -103,15 +103,15 @@ public class Barang {
         System.out.println();
         System.out.printf("%-25s : %s\n", "nama", this.nama);
         System.out.printf("%-25s : %s\n", "Deskripsi", this.deskripsi);
-        if(!this.statusBeli){
-            System.out.printf("%-25s : -\n", "Harga beli");
-        }else{
-            System.out.printf("%-25s : %s\n", "Harga beli", this.getHargaBeli());
-        }
-        if(!this.statusJual){
-            System.out.printf("%-25s : -\n", "Harga jual");
-        }else{
-            System.out.printf("%-25s : %s\n", "Harga jual", this.getHargaJual());
-        }
+//        if(!this.statusBeli){
+//            System.out.printf("%-25s : -\n", "Harga beli");
+//        }else{
+//            System.out.printf("%-25s : %s\n", "Harga beli", this.getHargaBeli());
+//        }
+//        if(!this.statusJual){
+//            System.out.printf("%-25s : -\n", "Harga jual");
+//        }else{
+//            System.out.printf("%-25s : %s\n", "Harga jual", this.getHargaJual());
+//        }
     }
 }

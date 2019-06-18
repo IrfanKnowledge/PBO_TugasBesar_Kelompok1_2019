@@ -24,7 +24,7 @@ public class MenuPengelolaanBarang {
             System.out.println("Aksi : " + aksi);
             if(!this.oPengelolaanBarang.getDaftarBarangKeseluruhanByKategori().containsKey(kategori)){
                 System.out.println();
-                System.out.printf("[ Barang %s tidak ada atau kosong ]\n", kategori);
+                System.out.printf("[ Barang tidak ada atau kosong ]\n");
                 System.out.println();
             }else{
                 int i=0;

@@ -26,20 +26,23 @@ public class PilihanSerang extends Pilihan {
                 this.kembaliKeMenuSebelumnya = true;
             }else{
                 boolean statusDapatMenyerang = false;
+                boolean statusSenjataBerjenisSenjataTembak = false;
                 if(!this.oAdeganBertarung.oPlayer.isPlayerMenggunakanSenjata()){
                     System.out.println();
                     System.out.println("[ Tidak memilki senjata untuk menyerang ]");
                 }else if(!this.oAdeganBertarung.oPlayer.isSenjataDigunakanMerupakanSenjataTembak()){
                     statusDapatMenyerang = true;
                 }else if(this.oAdeganBertarung.oPlayer.isAmunisiYangDigunakanKosong()){
+                    statusSenjataBerjenisSenjataTembak = true;
                     this.oAdeganBertarung.oPlayer.isiAmunisiSenjataYangDigunakan();
                     if(!this.oAdeganBertarung.oPlayer.isAmunisiYangDigunakanKosong()){
                         statusDapatMenyerang = true;
                     }
                 }else{
+                    statusSenjataBerjenisSenjataTembak = true;
                     statusDapatMenyerang = true;
                 }
-                if(statusDapatMenyerang){
+                if(statusDapatMenyerang || statusSenjataBerjenisSenjataTembak){
                     this.oAdeganBertarung.serangLawan(input);
                     if(this.oAdeganBertarung.isLawanYangDiserangMati(input)){
                         if(!this.oAdeganBertarung.isBarangDijatuhkanLawanKosong(input)){

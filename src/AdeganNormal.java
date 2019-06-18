@@ -27,8 +27,8 @@ public class AdeganNormal extends Adegan {
         tambahPilihan(this.oPilihanLihatBarangSekitar);
         this.oPilihanLihatIsiKantong = new PilihanLihatIsiKantong("Lihat isi kantong", this);
         tambahPilihan(this.oPilihanLihatIsiKantong);
-        this.oPilihanLihatNpcSekitar = new PilihanLihatNpcSekitar("Lihat keberadaan orang sekitar");
-        tambahPilihan(this.oPilihanLihatNpcSekitar);
+//        this.oPilihanLihatNpcSekitar = new PilihanLihatNpcSekitar("Lihat keberadaan orang sekitar");
+//        tambahPilihan(this.oPilihanLihatNpcSekitar);
         this.oPilihanKeluarGame = new PilihanKeluarGame("Keluar dari Game");
         tambahPilihan(this.oPilihanKeluarGame);
         this.oMenuPengelolaanBarang = new MenuPengelolaanBarang();
@@ -43,8 +43,8 @@ public class AdeganNormal extends Adegan {
         tambahPilihan(this.oPilihanLihatBarangSekitar);
         this.oPilihanLihatIsiKantong = new PilihanLihatIsiKantong("Lihat isi kantong", this);
         tambahPilihan(this.oPilihanLihatIsiKantong);
-        this.oPilihanLihatNpcSekitar = new PilihanLihatNpcSekitar("Lihat keberadaan orang sekitar");
-        tambahPilihan(this.oPilihanLihatNpcSekitar);
+//        this.oPilihanLihatNpcSekitar = new PilihanLihatNpcSekitar("Lihat keberadaan orang sekitar");
+//        tambahPilihan(this.oPilihanLihatNpcSekitar);
         this.oPilihanKeluarGame = new PilihanKeluarGame("Keluar dari Game");
         tambahPilihan(this.oPilihanKeluarGame);
         this.oMenuPengelolaanBarang = new MenuPengelolaanBarang();

@@ -224,7 +224,12 @@ public class Player {
                 ((BarangSenjataJarakDekat) senjataDigunakan).gunakanBarangSenjata();
                 return senjataDigunakan;
             }else if(this.senjata.get(0) instanceof BarangSenjataTembak){
-                return ((BarangSenjataTembak) senjataDigunakan).gunakanSenjata();
+                BarangSenjata temp = ((BarangSenjataTembak) senjataDigunakan).gunakanSenjata();
+                if(temp == null){
+                    return new BarangSenjata(0, "", "", "", false, false, false, false, 0, 0, 0);
+                }else{
+                    return temp;
+                }
             }else{
                 this.hapusBarangDariDaftarBarangTerbatas(this.indeksSlotSenjataDiambil, senjataDigunakan);
                 return senjataDigunakan;
