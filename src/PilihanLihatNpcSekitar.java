@@ -3,4 +3,8 @@ public class PilihanLihatNpcSekitar extends Pilihan{
         super(dekripsi);
     }
 
+    @Override
+    public String getDekripsi() {
+        return super.getDekripsi();
+    }
 }

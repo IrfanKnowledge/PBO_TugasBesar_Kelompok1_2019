@@ -1,117 +1,250 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Barang {
-
-    /* public karena tidak memerlukan proses internal */
-    public final int idBarang;
-    public String nama;
-    public String kategoriBarang;
-    public String deskripsi;
-
-    public final boolean statusDapatDigunakanAdeganTertentu;
-
-    /* status ini berguna untuk membedakan mana barang yang dapat bernilai 0 namun bisa diberikan gratis oleh penjual
-    *  atau barang yang tidak bisa dibeli dari penjual tapi bisa dijual, atau sebaliknya (bisa dibeli, tidak bisa dijual)*/
-    public final boolean statusJual;
-    public final boolean statusBeli;
-
-    /* private karena pemberian minimal nilai dibatasi */
-    private int hargaJual;;
+    private int idBarang;
+    private String nama;
+    private String jenis;
+    private String kategoriPenyimpanan;
+    private String deskripsi;
+    private boolean statusBeli;
+    private boolean statusJual;
     private int hargaBeli;
+    private int hargaJual;;
+    private ArrayList<Efek> daftarEfek = new ArrayList<>();
+    private int kekuatan = 0;
+    private int nilaiKesehatan = 0;
+    private boolean statusUpgrade = false;
 
-    Barang(int idBarang, String nama, String kategoriBarang,String deskripsi,
-           boolean statusDapatDigunakanAdeganTertentu,
-           boolean statusJual, boolean statusBeli, int hargaJual, int hargaBeli){
+    //contructor tanpa kekuatan, daftarEfek dan kesehatan
+    Barang(int idBarang, String nama, String jenis, String kategoriPenyimpanan,
+           String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual){
         this.idBarang = idBarang;
         this.nama = nama;
-        this.kategoriBarang = kategoriBarang;
+        this.jenis = jenis;
+        this.kategoriPenyimpanan = kategoriPenyimpanan;
         this.deskripsi = deskripsi;
-        this.statusDapatDigunakanAdeganTertentu = statusDapatDigunakanAdeganTertentu;
-        this.statusJual = statusJual;
         this.statusBeli = statusBeli;
-        this.setHargaJual(hargaJual);
-        this.setHargaBeli(hargaBeli);
+        this.statusJual = statusJual;
+        this.hargaBeli = hargaBeli;
+        this.hargaJual = hargaJual;
     }
 
-    public static void main(String[] args) {
-        Barang oBarang = new Barang(1,"kunci", "kunci", "memilki permata berwarna merah",
-                true, true, false, 5, 0);
-        BarangPenggunaanPadaDiri oBarangPenggunaanPadaDiri = new BarangPenggunaanPadaDiri(2, "Medikit", "penggunaan pada diri",
-                "Untuk menyembuhkan luka", false, true, false, 5000, 2500, 100);
-        BarangSenjata oSenjata = new BarangSenjata(3, "shuriken", "senjata", "berukuran sedang berbentuk seperti bintang tajam",
-                false, true, true, false, 5000, 10000, 10);
-        BarangSenjataJarakDekat oSenjataJarakDekat = new BarangSenjataJarakDekat(4, "pipa tua", "senjata", "pipa tua berkarat berukurang sedang",
-                false, true, false, 5000, 15000, 35, 20, 20, 3, 0, 1);
-        BarangSenjata regularArrow = new BarangSenjata(11, "Regular Arrow", "amunisi", "anak panah biasa yang tidak memiliki efek apapun", false, false, false, true, 0, 50000, 30);
-        BarangSenjataTembak oSenjataTembak = new BarangSenjataTembak(5, "Desert Eagle", "senjata", "pistol sedang dengan kekuatan cukup kuat daripada pistol biasa",
-                false, true, false, 25000, 100000, 100, 12, regularArrow);
-        BarangBlueprintPenggunaanPadaDiri oBlueprintMedikit = new BarangBlueprintPenggunaanPadaDiri(6, "Blueprint Medikit", "blueprint", "blueprint untuk membuat medikit",
-                false, true, false, 5000, 10000, 3);
-        BarangBlueprintSenjataBaru oBlueprintBuzzerKiller = new BarangBlueprintSenjataBaru(7, "Buzzer Killer", "blueprint","Untuk membuat senjata Buzzer Killer, sebuah senjata mematikan tajam",
-                false, true, false, 20000, 2500, 1);
-        BarangBlueprintSenjataUpgrade oBlueprintSenjataTajam = new BarangBlueprintSenjataUpgrade(8, "Fire burner", "blueprint","Untuk meng-upgrade senjata tajam menjadi ber-efek api",
-                false, true, false, 10000, 30000, 100, 0);
-
-        System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
-        oBarang = oBarangPenggunaanPadaDiri;
-        ((BarangPenggunaanPadaDiri) oBarang).tambahEfek(new Efek(1, "hantaman godam", 0, 0, 0, 0, 2, 10, 0, 50, 10));
-        System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
-        oBarang = oSenjata;
-        System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
-        oBarang = oSenjataJarakDekat;
-        System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
-        oBarang = oSenjataTembak;
-        System.out.printf("%s %d %d %s %s\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli);
-        oBarang = oBlueprintMedikit;
-        System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBlueprintPenggunaanPadaDiri) oBarang).getJumlahHasilCrafting());
-        //oBarang = oBlueprintBuzzerKiller;
-        //System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBluePrintSenjataBaru) oBarang).getJumlahHasilCrafting());
-        oBarang = oBlueprintSenjataTajam;
-        System.out.printf("%s %d %d %s %s | %d\n", oBarang.nama, oBarang.getHargaJual(), oBarang.getHargaBeli(), oBarang.statusJual, oBarang.statusBeli, ((BarangBlueprintSenjataUpgrade) oBarang).getJumlahHasilCrafting() );
+    //contructor tanpa kekuatan dan daftarEfek
+    Barang(int idBarang, String nama, String jenis, String kategoriPenyimpanan,
+           String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int nilaiKesehatan){
+        this.idBarang = idBarang;
+        this.nama = nama;
+        this.jenis = jenis;
+        this.kategoriPenyimpanan = kategoriPenyimpanan;
+        this.deskripsi = deskripsi;
+        this.statusBeli = statusBeli;
+        this.statusJual = statusJual;
+        this.hargaBeli = hargaBeli;
+        this.hargaJual = hargaJual;
+        this.nilaiKesehatan = nilaiKesehatan;
     }
 
-    /* Cloning barang dan turunannya (polymorphism) */
-    public Barang cloning(){
-        return new Barang(this.idBarang, this.nama, this.kategoriBarang, this.deskripsi, this.statusDapatDigunakanAdeganTertentu, this.statusJual, this.statusBeli, this.getHargaJual(), this.getHargaBeli());
+    //contructor tanpa kekuatan dan nilaiKesehatan
+    Barang(int idBarang, String nama, String jenis, String kategoriPenyimpanan,
+           String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, ArrayList<Efek> daftarEfek){
+        this.idBarang = idBarang;
+        this.nama = nama;
+        this.jenis = jenis;
+        this.kategoriPenyimpanan = kategoriPenyimpanan;
+        this.deskripsi = deskripsi;
+        this.statusBeli = statusBeli;
+        this.statusJual = statusJual;
+        this.hargaBeli = hargaBeli;
+        this.hargaJual = hargaJual;
+        this.daftarEfek = daftarEfek;
     }
 
-    /* private karena hanya digunakan pada proses input harga jual dan harga beli, agar harga "tidak negatif" */
-    private int filterHarga(int harga){
-        if(harga < 0){
-            return 0;
+    //contructor tanpa nilaiKeshatan
+    Barang(int idBarang, String nama, String jenis, String kategoriPenyimpanan,
+           String deskripsi, boolean statusBeli, boolean statusJual, int hargaBeli, int hargaJual, int kekuatan, ArrayList<Efek> daftarEfek){
+        this.idBarang = idBarang;
+        this.nama = nama;
+        this.jenis = jenis;
+        this.kategoriPenyimpanan = kategoriPenyimpanan;
+        this.deskripsi = deskripsi;
+        this.statusBeli = statusBeli;
+        this.statusJual = statusJual;
+        this.hargaBeli = hargaBeli;
+        this.hargaJual = hargaJual;
+        this.kekuatan = kekuatan;
+        this.daftarEfek = daftarEfek;
+
+        //jika barang ini adalah termasuk jenis senjata pukul maka bisa di upgrade
+        if(jenis.equals("Senjata Pukul")){
+            this.statusUpgrade = true;
         }
-        return harga;
     }
 
-    public void setHargaJual(int hargaJual) {
-        this.hargaJual = this.filterHarga(hargaJual);
+    //constructor untuk mengcloning Barang
+    Barang(Barang cloning){
+        this.idBarang = cloning.getIdBarang();
+        this.nama = cloning.getNama();
+        this.jenis = cloning.getJenis();
+        this.kategoriPenyimpanan = cloning.getKategoriPenyimpanan();
+        this.deskripsi = cloning.getDeskripsi();
+        this.statusBeli = cloning.isStatusBeli();
+        this.statusJual = cloning.isStatusJual();
+        this.hargaBeli = cloning.getHargaBeli();
+        this.hargaJual = cloning.getHargaJual();
+        this.nilaiKesehatan = cloning.getNilaiKesehatan();
+        this.kekuatan = cloning.getKekuatan();
+        this.daftarEfek = cloning.getDaftarEfek();
+        this.statusUpgrade = cloning.isStatusUpgrade();
     }
 
-    public void setHargaBeli(int hargaBeli) {
-        this.hargaBeli = this.filterHarga(hargaBeli);
+    public void tambahEfek(ArrayList<Efek> oEfek) {
+        for (Efek value : oEfek) {
+            this.daftarEfek.add(value);
+        }
+    }
+    public void tambahEfek(Efek oEfek) {
+        this.daftarEfek.add(oEfek);
     }
 
-    public int getHargaJual() {
-        return hargaJual;
+    /* Cloning barang dan turunannya */
+    public Barang cloning(){
+        return new Barang(this);
+    }
+
+    //proses pada blue print
+    public ArrayList<Barang> gunakanBarangBlueprint(HashMap<Integer, ArrayList<Barang>> daftarKomponenCrafting, Barang senjata, int efisiensiCrafting){ return null;}
+
+    //proses pada senjata pukul dan tembak
+    public Barang gunakanBarangSenjata(){return null;}
+
+    //proses pada senjata pukul
+    public void perbaikiBarang(Barang komponen){}
+
+    //proses pada senjata tembak
+    public void isiPeluru(ArrayList<Barang> daftarAmunisi){}
+
+    public int getIdBarang() {
+        return idBarang;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public String getJenis() {
+        return jenis;
+    }
+
+    public String getDeskripsi() {
+        return deskripsi;
+    }
+
+    public boolean isStatusBeli() {
+        return statusBeli;
+    }
+
+    public boolean isStatusJual() {
+        return statusJual;
     }
 
     public int getHargaBeli() {
         return hargaBeli;
     }
 
-    public void print(){
-        System.out.println();
-        System.out.println("Aksi : Lihat Rincian Barang (" + "Kategori : "+ this.kategoriBarang + ")");
-        System.out.println();
-        System.out.printf("%-25s : %s\n", "nama", this.nama);
-        System.out.printf("%-25s : %s\n", "Deskripsi", this.deskripsi);
-        if(!this.statusBeli){
-            System.out.printf("%-25s : -\n", "Harga beli");
-        }else{
-            System.out.printf("%-25s : %s\n", "Harga beli", this.getHargaBeli());
-        }
-        if(!this.statusJual){
-            System.out.printf("%-25s : -\n", "Harga jual");
-        }else{
-            System.out.printf("%-25s : %s\n", "Harga jual", this.getHargaJual());
-        }
+    public int getHargaJual() {
+        return hargaJual;
     }
+
+    public void setKekuatan(int kekuatan) { this.kekuatan = kekuatan; }
+
+    public int getKekuatan(){
+        return this.kekuatan;
+    }
+
+    public ArrayList<Efek> getDaftarEfek() {
+        return daftarEfek;
+    }
+
+    public void setDaftarEfek(ArrayList<Efek> daftarEfek) {
+        this.daftarEfek = daftarEfek;
+    }
+
+    public int getNilaiKesehatan() {
+        return nilaiKesehatan;
+    }
+
+    public boolean isStatusUpgrade() {
+        return statusUpgrade;
+    }
+
+    public void setStatusUpgrade(boolean statusUpgrade){
+        this.statusUpgrade = statusUpgrade;
+    }
+
+    public String getKategoriPenyimpanan() {
+        return kategoriPenyimpanan;
+    }
+
+    //=======================================================
+            /* untuk class child saja */
+    public boolean isStatusKemampuanDiperbaiki() {
+        return false;
+    }
+
+    public HashMap<String,Integer> getKomponenUntukPerbaikan() {
+        return null;
+    }
+
+    public HashMap<String, Integer> getIdAmunisiUtama() {
+        return null;
+    }
+
+    public HashMap<String, ArrayList<Integer>> getDaftarIdAmunisi() {
+        return null;
+    }
+
+    public int getJumlahKebutuhanIsiPeluru(){
+        return 0;
+    }
+
+    public HashMap<Integer, ArrayList<Barang>> getDaftarKomponenCrafting() {
+        return null;
+    }
+
+    public HashMap<Integer, Barang> getDaftarSenjataUntukCrafting() {
+        return null;
+    }
+
+    public boolean setSenjataUntukCraftingTerpilih(Barang senjataUntukCraftingTerpilih) {
+        return false;
+    }
+
+    public int getPeningkatanKekuatan() {
+        return 0;
+    }
+
+    public int getPeningkatanBatasMaxKetahanan() {
+        return 0;
+    }
+
+    public ArrayList<Efek> getDaftarTambahanEfek() {
+        return null;
+    }
+
+    public int getKetahanan(){return 50;}
+
+    public int getBatasMaxAmunisi(){
+        return 0;
+    }
+    public int getJumlahPeluru(){
+        return 0;
+    }
+
+    public int jumlahKemampuanDiperbaiki(){ return 0; }
+
+    public void gantiPeluru(int indeks){ }
+
+    //=======================================================
 }
