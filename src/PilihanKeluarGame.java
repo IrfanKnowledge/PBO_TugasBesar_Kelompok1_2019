@@ -9,8 +9,4 @@ public class PilihanKeluarGame extends Pilihan {
         System.exit(0);
     }
 
-    @Override
-    public String getDekripsi() {
-        return super.getDekripsi();
-    }
 }

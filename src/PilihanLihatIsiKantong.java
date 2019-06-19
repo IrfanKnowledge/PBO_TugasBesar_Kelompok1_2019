@@ -1,68 +1,45 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class PilihanLihatIsiKantong extends Pilihan {
-    private Adegan oAdegan;
+    public Adegan oAdegan;
+    public boolean kembaliKeMenuSebelumnya;
+    private ArrayList<Pilihan> daftarPilihan = new ArrayList<>();
 
     PilihanLihatIsiKantong(String dekripsi, Adegan oAdegan) {
         super(dekripsi);
         this.oAdegan = oAdegan;
-    }
-
-    @Override
-    public String getDekripsi() {
-        return super.getDekripsi();
+        this.daftarPilihan.add(new PilihanLihatBarangKategoriTertentu("Lihat Daftar Kunci", this.oAdegan, "kunci"));
+        this.daftarPilihan.add(new PilihanLihatBarangTerbatas("Lihat Penyimpanan Utama", oAdegan));
+        this.daftarPilihan.add(new PilihanLihatBarangKategoriTertentu("Lihat Daftar Komponen Crafting", this.oAdegan, "komponen crafting"));
+        /* blurprint belum dibuat pilihannya */
+//        this.daftarPilihan.add();
+        this.daftarPilihan.add(new PilihanLihatBarangKategoriTertentu("Lihat Daftar Barang Bernilai", this.oAdegan, "barang bernilai"));
     }
 
     @Override
     public void aksi() {
-        boolean validasiKembali = false;
-        while (!validasiKembali){
+        this.kembaliKeMenuSebelumnya = false;
+        while (!this.kembaliKeMenuSebelumnya){
             System.out.println();
-            System.out.println("Aksi : Melihat isi kantong");
-
+            System.out.println("Aksi : " + this.dekripsi);
             int i=0;
-            System.out.printf("%2d. %s\n", i+1, "Kunci"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Senjata"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Amunisi"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Komponen Crafting"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Blueprint"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Barang Bernilai"); i++;
-            System.out.printf("%2d. %s\n", i+1, "Barang Lainnya"); i++;
+            for (Pilihan oPilihan : this.daftarPilihan) {
+                System.out.printf("%2d. %s\n", ++i, oPilihan.dekripsi);
+            }
             System.out.printf("%2d. Kembali\n", 0);
-
-            System.out.println("Masukkan Pilihan : ");
+            System.out.print("Masukkan Pilihan : ");
             Scanner oScan = new Scanner(System.in);
-
-            switch (oScan.nextInt()){
-                case 0:
-                    validasiKembali = true;
-                    break;
-                case 1:
-                    (new PilihanLihatBarangKunci("Lihat Kunci", this.oAdegan)).aksi();
-                    break;
-                case 2:
-                    (new PilihanLihatBarangSenjata("Lihat Senjata", this.oAdegan)).aksi();
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-
-                default:
-                    System.out.println();
-                    System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
-                    break;
+            int input = oScan.nextInt();
+            if(input < 0 || input > this.daftarPilihan.size()){
+                System.out.println();
+                System.out.println("[ Pilihan yang anda pilih, tidak tersedia. ]");
+                break;
+            }else if(input == 0){
+                this.kembaliKeMenuSebelumnya = true;
+            }else{
+                this.daftarPilihan.get(input-1).aksi();
             }
         }
-
     }
 }
